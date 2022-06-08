@@ -1,0 +1,170 @@
+import 'dart:async';
+import 'dart:io' show Platform;
+
+import 'package:auto_route/auto_route.dart';
+import '/utils/constants.dart';
+import '/common_library/utils/custom_dialog.dart';
+import 'package:flutter/material.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:transparent_image/transparent_image.dart';
+import 'package:provider/provider.dart';
+import '/common_library/services/model/provider_model.dart';
+
+import '/common_library/utils/app_localizations.dart';
+// import '../../router.gr.dart';
+import 'navigation_controls.dart';
+
+class Webview extends StatefulWidget {
+  final String? url;
+  final String? backType;
+
+  Webview({required this.url, this.backType});
+
+  @override
+  _WebviewState createState() => _WebviewState();
+}
+
+WebViewController? controllerGlobal;
+
+Future<bool> _onWillPop(
+    {required BuildContext context, backType, customDialog}) async {
+  // Provider.of<CallStatusModel>(context, listen: false).callStatus(false);
+  if (backType == 'HOME') {
+    _confirmBack(customDialog, context);
+
+    return true;
+  } else {
+    if (await controllerGlobal!.canGoBack()) {
+      controllerGlobal!.goBack();
+    } else {
+      // _confirmBack(customDialog, context);
+      Provider.of<CallStatusModel>(context, listen: false).callStatus(false);
+      return true;
+    }
+
+    return Future.value(false);
+  }
+}
+
+_confirmBack(customDialog, BuildContext context) {
+  return customDialog.show(
+    context: context,
+    content: AppLocalizations.of(context)!.translate('confirm_back'),
+    customActions: <Widget>[
+      TextButton(
+          child: Text(AppLocalizations.of(context)!.translate('yes_lbl')),
+          onPressed: () {
+            Provider.of<CallStatusModel>(context, listen: false)
+                .callStatus(false);
+            context.router.popUntil(
+              ModalRoute.withName('Home'),
+            );
+          }),
+      TextButton(
+        child: Text(AppLocalizations.of(context)!.translate('no_lbl')),
+        onPressed: () {
+          context.router.pop();
+        },
+      ),
+    ],
+    type: DialogType.general,
+  );
+}
+
+class _WebviewState extends State<Webview> {
+  final Completer<WebViewController> _controller =
+      Completer<WebViewController>();
+  final myImage = ImagesConstant();
+  final customDialog = CustomDialog();
+
+  getBackType() {
+    if (widget.backType == 'HOME') {
+      return IconButton(
+        icon: Platform.isIOS
+            ? const Icon(Icons.arrow_back_ios)
+            : const Icon(Icons.arrow_back),
+        onPressed: () {
+          _confirmBack(customDialog, context);
+        },
+      );
+    } else if (widget.backType == 'DI_ENROLLMENT') {
+      return IconButton(
+        icon: Platform.isIOS
+            ? const Icon(Icons.arrow_back_ios)
+            : const Icon(Icons.arrow_back),
+        onPressed: () =>
+            context.router.popUntil(ModalRoute.withName('DiEnrollment')),
+      );
+    } else {
+      return NavigationControls(
+        webViewControllerFuture: _controller.future,
+        type: 'BACK',
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: () => _onWillPop(
+        context: context,
+        backType: widget.backType,
+        customDialog: customDialog,
+      ),
+      child: Scaffold(
+        appBar: AppBar(
+          // leading: getBackType(),
+          title: FadeInImage(
+            alignment: Alignment.center,
+            height: 110.h,
+            placeholder: MemoryImage(kTransparentImage),
+            image: AssetImage(
+              myImage.logo2,
+            ),
+          ),
+          actions: <Widget>[
+            NavigationControls(
+                webViewControllerFuture: _controller.future, type: 'RELOAD'),
+          ],
+        ),
+        body: WebView(
+          initialUrl: widget.url,
+          javascriptMode: JavascriptMode.unrestricted,
+          onWebViewCreated: (WebViewController webViewController) {
+            _controller.complete(webViewController);
+          },
+          // ignore: prefer_collection_literals
+          javascriptChannels: <JavascriptChannel>[
+            _toasterJavascriptChannel(context),
+          ].toSet(),
+          navigationDelegate: (NavigationRequest request) {
+            // if (request.url.startsWith('https://www.youtube.com/')) {
+            //   print('blocking navigation to $request}');
+            //   return NavigationDecision.prevent;
+            // }
+            print('allowing navigation to $request');
+            return NavigationDecision.navigate;
+          },
+          onPageStarted: (String url) {
+            print('Page started loading: $url');
+          },
+          onPageFinished: (String url) {
+            print('Page finished loading: $url');
+          },
+          gestureNavigationEnabled: true,
+        ),
+      ),
+    );
+  }
+
+  JavascriptChannel _toasterJavascriptChannel(BuildContext context) {
+    return JavascriptChannel(
+        name: 'Toaster',
+        onMessageReceived: (JavascriptMessage message) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(message.message)),
+          );
+        });
+  }
+}
