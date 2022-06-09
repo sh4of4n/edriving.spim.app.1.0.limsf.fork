@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import '/base/page_base_class.dart';
 import '/common_library/services/repository/auth_repository.dart';
@@ -13,16 +15,15 @@ import 'package:hive/hive.dart';
 import '../../router.gr.dart';
 
 class ClientAccountTabletForm extends StatefulWidget {
-  final data;
+  final dynamic data;
 
-  ClientAccountTabletForm(this.data);
+  const ClientAccountTabletForm(this.data);
 
   @override
-  _ClientAccountTabletFormState createState() =>
-      _ClientAccountTabletFormState();
+  ClientAccountTabletFormState createState() => ClientAccountTabletFormState();
 }
 
-class _ClientAccountTabletFormState extends State<ClientAccountTabletForm>
+class ClientAccountTabletFormState extends State<ClientAccountTabletForm>
     with PageBaseClass {
   final authRepo = AuthRepo();
   final AppConfig appConfig = AppConfig();
@@ -79,10 +80,10 @@ class _ClientAccountTabletFormState extends State<ClientAccountTabletForm>
   }
 
   _getConnectedCa() async {
-    String? _clientAcc = await localStorage.getCaUid();
+    String? clientAcc = await localStorage.getCaUid();
 
     setState(() {
-      _connectedCa = _clientAcc;
+      _connectedCa = clientAcc;
     });
   }
 
@@ -202,7 +203,7 @@ class _ClientAccountTabletFormState extends State<ClientAccountTabletForm>
               SizedBox(
                 height: 40.h,
               ),
-              // _showConnectedUrl(),
+              _showConnectedUrl(),
               _showConnectedCa(),
               TextFormField(
                 controller: urlController,
@@ -257,10 +258,11 @@ class _ClientAccountTabletFormState extends State<ClientAccountTabletForm>
                 children: <Widget>[
                   InkWell(
                     onTap: () {
-                      if (widget.data == 'SETTINGS')
+                      if (widget.data == 'SETTINGS') {
                         context.router.replace(const Login());
-                      else
+                      } else {
                         context.router.pop();
+                      }
                     },
                     child: Text(
                       AppLocalizations.of(context)!.translate('go_back_lbl'),
@@ -293,7 +295,7 @@ class _ClientAccountTabletFormState extends State<ClientAccountTabletForm>
         ],
       );
     }
-    return Container(width: 0, height: 0);
+    return const SizedBox(width: 0, height: 0);
   }
 
   _showConnectedCa() {
@@ -315,7 +317,7 @@ class _ClientAccountTabletFormState extends State<ClientAccountTabletForm>
         ],
       );
     }
-    return Container(width: 0, height: 0);
+    return const SizedBox(width: 0, height: 0);
   }
 
   _saveButton() {
@@ -362,14 +364,15 @@ class _ClientAccountTabletFormState extends State<ClientAccountTabletForm>
       localStorage.saveCaPwdEncode(
           Uri.encodeQueryComponent(caPwdController.text.replaceAll(' ', '')));
 
-      if (widget.data == 'SETTINGS')
+      if (widget.data == 'SETTINGS') {
         context.router.replace(const Login());
-      else
+      } else {
         context.router.pop();
+      }
     } else {
       if (_formKey.currentState!.validate()) {
         _formKey.currentState!.save();
-        FocusScope.of(context).requestFocus(new FocusNode());
+        FocusScope.of(context).requestFocus(FocusNode());
 
         await Hive.box('ws_url').put(
           'getWsUrl',
@@ -391,10 +394,11 @@ class _ClientAccountTabletFormState extends State<ClientAccountTabletForm>
         if (result.isSuccess) {
           await Hive.box('ws_url').delete('userDefinedUrl');
 
-          if (widget.data == 'SETTINGS')
+          if (widget.data == 'SETTINGS') {
             context.router.replace(const Login());
-          else
+          } else {
             context.router.pop();
+          }
         } else {
           setState(() {
             _message = result.message.toString();

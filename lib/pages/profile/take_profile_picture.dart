@@ -1,7 +1,10 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:camera/camera.dart';
+import 'package:flutter/foundation.dart';
 import '/utils/constants.dart';
 import '/common_library/utils/custom_snackbar.dart';
 import '/common_library/utils/local_storage.dart';
@@ -13,7 +16,7 @@ import '/common_library/utils/app_localizations.dart';
 class TakeProfilePicture extends StatefulWidget {
   final List<CameraDescription>? camera;
 
-  TakeProfilePicture(this.camera);
+  const TakeProfilePicture(this.camera);
 
   @override
   TakeProfilePictureState createState() => TakeProfilePictureState();
@@ -75,7 +78,9 @@ class TakeProfilePictureState extends State<TakeProfilePicture> {
     try {
       _initializeControllerFuture = _controller!.initialize();
     } on CameraException catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
 
     if (mounted) {
@@ -93,7 +98,7 @@ class TakeProfilePictureState extends State<TakeProfilePicture> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Take a picture'),
+        title: const Text('Take a picture'),
         actions: <Widget>[
           TextButton(
             onPressed: () {
@@ -129,7 +134,7 @@ class TakeProfilePictureState extends State<TakeProfilePicture> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.camera_alt),
+        child: const Icon(Icons.camera_alt),
         onPressed: () async {
           try {
             await _initializeControllerFuture;
@@ -156,7 +161,9 @@ class TakeProfilePictureState extends State<TakeProfilePicture> {
               ),
             ); */
           } catch (e) {
-            print(e);
+            if (kDebugMode) {
+              print(e);
+            }
           }
         },
       ),
@@ -173,7 +180,7 @@ class DisplayPictureScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Display the Picture')),
+      appBar: AppBar(title: const Text('Display the Picture')),
       // The image is stored as a file on the device. Use the `Image.file`
       // constructor with the given path to display the image.
       body: Image.file(File(imagePath!)),

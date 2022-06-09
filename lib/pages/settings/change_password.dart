@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import '/common_library/utils/app_localizations.dart';
 import '/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +26,7 @@ class ChangePassword extends StatelessWidget {
               Colors.amber.shade300,
               primaryColor
             ],
-            stops: [0.2, 0.4, 0.6, 0.7, 1],
+            stops: const [0.2, 0.4, 0.6, 0.7, 1],
             radius: 0.7,
           ),
         ),
@@ -43,8 +45,8 @@ class ChangePassword extends StatelessWidget {
               children: <Widget>[
                 SingleChildScrollView(
                   child: Padding(
-                    padding:
-                        EdgeInsets.only(left: 40.0, right: 40.0, top: 60.0),
+                    padding: const EdgeInsets.only(
+                        left: 40.0, right: 40.0, top: 60.0),
                     child: Column(
                       children: <Widget>[
                         SizedBox(

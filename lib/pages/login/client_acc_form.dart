@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import '/base/page_base_class.dart';
 import '/common_library/services/repository/auth_repository.dart';
@@ -13,15 +15,15 @@ import 'package:hive/hive.dart';
 import '../../router.gr.dart';
 
 class ClientAccountForm extends StatefulWidget {
-  final data;
+  final dynamic data;
 
-  ClientAccountForm(this.data);
+  const ClientAccountForm(this.data);
 
   @override
-  _ClientAccountFormState createState() => _ClientAccountFormState();
+  ClientAccountFormState createState() => ClientAccountFormState();
 }
 
-class _ClientAccountFormState extends State<ClientAccountForm>
+class ClientAccountFormState extends State<ClientAccountForm>
     with PageBaseClass {
   final authRepo = AuthRepo();
   final AppConfig appConfig = AppConfig();
@@ -77,10 +79,10 @@ class _ClientAccountFormState extends State<ClientAccountForm>
   }
 
   _getConnectedCa() async {
-    String? _clientAcc = await localStorage.getCaUid();
+    String? clientAcc = await localStorage.getCaUid();
 
     setState(() {
-      _connectedCa = _clientAcc;
+      _connectedCa = clientAcc;
     });
   }
 
@@ -92,13 +94,13 @@ class _ClientAccountFormState extends State<ClientAccountForm>
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20.0),
-        boxShadow: [
-          const BoxShadow(
+        boxShadow: const [
+          BoxShadow(
             color: Colors.black26,
             offset: Offset(0.0, 15.0),
             blurRadius: 15.0,
           ),
-          const BoxShadow(
+          BoxShadow(
             color: Colors.black12,
             offset: Offset(0.0, -10.0),
             blurRadius: 10.0,
@@ -194,7 +196,7 @@ class _ClientAccountFormState extends State<ClientAccountForm>
               SizedBox(
                 height: 60.h,
               ),
-              // _showConnectedUrl(),
+              _showConnectedUrl(),
               _showConnectedCa(),
               TextFormField(
                 controller: urlController,
@@ -249,10 +251,11 @@ class _ClientAccountFormState extends State<ClientAccountForm>
                 children: <Widget>[
                   InkWell(
                     onTap: () {
-                      if (widget.data == 'SETTINGS')
+                      if (widget.data == 'SETTINGS') {
                         context.router.replace(const Login());
-                      else
+                      } else {
                         context.router.pop();
+                      }
                     },
                     child: Text(
                       AppLocalizations.of(context)!.translate('go_back_lbl'),
@@ -285,7 +288,7 @@ class _ClientAccountFormState extends State<ClientAccountForm>
         ],
       );
     }
-    return Container(width: 0, height: 0);
+    return const SizedBox(width: 0, height: 0);
   }
 
   _showConnectedCa() {
@@ -303,7 +306,7 @@ class _ClientAccountFormState extends State<ClientAccountForm>
         ],
       );
     }
-    return Container(width: 0, height: 0);
+    return const SizedBox(width: 0, height: 0);
   }
 
   _saveButton() {
@@ -348,14 +351,15 @@ class _ClientAccountFormState extends State<ClientAccountForm>
       localStorage.saveCaPwdEncode(
           Uri.encodeQueryComponent(caPwdController.text.replaceAll(' ', '')));
 
-      if (widget.data == 'SETTINGS')
+      if (widget.data == 'SETTINGS') {
         context.router.replace(const Login());
-      else
+      } else {
         context.router.pop();
+      }
     } else {
       if (_formKey.currentState!.validate()) {
         _formKey.currentState!.save();
-        FocusScope.of(context).requestFocus(new FocusNode());
+        FocusScope.of(context).requestFocus(FocusNode());
 
         await Hive.box('ws_url').put(
           'getWsUrl',
@@ -377,10 +381,11 @@ class _ClientAccountFormState extends State<ClientAccountForm>
         if (result.isSuccess) {
           await Hive.box('ws_url').delete('userDefinedUrl');
 
-          if (widget.data == 'SETTINGS')
+          if (widget.data == 'SETTINGS') {
             context.router.replace(const Login());
-          else
+          } else {
             context.router.pop();
+          }
         } else {
           setState(() {
             _message = result.message.toString();

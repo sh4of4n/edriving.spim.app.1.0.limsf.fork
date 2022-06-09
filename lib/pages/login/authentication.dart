@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import '/common_library/utils/app_localizations.dart';
 import '/router.gr.dart';
@@ -16,10 +18,10 @@ import 'package:provider/provider.dart';
 
 class Authentication extends StatefulWidget {
   @override
-  _AuthenticationState createState() => _AuthenticationState();
+  AuthenticationState createState() => AuthenticationState();
 }
 
-class _AuthenticationState extends State<Authentication> {
+class AuthenticationState extends State<Authentication> {
   final AuthRepo authRepo = AuthRepo();
   final AppConfig appConfig = AppConfig();
   final primaryColor = ColorConstant.primaryColor;
@@ -66,12 +68,14 @@ class _AuthenticationState extends State<Authentication> {
   _setLocale() async {
     String? locale = await localStorage.getLocale();
 
-    if (locale == 'en') {
-      Provider.of<LanguageModel>(context, listen: false).selectedLanguage(
-          AppLocalizations.of(context)!.translate('english_lbl'));
-    } else {
-      Provider.of<LanguageModel>(context, listen: false).selectedLanguage(
-          AppLocalizations.of(context)!.translate('malay_lbl'));
+    if (mounted) {
+      if (locale == 'en') {
+        Provider.of<LanguageModel>(context, listen: false).selectedLanguage(
+            AppLocalizations.of(context)!.translate('english_lbl'));
+      } else {
+        Provider.of<LanguageModel>(context, listen: false).selectedLanguage(
+            AppLocalizations.of(context)!.translate('malay_lbl'));
+      }
     }
   }
 
@@ -109,7 +113,7 @@ class _AuthenticationState extends State<Authentication> {
               Colors.amber.shade300,
               primaryColor
             ],
-            stops: [0.2, 0.4, 0.6, 0.7, 1],
+            stops: const [0.2, 0.4, 0.6, 0.7, 1],
             radius: 0.7,
           ),
         ),
@@ -127,7 +131,7 @@ class _AuthenticationState extends State<Authentication> {
             ), */
             Image.asset(image.logo2),
             const SpinKitThreeBounce(
-              color: const Color(0xFFED3833),
+              color: Color(0xFFED3833),
               size: 30,
             ),
           ],

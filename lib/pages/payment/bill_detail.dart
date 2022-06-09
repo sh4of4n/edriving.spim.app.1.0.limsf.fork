@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import '/common_library/utils/app_localizations.dart';
 import '/pages/payment/top_up_button.dart';
@@ -12,20 +14,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../router.gr.dart';
 
 class BillDetail extends StatefulWidget {
-  final data;
+  final dynamic data;
 
-  BillDetail(this.data);
+  const BillDetail(this.data);
 
   @override
-  _BillDetailState createState() => _BillDetailState();
+  BillDetailState createState() => BillDetailState();
 }
 
-class _BillDetailState extends State<BillDetail> {
+class BillDetailState extends State<BillDetail> {
   final primaryColor = ColorConstant.primaryColor;
   final localStorage = LocalStorage();
-  TextStyle _topUpStyle =
+  TextStyle topUpStyle =
       const TextStyle(fontSize: 20.0, fontWeight: FontWeight.w600);
-  TextStyle _labelStyle = const TextStyle(fontSize: 18.0);
+  TextStyle labelStyle = const TextStyle(fontSize: 18.0);
 
   String _account = '';
   String _amount = '0.00';
@@ -116,12 +118,12 @@ class _BillDetailState extends State<BillDetail> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text('Enter number to top-up', style: _labelStyle),
+                    Text('Enter number to top-up', style: labelStyle),
                     SizedBox(height: ScreenUtil().setHeight(40)),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Container(
+                        SizedBox(
                           width: ScreenUtil().setWidth(1100),
                           child: TextField(
                             style: const TextStyle(
@@ -156,7 +158,7 @@ class _BillDetailState extends State<BillDetail> {
                       ],
                     ),
                     SizedBox(height: ScreenUtil().setHeight(40)),
-                    Text('Select a top-up amount', style: _labelStyle),
+                    Text('Select a top-up amount', style: labelStyle),
                     SizedBox(height: ScreenUtil().setHeight(50)),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -169,14 +171,14 @@ class _BillDetailState extends State<BillDetail> {
                                 _amountController.text = '5.00';
                               },
                               value: 'RM5.00',
-                              textStyle: _topUpStyle,
+                              textStyle: topUpStyle,
                             ),
                             TopUpButton(
                               onTap: () {
                                 _amountController.text = '10.00';
                               },
                               value: 'RM10.00',
-                              textStyle: _topUpStyle,
+                              textStyle: topUpStyle,
                             ),
                           ],
                         ),
@@ -189,14 +191,14 @@ class _BillDetailState extends State<BillDetail> {
                                 _amountController.text = '15.00';
                               },
                               value: 'RM15.00',
-                              textStyle: _topUpStyle,
+                              textStyle: topUpStyle,
                             ),
                             TopUpButton(
                               onTap: () {
                                 _amountController.text = '30.00';
                               },
                               value: 'RM30.00',
-                              textStyle: _topUpStyle,
+                              textStyle: topUpStyle,
                             ),
                           ],
                         ),
@@ -209,14 +211,14 @@ class _BillDetailState extends State<BillDetail> {
                                 _amountController.text = '50.00';
                               },
                               value: 'RM50.00',
-                              textStyle: _topUpStyle,
+                              textStyle: topUpStyle,
                             ),
                             TopUpButton(
                               onTap: () {
                                 _amountController.text = '60.00';
                               },
                               value: 'RM60.00',
-                              textStyle: _topUpStyle,
+                              textStyle: topUpStyle,
                             ),
                           ],
                         ),
@@ -229,7 +231,7 @@ class _BillDetailState extends State<BillDetail> {
                                 _amountController.text = '100.00';
                               },
                               value: 'RM100.00',
-                              textStyle: _topUpStyle,
+                              textStyle: topUpStyle,
                             ),
                           ],
                         ),
@@ -284,13 +286,13 @@ class _BillDetailState extends State<BillDetail> {
                                   decoration: const InputDecoration(
                                     contentPadding:
                                         EdgeInsets.symmetric(vertical: 10.0),
-                                    enabledBorder: const OutlineInputBorder(
+                                    enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide.none,
                                       // borderSide:
                                       //     BorderSide(color: Colors.transparent),
                                       // borderRadius: BorderRadius.circular(30),
                                     ),
-                                    border: const OutlineInputBorder(
+                                    border: OutlineInputBorder(
                                       borderSide: BorderSide.none,
                                       // borderSide:
                                       //     BorderSide(color: Colors.transparent),

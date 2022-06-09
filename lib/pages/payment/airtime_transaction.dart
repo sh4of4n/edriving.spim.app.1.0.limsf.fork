@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import '/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
@@ -6,15 +8,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '/common_library/utils/app_localizations.dart';
 
 class AirtimeTransaction extends StatefulWidget {
-  final data;
+  final dynamic data;
 
-  AirtimeTransaction(this.data);
+  const AirtimeTransaction(this.data);
 
   @override
-  _AirtimeTransactionState createState() => _AirtimeTransactionState();
+  AirtimeTransactionState createState() => AirtimeTransactionState();
 }
 
-class _AirtimeTransactionState extends State<AirtimeTransaction> {
+class AirtimeTransactionState extends State<AirtimeTransaction> {
   final TextEditingController _trxController = TextEditingController();
 
   final primaryColor = ColorConstant.primaryColor;
@@ -66,7 +68,7 @@ class _AirtimeTransactionState extends State<AirtimeTransaction> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(25.0),
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                       color: Colors.black26,
                       offset: Offset(0.0, 8.0),
@@ -82,17 +84,17 @@ class _AirtimeTransactionState extends State<AirtimeTransaction> {
                     SizedBox(width: ScreenUtil().setWidth(80)),
                     Text(
                       widget.data.account,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     SizedBox(height: ScreenUtil().setHeight(70)),
-                    Container(
+                    SizedBox(
                       width: ScreenUtil().setWidth(1000),
                       child: TextField(
                         controller: _trxController,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 18.0,
                         ),
                         keyboardType: TextInputType.number,
@@ -107,7 +109,8 @@ class _AirtimeTransactionState extends State<AirtimeTransaction> {
                           fillColor: Colors.grey.withOpacity(.25),
                           filled: true,
                           enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.transparent),
+                            borderSide:
+                                const BorderSide(color: Colors.transparent),
                             borderRadius: BorderRadius.circular(30),
                           ),
                           border: OutlineInputBorder(
@@ -121,10 +124,10 @@ class _AirtimeTransactionState extends State<AirtimeTransaction> {
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         minimumSize: Size(420.w, 45.h),
-                        padding: EdgeInsets.symmetric(vertical: 11.0),
-                        shape: StadiumBorder(),
-                        primary: Color(0xffdd0e0e),
-                        textStyle: TextStyle(color: Colors.white),
+                        padding: const EdgeInsets.symmetric(vertical: 11.0),
+                        shape: const StadiumBorder(),
+                        primary: const Color(0xffdd0e0e),
+                        textStyle: const TextStyle(color: Colors.white),
                       ),
                       onPressed: _completeTransaction,
                       child: Container(
@@ -173,13 +176,14 @@ class _AirtimeTransactionState extends State<AirtimeTransaction> {
       return Column(
         children: <Widget>[
           SizedBox(height: ScreenUtil().setHeight(30)),
-          Text(_message, style: TextStyle(color: Colors.red)),
+          Text(_message, style: const TextStyle(color: Colors.red)),
         ],
       );
     }
-    return Container(height: 0, width: 0);
+    return const SizedBox(height: 0, width: 0);
   }
 
+  @override
   void dispose() {
     _trxController.dispose();
     super.dispose();

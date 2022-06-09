@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import '/common_library/services/repository/epandu_repository.dart';
 import '/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -8,15 +10,15 @@ import 'package:intl/intl.dart';
 import '/common_library/utils/app_localizations.dart';
 
 class PaymentHistoryDetail extends StatefulWidget {
-  final recpNo;
+  final dynamic recpNo;
 
-  PaymentHistoryDetail(this.recpNo);
+  const PaymentHistoryDetail(this.recpNo);
 
   @override
-  _PaymentHistoryDetailState createState() => _PaymentHistoryDetailState();
+  PaymentHistoryDetailState createState() => PaymentHistoryDetailState();
 }
 
-class _PaymentHistoryDetailState extends State<PaymentHistoryDetail> {
+class PaymentHistoryDetailState extends State<PaymentHistoryDetail> {
   final format = DateFormat("yyyy-MM-dd");
   final epanduRepo = EpanduRepo();
   Future? _getPaymentDetail;
@@ -52,12 +54,12 @@ class _PaymentHistoryDetailState extends State<PaymentHistoryDetail> {
     }
 
     return Table(
-      columnWidths: {0: const FractionColumnWidth(.35)},
+      columnWidths: const {0: FractionColumnWidth(.35)},
       children: [
         TableRow(
           children: [
             Text(
-              AppLocalizations.of(context)!.translate('tax_lbl') + ': ',
+              '${AppLocalizations.of(context)!.translate('tax_lbl')}: ',
             ),
             Text(
               _taxAmt != 0
@@ -70,7 +72,7 @@ class _PaymentHistoryDetailState extends State<PaymentHistoryDetail> {
         TableRow(
           children: [
             Text(
-              AppLocalizations.of(context)!.translate('total_lbl') + ': ',
+              '${AppLocalizations.of(context)!.translate('total_lbl')}: ',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 70.sp),
             ),
             Text(
@@ -95,7 +97,7 @@ class _PaymentHistoryDetailState extends State<PaymentHistoryDetail> {
             Colors.white,
             primaryColor,
           ],
-          stops: [0.45, 0.95],
+          stops: const [0.45, 0.95],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
@@ -221,10 +223,8 @@ class _PaymentHistoryDetailState extends State<PaymentHistoryDetail> {
                                       Padding(
                                         padding: const EdgeInsets.all(3.0),
                                         child: Text(
-                                          'RM' +
-                                              NumberFormat('#,##0.00').format(
-                                                  double.tryParse(snapshot
-                                                      .data[index].tranTotal))
+                                          'RM ${NumberFormat('#,##0.00').format(double.tryParse(snapshot.data[index].tranTotal))}'
+
                                           // AppLocalizations.of(context)
                                           //     .translate('no_package_desc'),
                                           ,
@@ -243,7 +243,7 @@ class _PaymentHistoryDetailState extends State<PaymentHistoryDetail> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
-                          Container(
+                          SizedBox(
                             width: 800.w,
                             child: _getTotal(snapshot.data),
                           ),

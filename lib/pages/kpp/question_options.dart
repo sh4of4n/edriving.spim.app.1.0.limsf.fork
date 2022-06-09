@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'dart:typed_data';
 
@@ -8,7 +10,7 @@ class QuestionOptions extends StatelessWidget {
   final List<String?>? questionOption;
   final List<Uint8List>? image;
 
-  QuestionOptions({this.roman, this.questionOption, this.image});
+  const QuestionOptions({this.roman, this.questionOption, this.image});
 
   final TextStyle _questionOptionStyle =
       const TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600);
@@ -23,16 +25,15 @@ class QuestionOptions extends StatelessWidget {
 
   // image with description
   _renderQuestionOption() {
-    if (questionOption!.length > 0 &&
+    if (questionOption!.isNotEmpty &&
         questionOption![0]!.length > 4 &&
-        image!.length > 0)
+        image!.isNotEmpty) {
       return _renderConditionAndImage();
-    // image without description
-    else if (questionOption!.length > 0 && image!.length > 0)
+    } else if (questionOption!.isNotEmpty && image!.isNotEmpty) {
       return _renderRomanAndImage();
-    // no image
-    else if (questionOption!.length > 0 && image!.length == 0)
+    } else if (questionOption!.isNotEmpty && image!.isEmpty) {
       return _renderConditions();
+    }
 
     return const SizedBox.shrink();
   }

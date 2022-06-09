@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import '/common_library/utils/app_localizations.dart';
 import '/utils/app_config.dart';
 import '/utils/constants.dart';
@@ -10,10 +12,10 @@ import 'package:qr_flutter/qr_flutter.dart';
 
 class IdentityBarcode extends StatefulWidget {
   @override
-  _IdentityBarcodeState createState() => _IdentityBarcodeState();
+  IdentityBarcodeState createState() => IdentityBarcodeState();
 }
 
-class _IdentityBarcodeState extends State<IdentityBarcode> {
+class IdentityBarcodeState extends State<IdentityBarcode> {
   final image = ImagesConstant();
   final localStorage = LocalStorage();
   final appConfig = AppConfig();

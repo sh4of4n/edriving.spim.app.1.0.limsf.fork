@@ -1,11 +1,13 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import '/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class BottomMenu extends StatelessWidget {
-  final iconText;
-  final positionStream;
+  final dynamic iconText;
+  final dynamic positionStream;
 
   BottomMenu({this.iconText, this.positionStream});
 

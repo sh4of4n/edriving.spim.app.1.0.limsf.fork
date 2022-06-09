@@ -1,4 +1,6 @@
 // import '/pages/edompet/edompet.dart';
+// ignore_for_file: use_key_in_widget_constructors
+
 import '/common_library/services/repository/epandu_repository.dart';
 import '/pages/epandu/epandu.dart';
 import '/utils/constants.dart';
@@ -8,10 +10,10 @@ import 'package:flutter/material.dart';
 
 class AttendanceTab extends StatefulWidget {
   @override
-  _AttendanceTabState createState() => _AttendanceTabState();
+  AttendanceTabState createState() => AttendanceTabState();
 }
 
-class _AttendanceTabState extends State<AttendanceTab>
+class AttendanceTabState extends State<AttendanceTab>
     with
         SingleTickerProviderStateMixin,
         AutomaticKeepAliveClientMixin<AttendanceTab> {
@@ -39,14 +41,14 @@ class _AttendanceTabState extends State<AttendanceTab>
   final RegExp removeBracket =
       RegExp("\\[(.*?)\\]", multiLine: true, caseSensitive: true);
 
-  var attendanceData;
-  var checkInData;
+  dynamic attendanceData;
+  dynamic checkInData;
 
   String enrollmentMessage = '';
   String paymentMessage = '';
   String attendanceMessage = '';
 
-  var enrollData;
+  dynamic enrollData;
   bool stuPracIsLoading = false;
   bool checkInLoading = false;
 
@@ -127,7 +129,7 @@ class _AttendanceTabState extends State<AttendanceTab>
         decoration: BoxDecoration(
           gradient: RadialGradient(
             colors: [Colors.amber.shade300, primaryColor],
-            stops: [0.5, 1],
+            stops: const [0.5, 1],
             radius: 0.9,
           ),
         ),

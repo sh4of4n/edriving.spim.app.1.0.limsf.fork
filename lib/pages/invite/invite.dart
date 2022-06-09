@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:country_code_picker/country_code_picker.dart';
 import '/common_library/utils/app_localizations.dart';
 import '/base/page_base_class.dart';
@@ -11,10 +13,10 @@ import 'package:transparent_image/transparent_image.dart';
 
 class Invite extends StatefulWidget with PageBaseClass {
   @override
-  _InviteState createState() => _InviteState();
+  InviteState createState() => InviteState();
 }
 
-class _InviteState extends State<Invite> with PageBaseClass {
+class InviteState extends State<Invite> with PageBaseClass {
   final _formKey = GlobalKey<FormState>();
   final FocusNode _phoneFocus = FocusNode();
   final FocusNode _nameFocus = FocusNode();
@@ -94,7 +96,7 @@ class _InviteState extends State<Invite> with PageBaseClass {
                             },
                             padding: EdgeInsets.only(top: 62.h),
                             initialSelection: 'MY',
-                            favorite: ['+60', 'MY'],
+                            favorite: const ['+60', 'MY'],
                             showFlagMain: true,
                             alignLeft: false,
                             enabled: false,
@@ -199,20 +201,12 @@ class _InviteState extends State<Invite> with PageBaseClass {
                                       const TextStyle(color: Colors.white),
                                 ),
                                 onPressed: _submit,
-                                child: Container(
-                                  /* decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(0),
-                  ), */
-                                  // padding: EdgeInsets.symmetric(
-                                  //   horizontal: 100.w,
-                                  // ),
-                                  child: Text(
-                                    AppLocalizations.of(context)!
-                                        .translate('invite_btn'),
-                                    style: TextStyle(
-                                      fontSize: 60.sp,
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                                child: Text(
+                                  AppLocalizations.of(context)!
+                                      .translate('invite_btn'),
+                                  style: TextStyle(
+                                    fontSize: 60.sp,
+                                    fontWeight: FontWeight.w600,
                                   ),
                                 ),
                               ),
@@ -282,7 +276,7 @@ class _InviteState extends State<Invite> with PageBaseClass {
                               },
                               padding: EdgeInsets.only(top: 52.h),
                               initialSelection: 'MY',
-                              favorite: ['+60', 'MY'],
+                              favorite: const ['+60', 'MY'],
                               showFlagMain: true,
                               alignLeft: false,
                               enabled: false,
@@ -409,20 +403,12 @@ class _InviteState extends State<Invite> with PageBaseClass {
                                       const TextStyle(color: Colors.white),
                                 ),
                                 onPressed: _submit,
-                                child: Container(
-                                  /* decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(0),
-                  ), */
-                                  // padding: EdgeInsets.symmetric(
-                                  //   horizontal: 100.w,
-                                  // ),
-                                  child: Text(
-                                    AppLocalizations.of(context)!
-                                        .translate('invite_btn'),
-                                    style: TextStyle(
-                                      fontSize: 35.sp,
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                                child: Text(
+                                  AppLocalizations.of(context)!
+                                      .translate('invite_btn'),
+                                  style: TextStyle(
+                                    fontSize: 35.sp,
+                                    fontWeight: FontWeight.w600,
                                   ),
                                 ),
                               ),
@@ -441,9 +427,9 @@ class _InviteState extends State<Invite> with PageBaseClass {
   _submit() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      FocusScope.of(context).requestFocus(new FocusNode());
+      FocusScope.of(context).requestFocus(FocusNode());
 
-      String? _userId = await LocalStorage().getUserId();
+      String? userId = await LocalStorage().getUserId();
 
       setState(() {
         _isLoading = true;
@@ -454,7 +440,7 @@ class _InviteState extends State<Invite> with PageBaseClass {
         context: context,
         countryCode: _countryCode,
         phone: _phone!.replaceAll(' ', ''),
-        userId: _userId,
+        userId: userId,
         name: _name,
         scenario: 'INVITE',
       );

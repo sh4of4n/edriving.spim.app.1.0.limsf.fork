@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import '/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +19,7 @@ class Records extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [
             Colors.white,
@@ -65,7 +67,8 @@ class Records extends StatelessWidget {
                     TableRow(
                       children: [
                         InkWell(
-                          onTap: () => context.router.push(RegisteredCourse()),
+                          onTap: () =>
+                              context.router.push(const RegisteredCourse()),
                           child: Column(
                             children: <Widget>[
                               FadeInImage(
@@ -89,7 +92,8 @@ class Records extends StatelessWidget {
                           ),
                         ),
                         InkWell(
-                          onTap: () => context.router.push(PaymentHistory()),
+                          onTap: () =>
+                              context.router.push(const PaymentHistory()),
                           child: Column(
                             children: <Widget>[
                               FadeInImage(
@@ -113,7 +117,8 @@ class Records extends StatelessWidget {
                           ),
                         ),
                         InkWell(
-                          onTap: () => context.router.push(AttendanceTab()),
+                          onTap: () =>
+                              context.router.push(const AttendanceTab()),
                           child: Column(
                             children: <Widget>[
                               FadeInImage(

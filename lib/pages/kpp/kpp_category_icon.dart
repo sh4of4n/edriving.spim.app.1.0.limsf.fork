@@ -1,15 +1,17 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 class KppCategoryIcon extends StatelessWidget {
-  final image;
-  final width;
-  final height;
-  final borderWidth;
-  final borderColor;
-  final component;
+  final dynamic image;
+  final dynamic width;
+  final dynamic height;
+  final dynamic borderWidth;
+  final dynamic borderColor;
+  final dynamic component;
 
-  KppCategoryIcon({
+  const KppCategoryIcon({
     this.image,
     this.width,
     this.height,
@@ -22,7 +24,9 @@ class KppCategoryIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        component != null ? context.router.push(component) : SizedBox.shrink();
+        component != null
+            ? context.router.push(component)
+            : const SizedBox.shrink();
       },
       child: Container(
         decoration: BoxDecoration(

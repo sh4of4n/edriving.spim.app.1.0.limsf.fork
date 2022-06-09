@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import '/common_library/utils/app_localizations.dart';
 import '/common_library/services/repository/auth_repository.dart';
 import '/common_library/services/repository/kpp_repository.dart';
@@ -13,10 +15,10 @@ import 'kpp_category_icon.dart';
 
 class KppCategory extends StatefulWidget {
   @override
-  _KppCategoryState createState() => _KppCategoryState();
+  KppCategoryState createState() => KppCategoryState();
 }
 
-class _KppCategoryState extends State<KppCategory> {
+class KppCategoryState extends State<KppCategory> {
   final authRepo = AuthRepo();
   final kppRepo = KppRepo();
   final image = ImagesConstant();
@@ -119,6 +121,7 @@ class _KppCategoryState extends State<KppCategory> {
     );
   }
 
+  @override
   void dispose() {
     super.dispose();
   }

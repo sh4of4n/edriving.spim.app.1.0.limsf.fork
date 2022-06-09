@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import '/common_library/utils/app_localizations.dart';
 import '/base/page_base_class.dart';
@@ -14,10 +16,10 @@ import '../../router.gr.dart';
 
 class RequestPickup extends StatefulWidget {
   @override
-  _RequestPickupState createState() => _RequestPickupState();
+  RequestPickupState createState() => RequestPickupState();
 }
 
-class _RequestPickupState extends State<RequestPickup> with PageBaseClass {
+class RequestPickupState extends State<RequestPickup> with PageBaseClass {
   final _formKey = GlobalKey<FormState>();
   final pickupRepo = PickupRepo();
   final dateFormat = DateFormat("yyyy-MM-dd");
@@ -85,7 +87,7 @@ class _RequestPickupState extends State<RequestPickup> with PageBaseClass {
             key: _formKey,
             child: Column(
               children: <Widget>[
-                Container(
+                SizedBox(
                   width: 1300.w,
                   child: DateTimeField(
                     focusNode: _dateFocus,
@@ -187,7 +189,7 @@ class _RequestPickupState extends State<RequestPickup> with PageBaseClass {
                 const SizedBox(
                   height: 10.0,
                 ),
-                Container(
+                SizedBox(
                   width: 1300.w,
                   child: DateTimeField(
                     focusNode: _timeFocus,
@@ -242,7 +244,7 @@ class _RequestPickupState extends State<RequestPickup> with PageBaseClass {
                 const SizedBox(
                   height: 10.0,
                 ),
-                Container(
+                SizedBox(
                   width: 1300.w,
                   child: DropdownButtonFormField<String>(
                     decoration: InputDecoration(
@@ -340,36 +342,37 @@ class _RequestPickupState extends State<RequestPickup> with PageBaseClass {
         destination: _direction,
       );
 
-      if (result.isSuccess) {
-        customDialog.show(
-          context: context,
-          barrierDismissable: false,
-          title: const Center(
-            child: Icon(
-              Icons.check_circle_outline,
-              size: 120,
-              color: Colors.green,
+      if (mounted) {
+        if (result.isSuccess) {
+          customDialog.show(
+            context: context,
+            barrierDismissable: false,
+            title: const Center(
+              child: Icon(
+                Icons.check_circle_outline,
+                size: 120,
+                color: Colors.green,
+              ),
             ),
-          ),
-          content: AppLocalizations.of(context)!.translate('pickup_added'),
-          type: DialogType.general,
-          customActions: <Widget>[
-            TextButton(
-              child: Text(AppLocalizations.of(context)!.translate('ok_btn')),
-              onPressed: () => context.router
-                  .pushAndPopUntil(const Home(), predicate: (r) => false),
-            ),
-          ],
-        );
-      } else {
-        customDialog.show(
-          context: context,
-          type: DialogType.error,
-          content: result.message.toString(),
-          onPressed: () => context.router.pop(),
-        );
+            content: AppLocalizations.of(context)!.translate('pickup_added'),
+            type: DialogType.general,
+            customActions: <Widget>[
+              TextButton(
+                child: Text(AppLocalizations.of(context)!.translate('ok_btn')),
+                onPressed: () => context.router
+                    .pushAndPopUntil(const Home(), predicate: (r) => false),
+              ),
+            ],
+          );
+        } else {
+          customDialog.show(
+            context: context,
+            type: DialogType.error,
+            content: result.message.toString(),
+            onPressed: () => context.router.pop(),
+          );
+        }
       }
-
       setState(() {
         _isLoading = false;
       });

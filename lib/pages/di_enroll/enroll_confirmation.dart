@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, use_key_in_widget_constructors
 
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/repository/auth_repository.dart';
@@ -27,7 +27,8 @@ class EnrollConfirmation extends StatefulWidget {
   final String? groupIdGrouping; //Package class
   final String? amount; //Package price
 
-  EnrollConfirmation({
+  const EnrollConfirmation({
+    Key? key,
     this.banner,
     this.packageName,
     this.packageCode,
@@ -36,13 +37,13 @@ class EnrollConfirmation extends StatefulWidget {
     this.termsAndCondition,
     this.groupIdGrouping,
     this.amount,
-  });
+  }) : super(key: key);
 
   @override
-  _EnrollConfirmationState createState() => _EnrollConfirmationState();
+  EnrollConfirmationState createState() => EnrollConfirmationState();
 }
 
-class _EnrollConfirmationState extends State<EnrollConfirmation> {
+class EnrollConfirmationState extends State<EnrollConfirmation> {
   final fpxRepo = FpxRepo();
   final authRepo = AuthRepo();
   final profileRepo = ProfileRepo();
@@ -59,7 +60,7 @@ class _EnrollConfirmationState extends State<EnrollConfirmation> {
   String? _nationality = '';
   String? _gender = '';
 
-  var packageDetlList;
+  dynamic packageDetlList;
 
   bool isLoading = false;
   bool? _isAgreed = false;

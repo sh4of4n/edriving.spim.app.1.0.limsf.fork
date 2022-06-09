@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import '/common_library/utils/app_localizations.dart';
 import '/common_library/services/repository/auth_repository.dart';
 import '/utils/constants.dart';
@@ -6,20 +8,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 
 class Promotions extends StatefulWidget {
-  final feed;
+  final dynamic feed;
 
-  Promotions({this.feed});
+  const Promotions({this.feed});
 
   @override
-  _PromotionsState createState() => _PromotionsState();
+  PromotionsState createState() => PromotionsState();
 }
 
-class _PromotionsState extends State<Promotions> {
+class PromotionsState extends State<Promotions> {
   final primaryColor = ColorConstant.primaryColor;
   final authRepo = AuthRepo();
 
   Future? _getActiveFeeds;
-  int _startIndex = 0;
+  int startIndex = 0;
 
   final RegExp removeBracket =
       RegExp("\\[(.*?)\\]", multiLine: true, caseSensitive: true);
@@ -27,7 +29,7 @@ class _PromotionsState extends State<Promotions> {
   final adText = TextStyle(
     fontSize: ScreenUtil().setSp(70),
     fontWeight: FontWeight.bold,
-    color: Color(0xff231f20),
+    color: const Color(0xff231f20),
   );
 
   @override
@@ -41,7 +43,7 @@ class _PromotionsState extends State<Promotions> {
     var result = await authRepo.getActiveFeed(
       context: context,
       feedType: 'PROMOTION',
-      startIndex: _startIndex,
+      startIndex: startIndex,
       noOfRecords: 10,
     );
 
@@ -60,7 +62,7 @@ class _PromotionsState extends State<Promotions> {
             Colors.white,
             primaryColor,
           ],
-          stops: [0.45, 0.65],
+          stops: const [0.45, 0.65],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
@@ -99,7 +101,7 @@ class _PromotionsState extends State<Promotions> {
                             height: ScreenUtil().setHeight(780),
                             width: ScreenUtil().setWidth(1300),
                             decoration: BoxDecoration(
-                              boxShadow: [
+                              boxShadow: const [
                                 BoxShadow(
                                   color: Colors.black26,
                                   offset: Offset(0, 0.4),
@@ -115,11 +117,11 @@ class _PromotionsState extends State<Promotions> {
                               onTap: () {},
                               child: Column(
                                 children: <Widget>[
-                                  Container(
+                                  SizedBox(
                                     width: double.infinity,
                                     height: ScreenUtil().setHeight(600),
                                     child: ClipRRect(
-                                      borderRadius: BorderRadius.only(
+                                      borderRadius: const BorderRadius.only(
                                         topLeft: Radius.circular(12),
                                         topRight: Radius.circular(12),
                                       ),
@@ -136,7 +138,7 @@ class _PromotionsState extends State<Promotions> {
                                     padding: EdgeInsets.symmetric(
                                       horizontal: ScreenUtil().setWidth(70),
                                     ),
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                       borderRadius: BorderRadius.only(
                                         bottomLeft: Radius.circular(12),
                                         bottomRight: Radius.circular(12),
@@ -148,7 +150,7 @@ class _PromotionsState extends State<Promotions> {
                                       children: <Widget>[
                                         Text(snapshot.data[index].feedText,
                                             style: adText),
-                                        Icon(
+                                        const Icon(
                                           Icons.chevron_right,
                                         ),
                                       ],

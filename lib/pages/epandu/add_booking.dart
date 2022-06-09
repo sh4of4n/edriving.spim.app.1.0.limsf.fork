@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import '/router.gr.dart';
 import '/common_library/services/repository/epandu_repository.dart';
@@ -14,19 +16,19 @@ import '/common_library/utils/app_localizations.dart';
 
 class AddBooking extends StatefulWidget {
   @override
-  _AddBookingState createState() => _AddBookingState();
+  AddBookingState createState() => AddBookingState();
 }
 
-class _AddBookingState extends State<AddBooking> {
+class AddBookingState extends State<AddBooking> {
   final _formKey = GlobalKey<FormState>();
   final ePanduRepo = EpanduRepo();
   final image = ImagesConstant();
   final customDialog = CustomDialog();
 
-  var testListGroupId;
-  var testListTestType;
-  var testList;
-  var courseSectionlist;
+  dynamic testListGroupId;
+  dynamic testListTestType;
+  dynamic testList;
+  dynamic courseSectionlist;
 
   String? groupId = '';
   String? testType = '';
@@ -49,27 +51,29 @@ class _AddBookingState extends State<AddBooking> {
       context: context,
     );
 
-    if (response.isSuccess) {
-      setState(() {
-        testListGroupId = response.data;
-      });
-    } else {
-      customDialog.show(
-        context: context,
-        content: AppLocalizations.of(context)!.translate('no_enrolled_class'),
-        barrierDismissable: false,
-        customActions: <Widget>[
-          TextButton(
-            child: Text(AppLocalizations.of(context)!.translate('ok_btn')),
-            onPressed: () => context.router.popUntil(
-              ModalRoute.withName('EpanduCategory'),
-            ),
-          )
-        ],
-        type: DialogType.general,
-      );
+    if (mounted) {
+      if (response.isSuccess) {
+        setState(() {
+          testListGroupId = response.data;
+        });
+      } else {
+        customDialog.show(
+          context: context,
+          content: AppLocalizations.of(context)!.translate('no_enrolled_class'),
+          barrierDismissable: false,
+          customActions: <Widget>[
+            TextButton(
+              child: Text(AppLocalizations.of(context)!.translate('ok_btn')),
+              onPressed: () => context.router.popUntil(
+                ModalRoute.withName('EpanduCategory'),
+              ),
+            )
+          ],
+          type: DialogType.general,
+        );
 
-      // return response.message;
+        // return response.message;
+      }
     }
   }
 
@@ -189,7 +193,7 @@ class _AddBookingState extends State<AddBooking> {
                           }
                         });
                       },
-                      items: testListGroupId == null
+                      items: testListGroupId
                           ? null
                           : testListGroupId
                               .map<DropdownMenuItem<String>>((dynamic value) {
@@ -259,7 +263,7 @@ class _AddBookingState extends State<AddBooking> {
                                 child: Text(value.testType),
                               );
                             }).toList(), */
-                          testListTestType == null
+                          testListTestType
                               ? null
                               : testListTestType
                                   .map<DropdownMenuItem<dynamic>>((value) {
@@ -315,7 +319,7 @@ class _AddBookingState extends State<AddBooking> {
                             section = value;
                           });
                         },
-                        items: courseSectionlist == null
+                        items: courseSectionlist
                             ? null
                             : courseSectionlist
                                 .map<DropdownMenuItem<String>>((value) {
@@ -373,7 +377,7 @@ class _AddBookingState extends State<AddBooking> {
                           testDate = value;
                         });
                       },
-                      items: testList == null
+                      items: testList
                           ? null
                           : testList.map<DropdownMenuItem<String>>((value) {
                               return DropdownMenuItem<String>(
@@ -415,19 +419,11 @@ class _AddBookingState extends State<AddBooking> {
                 textStyle: const TextStyle(color: Colors.white),
               ),
               onPressed: _submit,
-              child: Container(
-                /* decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(0),
-              ), */
-                // padding: EdgeInsets.symmetric(
-                //   horizontal: 100.w,
-                // ),
-                child: Text(
-                  AppLocalizations.of(context)!.translate('submit_btn'),
-                  style: TextStyle(
-                    fontSize: ScreenUtil().setSp(60),
-                    fontWeight: FontWeight.w600,
-                  ),
+              child: Text(
+                AppLocalizations.of(context)!.translate('submit_btn'),
+                style: TextStyle(
+                  fontSize: ScreenUtil().setSp(60),
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
@@ -437,9 +433,9 @@ class _AddBookingState extends State<AddBooking> {
   _submit() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      FocusScope.of(context).requestFocus(new FocusNode());
+      FocusScope.of(context).requestFocus(FocusNode());
 
-      String? _userId = await LocalStorage().getUserId();
+      String? userId = await LocalStorage().getUserId();
 
       setState(() {
         _isLoading = true;
@@ -452,37 +448,39 @@ class _AddBookingState extends State<AddBooking> {
         testType: testType,
         testDate: testDate,
         courseSection: section,
-        userId: _userId,
+        userId: userId,
       );
 
-      if (result.isSuccess) {
-        customDialog.show(
-          context: context,
-          barrierDismissable: false,
-          title: const Center(
-            child: Icon(
-              Icons.check_circle_outline,
-              size: 120,
-              color: Colors.green,
+      if (mounted) {
+        if (result.isSuccess) {
+          customDialog.show(
+            context: context,
+            barrierDismissable: false,
+            title: const Center(
+              child: Icon(
+                Icons.check_circle_outline,
+                size: 120,
+                color: Colors.green,
+              ),
             ),
-          ),
-          content: AppLocalizations.of(context)!.translate('booking_success'),
-          type: DialogType.general,
-          customActions: <Widget>[
-            TextButton(
-              child: Text(AppLocalizations.of(context)!.translate('ok_btn')),
-              onPressed: () => context.router
-                  .pushAndPopUntil(const Home(), predicate: (r) => false),
-            ),
-          ],
-        );
-      } else {
-        customDialog.show(
-          context: context,
-          type: DialogType.error,
-          content: result.message.toString(),
-          onPressed: () => context.router.pop(),
-        );
+            content: AppLocalizations.of(context)!.translate('booking_success'),
+            type: DialogType.general,
+            customActions: <Widget>[
+              TextButton(
+                child: Text(AppLocalizations.of(context)!.translate('ok_btn')),
+                onPressed: () => context.router
+                    .pushAndPopUntil(const Home(), predicate: (r) => false),
+              ),
+            ],
+          );
+        } else {
+          customDialog.show(
+            context: context,
+            type: DialogType.error,
+            content: result.message.toString(),
+            onPressed: () => context.router.pop(),
+          );
+        }
       }
 
       setState(() {

@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'dart:typed_data';
 import '/common_library/utils/custom_dialog.dart';
 import '/utils/constants.dart';
@@ -14,16 +16,16 @@ class ViewPdf extends StatefulWidget {
   final String? title;
   final String? pdfLink;
 
-  ViewPdf({required this.title, required this.pdfLink});
+  const ViewPdf({required this.title, required this.pdfLink});
 
   @override
-  _ViewPdfState createState() => _ViewPdfState();
+  ViewPdfState createState() => ViewPdfState();
 }
 
-class _ViewPdfState extends State<ViewPdf> {
+class ViewPdfState extends State<ViewPdf> {
   final primaryColor = ColorConstant.primaryColor;
   final customDialog = CustomDialog();
-  late var pdfController;
+  late dynamic pdfController;
 
   // String? _pdfName;
   late Uint8List _pdfByte;
@@ -45,7 +47,7 @@ class _ViewPdfState extends State<ViewPdf> {
     var response = await request.close();
     var bytes = await consolidateHttpClientResponseBytes(response);
     String dir = appDocumentDir.path;
-    File file = new File('$dir/$filename');
+    File file = File('$dir/$filename');
     await file.writeAsBytes(bytes);
 
     setState(() {
@@ -65,7 +67,7 @@ class _ViewPdfState extends State<ViewPdf> {
     try {
       await Share.shareFiles([_pathPdf], text: widget.title);
     } catch (e) {
-      print('error $e');
+      debugPrint('error $e');
       customDialog.show(
         context: context,
         content: 'Failed to share pdf file. Please try again.',

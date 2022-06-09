@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'dart:async';
 import 'dart:io' show Platform;
 
@@ -19,10 +21,10 @@ class Webview extends StatefulWidget {
   final String? url;
   final String? backType;
 
-  Webview({required this.url, this.backType});
+  const Webview({required this.url, this.backType});
 
   @override
-  _WebviewState createState() => _WebviewState();
+  WebviewState createState() => WebviewState();
 }
 
 WebViewController? controllerGlobal;
@@ -72,7 +74,7 @@ _confirmBack(customDialog, BuildContext context) {
   );
 }
 
-class _WebviewState extends State<Webview> {
+class WebviewState extends State<Webview> {
   final Completer<WebViewController> _controller =
       Completer<WebViewController>();
   final myImage = ImagesConstant();
@@ -143,14 +145,14 @@ class _WebviewState extends State<Webview> {
             //   print('blocking navigation to $request}');
             //   return NavigationDecision.prevent;
             // }
-            print('allowing navigation to $request');
+            debugPrint('allowing navigation to $request');
             return NavigationDecision.navigate;
           },
           onPageStarted: (String url) {
-            print('Page started loading: $url');
+            debugPrint('Page started loading: $url');
           },
           onPageFinished: (String url) {
-            print('Page finished loading: $url');
+            debugPrint('Page finished loading: $url');
           },
           gestureNavigationEnabled: true,
         ),

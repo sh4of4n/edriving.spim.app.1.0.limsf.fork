@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/repository/auth_repository.dart';
 import '/utils/constants.dart';
@@ -12,15 +14,15 @@ import '/common_library/utils/app_localizations.dart';
 import '../../router.gr.dart';
 
 class SelectClass extends StatefulWidget {
-  final data;
+  final dynamic data;
 
-  SelectClass(this.data);
+  const SelectClass(this.data);
 
   @override
-  _SelectClassState createState() => _SelectClassState();
+  SelectClassState createState() => SelectClassState();
 }
 
-class _SelectClassState extends State<SelectClass> {
+class SelectClassState extends State<SelectClass> {
   final authRepo = AuthRepo();
   final primaryColor = ColorConstant.primaryColor;
   final myImage = ImagesConstant();
@@ -28,7 +30,7 @@ class _SelectClassState extends State<SelectClass> {
   bool _isLoading = false;
 
   Future? _getClasses;
-  var status;
+  dynamic status;
 
   @override
   void initState() {
@@ -72,7 +74,7 @@ class _SelectClassState extends State<SelectClass> {
             Colors.white,
             primaryColor,
           ],
-          stops: [0.45, 0.95],
+          stops: const [0.45, 0.95],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
@@ -203,10 +205,8 @@ class _SelectClassState extends State<SelectClass> {
                                                   ),
                                                   children: [
                                                     TextSpan(
-                                                      text: AppLocalizations.of(
-                                                                  context)!
-                                                              .translate(
-                                                                  'class_lbl') +
+                                                      text:
+                                                          '${AppLocalizations.of(context)!.translate('class_lbl')} '
                                                           ' ',
                                                       style: const TextStyle(
                                                         fontWeight:
@@ -235,11 +235,7 @@ class _SelectClassState extends State<SelectClass> {
                                                 ),
                                               ),
                                               Text(
-                                                'RM' +
-                                                    NumberFormat('#,##0.00')
-                                                        .format(double.tryParse(
-                                                            snapshot.data[index]
-                                                                .fee)),
+                                                'RM ${NumberFormat('#,##0.00').format(double.tryParse(snapshot.data[index].fee))}',
                                                 style: const TextStyle(
                                                   color: Color(
                                                     0xff666666,
@@ -250,13 +246,7 @@ class _SelectClassState extends State<SelectClass> {
                                                 snapshot.data[index]
                                                             .totalTime !=
                                                         null
-                                                    ? AppLocalizations.of(
-                                                                context)!
-                                                            .translate(
-                                                                'total_time') +
-                                                        ' ' +
-                                                        snapshot.data[index]
-                                                            .totalTime
+                                                    ? '${AppLocalizations.of(context)!.translate('total_time')} ${snapshot.data[index].totalTime}'
                                                     : /* AppLocalizations.of(context)
                                                       .translate('no_total_time') */
                                                     'Total time 00:00',
@@ -291,10 +281,10 @@ class _SelectClassState extends State<SelectClass> {
                                                         ),
                                                       );
                                                     }
-                                                    return Container(
+                                                    return const SizedBox(
                                                         width: 0, height: 0);
                                                   default:
-                                                    return Container(
+                                                    return const SizedBox(
                                                         width: 0, height: 0);
                                                 }
                                               },
@@ -371,38 +361,40 @@ class _SelectClassState extends State<SelectClass> {
       userProfileImageBase64String: widget.data.profilePic,
     );
 
-    if (result.isSuccess) {
-      customDialog.show(
-        context: context,
-        barrierDismissable: false,
-        title: const Center(
-          child: Icon(
-            Icons.check_circle_outline,
-            size: 120,
-            color: Colors.green,
+    if (mounted) {
+      if (result.isSuccess) {
+        customDialog.show(
+          context: context,
+          barrierDismissable: false,
+          title: const Center(
+            child: Icon(
+              Icons.check_circle_outline,
+              size: 120,
+              color: Colors.green,
+            ),
           ),
-        ),
-        content: AppLocalizations.of(context)!.translate('enroll_success'),
-        type: DialogType.general,
-        customActions: <Widget>[
-          TextButton(
-            child: Text(AppLocalizations.of(context)!.translate('ok_btn')),
-            onPressed: () async {
-              await authRepo.getUserRegisteredDI(
-                  context: context, type: 'UPDATE');
-              context.router
-                  .pushAndPopUntil(const Home(), predicate: (r) => false);
-            },
-          ),
-        ],
-      );
-    } else {
-      customDialog.show(
-        context: context,
-        type: DialogType.error,
-        content: result.message.toString(),
-        onPressed: () => context.router.pop(),
-      );
+          content: AppLocalizations.of(context)!.translate('enroll_success'),
+          type: DialogType.general,
+          customActions: <Widget>[
+            TextButton(
+              child: Text(AppLocalizations.of(context)!.translate('ok_btn')),
+              onPressed: () async {
+                await authRepo.getUserRegisteredDI(
+                    context: context, type: 'UPDATE');
+                context.router
+                    .pushAndPopUntil(const Home(), predicate: (r) => false);
+              },
+            ),
+          ],
+        );
+      } else {
+        customDialog.show(
+          context: context,
+          type: DialogType.error,
+          content: result.message.toString(),
+          onPressed: () => context.router.pop(),
+        );
+      }
     }
 
     setState(() {

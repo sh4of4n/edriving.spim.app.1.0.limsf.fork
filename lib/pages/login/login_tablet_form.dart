@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import '/base/page_base_class.dart';
 import '/common_library/services/location.dart';
@@ -14,10 +16,10 @@ import '../../router.gr.dart';
 
 class LoginTabletForm extends StatefulWidget {
   @override
-  _LoginTabletFormState createState() => _LoginTabletFormState();
+  LoginTabletFormState createState() => LoginTabletFormState();
 }
 
-class _LoginTabletFormState extends State<LoginTabletForm> with PageBaseClass {
+class LoginTabletFormState extends State<LoginTabletForm> with PageBaseClass {
   final authRepo = AuthRepo();
 
   final _formKey = GlobalKey<FormState>();
@@ -304,7 +306,7 @@ class _LoginTabletFormState extends State<LoginTabletForm> with PageBaseClass {
   _submitLogin() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      FocusScope.of(context).requestFocus(new FocusNode());
+      FocusScope.of(context).requestFocus(FocusNode());
 
       setState(() {
         // _height = ScreenUtil().setHeight(1300);

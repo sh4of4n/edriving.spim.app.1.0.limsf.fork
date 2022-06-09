@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/model/auth_model.dart';
 import '/router.gr.dart';
@@ -5,10 +7,10 @@ import 'package:flutter/material.dart';
 
 class CheckEnrollment extends StatefulWidget {
   @override
-  _CheckEnrollmentState createState() => _CheckEnrollmentState();
+  CheckEnrollmentState createState() => CheckEnrollmentState();
 }
 
-class _CheckEnrollmentState extends State<CheckEnrollment> {
+class CheckEnrollmentState extends State<CheckEnrollment> {
   @override
   void initState() {
     super.initState();
@@ -29,6 +31,6 @@ class _CheckEnrollmentState extends State<CheckEnrollment> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return const Scaffold();
   }
 }

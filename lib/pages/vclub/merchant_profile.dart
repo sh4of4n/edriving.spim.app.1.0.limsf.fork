@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import '/common_library/services/repository/vclub_repository.dart';
 import '/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -6,15 +8,15 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '/common_library/utils/app_localizations.dart';
 
 class MerchantProfile extends StatefulWidget {
-  final data;
+  final dynamic data;
 
-  MerchantProfile(this.data);
+  const MerchantProfile(this.data);
 
   @override
-  _MerchantProfileState createState() => _MerchantProfileState();
+  MerchantProfileState createState() => MerchantProfileState();
 }
 
-class _MerchantProfileState extends State<MerchantProfile> {
+class MerchantProfileState extends State<MerchantProfile> {
   final vClubRepo = VclubRepo();
   Future? _getMerchantDetail;
 
@@ -64,7 +66,7 @@ class _MerchantProfileState extends State<MerchantProfile> {
                 );
               }
               return Column(
-                children: <Widget>[],
+                children: const <Widget>[],
               );
             default:
               return Center(

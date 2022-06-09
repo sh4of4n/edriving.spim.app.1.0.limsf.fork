@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import '/common_library/utils/app_localizations.dart';
@@ -12,10 +14,10 @@ import '../../router.gr.dart';
 
 class RegisterMobile extends StatefulWidget {
   @override
-  _RegisterMobileState createState() => _RegisterMobileState();
+  RegisterMobileState createState() => RegisterMobileState();
 }
 
-class _RegisterMobileState extends State<RegisterMobile> {
+class RegisterMobileState extends State<RegisterMobile> {
   final primaryColor = ColorConstant.primaryColor;
   final authRepo = AuthRepo();
   final _formKey = GlobalKey<FormState>();
@@ -53,7 +55,7 @@ class _RegisterMobileState extends State<RegisterMobile> {
               Colors.white,
               primaryColor,
             ],
-            stops: [0.45, 0.85],
+            stops: const [0.45, 0.85],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -94,7 +96,7 @@ class _RegisterMobileState extends State<RegisterMobile> {
                               },
                               padding: EdgeInsets.only(top: 62.h),
                               initialSelection: 'MY',
-                              favorite: ['+60', 'MY'],
+                              favorite: const ['+60', 'MY'],
                               showFlagMain: true,
                               alignLeft: false,
                               enabled: false,
@@ -235,7 +237,7 @@ class _RegisterMobileState extends State<RegisterMobile> {
               Colors.white,
               primaryColor,
             ],
-            stops: [0.45, 0.85],
+            stops: const [0.45, 0.85],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -279,7 +281,7 @@ class _RegisterMobileState extends State<RegisterMobile> {
                               },
                               padding: EdgeInsets.only(top: 62.h),
                               initialSelection: 'MY',
-                              favorite: ['+60', 'MY'],
+                              favorite: const ['+60', 'MY'],
                               showFlagMain: true,
                               alignLeft: false,
                               enabled: false,
@@ -398,15 +400,16 @@ class _RegisterMobileState extends State<RegisterMobile> {
   _next() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      FocusScope.of(context).requestFocus(new FocusNode());
+      FocusScope.of(context).requestFocus(FocusNode());
 
       String mobileNo = '';
 
       // print(_phone.substring(0, 1));
-      if (_phone.substring(0, 1) == '0')
+      if (_phone.substring(0, 1) == '0') {
         mobileNo = _phone.substring(1);
-      else
+      } else {
         mobileNo = _phone;
+      }
 
       // print(_countryCode + mobileNo);
 

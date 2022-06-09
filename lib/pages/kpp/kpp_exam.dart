@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import '/common_library/utils/app_localizations.dart';
 import '/pages/kpp/exam_template.dart';
@@ -15,22 +17,22 @@ class KppExam extends StatefulWidget {
   final String? groupId;
   final String? paperNo;
 
-  KppExam({
+  const KppExam({
     required this.groupId,
     required this.paperNo,
   });
 
   @override
-  _KppExamState createState() => _KppExamState();
+  KppExamState createState() => KppExamState();
 }
 
-class _KppExamState extends State<KppExam> {
+class KppExamState extends State<KppExam> {
   final kppRepo = KppRepo();
   final primaryColor = ColorConstant.primaryColor;
   int index = 0;
   String? groupId;
   String? paperNo;
-  var snapshot;
+  dynamic snapshot;
   String? message = '';
   final customDialog = CustomDialog();
 
@@ -48,50 +50,51 @@ class _KppExamState extends State<KppExam> {
     final examDataBox = Hive.box('exam_data');
     KppExamData? data;
 
-    if (examDataBox.length > 0) {
-      data = examDataBox.getAt(0) as KppExamData?;
+    if (mounted) {
+      if (examDataBox.length > 0) {
+        data = examDataBox.getAt(0) as KppExamData?;
 
-      return customDialog.show(
-        context: context,
-        title: Center(child: Icon(Icons.info_outline, size: 120)),
-        content:
-            '${AppLocalizations.of(context)!.translate("existing_session")} ${data!.groupId} ${data.paperNo}. ${AppLocalizations.of(context)!.translate("existing_session_two")}',
-        customActions: <Widget>[
-          TextButton(
-            child: Text(AppLocalizations.of(context)!.translate('yes_lbl')),
-            onPressed: () {
-              groupId = data!.groupId;
-              paperNo = data.paperNo;
+        return customDialog.show(
+          context: context,
+          title: const Center(child: Icon(Icons.info_outline, size: 120)),
+          content:
+              '${AppLocalizations.of(context)!.translate("existing_session")} ${data!.groupId} ${data.paperNo}. ${AppLocalizations.of(context)!.translate("existing_session_two")}',
+          customActions: <Widget>[
+            TextButton(
+              child: Text(AppLocalizations.of(context)!.translate('yes_lbl')),
+              onPressed: () {
+                groupId = data!.groupId;
+                paperNo = data.paperNo;
 
-              context.router.pop();
+                context.router.pop();
 
-              _getTheoryQuestionByPaper();
-            },
-          ),
-          TextButton(
-            child: Text(AppLocalizations.of(context)!.translate('no_lbl')),
-            onPressed: () {
-              groupId = widget.groupId;
-              paperNo = widget.paperNo;
-              // Hive box must be cleared here
-              examDataBox.clear();
+                _getTheoryQuestionByPaper();
+              },
+            ),
+            TextButton(
+              child: Text(AppLocalizations.of(context)!.translate('no_lbl')),
+              onPressed: () {
+                groupId = widget.groupId;
+                paperNo = widget.paperNo;
+                // Hive box must be cleared here
+                examDataBox.clear();
 
-              context.router.pop();
+                context.router.pop();
 
-              _getTheoryQuestionByPaper();
-            },
-          ),
-        ],
-        type: DialogType.general,
-        barrierDismissable: false,
-      );
-    } else {
-      groupId = widget.groupId;
-      paperNo = widget.paperNo;
+                _getTheoryQuestionByPaper();
+              },
+            ),
+          ],
+          type: DialogType.general,
+          barrierDismissable: false,
+        );
+      } else {
+        groupId = widget.groupId;
+        paperNo = widget.paperNo;
 
-      _getTheoryQuestionByPaper();
+        _getTheoryQuestionByPaper();
+      }
     }
-
     // await _getTheoryQuestionByPaper();
   }
 

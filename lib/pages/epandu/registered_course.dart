@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/repository/auth_repository.dart';
 import '/common_library/services/repository/epandu_repository.dart';
@@ -14,10 +16,10 @@ import '../../router.gr.dart';
 
 class RegisteredCourse extends StatefulWidget {
   @override
-  _RegisteredCourseState createState() => _RegisteredCourseState();
+  RegisteredCourseState createState() => RegisteredCourseState();
 }
 
-class _RegisteredCourseState extends State<RegisteredCourse> {
+class RegisteredCourseState extends State<RegisteredCourse> {
   final primaryColor = ColorConstant.primaryColor;
 
   /* final TextStyle _titleStyle = TextStyle(
@@ -62,7 +64,7 @@ class _RegisteredCourseState extends State<RegisteredCourse> {
             Colors.white,
             primaryColor,
           ],
-          stops: [0.45, 0.95],
+          stops: const [0.45, 0.95],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
@@ -218,7 +220,7 @@ class _RegisteredCourseState extends State<RegisteredCourse> {
                                             Text(
                                               'RM${NumberFormat('#,##0.00').format(double.tryParse(snapshot.data[index].fee))}',
                                               style: const TextStyle(
-                                                color: const Color(
+                                                color: Color(
                                                   0xff666666,
                                                 ),
                                               ),
@@ -226,9 +228,7 @@ class _RegisteredCourseState extends State<RegisteredCourse> {
                                           Text(
                                             snapshot.data[index].totalTime !=
                                                     null
-                                                ? '${AppLocalizations.of(context)!.translate('total_time')} ' +
-                                                    snapshot
-                                                        .data[index].totalTime
+                                                ? '${AppLocalizations.of(context)!.translate('total_time')} ${snapshot.data[index].totalTime}'
                                                 : /* AppLocalizations.of(context)
                                                     .translate('no_total_time') */
                                                 'Total time 00:00',
@@ -244,9 +244,7 @@ class _RegisteredCourseState extends State<RegisteredCourse> {
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 100.w),
                                         child: Text(
-                                          snapshot.data[index].status != null
-                                              ? snapshot.data[index].status
-                                              : '',
+                                          snapshot.data[index].status ?? '',
                                           style: TextStyle(
                                             fontSize: 70.sp,
                                             color: const Color(

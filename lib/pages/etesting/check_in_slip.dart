@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/repository/epandu_repository.dart';
 import '/common_library/utils/custom_dialog.dart';
@@ -11,16 +13,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CheckInSlip extends StatefulWidget {
   @override
-  _CheckInSlipState createState() => _CheckInSlipState();
+  CheckInSlipState createState() => CheckInSlipState();
 }
 
-class _CheckInSlipState extends State<CheckInSlip> {
+class CheckInSlipState extends State<CheckInSlip> {
   final epanduRepo = EpanduRepo();
   final primaryColor = ColorConstant.primaryColor;
   final image = ImagesConstant();
   final customDialog = CustomDialog();
   bool isLoading = false;
-  var checkInData;
+  dynamic checkInData;
 
   @override
   void initState() {
@@ -57,21 +59,21 @@ class _CheckInSlipState extends State<CheckInSlip> {
   }
 
   renderQr() {
-    if (!isLoading && checkInData != null)
+    if (!isLoading && checkInData != null) {
       return QrImage(
         embeddedImage: AssetImage(image.ePanduIcon),
         embeddedImageStyle: QrEmbeddedImageStyle(
-          size: Size(40, 40),
+          size: const Size(40, 40),
         ),
         data:
             '{"Table1":[{"group_id": "${checkInData[0].groupId}", "test_code": "${checkInData[0].testCode}", "nric_no": "${checkInData[0].nricNo}"}]}',
         version: QrVersions.auto,
         size: 250.0,
       );
-    else if (checkInData == null) {
+    } else if (checkInData == null) {
       return Container();
     }
-    SpinKitFoldingCube(
+    const SpinKitFoldingCube(
       color: ColorConstant.primaryColor,
     );
   }

@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import '/common_library/services/repository/auth_repository.dart';
 import '/pages/home/feeds.dart';
 import '/utils/constants.dart';
@@ -6,16 +8,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 
 class Multilevel extends StatefulWidget {
-  final feed;
+  final dynamic feed;
   final String? appVersion;
 
-  Multilevel({this.feed, this.appVersion});
+  const Multilevel({this.feed, this.appVersion});
 
   @override
-  _MultilevelState createState() => _MultilevelState();
+  MultilevelState createState() => MultilevelState();
 }
 
-class _MultilevelState extends State<Multilevel> {
+class MultilevelState extends State<Multilevel> {
   final primaryColor = ColorConstant.primaryColor;
   final authRepo = AuthRepo();
 
@@ -27,11 +29,11 @@ class _MultilevelState extends State<Multilevel> {
   final adText = TextStyle(
     fontSize: ScreenUtil().setSp(70),
     fontWeight: FontWeight.bold,
-    color: Color(0xff231f20),
+    color: const Color(0xff231f20),
   );
 
   List<dynamic> items = [];
-  ScrollController _scrollController = new ScrollController();
+  final ScrollController _scrollController = ScrollController();
   String? _message = '';
   bool _loadMore = false;
   bool _isLoading = false;
@@ -42,23 +44,22 @@ class _MultilevelState extends State<Multilevel> {
 
     getActiveFeed();
 
-    _scrollController
-      ..addListener(() {
-        if (_scrollController.position.pixels ==
-            _scrollController.position.maxScrollExtent) {
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        setState(() {
+          _startIndex += 10;
+        });
+
+        if (_message!.isEmpty) {
           setState(() {
-            _startIndex += 10;
+            _loadMore = true;
           });
 
-          if (_message!.isEmpty) {
-            setState(() {
-              _loadMore = true;
-            });
-
-            getActiveFeed();
-          }
+          getActiveFeed();
         }
-      });
+      }
+    });
   }
 
   Future<dynamic> getActiveFeed() async {
@@ -82,22 +83,24 @@ class _MultilevelState extends State<Multilevel> {
     } */
 
     if (result.isSuccess) {
-      if (result.data.length > 0 && mounted)
+      if (result.data.length > 0 && mounted) {
         setState(() {
           for (int i = 0; i < result.data.length; i += 1) {
             items.add(result.data[i]);
           }
         });
-      else if (mounted)
+      } else if (mounted) {
         setState(() {
           _loadMore = false;
         });
+      }
     } else {
-      if (mounted)
+      if (mounted) {
         setState(() {
           _message = result.message;
           _loadMore = false;
         });
+      }
     }
 
     setState(() {
@@ -137,7 +140,7 @@ class _MultilevelState extends State<Multilevel> {
             Colors.white,
             primaryColor,
           ],
-          stops: [0.45, 0.65],
+          stops: const [0.45, 0.65],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
@@ -147,7 +150,7 @@ class _MultilevelState extends State<Multilevel> {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.white,
-          title: Text(
+          title: const Text(
             'Feeds',
           ),
         ),

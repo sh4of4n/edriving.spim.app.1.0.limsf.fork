@@ -1,4 +1,6 @@
 // import 'dart:convert';
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'dart:convert';
 
 import 'package:auto_route/auto_route.dart';
@@ -22,15 +24,15 @@ import 'package:package_info/package_info.dart';
 import '/common_library/utils/app_localizations.dart';
 
 class RegisterUserToDi extends StatefulWidget {
-  final barcode;
+  final dynamic barcode;
 
-  RegisterUserToDi(this.barcode);
+  const RegisterUserToDi(this.barcode);
 
   @override
-  _RegisterUserToDiState createState() => _RegisterUserToDiState();
+  RegisterUserToDiState createState() => RegisterUserToDiState();
 }
 
-class _RegisterUserToDiState extends State<RegisterUserToDi> {
+class RegisterUserToDiState extends State<RegisterUserToDi> {
   final authRepo = AuthRepo();
   final localStorage = LocalStorage();
   final customDialog = CustomDialog();
@@ -176,7 +178,7 @@ class _RegisterUserToDiState extends State<RegisterUserToDi> {
   registerUserToDi() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      FocusScope.of(context).requestFocus(new FocusNode());
+      FocusScope.of(context).requestFocus(FocusNode());
 
       setState(() {
         _isLoading = true;
@@ -254,7 +256,7 @@ class _RegisterUserToDiState extends State<RegisterUserToDi> {
               Colors.white,
               primaryColor,
             ],
-            stops: [0.45, 0.85],
+            stops: const [0.45, 0.85],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),

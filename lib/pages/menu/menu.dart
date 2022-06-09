@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/model/provider_model.dart';
 import '/common_library/services/repository/auth_repository.dart';
@@ -12,20 +14,20 @@ import '/common_library/utils/app_localizations.dart';
 import '../../router.gr.dart';
 
 class Menu extends StatefulWidget {
-  final data;
+  final dynamic data;
 
-  Menu(this.data);
+  const Menu(this.data);
 
   @override
-  _MenuState createState() => _MenuState();
+  MenuState createState() => MenuState();
 }
 
-class _MenuState extends State<Menu> {
+class MenuState extends State<Menu> {
   String appVersion = '';
   int count = 0;
   final authRepo = AuthRepo();
   final customDialog = CustomDialog();
-  double _defIconSize = 30;
+  double defIconSize = 30;
   final primaryColor = ColorConstant.primaryColor;
   final localStorage = LocalStorage();
 
@@ -73,7 +75,7 @@ class _MenuState extends State<Menu> {
             shrinkWrap: true,
             children: <Widget>[
               ListTile(
-                leading: Icon(Icons.language, size: _defIconSize),
+                leading: Icon(Icons.language, size: defIconSize),
                 title: Consumer<LanguageModel>(
                   builder: (context, lang, child) {
                     return Text(
@@ -90,7 +92,7 @@ class _MenuState extends State<Menu> {
               ),
               const Divider(),
               ListTile(
-                leading: Icon(Icons.lock, size: _defIconSize),
+                leading: Icon(Icons.lock, size: defIconSize),
                 title: Text(AppLocalizations.of(context)!
                     .translate('change_password_lbl')),
                 onTap: () {
@@ -99,14 +101,14 @@ class _MenuState extends State<Menu> {
               ),
               const Divider(),
               ListTile(
-                leading: Icon(Icons.exit_to_app, size: _defIconSize),
+                leading: Icon(Icons.exit_to_app, size: defIconSize),
                 title:
                     Text(AppLocalizations.of(context)!.translate('logout_lbl')),
                 onTap: _logout,
               ),
               const Divider(),
               ListTile(
-                leading: Icon(Icons.apps, size: _defIconSize),
+                leading: Icon(Icons.apps, size: defIconSize),
                 title: Text(
                     AppLocalizations.of(context)!.translate('version_lbl')),
                 subtitle: Text('V.$appVersion'),

@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -28,10 +30,10 @@ enum AppState { free, picked, cropped }
 
 class UpdateProfile extends StatefulWidget {
   @override
-  _UpdateProfileState createState() => _UpdateProfileState();
+  UpdateProfileState createState() => UpdateProfileState();
 }
 
-class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
+class UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
   final profileRepo = ProfileRepo();
   final authRepo = AuthRepo();
   final customSnackbar = CustomSnackbar();
@@ -83,9 +85,9 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
   String timestamp() => DateTime.now().millisecondsSinceEpoch.toString();
   late File _image;
   late File _croppedImage;
-  var imageState;
-  var ldlList;
-  var cdlList;
+  dynamic imageState;
+  dynamic ldlList;
+  dynamic cdlList;
 
   String? ldlItem = '';
   String? cdlItem = '';
@@ -242,11 +244,11 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
         int birthMonth = int.tryParse(_potentialDob!.substring(2, 4))!;
         int birthDay = int.tryParse(_potentialDob!.substring(4, 6))!;
 
-        if (currentYear - int.tryParse('19' + year)! < 70) {
-          birthYear = int.tryParse('19$year');
+        if (currentYear - int.tryParse('19 $year')! < 70) {
+          birthYear = int.tryParse('19 $year');
           _message = '';
-        } else if (currentYear - int.tryParse('20' + year)! < 16) {
-          birthYear = int.tryParse('20$year');
+        } else if (currentYear - int.tryParse('20 $year')! < 16) {
+          birthYear = int.tryParse('20 $year');
 
           _message = AppLocalizations.of(context)!.translate('enroll_underage');
         }
@@ -261,10 +263,11 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
                   .replaceAll(' ', '')
                   .substring(11))! %
               2 ==
-          0)
+          0) {
         _gender = Gender.female;
-      else
+      } else {
         _gender = Gender.male;
+      }
     }
   }
 
@@ -330,7 +333,7 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
             );
 
             // String newProfilePic = await localStorage.getProfilePic();
-            if (newProfilePic != null)
+            if (newProfilePic != null) {
               setState(() {
                 profilePicUrl = '';
                 _image = File(newProfilePic as String);
@@ -338,6 +341,7 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
                 // profilePicBase64 =
                 //     base64Encode(File(newProfilePic).readAsBytesSync());
               });
+            }
           },
         ),
         SimpleDialogOption(
@@ -431,7 +435,7 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
                         color: primaryColor,
                       ),
                       labelStyle: const TextStyle(
-                        color: const Color(0xff808080),
+                        color: Color(0xff808080),
                       ),
                       labelText: AppLocalizations.of(context)!
                           .translate('ic_required_lbl'),
@@ -495,7 +499,7 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
                         color: primaryColor,
                       ),
                       labelStyle: const TextStyle(
-                        color: const Color(0xff808080),
+                        color: Color(0xff808080),
                       ),
                       labelText: AppLocalizations.of(context)!
                           .translate('ic_name_lbl'),
@@ -615,7 +619,7 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
                         color: primaryColor,
                       ),
                       labelStyle: const TextStyle(
-                        color: const Color(0xff808080),
+                        color: Color(0xff808080),
                       ),
                       labelText:
                           AppLocalizations.of(context)!.translate('email_lbl'),
@@ -754,7 +758,7 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
                       });
                     },
                     value: ldlItem!.isEmpty ? null : ldlItem,
-                    items: ldlList == null
+                    items: ldlList
                         ? null
                         : ldlList
                             .map<DropdownMenuItem<String>>((dynamic value) {
@@ -810,7 +814,7 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
                     value: cdlItem!.isEmpty
                         ? null
                         : cdlItem!.replaceAll('%20', ' '),
-                    items: cdlList == null
+                    items: cdlList
                         ? null
                         : cdlList
                             .map<DropdownMenuItem<String>>((dynamic value) {
@@ -993,16 +997,17 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
         setState(() {
           _race = value;
           if (value ==
-              AppLocalizations.of(context)!.translate('malay_race_lbl'))
+              AppLocalizations.of(context)!.translate('malay_race_lbl')) {
             _raceParam = 'M';
-          else if (value ==
-              AppLocalizations.of(context)!.translate('chinese_lbl'))
+          } else if (value ==
+              AppLocalizations.of(context)!.translate('chinese_lbl')) {
             _raceParam = 'C';
-          else if (value ==
-              AppLocalizations.of(context)!.translate('indian_lbl'))
+          } else if (value ==
+              AppLocalizations.of(context)!.translate('indian_lbl')) {
             _raceParam = 'I';
-          else
+          } else {
             _raceParam = 'O';
+          }
         });
       },
       items: <String>[
@@ -1111,7 +1116,7 @@ class _UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
   _submit() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      FocusScope.of(context).requestFocus(new FocusNode());
+      FocusScope.of(context).requestFocus(FocusNode());
 
       setState(() {
         _isLoading = true;

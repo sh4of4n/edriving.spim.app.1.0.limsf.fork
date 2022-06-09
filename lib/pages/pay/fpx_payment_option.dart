@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import '/common_library/services/repository/fpx_repository.dart';
 import '/utils/constants.dart';
 import 'package:flutter/gestures.dart';
@@ -23,7 +25,7 @@ class FpxPaymentOption extends StatefulWidget {
   final String? totalAmount;
   final String? amountString; // for Authorization Request
 
-  FpxPaymentOption({
+  const FpxPaymentOption({
     this.icNo,
     this.docDoc,
     this.docRef,
@@ -36,10 +38,10 @@ class FpxPaymentOption extends StatefulWidget {
   });
 
   @override
-  _FpxPaymentOptionState createState() => _FpxPaymentOptionState();
+  FpxPaymentOptionState createState() => FpxPaymentOptionState();
 }
 
-class _FpxPaymentOptionState extends State<FpxPaymentOption> {
+class FpxPaymentOptionState extends State<FpxPaymentOption> {
   final fpxRepo = FpxRepo();
   // List<String> paymentOption = ['Online Banking', 'Credit Card', 'Debit Card'];
   String selectedOption = '';
@@ -77,7 +79,7 @@ class _FpxPaymentOptionState extends State<FpxPaymentOption> {
       isLoading = true;
     });
 
-    var result;
+    dynamic result;
 
     result = await fpxRepo.fpxSendB2CAuthRequestWithAmt(
       context: context,
@@ -131,10 +133,10 @@ class _FpxPaymentOptionState extends State<FpxPaymentOption> {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(15.0),
-                      boxShadow: [
-                        const BoxShadow(
+                      boxShadow: const [
+                        BoxShadow(
                           color: Colors.black26,
-                          offset: const Offset(0, 8.0),
+                          offset: Offset(0, 8.0),
                           blurRadius: 10.0,
                         ),
                       ],
@@ -161,10 +163,10 @@ class _FpxPaymentOptionState extends State<FpxPaymentOption> {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10.0),
-                      boxShadow: [
-                        const BoxShadow(
+                      boxShadow: const [
+                        BoxShadow(
                           color: Colors.black26,
-                          offset: const Offset(0, 8.0),
+                          offset: Offset(0, 8.0),
                           blurRadius: 10.0,
                         ),
                       ],
@@ -315,7 +317,7 @@ class _FpxPaymentOptionState extends State<FpxPaymentOption> {
                 padding: EdgeInsets.symmetric(horizontal: 55.w),
                 child: RichText(
                   text: TextSpan(
-                    style: const TextStyle(color: const Color(0xff5c5c5c)),
+                    style: const TextStyle(color: Color(0xff5c5c5c)),
                     children: [
                       const TextSpan(
                           text:
@@ -630,7 +632,7 @@ class _FpxPaymentOptionState extends State<FpxPaymentOption> {
                     children: [
                       const Text(
                         'Powered By',
-                        style: const TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       SizedBox(width: 10.w),
                       Image.asset(

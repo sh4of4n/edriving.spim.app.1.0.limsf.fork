@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
@@ -18,10 +20,10 @@ import 'package:url_launcher/url_launcher.dart';
 
 class LoginForm extends StatefulWidget {
   @override
-  _LoginFormState createState() => _LoginFormState();
+  LoginFormState createState() => LoginFormState();
 }
 
-class _LoginFormState extends State<LoginForm> with PageBaseClass {
+class LoginFormState extends State<LoginForm> with PageBaseClass {
   final authRepo = AuthRepo();
   final customDialog = CustomDialog();
   final _formKey = GlobalKey<FormState>();
@@ -42,8 +44,8 @@ class _LoginFormState extends State<LoginForm> with PageBaseClass {
   // var _height = ScreenUtil.screenHeight / 4.5;
 
   Location location = Location();
-  String _latitude = '';
-  String _longitude = '';
+  String latitude = '';
+  String longitude = '';
 
   DeviceInfo deviceInfo = DeviceInfo();
   String? _deviceBrand = '';
@@ -129,15 +131,15 @@ class _LoginFormState extends State<LoginForm> with PageBaseClass {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20.0),
-        boxShadow: [
-          const BoxShadow(
+        boxShadow: const [
+          BoxShadow(
             color: Colors.black26,
             offset: Offset(0.0, 15.0),
             blurRadius: 15.0,
           ),
-          const BoxShadow(
+          BoxShadow(
             color: Colors.black12,
-            offset: const Offset(0.0, -10.0),
+            offset: Offset(0.0, -10.0),
             blurRadius: 10.0,
           ),
         ],
@@ -335,7 +337,7 @@ class _LoginFormState extends State<LoginForm> with PageBaseClass {
   _submitLogin() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      FocusScope.of(context).requestFocus(new FocusNode());
+      FocusScope.of(context).requestFocus(FocusNode());
 
       setState(() {
         // _height = ScreenUtil().setHeight(1300);
@@ -353,8 +355,8 @@ class _LoginFormState extends State<LoginForm> with PageBaseClass {
         context: context,
         phone: _phone,
         password: _password,
-        latitude: _latitude.isEmpty ? '999' : _latitude,
-        longitude: _longitude.isEmpty ? '999' : _longitude,
+        latitude: latitude.isEmpty ? '999' : latitude,
+        longitude: longitude.isEmpty ? '999' : longitude,
         deviceBrand: _deviceBrand,
         deviceModel: Uri.encodeComponent(_deviceModel!),
         deviceRemark: '$_deviceOs $_deviceVersion',

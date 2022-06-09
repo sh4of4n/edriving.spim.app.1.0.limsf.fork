@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import '/common_library/services/repository/epandu_repository.dart';
 import '/common_library/utils/app_localizations.dart';
 import '/utils/constants.dart';
@@ -7,16 +9,16 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 
 class CheckInRecord extends StatefulWidget {
-  final checkInData;
+  final dynamic checkInData;
   final bool isLoading;
 
-  CheckInRecord({required this.checkInData, required this.isLoading});
+  const CheckInRecord({required this.checkInData, required this.isLoading});
 
   @override
-  _CheckInRecordState createState() => _CheckInRecordState();
+  CheckInRecordState createState() => CheckInRecordState();
 }
 
-class _CheckInRecordState extends State<CheckInRecord> {
+class CheckInRecordState extends State<CheckInRecord> {
   final primaryColor = ColorConstant.primaryColor;
   final format = DateFormat("yyyy-MM-dd");
 
@@ -29,7 +31,7 @@ class _CheckInRecordState extends State<CheckInRecord> {
   final TextStyle _subtitleStyle = TextStyle(
     fontSize: 56.sp,
     fontWeight: FontWeight.w400,
-    color: Color(
+    color: const Color(
       0xff666666,
     ),
   );
@@ -120,7 +122,7 @@ class _CheckInRecordState extends State<CheckInRecord> {
             Colors.white,
             primaryColor,
           ],
-          stops: [0.45, 0.95],
+          stops: const [0.45, 0.95],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),

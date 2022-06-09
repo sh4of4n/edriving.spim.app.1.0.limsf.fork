@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import 'package:badges/badges.dart';
 import '/common_library/utils/loading_model.dart';
@@ -25,9 +27,9 @@ class Product extends StatefulWidget {
   final String? price;
   final String? image;
   final String? uom;
-  final products;
+  final dynamic products;
 
-  Product({
+  const Product({
     this.stkCode,
     this.stkDesc1,
     this.stkDesc2,
@@ -39,10 +41,10 @@ class Product extends StatefulWidget {
   });
 
   @override
-  _ProductState createState() => _ProductState();
+  ProductState createState() => ProductState();
 }
 
-class _ProductState extends State<Product> {
+class ProductState extends State<Product> {
   final salesOrderRepo = SalesOrderRepo();
   final productsRepo = ProductsRepo();
   final unescape = HtmlUnescape();
@@ -58,9 +60,9 @@ class _ProductState extends State<Product> {
       RegExp("\\[(.*?)\\]", multiLine: true, caseSensitive: true);
 
   DateTime? scheduleDate;
-  String _batchNo = '';
+  String batchNo = '';
   bool _saveBtnIsLoading = false;
-  bool _isOfferedItem = false;
+  bool isOfferedItem = false;
 
   String uomValue = '';
 
@@ -72,7 +74,7 @@ class _ProductState extends State<Product> {
   final reviewStyle = TextStyle(
     fontWeight: FontWeight.w700,
     fontSize: 60.sp,
-    color: Color(0xff5d6767),
+    color: const Color(0xff5d6767),
   );
 
   TextStyle headerBubble = TextStyle(
@@ -87,7 +89,7 @@ class _ProductState extends State<Product> {
     color: Colors.blue,
   );
 
-  final bubbleDecoration = BoxDecoration(
+  final bubbleDecoration = const BoxDecoration(
     color: Colors.white,
     // borderRadius: BorderRadius.circular(10),
     boxShadow: [
@@ -133,13 +135,15 @@ class _ProductState extends State<Product> {
       isCart: 'true',
     );
 
-    if (result.isSuccess) {
-      // return result.data;
-      _getSlsDetailByDocNo(
-        context,
-        result.data[0].docDoc,
-        result.data[0].docRef,
-      );
+    if (mounted) {
+      if (result.isSuccess) {
+        // return result.data;
+        _getSlsDetailByDocNo(
+          context,
+          result.data[0].docDoc,
+          result.data[0].docRef,
+        );
+      }
     }
   }
 
@@ -167,17 +171,18 @@ class _ProductState extends State<Product> {
   }
 
   loadImage(image) {
-    if (image != null)
+    if (image != null) {
       return Image.network(
         image.replaceAll(removeBracket, '').split('\r\n')[0],
         height: 300.h,
         gaplessPlayback: true,
       );
+    }
 
     return SizedBox(
       // width: 180.w,
       height: 300.h,
-      child: Icon(Icons.broken_image, size: 40, color: Colors.grey),
+      child: const Icon(Icons.broken_image, size: 40, color: Colors.grey),
     );
   }
 
@@ -190,13 +195,13 @@ class _ProductState extends State<Product> {
         onPressed: () {},
         style: ElevatedButton.styleFrom(
             minimumSize: Size(1300.w, 50.h),
-            padding: EdgeInsets.symmetric(vertical: 11.0),
+            padding: const EdgeInsets.symmetric(vertical: 11.0),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5),
-              side: BorderSide(color: Color(0xffdd0e0e)),
+              side: const BorderSide(color: Color(0xffdd0e0e)),
             ),
-            primary: Color(0xffdd0e0e),
-            textStyle: TextStyle(color: Colors.white)),
+            primary: const Color(0xffdd0e0e),
+            textStyle: const TextStyle(color: Colors.white)),
         child: Text(
           'Add To Cart',
           style: TextStyle(
@@ -218,14 +223,14 @@ class _ProductState extends State<Product> {
       stkCode: widget.stkCode ?? '',
       stkDesc1: widget.stkDesc1 ?? '',
       stkDesc2: widget.stkDesc2 ?? '',
-      batchNo: _batchNo,
+      batchNo: batchNo,
       itemQty: '1',
       itemUom: widget.uom ?? '',
       itemPrice: double.tryParse(widget.price!.replaceAll(',', ''))!
           .toStringAsFixed(2),
       discAmt: '0.00',
       discRate: '0.00',
-      isOfferItem: _isOfferedItem,
+      isOfferItem: isOfferedItem,
       scheduleDeliveryDateString: scheduleDate != null
           ? dateFormat.format(scheduleDate!).substring(0, 10)
           : '',
@@ -235,25 +240,27 @@ class _ProductState extends State<Product> {
       signatureImageBase64String: '',
     );
 
-    if (result.isSuccess) {
-      setState(() {
-        _saveBtnIsLoading = false;
-      });
+    if (mounted) {
+      if (result.isSuccess) {
+        setState(() {
+          _saveBtnIsLoading = false;
+        });
 
-      int cartItem = Provider.of<CartStatus>(context, listen: false).cartItem!;
+        int cartItem =
+            Provider.of<CartStatus>(context, listen: false).cartItem!;
 
-      Provider.of<CartStatus>(context, listen: false).setShowBadge(
-        showBadge: true,
-      );
+        Provider.of<CartStatus>(context, listen: false).setShowBadge(
+          showBadge: true,
+        );
 
-      Provider.of<CartStatus>(context, listen: false).updateCartBadge(
-        cartItem: cartItem + 1,
-      );
+        Provider.of<CartStatus>(context, listen: false).updateCartBadge(
+          cartItem: cartItem + 1,
+        );
 
-      customSnackbar.show(context,
-          message: 'Item added to cart.', type: MessageType.success);
+        customSnackbar.show(context,
+            message: 'Item added to cart.', type: MessageType.success);
 
-      /* context.router.pushAndRemoveUntil(
+        /* context.router.pushAndRemoveUntil(
             Routes.salesOrderCart,
             ModalRoute.withName(Routes.customerDetail),
             arguments: SalesOrderCartArguments(
@@ -261,17 +268,18 @@ class _ProductState extends State<Product> {
               dbcode: dbcode,
             ),
           ); */
-    } else {
-      customDialog.show(
-        context: context,
-        content: 'Failed to save sales order. Please try again later.',
-        type: DialogType.error,
-      );
+      } else {
+        customDialog.show(
+          context: context,
+          content: 'Failed to save sales order. Please try again later.',
+          type: DialogType.error,
+        );
 
-      setState(() {
-        // _message = 'Failed to save sales order. Please try again later.';
-        _saveBtnIsLoading = false;
-      });
+        setState(() {
+          // _message = 'Failed to save sales order. Please try again later.';
+          _saveBtnIsLoading = false;
+        });
+      }
     }
   }
 
@@ -285,12 +293,13 @@ class _ProductState extends State<Product> {
             RatingBar.builder(
               initialRating: rating,
               onRatingUpdate: (rating) {
+                // ignore: avoid_print
                 print(rating);
               },
               direction: Axis.horizontal,
               allowHalfRating: false,
               itemCount: 5,
-              itemBuilder: (context, _) => Icon(
+              itemBuilder: (context, _) => const Icon(
                 Icons.star,
                 color: Colors.amber,
               ),
@@ -299,7 +308,7 @@ class _ProductState extends State<Product> {
           ],
         ),
         SizedBox(height: 20.h),
-        Text(
+        const Text(
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent urna elit, efficitur nec accumsan sit amet, bibendum at erat.'),
       ],
     );
@@ -319,9 +328,9 @@ class _ProductState extends State<Product> {
         }
       },
       child: Scaffold(
-        backgroundColor: Color(0xfff7f7f7),
+        backgroundColor: const Color(0xfff7f7f7),
         appBar: AppBar(
-          title: Text('Product'),
+          title: const Text('Product'),
           actions: <Widget>[
             InkWell(
               onTap: () => context.router.push(
@@ -338,9 +347,9 @@ class _ProductState extends State<Product> {
                   showBadge: showBadge,
                   badgeContent: Text(
                     '$badgeNo',
-                    style: TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white),
                   ),
-                  child: Icon(Icons.shopping_cart),
+                  child: const Icon(Icons.shopping_cart),
                 ),
               ),
             ),
@@ -442,7 +451,7 @@ class _ProductState extends State<Product> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text('Promotions', style: labelStyle),
-                        Icon(Icons.chevron_right),
+                        const Icon(Icons.chevron_right),
                       ],
                     ),
                   ),
@@ -459,7 +468,7 @@ class _ProductState extends State<Product> {
                       Text('Ratings & Reviews',
                           style: headerBubble, textAlign: TextAlign.start),
                       SizedBox(height: 30.h),
-                      Container(
+                      SizedBox(
                         height: 1500.h,
                         /* child: Center(
                           child: Text('Ratings and reviews will load here.'),
@@ -527,12 +536,13 @@ class _ProductState extends State<Product> {
                       ),
                       GridView.builder(
                         shrinkWrap: true,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3,
                           // childAspectRatio: MediaQuery.of(context).size.height / 530,
                         ),
                         // padding: EdgeInsets.symmetric(horizontal: 40.w),
-                        physics: BouncingScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                         itemCount: widget.products.length,
                         itemBuilder: (BuildContext context, int index) {
                           return InkWell(
@@ -565,7 +575,7 @@ class _ProductState extends State<Product> {
                                 loadImage(
                                     widget.products[index].stkpicturePath),
                                 SizedBox(height: 20.h),
-                                Container(
+                                SizedBox(
                                     width: 220.w,
                                     child: Text(
                                       widget.products[index].stkCode,

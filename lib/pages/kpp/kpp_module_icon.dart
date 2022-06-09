@@ -1,17 +1,19 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class KppModuleIcon extends StatelessWidget {
-  final snapshot;
-  final index;
-  final icon;
-  final component;
-  final iconColor;
+  final dynamic snapshot;
+  final dynamic index;
+  final dynamic icon;
+  final dynamic component;
+  final dynamic iconColor;
   final String? label;
 
-  KppModuleIcon({
+  const KppModuleIcon({
     this.snapshot,
     this.index,
     this.icon,
@@ -24,7 +26,9 @@ class KppModuleIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        component != null ? context.router.push(component) : SizedBox.shrink();
+        component != null
+            ? context.router.push(component)
+            : const SizedBox.shrink();
       },
       child: Container(
         // padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 25.0),
@@ -34,7 +38,7 @@ class KppModuleIcon extends StatelessWidget {
           color: iconColor,
           // border: Border.all(width: 1.0, color: Colors.black12),
           borderRadius: BorderRadius.circular(15.0),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
               color: Colors.black12,
               offset: Offset(1.0, 2.0),
@@ -49,7 +53,7 @@ class KppModuleIcon extends StatelessWidget {
             Center(
               child: icon,
             ),
-            SizedBox(height: 15.0),
+            const SizedBox(height: 15.0),
             Text(
               label != null ? label! : '${snapshot[index].paperNo}',
               style: TextStyle(

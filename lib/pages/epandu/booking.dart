@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/repository/epandu_repository.dart';
 import '/utils/constants.dart';
@@ -12,10 +14,10 @@ import '../../router.gr.dart';
 
 class Booking extends StatefulWidget {
   @override
-  _BookingState createState() => _BookingState();
+  BookingState createState() => BookingState();
 }
 
-class _BookingState extends State<Booking> {
+class BookingState extends State<Booking> {
   final image = ImagesConstant();
   final epanduRepo = EpanduRepo();
   Future? getDTestByCode;
@@ -58,7 +60,7 @@ class _BookingState extends State<Booking> {
             Colors.white,
             primaryColor,
           ],
-          stops: [0.45, 0.95],
+          stops: const [0.45, 0.95],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
@@ -104,17 +106,17 @@ class _BookingState extends State<Booking> {
                     (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                   switch (snapshot.connectionState) {
                     case ConnectionState.waiting:
-                      return Container(
+                      return SizedBox(
                         height: 1000.h,
                         child: const Center(
-                          child: const SpinKitFoldingCube(
+                          child: SpinKitFoldingCube(
                             color: Colors.blue,
                           ),
                         ),
                       );
                     case ConnectionState.done:
                       if (snapshot.data is String) {
-                        return Container(
+                        return SizedBox(
                           height: 1000.h,
                           child: Center(
                             child: Text(snapshot.data),
@@ -175,9 +177,7 @@ class _BookingState extends State<Booking> {
                                                 .data[index].testTypeValue !=
                                             null)
                                           Text(
-                                            'Status: ' +
-                                                snapshot
-                                                    .data[index].testTypeValue,
+                                            'Status: ${snapshot.data[index].testTypeValue} ',
                                             style: textStyleBold,
                                           ),
                                         const Text(''),

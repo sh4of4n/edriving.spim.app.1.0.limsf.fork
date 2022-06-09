@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AuthoritiesButton extends StatelessWidget {
-  final onTap;
-  final label;
-  final tileFirstColor;
-  final tileSecondColor;
+  final dynamic onTap;
+  final dynamic label;
+  final dynamic tileFirstColor;
+  final dynamic tileSecondColor;
 
-  AuthoritiesButton({
+  const AuthoritiesButton({
+    Key? key,
     required this.onTap,
     required this.label,
     required this.tileFirstColor,
@@ -15,7 +16,8 @@ class AuthoritiesButton extends StatelessWidget {
   })  : assert(onTap != null),
         assert(label != null),
         assert(tileFirstColor != null),
-        assert(tileSecondColor != null);
+        assert(tileSecondColor != null),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {

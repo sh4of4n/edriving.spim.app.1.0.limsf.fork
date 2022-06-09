@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import '/custom_icon/my_custom_icons_icons.dart';
 import '/pages/home/home.dart';
 import '/pages/invite/invite.dart';
@@ -10,30 +12,30 @@ import '/common_library/utils/app_localizations.dart';
 
 class HomeTab extends StatefulWidget {
   @override
-  _HomeTabState createState() => _HomeTabState();
+  HomeTabState createState() => HomeTabState();
 }
 
-class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
+class HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
   final primaryColor = ColorConstant.primaryColor;
   final myImage = ImagesConstant();
 
   final List<Tab> myTabs = <Tab>[
-    Tab(
-      icon: new Icon(
+    const Tab(
+      icon: Icon(
         MyCustomIcons.home_icon,
         size: 30,
         color: Color(0xff808080),
       ),
     ),
-    Tab(
-      icon: new Icon(
+    const Tab(
+      icon: Icon(
         MyCustomIcons.v_club_icon,
         size: 30,
         color: Color(0xff808080),
       ),
     ),
-    Tab(
-      icon: new Icon(
+    const Tab(
+      icon: Icon(
         MyCustomIcons.invite_icon,
         size: 30,
         color: Color(0xff808080),
@@ -76,7 +78,7 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
               Colors.white,
               primaryColor,
             ],
-            stops: [0.45, 0.65],
+            stops: const [0.45, 0.65],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -93,7 +95,7 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
                   child: TabBar(
                     tabs: [
                       Tab(
-                        icon: Icon(
+                        icon: const Icon(
                           MyCustomIcons.home_icon,
                           size: 30,
                           color: Color(0xff808080),
@@ -102,7 +104,7 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
                             AppLocalizations.of(context)!.translate('home_lbl'),
                       ),
                       Tab(
-                        icon: Icon(
+                        icon: const Icon(
                           MyCustomIcons.v_club_icon,
                           size: 30,
                           color: Color(0xff808080),
@@ -113,7 +115,7 @@ class _HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
                       Image.asset(myImage.sos,
                           width: ScreenUtil().setWidth(300)),
                       Tab(
-                        icon: Icon(
+                        icon: const Icon(
                           MyCustomIcons.invite_icon,
                           size: 30,
                           color: Color(0xff808080),

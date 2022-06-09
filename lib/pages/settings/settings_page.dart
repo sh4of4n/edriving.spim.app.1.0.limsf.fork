@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/model/provider_model.dart';
 import '/common_library/services/repository/auth_repository.dart';
@@ -15,15 +17,15 @@ import '/common_library/utils/app_localizations.dart';
 import '../../router.gr.dart';
 
 class Settings extends StatefulWidget {
-  final data;
+  final dynamic data;
 
-  Settings(this.data);
+  const Settings(this.data);
 
   @override
-  _SettingsState createState() => _SettingsState();
+  SettingsState createState() => SettingsState();
 }
 
-class _SettingsState extends State<Settings> {
+class SettingsState extends State<Settings> {
   DeviceInfo deviceInfo = DeviceInfo();
   String? _deviceBrand = '';
   String? _deviceModel = '';
@@ -37,7 +39,7 @@ class _SettingsState extends State<Settings> {
   int count = 0;
   final authRepo = AuthRepo();
   final customDialog = CustomDialog();
-  double _defIconSize = 30;
+  double defIconSize = 30;
   final primaryColor = ColorConstant.primaryColor;
   final localStorage = LocalStorage();
   String? _clientAcc = '';
@@ -94,7 +96,7 @@ class _SettingsState extends State<Settings> {
             shrinkWrap: true,
             children: <Widget>[
               ListTile(
-                leading: Icon(Icons.language, size: _defIconSize),
+                leading: Icon(Icons.language, size: defIconSize),
                 title: Consumer<LanguageModel>(
                   builder: (context, lang, child) {
                     return Text(
@@ -111,7 +113,7 @@ class _SettingsState extends State<Settings> {
               ),
               const Divider(),
               ListTile(
-                leading: Icon(Icons.lock, size: _defIconSize),
+                leading: Icon(Icons.lock, size: defIconSize),
                 title: Text(AppLocalizations.of(context)!
                     .translate('change_password_lbl')),
                 onTap: () {
@@ -120,7 +122,7 @@ class _SettingsState extends State<Settings> {
               ),
               const Divider(),
               ListTile(
-                leading: Icon(Icons.exit_to_app, size: _defIconSize),
+                leading: Icon(Icons.exit_to_app, size: defIconSize),
                 title:
                     Text(AppLocalizations.of(context)!.translate('logout_lbl')),
                 onTap: _logout,
@@ -139,9 +141,9 @@ class _SettingsState extends State<Settings> {
                           .translate('confirm_delete_account'),
                       customActions: <Widget>[
                         TextButton(
+                          onPressed: _deleteAccount,
                           child: Text(AppLocalizations.of(context)!
                               .translate('yes_lbl')),
-                          onPressed: _deleteAccount,
                         ),
                         TextButton(
                           child: Text(AppLocalizations.of(context)!
@@ -157,7 +159,7 @@ class _SettingsState extends State<Settings> {
                     );
                   }
                 },
-                leading: Icon(Icons.apps, size: _defIconSize),
+                leading: Icon(Icons.apps, size: defIconSize),
                 title: Text(
                     AppLocalizations.of(context)!.translate('version_lbl')),
                 subtitle: Text('V.$appVersion'),
@@ -185,7 +187,7 @@ class _SettingsState extends State<Settings> {
               ),
               const Divider(),
               ListTile(
-                leading: Icon(Icons.code, size: _defIconSize),
+                leading: Icon(Icons.code, size: defIconSize),
                 title:
                     Text(AppLocalizations.of(context)!.translate('client_acc')),
                 subtitle: Text(_clientAcc!),
@@ -213,19 +215,19 @@ class _SettingsState extends State<Settings> {
               ),
               const Divider(),
               ListTile(
-                leading: Icon(Icons.code, size: _defIconSize),
+                leading: Icon(Icons.code, size: defIconSize),
                 title: const Text('Device ID'),
                 subtitle: SelectableText(_deviceId ?? ''),
               ),
               const Divider(),
               ListTile(
-                leading: Icon(Icons.code, size: _defIconSize),
+                leading: Icon(Icons.code, size: defIconSize),
                 title: const Text('Reg ID'),
                 subtitle: SelectableText(_regId ?? ''),
               ),
               const Divider(),
               ListTile(
-                leading: Icon(Icons.code, size: _defIconSize),
+                leading: Icon(Icons.code, size: defIconSize),
                 title: const Text('Model'),
                 subtitle: SelectableText('$_deviceBrand $_deviceModel'),
               ),

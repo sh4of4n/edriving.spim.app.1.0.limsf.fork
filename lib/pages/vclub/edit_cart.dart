@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import '/base/page_base_class.dart';
 import '/common_library/services/repository/sales_order_repository.dart';
@@ -22,7 +24,7 @@ class CartItemEdit extends StatefulWidget {
   final String? batchNo;
   final String? slsKey;
 
-  CartItemEdit({
+  const CartItemEdit({
     this.stkCode,
     this.stkDesc1,
     this.stkDesc2,
@@ -37,10 +39,10 @@ class CartItemEdit extends StatefulWidget {
   });
 
   @override
-  _CartItemEditState createState() => _CartItemEditState();
+  CartItemEditState createState() => CartItemEditState();
 }
 
-class _CartItemEditState extends State<CartItemEdit> with PageBaseClass {
+class CartItemEditState extends State<CartItemEdit> with PageBaseClass {
   // final stockEnquiryRepo = StockEnquiryRepo();
   final salesOrderRepo = SalesOrderRepo();
   final primaryColor = ColorConstant.primaryColor;
@@ -166,7 +168,8 @@ class _CartItemEditState extends State<CartItemEdit> with PageBaseClass {
                 cursorWidth: 0,
                 controller: _qtyController,
                 focusNode: _qtyFocus,
-                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
                 onChanged: (value) async {
                   if (_qtyController.text.isEmpty) {
                     _qtyController.text = '0';
@@ -190,7 +193,7 @@ class _CartItemEditState extends State<CartItemEdit> with PageBaseClass {
                   fillColor: Colors.grey.withOpacity(.25),
                   filled: true,
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black26),
+                    borderSide: const BorderSide(color: Colors.black26),
                     borderRadius: BorderRadius.circular(30),
                   ),
                   border: OutlineInputBorder(
@@ -207,7 +210,7 @@ class _CartItemEditState extends State<CartItemEdit> with PageBaseClass {
 
                       _calculateTotalAmount();
                     },
-                    icon: Icon(Icons.close),
+                    icon: const Icon(Icons.close),
                   ),
                 ),
                 validator: (value) {
@@ -239,10 +242,10 @@ class _CartItemEditState extends State<CartItemEdit> with PageBaseClass {
           : ElevatedButton(
               style: ElevatedButton.styleFrom(
                 minimumSize: Size(420.w, 45.h),
-                padding: EdgeInsets.symmetric(vertical: 11.0),
-                shape: StadiumBorder(),
-                primary: Color(0xffdd0e0e),
-                textStyle: TextStyle(color: Colors.white),
+                padding: const EdgeInsets.symmetric(vertical: 11.0),
+                shape: const StadiumBorder(),
+                primary: const Color(0xffdd0e0e),
+                textStyle: const TextStyle(color: Colors.white),
               ),
               onPressed: _submit,
               child: Text(
@@ -258,7 +261,7 @@ class _CartItemEditState extends State<CartItemEdit> with PageBaseClass {
   _submit() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      FocusScope.of(context).requestFocus(new FocusNode());
+      FocusScope.of(context).requestFocus(FocusNode());
       setState(() {
         _saveBtnIsLoading = true;
         _message = '';
@@ -333,7 +336,7 @@ class _CartItemEditState extends State<CartItemEdit> with PageBaseClass {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Edit Order'),
+          title: const Text('Edit Order'),
         ),
         body: ListView(
           children: <Widget>[
@@ -346,14 +349,14 @@ class _CartItemEditState extends State<CartItemEdit> with PageBaseClass {
                 children: [
                   TableRow(
                     children: [
-                      Text('Item'),
+                      const Text('Item'),
                       Text(widget.stkCode ?? 'No item name',
                           textAlign: TextAlign.left),
                     ],
                   ),
                   TableRow(
                     children: [
-                      Text('Description'),
+                      const Text('Description'),
                       Text(widget.stkDesc1 ?? 'No item description',
                           textAlign: TextAlign.left),
                     ],
@@ -366,7 +369,7 @@ class _CartItemEditState extends State<CartItemEdit> with PageBaseClass {
                   // ),
                   TableRow(
                     children: [
-                      Text('Price'),
+                      const Text('Price'),
                       Text(widget.price ?? '0.00', textAlign: TextAlign.left),
                     ],
                   ),
@@ -414,9 +417,9 @@ class _CartItemEditState extends State<CartItemEdit> with PageBaseClass {
                     _message.isNotEmpty
                         ? Text(
                             _message,
-                            style: TextStyle(color: Colors.red),
+                            style: const TextStyle(color: Colors.red),
                           )
-                        : SizedBox.shrink(),
+                        : const SizedBox.shrink(),
                     _saveButton(),
                   ],
                 ),

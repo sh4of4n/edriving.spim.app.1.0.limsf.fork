@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import '/pages/login/client_acc_tablet_form.dart';
 import '/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -6,15 +8,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'client_acc_form.dart';
 
 class ClientAccount extends StatefulWidget {
-  final data;
+  final dynamic data;
 
-  ClientAccount({this.data});
+  const ClientAccount({this.data});
 
   @override
-  _ClientAccountState createState() => _ClientAccountState();
+  ClientAccountState createState() => ClientAccountState();
 }
 
-class _ClientAccountState extends State<ClientAccount> {
+class ClientAccountState extends State<ClientAccount> {
   GlobalKey<ScaffoldState> scaffoldState = GlobalKey<ScaffoldState>();
   final primaryColor = ColorConstant.primaryColor;
 
@@ -43,7 +45,7 @@ class _ClientAccountState extends State<ClientAccount> {
               Colors.amber.shade300,
               primaryColor
             ],
-            stops: [0.2, 0.4, 0.6, 0.7, 1],
+            stops: const [0.2, 0.4, 0.6, 0.7, 1],
             radius: 0.7,
           ),
         ),
@@ -104,7 +106,7 @@ class _ClientAccountState extends State<ClientAccount> {
               Colors.amber.shade300,
               primaryColor
             ],
-            stops: [0.2, 0.4, 0.6, 0.7, 1],
+            stops: const [0.2, 0.4, 0.6, 0.7, 1],
             radius: 0.7,
           ),
         ),

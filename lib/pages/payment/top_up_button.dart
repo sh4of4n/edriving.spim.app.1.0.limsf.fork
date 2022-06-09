@@ -1,12 +1,14 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TopUpButton extends StatelessWidget {
   final String? value;
   final TextStyle? textStyle;
-  final onTap;
+  final dynamic onTap;
 
-  TopUpButton({this.value, this.textStyle, this.onTap});
+  const TopUpButton({this.value, this.textStyle, this.onTap});
 
   @override
   Widget build(BuildContext context) {

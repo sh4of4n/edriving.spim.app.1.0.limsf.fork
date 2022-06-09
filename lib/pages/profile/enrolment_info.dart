@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/repository/auth_repository.dart';
 import '/common_library/services/repository/epandu_repository.dart';
@@ -14,10 +16,10 @@ import '../../router.gr.dart';
 
 class EnrolmentInfo extends StatefulWidget {
   @override
-  _EnrolmentInfoState createState() => _EnrolmentInfoState();
+  EnrolmentInfoState createState() => EnrolmentInfoState();
 }
 
-class _EnrolmentInfoState extends State<EnrolmentInfo> {
+class EnrolmentInfoState extends State<EnrolmentInfo> {
   final primaryColor = ColorConstant.primaryColor;
 
   /* final TextStyle _titleStyle = TextStyle(
@@ -62,7 +64,7 @@ class _EnrolmentInfoState extends State<EnrolmentInfo> {
             Colors.white,
             primaryColor,
           ],
-          stops: [0.45, 0.95],
+          stops: const [0.45, 0.95],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
@@ -188,14 +190,12 @@ class _EnrolmentInfoState extends State<EnrolmentInfo> {
                                               ),
                                               children: [
                                                 TextSpan(
-                                                  text: AppLocalizations.of(
-                                                              context)!
-                                                          .translate(
-                                                              'class_lbl') +
-                                                      ' ',
+                                                  text:
+                                                      '${AppLocalizations.of(context)!.translate('class_lbl')} '
+                                                      '',
                                                   style: const TextStyle(
                                                     fontWeight: FontWeight.bold,
-                                                    color: const Color(
+                                                    color: Color(
                                                       0xff666666,
                                                     ),
                                                     decoration: TextDecoration
@@ -207,8 +207,7 @@ class _EnrolmentInfoState extends State<EnrolmentInfo> {
                                                           .groupId ??
                                                       '',
                                                   style: const TextStyle(
-                                                    color:
-                                                        const Color(0xffdd0e0e),
+                                                    color: Color(0xffdd0e0e),
                                                     decoration: TextDecoration
                                                         .underline,
                                                   ),
@@ -227,12 +226,7 @@ class _EnrolmentInfoState extends State<EnrolmentInfo> {
                                           Text(
                                             snapshot.data[index].totalTime !=
                                                     null
-                                                ? AppLocalizations.of(context)!
-                                                        .translate(
-                                                            'total_time') +
-                                                    ' ' +
-                                                    snapshot
-                                                        .data[index].totalTime
+                                                ? '${AppLocalizations.of(context)!.translate('total_time')}  ${snapshot.data[index].totalTime}'
                                                 : /* AppLocalizations.of(context)
                                                     .translate('no_total_time') */
                                                 'Total time 00:00',
@@ -248,9 +242,7 @@ class _EnrolmentInfoState extends State<EnrolmentInfo> {
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 100.w),
                                         child: Text(
-                                          snapshot.data[index].status != null
-                                              ? snapshot.data[index].status
-                                              : '',
+                                          snapshot.data[index].status ?? '',
                                           style: TextStyle(
                                             fontSize: 70.sp,
                                             color: const Color(

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -16,20 +17,23 @@ class DatabaseCreator {
       [List<Map<String, dynamic>>? selectQueryResult,
       int? insertAndUpdateQueryResult,
       List<dynamic>? params]) {
-    print(functionName);
-    print(sql);
+    debugPrint(functionName);
+    debugPrint(sql);
     if (params != null) {
+      // ignore: avoid_print
       print(params);
     }
     if (selectQueryResult != null) {
+      // ignore: avoid_print
       print(selectQueryResult);
     } else if (insertAndUpdateQueryResult != null) {
+      // ignore: avoid_print
       print(insertAndUpdateQueryResult);
     }
   }
 
   Future<void> createTodoTable(Database db) async {
-    final String todoSql = '''CREATE TABLE $todoTable
+    const String todoSql = '''CREATE TABLE $todoTable
     (
       $id INTEGER PRIMARY KEY,
       $name TEXT,
@@ -56,6 +60,7 @@ class DatabaseCreator {
   Future<void> initDatabase() async {
     final path = await getDatabasePath('todo_db');
     db = await openDatabase(path, version: 1, onCreate: onCreate);
+    // ignore: avoid_print
     print(db);
   }
 

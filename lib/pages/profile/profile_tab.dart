@@ -1,8 +1,10 @@
 // import '/pages/edompet/edompet.dart';
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/repository/epandu_repository.dart';
-import '/pages/profile/profile_page.dart' as profilePage;
-import '/pages/settings/settings.dart' as settingsPage;
+import '/pages/profile/profile_page.dart' as profilepage;
+import '/pages/settings/settings.dart' as settingspage;
 import '/common_library/services/model/profile_model.dart';
 import '/common_library/services/repository/profile_repository.dart';
 import '/utils/constants.dart';
@@ -14,21 +16,21 @@ import '/common_library/utils/app_localizations.dart';
 import '../../router.gr.dart';
 
 class ProfileTab extends StatefulWidget {
-  final positionStream;
+  final dynamic positionStream;
 
-  ProfileTab(this.positionStream);
+  const ProfileTab(this.positionStream);
 
   @override
-  _ProfileTabState createState() => _ProfileTabState();
+  ProfileTabState createState() => ProfileTabState();
 }
 
-class _ProfileTabState extends State<ProfileTab>
+class ProfileTabState extends State<ProfileTab>
     with
         SingleTickerProviderStateMixin,
         AutomaticKeepAliveClientMixin<ProfileTab> {
   final List<Tab> myTabs = <Tab>[
-    Tab(
-      icon: new Icon(
+    const Tab(
+      icon: Icon(
         Icons.account_circle,
         size: 28.0,
       ),
@@ -39,8 +41,8 @@ class _ProfileTabState extends State<ProfileTab>
         size: 28.0,
       ),
     ), */
-    Tab(
-      icon: new Icon(
+    const Tab(
+      icon: Icon(
         Icons.settings,
         size: 28.0,
       ),
@@ -57,18 +59,18 @@ class _ProfileTabState extends State<ProfileTab>
   final RegExp removeBracket =
       RegExp("\\[(.*?)\\]", multiLine: true, caseSensitive: true);
 
-  var paymentResponse;
-  var paymentData;
+  dynamic paymentResponse;
+  dynamic paymentData;
 
-  var attendanceResponse;
-  var attendanceData;
+  dynamic attendanceResponse;
+  dynamic attendanceData;
 
   String enrollmentMessage = '';
   String paymentMessage = '';
   String attendanceMessage = '';
 
   UserProfile? userProfile;
-  var enrollData;
+  dynamic enrollData;
   bool isLoading = false;
 
   @override
@@ -131,10 +133,11 @@ class _ProfileTabState extends State<ProfileTab>
       localStorage.saveCdl(result.data[0].cdlGroup ?? '');
       localStorage.saveLdl(result.data[0].enqLdlGroup ?? '');
 
-      if (result.data[0].picturePath != null)
+      if (result.data[0].picturePath != null) {
         localStorage.saveProfilePic(result.data[0].picturePath
             .replaceAll(removeBracket, '')
             .split('\r\n')[0]);
+      }
     } else {
       _getUserInfo();
       /* customDialog.show(
@@ -242,15 +245,15 @@ class _ProfileTabState extends State<ProfileTab>
       margin: EdgeInsets.only(right: 15.w),
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(
-          side: BorderSide(
+          side: const BorderSide(
             color: Colors.blue,
             width: 1.5,
           ),
-          shape: StadiumBorder(),
+          shape: const StadiumBorder(),
         ),
         onPressed: () async {
           await context.router
-              .push(UpdateProfile())
+              .push(const UpdateProfile())
               .then((value) => _getUserInfo());
         },
         child: Text(AppLocalizations.of(context)!.translate('edit_profile')),
@@ -268,7 +271,7 @@ class _ProfileTabState extends State<ProfileTab>
         decoration: BoxDecoration(
           gradient: RadialGradient(
             colors: [Colors.amber.shade300, primaryColor],
-            stops: [0.5, 1],
+            stops: const [0.5, 1],
             radius: 0.9,
           ),
         ),
@@ -281,16 +284,16 @@ class _ProfileTabState extends State<ProfileTab>
           ),
           backgroundColor: Colors.transparent,
           body: TabBarView(controller: _tabController, children: [
-            profilePage.Profile(
+            profilepage.Profile(
               userProfile: userProfile,
               enrollData: enrollData,
               isLoading: isLoading,
             ),
             // Edompet(),
-            settingsPage.Settings(widget.positionStream),
+            settingspage.Settings(widget.positionStream),
           ]),
           bottomNavigationBar: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(30.0),

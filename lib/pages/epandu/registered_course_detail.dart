@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/repository/auth_repository.dart';
 import 'package:flutter/material.dart';
@@ -8,17 +10,17 @@ import 'package:intl/intl.dart';
 import '/common_library/utils/app_localizations.dart';
 
 class RegisteredCourseDetail extends StatefulWidget {
-  final groupId;
+  final dynamic groupId;
 
-  RegisteredCourseDetail(this.groupId);
+  const RegisteredCourseDetail(this.groupId);
 
   @override
-  _RegisteredCourseDetailState createState() => _RegisteredCourseDetailState();
+  RegisteredCourseDetailState createState() => RegisteredCourseDetailState();
 }
 
-class _RegisteredCourseDetailState extends State<RegisteredCourseDetail> {
+class RegisteredCourseDetailState extends State<RegisteredCourseDetail> {
   final authRepo = AuthRepo();
-  var _enrollHistoryData;
+  dynamic _enrollHistoryData;
   bool _isLoading = true;
 
   @override
@@ -49,17 +51,17 @@ class _RegisteredCourseDetailState extends State<RegisteredCourseDetail> {
   }
 
   _loadHistoryData() {
-    if (_isLoading && _enrollHistoryData == null)
+    if (_isLoading && _enrollHistoryData == null) {
       return Column(
-        children: <Widget>[
-          const Expanded(
-            child: const SpinKitFoldingCube(
+        children: const <Widget>[
+          Expanded(
+            child: SpinKitFoldingCube(
               color: Colors.blue,
             ),
           ),
         ],
       );
-    else if (!_isLoading && _enrollHistoryData is String)
+    } else if (!_isLoading && _enrollHistoryData is String) {
       return Column(
         children: <Widget>[
           Expanded(
@@ -69,6 +71,7 @@ class _RegisteredCourseDetailState extends State<RegisteredCourseDetail> {
           ),
         ],
       );
+    }
 
     return SingleChildScrollView(
       child: Container(
@@ -97,7 +100,7 @@ class _RegisteredCourseDetailState extends State<RegisteredCourseDetail> {
                         padding: EdgeInsets.symmetric(vertical: 10.h),
                         child: Text(
                           _enrollHistoryData[0].icNo != null
-                              ? 'IC: ' + _enrollHistoryData[0].icNo
+                              ? 'IC: ${_enrollHistoryData[0].icNo}'
                               : '',
                           style: const TextStyle(
                             color: Colors.black,
@@ -108,7 +111,7 @@ class _RegisteredCourseDetailState extends State<RegisteredCourseDetail> {
                         padding: EdgeInsets.symmetric(vertical: 10.h),
                         child: Text(
                           _enrollHistoryData[0].groupId != null
-                              ? 'Class ' + _enrollHistoryData[0].groupId
+                              ? 'Class ${_enrollHistoryData[0].groupId}'
                               : '',
                           style: const TextStyle(
                             color: Colors.black,
@@ -124,7 +127,7 @@ class _RegisteredCourseDetailState extends State<RegisteredCourseDetail> {
                         padding: EdgeInsets.symmetric(vertical: 10.h),
                         child: Text(
                           _enrollHistoryData[0].stuNo != null
-                              ? 'Student no: ' + _enrollHistoryData[0].stuNo
+                              ? 'Student no: ${_enrollHistoryData[0].icNo}'
                               : '',
                           style: const TextStyle(
                             color: Colors.black,
@@ -135,7 +138,7 @@ class _RegisteredCourseDetailState extends State<RegisteredCourseDetail> {
                         padding: EdgeInsets.symmetric(vertical: 10.h),
                         child: Text(
                           _enrollHistoryData[0].status != null
-                              ? 'Status: ' + _enrollHistoryData[0].status
+                              ? 'Status: ${_enrollHistoryData[0].status}'
                               : '',
                           style: const TextStyle(
                             color: Colors.black,
@@ -151,7 +154,7 @@ class _RegisteredCourseDetailState extends State<RegisteredCourseDetail> {
                         padding: EdgeInsets.symmetric(vertical: 10.h),
                         child: Text(
                           _enrollHistoryData[0].tlHrsTak != null
-                              ? 'Hours taken: ' + _enrollHistoryData[0].tlHrsTak
+                              ? 'Hours taken: ${_enrollHistoryData[0].tlHrsTak}'
                               : '0',
                           style: const TextStyle(
                             color: Colors.black,
@@ -162,7 +165,7 @@ class _RegisteredCourseDetailState extends State<RegisteredCourseDetail> {
                         padding: EdgeInsets.symmetric(vertical: 10.h),
                         child: Text(
                           _enrollHistoryData[0].totalTime != null
-                              ? 'Total time: ' + _enrollHistoryData[0].totalTime
+                              ? 'Total time: ${_enrollHistoryData[0].totalTime}'
                               : '00:00',
                           style: const TextStyle(
                             color: Colors.black,
@@ -178,10 +181,7 @@ class _RegisteredCourseDetailState extends State<RegisteredCourseDetail> {
                         padding: EdgeInsets.symmetric(vertical: 10.h),
                         child: Text(
                           _enrollHistoryData[0].totalPaid != null
-                              ? 'Total paid: RM' +
-                                  NumberFormat('#,##0.00').format(
-                                      double.tryParse(
-                                          _enrollHistoryData[0].totalPaid))
+                              ? 'Total paid: RM ${NumberFormat('#,##0.00').format(double.tryParse(_enrollHistoryData[0].totalPaid))}'
                               : '0.00',
                           style: const TextStyle(
                             color: Colors.black,
@@ -192,10 +192,7 @@ class _RegisteredCourseDetailState extends State<RegisteredCourseDetail> {
                         padding: EdgeInsets.symmetric(vertical: 10.h),
                         child: Text(
                           _enrollHistoryData[0].fee != null
-                              ? 'Fee: RM' +
-                                  NumberFormat('#,##0.00').format(
-                                      double.tryParse(
-                                          _enrollHistoryData[0].fee))
+                              ? 'Fee: RM ${NumberFormat('#,##0.00').format(double.tryParse(_enrollHistoryData[0].fee))}'
                               : '0.00',
                           style: const TextStyle(
                             color: Colors.black,

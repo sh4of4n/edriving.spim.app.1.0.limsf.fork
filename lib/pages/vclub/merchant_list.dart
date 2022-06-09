@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import '/common_library/services/location.dart';
 import '/common_library/services/repository/vclub_repository.dart';
 import '/utils/constants.dart';
@@ -8,15 +10,15 @@ import 'package:transparent_image/transparent_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MerchantList extends StatefulWidget {
-  final merchantType;
+  final dynamic merchantType;
 
-  MerchantList(this.merchantType);
+  const MerchantList(this.merchantType);
 
   @override
-  _MerchantListState createState() => _MerchantListState();
+  MerchantListState createState() => MerchantListState();
 }
 
-class _MerchantListState extends State<MerchantList> {
+class MerchantListState extends State<MerchantList> {
   final primaryColor = ColorConstant.primaryColor;
   final vClubRepo = VclubRepo();
   Location location = Location();
@@ -28,7 +30,7 @@ class _MerchantListState extends State<MerchantList> {
   int _startIndex = 0;
   List<dynamic> items = [];
 
-  ScrollController _scrollController = new ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
   final RegExp removeBracket =
       RegExp("\\[(.*?)\\]", multiLine: true, caseSensitive: true);
@@ -39,17 +41,16 @@ class _MerchantListState extends State<MerchantList> {
 
     _getCurrentLocation();
 
-    _scrollController
-      ..addListener(() {
-        if (_scrollController.position.pixels ==
-            _scrollController.position.maxScrollExtent) {
-          setState(() {
-            _startIndex += 10;
-          });
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        setState(() {
+          _startIndex += 10;
+        });
 
-          if (_message!.isEmpty) _getMerchant();
-        }
-      });
+        if (_message!.isEmpty) _getMerchant();
+      }
+    });
   }
 
   _getCurrentLocation() async {
@@ -73,22 +74,28 @@ class _MerchantListState extends State<MerchantList> {
     );
 
     if (result.isSuccess) {
-      if (result.data.length > 0) if (mounted)
-        setState(() {
-          for (int i = 0; i < result.data.length; i += 1) {
-            items.add(result.data[i]);
+      if (result.data.length > 0) {
+        if (mounted) {
+          setState(() {
+            for (int i = 0; i < result.data.length; i += 1) {
+              items.add(result.data[i]);
+            }
+          });
+        } else {
+          if (mounted) {
+            setState(() {
+              _isLoading = false;
+            });
           }
-        });
-      else if (mounted)
-        setState(() {
-          _isLoading = false;
-        });
-    } else {
-      if (mounted)
-        setState(() {
-          _message = result.message;
-          _isLoading = false;
-        });
+        }
+      } else {
+        if (mounted) {
+          setState(() {
+            _message = result.message;
+            _isLoading = false;
+          });
+        }
+      }
     }
   }
 
@@ -108,7 +115,7 @@ class _MerchantListState extends State<MerchantList> {
             Colors.white,
             primaryColor,
           ],
-          stops: [0.45, 0.65],
+          stops: const [0.45, 0.65],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
@@ -142,14 +149,14 @@ class _MerchantListState extends State<MerchantList> {
   }
 
   _merchantList() {
-    if (items.length == 0 && _message!.isNotEmpty) {
+    if (items.isEmpty && _message!.isNotEmpty) {
       return Center(
         child: Text(_message!),
       );
-    } else if (items.length > 0) {
+    } else if (items.isNotEmpty) {
       return ListView(
         shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         children: <Widget>[
           for (var item in items)
             MerchantCard(

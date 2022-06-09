@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
@@ -12,8 +14,8 @@ import '/common_library/utils/app_localizations.dart';
 // import '../../router.gr.dart';
 
 class NavigationControls extends StatelessWidget {
-  final type;
-  final backType;
+  final dynamic type;
+  final dynamic backType;
 
   const NavigationControls({
     required this.webViewControllerFuture,
@@ -26,9 +28,9 @@ class NavigationControls extends StatelessWidget {
   backButton(BuildContext context, webViewReady, controller) async {
     final customDialog = CustomDialog();
 
-    if (!webViewReady)
+    if (!webViewReady) {
       return null;
-    else {
+    } else {
       if (backType == 'HOME') {
         customDialog.show(
           context: context,

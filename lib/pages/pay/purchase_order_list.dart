@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import '/common_library/utils/app_localizations.dart';
 import '/common_library/services/repository/fpx_repository.dart';
@@ -16,17 +18,17 @@ class PurchaseOrderList extends StatefulWidget {
   final String? packageCode;
   final String? diCode;
 
-  PurchaseOrderList({
+  const PurchaseOrderList({
     this.icNo,
     this.packageCode,
     this.diCode,
   });
 
   @override
-  _PurchaseOrderListState createState() => _PurchaseOrderListState();
+  PurchaseOrderListState createState() => PurchaseOrderListState();
 }
 
-class _PurchaseOrderListState extends State<PurchaseOrderList> {
+class PurchaseOrderListState extends State<PurchaseOrderList> {
   final fpxRepo = FpxRepo();
   final localStorage = LocalStorage();
   Future? getOrderList;
@@ -93,13 +95,13 @@ class _PurchaseOrderListState extends State<PurchaseOrderList> {
               switch (snapshot.connectionState) {
                 case ConnectionState.waiting:
                   return Container(
-                    padding: EdgeInsets.all(15.0),
-                    margin:
-                        EdgeInsets.symmetric(vertical: 15.0, horizontal: 8.0),
+                    padding: const EdgeInsets.all(15.0),
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 15.0, horizontal: 8.0),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(15.0),
-                      boxShadow: [
+                      boxShadow: const [
                         BoxShadow(
                           color: Colors.black26,
                           offset: Offset(0, 8.0),
@@ -164,16 +166,16 @@ class _PurchaseOrderListState extends State<PurchaseOrderList> {
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 20.w, vertical: 20.h),
                                 child: Table(
-                                  columnWidths: {1: FractionColumnWidth(.3)},
+                                  columnWidths: const {
+                                    1: FractionColumnWidth(.3)
+                                  },
                                   children: [
                                     TableRow(
                                       children: [
                                         Text(
                                             'Order: ${snapshot.data[index].docDoc}${snapshot.data[index].docRef}'),
                                         Text(
-                                          'Date: ' +
-                                              snapshot.data[index].ordDate
-                                                  .substring(0, 10),
+                                          'Date: ${snapshot.data[index].ordDate.substring(0, 10)}',
                                         ),
                                       ],
                                     ),
@@ -182,7 +184,7 @@ class _PurchaseOrderListState extends State<PurchaseOrderList> {
                                         Text(
                                             'Name: ${snapshot.data[index].name}'),
                                         Text(
-                                          'IC: ' + snapshot.data[index].icNo,
+                                          'IC: ${snapshot.data[index].icNo}',
                                         ),
                                       ],
                                     ),
@@ -192,8 +194,7 @@ class _PurchaseOrderListState extends State<PurchaseOrderList> {
                                           'Package: ${snapshot.data[index].packageCode}',
                                         ),
                                         Text(
-                                          'Price: ' +
-                                              snapshot.data[index].tlNettOrdAmt,
+                                          'Price: ${snapshot.data[index].tlNettOrdAmt}',
                                         ),
                                       ],
                                     ),
@@ -201,35 +202,29 @@ class _PurchaseOrderListState extends State<PurchaseOrderList> {
                                       children: [
                                         Text(
                                             'Desc: ${snapshot.data[index].packageDesc}'),
-                                        Text('Service Tax: ' +
-                                            snapshot.data[index].tlSerTax),
+                                        Text(
+                                            'Service Tax: ${snapshot.data[index].tlSerTax}'),
                                       ],
                                     ),
                                     TableRow(
                                       children: [
                                         Text(
                                           'Status: ${snapshot.data[index].trnStatus}',
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
                                         Text(
-                                          'Discount: ' +
-                                              double.tryParse(snapshot
-                                                      .data[index].tlDiscAmt)!
-                                                  .toStringAsFixed(2),
+                                          'Discount: ${double.tryParse(snapshot.data[index].tlDiscAmt)!.toStringAsFixed(2)} ',
                                         ),
                                       ],
                                     ),
                                     TableRow(
                                       children: [
-                                        Text(''),
+                                        const Text(''),
                                         Text(
-                                          'Total: ' +
-                                              double.tryParse(snapshot
-                                                      .data[index].tlOrdAmt)!
-                                                  .toStringAsFixed(2),
-                                          style: TextStyle(
+                                          'Total: ${double.tryParse(snapshot.data[index].tlOrdAmt)!.toStringAsFixed(2)} ',
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),

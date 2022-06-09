@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import '/common_library/utils/app_localizations.dart';
 import '/base/page_base_class.dart';
@@ -11,11 +13,11 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class ForgotPasswordTabletForm extends StatefulWidget {
   @override
-  _ForgotPasswordTabletFormState createState() =>
-      _ForgotPasswordTabletFormState();
+  ForgotPasswordTabletFormState createState() =>
+      ForgotPasswordTabletFormState();
 }
 
-class _ForgotPasswordTabletFormState extends State<ForgotPasswordTabletForm>
+class ForgotPasswordTabletFormState extends State<ForgotPasswordTabletForm>
     with PageBaseClass {
   final authRepo = AuthRepo();
 
@@ -194,7 +196,7 @@ class _ForgotPasswordTabletFormState extends State<ForgotPasswordTabletForm>
   _submit() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      FocusScope.of(context).requestFocus(new FocusNode());
+      FocusScope.of(context).requestFocus(FocusNode());
 
       setState(() {
         // _height = ScreenUtil().setHeight(1200);
@@ -210,14 +212,15 @@ class _ForgotPasswordTabletFormState extends State<ForgotPasswordTabletForm>
         longitude: '999',
         phDeviceId: '',
       );
-
-      if (result.isSuccess) {
-        context.router.pop();
-        CustomSnackbar().show(
-          context,
-          message: result.message.toString(),
-          type: MessageType.success,
-        );
+      if (mounted) {
+        if (result.isSuccess) {
+          context.router.pop();
+          CustomSnackbar().show(
+            context,
+            message: result.message.toString(),
+            type: MessageType.success,
+          );
+        }
       } else {
         if (result.message!.contains('timeout')) {
           setState(() {

@@ -15,8 +15,8 @@ import 'package:auto_route/auto_route.dart';
 import '../../router.gr.dart';
 
 class Scan extends StatefulWidget {
-  final getDiProfile;
-  final getActiveFeed;
+  final dynamic getDiProfile;
+  final dynamic getActiveFeed;
 
   const Scan({
     this.getActiveFeed,
@@ -53,7 +53,7 @@ class _ScanState extends State<Scan> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('QR'),
+        title: const Text('QR'),
       ),
       body: Stack(
         children: [
@@ -102,7 +102,7 @@ class _ScanState extends State<Scan> {
         CheckInScanResponse checkInScanResponse =
             CheckInScanResponse.fromJson(jsonDecode(scanData.code!));
 
-        print(jsonDecode(scanData.code!)['Table1'][0]['merchant_no']);
+        debugPrint(jsonDecode(scanData.code!)['Table1'][0]['merchant_no']);
 
         if (merchantNo ==
             jsonDecode(scanData.code!)['Table1'][0]['merchant_no']) {
@@ -127,19 +127,20 @@ class _ScanState extends State<Scan> {
 
         String? icNo = await localStorage.getStudentIc();
 
-        if (icNo != null && icNo.isNotEmpty) {
-          setState(() {
-            _isLoading = true;
-          });
+        if (mounted) {
+          if (icNo != null && icNo.isNotEmpty) {
+            setState(() {
+              _isLoading = true;
+            });
 
-          final result = await epanduRepo.verifyScanCode(
-            context: context,
-            qrcodeJson: scanData.code,
-            icNo: icNo,
-          );
+            final result = await epanduRepo.verifyScanCode(
+              context: context,
+              qrcodeJson: scanData.code,
+              icNo: icNo,
+            );
 
-          if (result.isSuccess) {
-            /* customDialog.show(
+            if (result.isSuccess) {
+              /* customDialog.show(
                   context: context,
                   title: Text(
                     '${AppLocalizations.of(context).translate('checked_in_on')}: ' +
@@ -168,47 +169,52 @@ class _ScanState extends State<Scan> {
                   ],
                   type: DialogType.GENERAL,
                 ); */
-            context.router.replace(
-              QueueNumber(data: result.data),
-            );
+              context.router.replace(
+                QueueNumber(data: result.data),
+              );
+            } else {
+              customDialog.show(
+                context: context,
+                barrierDismissable: false,
+                content: result.message!,
+                onPressed: () {
+                  context.router.pop();
+
+                  controller!.resumeCamera();
+                },
+                type: DialogType.info,
+              );
+
+              setState(() {
+                _isLoading = false;
+              });
+            }
           } else {
             customDialog.show(
               context: context,
               barrierDismissable: false,
-              content: result.message!,
-              onPressed: () {
-                context.router.pop();
-
-                controller!.resumeCamera();
-              },
-              type: DialogType.info,
-            );
-
-            setState(() {
-              _isLoading = false;
-            });
-          }
-        } else {
-          customDialog.show(
-            context: context,
-            barrierDismissable: false,
-            content: AppLocalizations.of(context)!
-                .translate('complete_your_profile'),
-            customActions: <Widget>[
-              TextButton(
-                child: Text(AppLocalizations.of(context)!.translate('ok_btn')),
-                onPressed: () => context.router.push(
-                  UpdateProfile(),
+              content: AppLocalizations.of(context)!
+                  .translate('complete_your_profile'),
+              customActions: <Widget>[
+                TextButton(
+                  child:
+                      Text(AppLocalizations.of(context)!.translate('ok_btn')),
+                  onPressed: () => context.router.push(
+                    const UpdateProfile(),
+                  ),
                 ),
-              ),
-            ],
-            type: DialogType.general,
-          );
+              ],
+              type: DialogType.general,
+            );
+          }
         }
 
-        Provider.of<HomeLoadingModel>(context, listen: false)
-            .loadingStatus(false);
+        (BuildContext context) {
+          Provider.of<HomeLoadingModel>(context, listen: false)
+              .loadingStatus(false);
+        };
         break;
+
       default:
         context.router
             .replace(
@@ -243,7 +249,7 @@ class _ScanState extends State<Scan> {
 
               controller!.resumeCamera();
             },
-            child: Text('Ok'),
+            child: const Text('Ok'),
           ),
         ],
         type: DialogType.general,
@@ -261,7 +267,7 @@ class _ScanState extends State<Scan> {
 
             controller!.resumeCamera();
           },
-          child: Text('Ok'),
+          child: const Text('Ok'),
         ),
       ],
       type: DialogType.general,

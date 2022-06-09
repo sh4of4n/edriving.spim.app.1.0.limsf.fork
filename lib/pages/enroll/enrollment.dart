@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -31,10 +33,10 @@ enum AppState { free, picked, cropped }
 
 class Enrollment extends StatefulWidget {
   @override
-  _EnrollmentState createState() => _EnrollmentState();
+  EnrollmentState createState() => EnrollmentState();
 }
 
-class _EnrollmentState extends State<Enrollment> with PageBaseClass {
+class EnrollmentState extends State<Enrollment> with PageBaseClass {
   final authRepo = AuthRepo();
   final epanduRepo = EpanduRepo();
   final profileRepo = ProfileRepo();
@@ -89,7 +91,7 @@ class _EnrollmentState extends State<Enrollment> with PageBaseClass {
   // String _countryCode = '+60';
   String? _potentialDob = '';
   final myImage = ImagesConstant();
-  var _enrollHistoryData;
+  dynamic _enrollHistoryData;
   // String genderInt = '1';
 
   final hintStyle = const TextStyle(
@@ -113,9 +115,9 @@ class _EnrollmentState extends State<Enrollment> with PageBaseClass {
   String profilePicBase64 = '';
   late File _image;
   late File _croppedImage;
-  var imageState;
-  var ldlList;
-  var cdlList;
+  dynamic imageState;
+  dynamic ldlList;
+  dynamic cdlList;
 
   String? ldlItem = '';
   String? cdlItem = '';
@@ -821,11 +823,11 @@ class _EnrollmentState extends State<Enrollment> with PageBaseClass {
         int birthMonth = int.tryParse(_potentialDob!.substring(2, 4))!;
         int birthDay = int.tryParse(_potentialDob!.substring(4, 6))!;
 
-        if (currentYear - int.tryParse('19' + year)! < 70) {
-          birthYear = int.tryParse('19$year');
+        if (currentYear - int.tryParse('19 $year')! < 70) {
+          birthYear = int.tryParse('19 $year');
           _message = '';
-        } else if (currentYear - int.tryParse('20' + year)! < 16) {
-          birthYear = int.tryParse('20$year');
+        } else if (currentYear - int.tryParse('20 $year')! < 16) {
+          birthYear = int.tryParse('20 $year');
 
           _message = AppLocalizations.of(context)!.translate('enroll_underage');
         }
@@ -985,8 +987,8 @@ class _EnrollmentState extends State<Enrollment> with PageBaseClass {
   _checkEnrollmentStatus() {
     if (_obtainingStatus) {
       return Column(
-        children: <Widget>[
-          const Expanded(
+        children: const <Widget>[
+          Expanded(
             child: SpinKitFoldingCube(
               color: Colors.blue,
             ),
@@ -1136,7 +1138,7 @@ class _EnrollmentState extends State<Enrollment> with PageBaseClass {
                           ldlItem = value;
                         });
                       },
-                      items: ldlList == null
+                      items: ldlList
                           ? null
                           : ldlList
                               .map<DropdownMenuItem<String>>((dynamic value) {
@@ -1190,7 +1192,7 @@ class _EnrollmentState extends State<Enrollment> with PageBaseClass {
                           cdlItem = value;
                         });
                       },
-                      items: cdlList == null
+                      items: cdlList
                           ? null
                           : cdlList
                               .map<DropdownMenuItem<String>>((dynamic value) {
@@ -1463,7 +1465,7 @@ class _EnrollmentState extends State<Enrollment> with PageBaseClass {
     if (_enrollHistoryData == null) {
       if (_formKey.currentState!.validate()) {
         _formKey.currentState!.save();
-        FocusScope.of(context).requestFocus(new FocusNode());
+        FocusScope.of(context).requestFocus(FocusNode());
         if (_message !=
             AppLocalizations.of(context)!.translate('enroll_underage')) {
           setState(() {

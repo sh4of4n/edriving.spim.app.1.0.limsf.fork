@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import '/pages/chat/chat_screen.dart';
 import '/common_library/services/model/profile_model.dart';
 import '/common_library/utils/local_storage.dart';

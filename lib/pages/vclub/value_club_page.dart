@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import 'package:badges/badges.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -18,10 +20,10 @@ import '../../router.gr.dart';
 
 class ValueClub extends StatefulWidget {
   @override
-  _ValueClubState createState() => _ValueClubState();
+  ValueClubState createState() => ValueClubState();
 }
 
-class _ValueClubState extends State<ValueClub> {
+class ValueClubState extends State<ValueClub> {
   static final myImage = ImagesConstant();
   final formatter = NumberFormat('#,##0.00');
 
@@ -30,8 +32,8 @@ class _ValueClubState extends State<ValueClub> {
 
   int _carouselIndex = 0;
 
-  var mostPopularProducts;
-  var recommendedProducts;
+  dynamic mostPopularProducts;
+  dynamic recommendedProducts;
   List<String> categoryItems = [
     'Women\'s Clothing',
     'Electronics',
@@ -60,7 +62,7 @@ class _ValueClubState extends State<ValueClub> {
   final bubbleDecoration = BoxDecoration(
     color: Colors.white,
     borderRadius: BorderRadius.circular(10),
-    boxShadow: [
+    boxShadow: const [
       BoxShadow(
         color: Colors.black26,
         offset: Offset(0.0, 5.0),
@@ -113,13 +115,15 @@ class _ValueClubState extends State<ValueClub> {
       isCart: 'true',
     );
 
-    if (result.isSuccess) {
-      // return result.data;
-      _getSlsDetailByDocNo(
-        context,
-        result.data[0].docDoc,
-        result.data[0].docRef,
-      );
+    if (mounted) {
+      if (result.isSuccess) {
+        // return result.data;
+        _getSlsDetailByDocNo(
+          context,
+          result.data[0].docDoc,
+          result.data[0].docRef,
+        );
+      }
     }
   }
 
@@ -193,22 +197,23 @@ class _ValueClubState extends State<ValueClub> {
   }
 
   loadImage(image) {
-    if (image != null)
+    if (image != null) {
       return Image.network(
         image.replaceAll(removeBracket, '').split('\r\n')[0],
         height: 300.h,
         gaplessPlayback: true,
       );
+    }
 
     return SizedBox(
       // width: 180.w,
       height: 300.h,
-      child: Icon(Icons.broken_image, size: 40, color: Colors.grey),
+      child: const Icon(Icons.broken_image, size: 40, color: Colors.grey),
     );
   }
 
   mostPopularList() {
-    if (mostPopularProducts != null)
+    if (mostPopularProducts != null) {
       return Container(
         margin: EdgeInsets.symmetric(horizontal: 40.w),
         decoration: bubbleDecoration,
@@ -238,15 +243,15 @@ class _ValueClubState extends State<ValueClub> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
               child: GridView.builder(
                 shrinkWrap: true,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                   // childAspectRatio: MediaQuery.of(context).size.height / 530,
                 ),
                 padding: EdgeInsets.symmetric(horizontal: 40.w),
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 itemCount: mostPopularProducts.length,
                 itemBuilder: (BuildContext context, int index) {
                   return InkWell(
@@ -278,7 +283,7 @@ class _ValueClubState extends State<ValueClub> {
                       children: <Widget>[
                         loadImage(mostPopularProducts[index].stkpicturePath),
                         SizedBox(height: 20.h),
-                        Container(
+                        SizedBox(
                             width: 220.w,
                             child: Text(
                               mostPopularProducts[index].stkCode,
@@ -293,9 +298,9 @@ class _ValueClubState extends State<ValueClub> {
           ],
         ),
       );
-    else if (mostPopularProducts == null && mostPopularLoading == true)
+    } else if (mostPopularProducts == null && mostPopularLoading == true) {
       return Padding(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         child: Shimmer.fromColors(
           baseColor: Colors.grey[300]!,
           highlightColor: Colors.white,
@@ -306,11 +311,12 @@ class _ValueClubState extends State<ValueClub> {
           ),
         ),
       );
+    }
     return Container();
   }
 
   recommendedList() {
-    if (recommendedProducts != null)
+    if (recommendedProducts != null) {
       return Container(
         margin: EdgeInsets.symmetric(horizontal: 40.w),
         decoration: bubbleDecoration,
@@ -340,14 +346,14 @@ class _ValueClubState extends State<ValueClub> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
               child: GridView.builder(
                 shrinkWrap: true,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                 ),
                 padding: EdgeInsets.symmetric(horizontal: 40.w),
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 itemCount: recommendedProducts.length,
                 itemBuilder: (BuildContext context, int index) {
                   return InkWell(
@@ -379,7 +385,7 @@ class _ValueClubState extends State<ValueClub> {
                       children: <Widget>[
                         loadImage(recommendedProducts[index].stkpicturePath),
                         SizedBox(height: 30.h),
-                        Container(
+                        SizedBox(
                             width: 220.w,
                             child: Text(
                               recommendedProducts[index].stkCode,
@@ -394,9 +400,9 @@ class _ValueClubState extends State<ValueClub> {
           ],
         ),
       );
-    else if (recommendedProducts == null && recommendedLoading == true)
+    } else if (recommendedProducts == null && recommendedLoading == true) {
       return Padding(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         child: Shimmer.fromColors(
           baseColor: Colors.grey[300]!,
           highlightColor: Colors.white,
@@ -407,13 +413,14 @@ class _ValueClubState extends State<ValueClub> {
           ),
         ),
       );
+    }
     return Container();
   }
 
   categories() {
-    if (mostPopularProducts != null)
+    if (mostPopularProducts != null) {
       return Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.white,
           boxShadow: [
             BoxShadow(
@@ -456,11 +463,11 @@ class _ValueClubState extends State<ValueClub> {
             ),
             Container(
               height: 1200.h,
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
               child: GridView.builder(
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   // childAspectRatio: MediaQuery.of(context).size.height / 530,
                 ),
@@ -498,7 +505,7 @@ class _ValueClubState extends State<ValueClub> {
                       children: <Widget>[
                         // loadImage(mostPopularProducts[index].stkpicturePath),
                         SizedBox(height: 20.h),
-                        Container(
+                        SizedBox(
                             width: 220.w,
                             child: Text(
                               categoryItems[index],
@@ -513,9 +520,9 @@ class _ValueClubState extends State<ValueClub> {
           ],
         ),
       );
-    else if (mostPopularProducts == null && mostPopularLoading == true)
+    } else if (mostPopularProducts == null && mostPopularLoading == true) {
       return Padding(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         child: Shimmer.fromColors(
           baseColor: Colors.grey[300]!,
           highlightColor: Colors.white,
@@ -526,6 +533,7 @@ class _ValueClubState extends State<ValueClub> {
           ),
         ),
       );
+    }
     return Container();
   }
 
@@ -539,8 +547,8 @@ class _ValueClubState extends State<ValueClub> {
         enableInfiniteScroll: true,
         reverse: false,
         autoPlay: true,
-        autoPlayInterval: Duration(seconds: 10),
-        autoPlayAnimationDuration: Duration(milliseconds: 800),
+        autoPlayInterval: const Duration(seconds: 10),
+        autoPlayAnimationDuration: const Duration(milliseconds: 800),
         autoPlayCurve: Curves.fastOutSlowIn,
         enlargeCenterPage: true,
         scrollDirection: Axis.horizontal,
@@ -553,7 +561,7 @@ class _ValueClubState extends State<ValueClub> {
       items: brands.map((banner) {
         return Builder(
           builder: (BuildContext context) {
-            return Container(
+            return SizedBox(
               width: MediaQuery.of(context).size.width,
               // margin: EdgeInsets.symmetric(horizontal: 5.0),
               child: Image.asset(banner),
@@ -570,7 +578,7 @@ class _ValueClubState extends State<ValueClub> {
     int? badgeNo = context.watch<CartStatus>().cartItem;
 
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [
             Colors.white,
@@ -603,9 +611,9 @@ class _ValueClubState extends State<ValueClub> {
                   showBadge: showBadge,
                   badgeContent: Text(
                     '$badgeNo',
-                    style: TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white),
                   ),
-                  child: Icon(Icons.shopping_cart),
+                  child: const Icon(Icons.shopping_cart),
                 ),
               ),
             ),
@@ -642,8 +650,9 @@ class _ValueClubState extends State<ValueClub> {
                       enableInfiniteScroll: true,
                       reverse: false,
                       autoPlay: true,
-                      autoPlayInterval: Duration(seconds: 10),
-                      autoPlayAnimationDuration: Duration(milliseconds: 800),
+                      autoPlayInterval: const Duration(seconds: 10),
+                      autoPlayAnimationDuration:
+                          const Duration(milliseconds: 800),
                       autoPlayCurve: Curves.fastOutSlowIn,
                       enlargeCenterPage: true,
                       scrollDirection: Axis.horizontal,
@@ -656,7 +665,7 @@ class _ValueClubState extends State<ValueClub> {
                     items: banners.map((banner) {
                       return Builder(
                         builder: (BuildContext context) {
-                          return Container(
+                          return SizedBox(
                             width: MediaQuery.of(context).size.width,
                             // margin: EdgeInsets.symmetric(horizontal: 5.0),
                             child: Image.asset(banner),
@@ -672,7 +681,7 @@ class _ValueClubState extends State<ValueClub> {
                   child: AnimatedSmoothIndicator(
                     activeIndex: _carouselIndex,
                     count: banners.length,
-                    effect: ExpandingDotsEffect(),
+                    effect: const ExpandingDotsEffect(),
                   ),
                 ),
               ],

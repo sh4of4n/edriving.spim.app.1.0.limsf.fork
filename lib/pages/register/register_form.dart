@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -24,15 +26,15 @@ import '../../router.gr.dart';
 enum AppState { free, picked, cropped }
 
 class RegisterForm extends StatefulWidget {
-  final data;
+  final dynamic data;
 
-  RegisterForm(this.data);
+  const RegisterForm(this.data);
 
   @override
-  _RegisterFormState createState() => _RegisterFormState();
+  RegisterFormState createState() => RegisterFormState();
 }
 
-class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
+class RegisterFormState extends State<RegisterForm> with PageBaseClass {
   final authRepo = AuthRepo();
   final customDialog = CustomDialog();
 
@@ -65,8 +67,8 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
   String _password = '';
   String _confirmPassword = '';
   String _message = '';
-  String _latitude = '';
-  String _longitude = '';
+  String latitude = '';
+  String longitude = '';
 
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
@@ -83,9 +85,9 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
   String profilePic = '';
   late File _image;
   late File _croppedImage;
-  var imageState;
-  var ldlList;
-  var cdlList;
+  dynamic imageState;
+  dynamic ldlList;
+  dynamic cdlList;
 
   String? ldlItem = '';
   String? cdlItem = '';
@@ -216,7 +218,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
               TakeProfilePicture(camera: cameras),
             );
 
-            if (newProfilePic != null)
+            if (newProfilePic != null) {
               setState(() {
                 profilePic = '';
                 _image = File(newProfilePic as String);
@@ -224,6 +226,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                 // profilePicBase64 =
                 //     base64Encode(File(newProfilePic).readAsBytesSync());
               });
+            }
           },
         ),
         SimpleDialogOption(
@@ -303,7 +306,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
               Colors.white,
               primaryColor,
             ],
-            stops: [0.60, 0.90],
+            stops: const [0.60, 0.90],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -379,7 +382,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                               color: primaryColor,
                             ),
                             labelStyle: const TextStyle(
-                              color: const Color(0xff808080),
+                              color: Color(0xff808080),
                             ),
                             labelText: AppLocalizations.of(context)!
                                 .translate('ic_lbl'),
@@ -528,7 +531,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                               color: primaryColor,
                             ),
                             labelStyle: const TextStyle(
-                              color: const Color(0xff808080),
+                              color: Color(0xff808080),
                             ),
                             labelText: AppLocalizations.of(context)!
                                 .translate('postcode_lbl'),
@@ -573,7 +576,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                               ldlItem = value;
                             });
                           },
-                          items: ldlList == null
+                          items: ldlList
                               ? null
                               : ldlList.map<DropdownMenuItem<String>>(
                                   (dynamic value) {
@@ -609,7 +612,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                               cdlItem = value;
                             });
                           },
-                          items: cdlList == null
+                          items: cdlList
                               ? null
                               : cdlList.map<DropdownMenuItem<String>>(
                                   (dynamic value) {
@@ -799,7 +802,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
               Colors.white,
               primaryColor,
             ],
-            stops: [0.60, 0.90],
+            stops: const [0.60, 0.90],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -1060,7 +1063,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                               ldlItem = value;
                             });
                           },
-                          items: ldlList == null
+                          items: ldlList
                               ? null
                               : ldlList.map<DropdownMenuItem<String>>(
                                   (dynamic value) {
@@ -1096,7 +1099,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                               cdlItem = value;
                             });
                           },
-                          items: cdlList == null
+                          items: cdlList
                               ? null
                               : cdlList.map<DropdownMenuItem<String>>(
                                   (dynamic value) {
@@ -1226,13 +1229,11 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
                                             color: Colors.white),
                                       ),
                                       onPressed: _submit,
-                                      child: Container(
-                                        child: Text(
-                                          AppLocalizations.of(context)!
-                                              .translate('sign_up_btn'),
-                                          style: TextStyle(
-                                            fontSize: 35.sp,
-                                          ),
+                                      child: Text(
+                                        AppLocalizations.of(context)!
+                                            .translate('sign_up_btn'),
+                                        style: TextStyle(
+                                          fontSize: 35.sp,
                                         ),
                                       ),
                                     ),
@@ -1264,7 +1265,7 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
   _submit() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      FocusScope.of(context).requestFocus(new FocusNode());
+      FocusScope.of(context).requestFocus(FocusNode());
 
       setState(() {
         _isLoading = true;
@@ -1283,8 +1284,8 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
           email: _email,
           postcode: _postcode,
           userProfileImageBase64String: profilePic,
-          latitude: _latitude,
-          longitude: _longitude,
+          latitude: latitude,
+          longitude: longitude,
           deviceId: _deviceId,
           deviceBrand: _deviceBrand,
           deviceModel: Uri.encodeComponent(_deviceModel!),
@@ -1294,38 +1295,40 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
           findDrvJobs: false,
         );
 
-        if (result.isSuccess) {
-          customDialog.show(
-            context: context,
-            title: const Center(
-              child: const Icon(
-                Icons.check_circle_outline,
-                color: Colors.green,
-                size: 120,
+        if (mounted) {
+          if (result.isSuccess) {
+            customDialog.show(
+              context: context,
+              title: const Center(
+                child: Icon(
+                  Icons.check_circle_outline,
+                  color: Colors.green,
+                  size: 120,
+                ),
               ),
-            ),
-            content: result.message.toString(),
-            barrierDismissable: false,
-            customActions: <Widget>[
-              _loginLoading == false
-                  ? TextButton(
-                      child: Text(
-                          AppLocalizations.of(context)!.translate('ok_btn')),
-                      onPressed: _login,
-                    )
-                  : SpinKitFoldingCube(
-                      color: primaryColor,
-                    ),
-            ],
-            type: DialogType.general,
-          );
-        } else {
-          customDialog.show(
-            context: context,
-            content: result.message.toString(),
-            onPressed: () => Navigator.pop(context),
-            type: DialogType.error,
-          );
+              content: result.message.toString(),
+              barrierDismissable: false,
+              customActions: <Widget>[
+                _loginLoading == false
+                    ? TextButton(
+                        onPressed: _login,
+                        child: Text(
+                            AppLocalizations.of(context)!.translate('ok_btn')),
+                      )
+                    : SpinKitFoldingCube(
+                        color: primaryColor,
+                      ),
+              ],
+              type: DialogType.general,
+            );
+          } else {
+            customDialog.show(
+              context: context,
+              content: result.message.toString(),
+              onPressed: () => Navigator.pop(context),
+              type: DialogType.error,
+            );
+          }
         }
 
         setState(() {
@@ -1352,8 +1355,8 @@ class _RegisterFormState extends State<RegisterForm> with PageBaseClass {
       context: context,
       phone: _phone!.substring(2),
       password: _password,
-      latitude: _latitude,
-      longitude: _longitude,
+      latitude: latitude,
+      longitude: longitude,
       deviceRemark: '$_deviceOs $_deviceVersion',
       phDeviceId: _deviceId,
     );

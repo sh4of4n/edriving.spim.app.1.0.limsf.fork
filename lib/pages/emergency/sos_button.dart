@@ -1,11 +1,13 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '/common_library/utils/app_localizations.dart';
 
 class SosButton extends StatelessWidget {
-  final onTap;
+  final dynamic onTap;
 
-  SosButton({this.onTap});
+  const SosButton({this.onTap});
 
   @override
   Widget build(BuildContext context) {

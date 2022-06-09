@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import '/common_library/services/repository/epandu_repository.dart';
 import '/common_library/utils/app_localizations.dart';
 import '/utils/constants.dart';
@@ -7,16 +9,17 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 
 class AttendanceRecord extends StatefulWidget {
-  final attendanceData;
+  final dynamic attendanceData;
   final bool? isLoading;
 
-  AttendanceRecord({required this.attendanceData, required this.isLoading});
+  const AttendanceRecord(
+      {required this.attendanceData, required this.isLoading});
 
   @override
-  _AttendanceRecordState createState() => _AttendanceRecordState();
+  AttendanceRecordState createState() => AttendanceRecordState();
 }
 
-class _AttendanceRecordState extends State<AttendanceRecord> {
+class AttendanceRecordState extends State<AttendanceRecord> {
   final primaryColor = ColorConstant.primaryColor;
   final format = DateFormat("yyyy-MM-dd");
 
@@ -29,7 +32,7 @@ class _AttendanceRecordState extends State<AttendanceRecord> {
   final TextStyle _subtitleStyle = TextStyle(
     fontSize: 56.sp,
     fontWeight: FontWeight.w400,
-    color: Color(
+    color: const Color(
       0xff666666,
     ),
   );
@@ -223,7 +226,7 @@ class _AttendanceRecordState extends State<AttendanceRecord> {
             Colors.white,
             primaryColor,
           ],
-          stops: [0.45, 0.95],
+          stops: const [0.45, 0.95],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),

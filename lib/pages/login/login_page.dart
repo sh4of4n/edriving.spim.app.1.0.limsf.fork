@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import '/utils/constants.dart';
 import '/common_library/utils/custom_dialog.dart';
 import '/common_library/utils/local_storage.dart';
@@ -10,10 +12,10 @@ import 'login_tablet_form.dart';
 
 class Login extends StatefulWidget {
   @override
-  _LoginState createState() => _LoginState();
+  LoginState createState() => LoginState();
 }
 
-class _LoginState extends State<Login> {
+class LoginState extends State<Login> {
   GlobalKey<ScaffoldState> scaffoldState = GlobalKey<ScaffoldState>();
   final primaryColor = ColorConstant.primaryColor;
   final localStorage = LocalStorage();
@@ -44,7 +46,7 @@ class _LoginState extends State<Login> {
               Colors.amber.shade300,
               primaryColor
             ],
-            stops: [0.2, 0.4, 0.6, 0.7, 1],
+            stops: const [0.2, 0.4, 0.6, 0.7, 1],
             radius: 0.7,
           ),
         ),
@@ -52,7 +54,7 @@ class _LoginState extends State<Login> {
           backgroundColor: Colors.transparent,
           resizeToAvoidBottomInset: true,
           body: SingleChildScrollView(
-            child: Container(
+            child: SizedBox(
               height: MediaQuery.of(context).size.height,
               child: Column(
                 children: <Widget>[
@@ -100,7 +102,7 @@ class _LoginState extends State<Login> {
               Colors.amber.shade300,
               primaryColor
             ],
-            stops: [0.2, 0.4, 0.6, 0.7, 1],
+            stops: const [0.2, 0.4, 0.6, 0.7, 1],
             radius: 0.7,
           ),
         ),
@@ -108,7 +110,7 @@ class _LoginState extends State<Login> {
           backgroundColor: Colors.transparent,
           resizeToAvoidBottomInset: true,
           body: SingleChildScrollView(
-            child: Container(
+            child: SizedBox(
               height: MediaQuery.of(context).size.height,
               child: Column(
                 children: <Widget>[

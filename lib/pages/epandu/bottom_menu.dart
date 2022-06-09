@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import '/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -39,7 +41,7 @@ class BottomMenu extends StatelessWidget {
                       onTap: () {},
                       borderRadius: BorderRadius.circular(10.0),
                       child: Padding(
-                        padding: EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: Column(
                           children: <Widget>[
                             Image.asset(
@@ -56,7 +58,7 @@ class BottomMenu extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(8.0),
                       child: Column(
                         children: <Widget>[
                           Image.memory(kTransparentImage,
@@ -68,7 +70,7 @@ class BottomMenu extends StatelessWidget {
                       onTap: () {},
                       borderRadius: BorderRadius.circular(10.0),
                       child: Padding(
-                        padding: EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: Column(
                           children: <Widget>[
                             Image.asset(

@@ -158,21 +158,14 @@ class DiEnrollmentState extends State<DiEnrollment> {
                                     ),
                                   ), */
                                   Text(
-                                    AppLocalizations.of(context)!
-                                            .translate('class_lbl') +
-                                        ': ' +
-                                        snapshot.data[index].groupIdGrouping,
+                                    '${AppLocalizations.of(context)!.translate('class_lbl')}: ${snapshot.data[index].groupIdGrouping}',
                                     style: TextStyle(
                                       fontSize: 60.sp,
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
                                   Text(
-                                    AppLocalizations.of(context)!
-                                            .translate('amount') +
-                                        ': RM' +
-                                        formatter.format(double.tryParse(
-                                            snapshot.data[index].amt)),
+                                    '${AppLocalizations.of(context)!.translate('amount')}: RM ${formatter.format(double.tryParse(snapshot.data[index].amt))}',
                                     style: TextStyle(
                                       fontSize: 60.sp,
                                       fontWeight: FontWeight.w600,

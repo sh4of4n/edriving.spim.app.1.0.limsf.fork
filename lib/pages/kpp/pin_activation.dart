@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import '/common_library/services/repository/kpp_repository.dart';
 import '/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -10,13 +12,13 @@ import '/common_library/utils/app_localizations.dart';
 class PinActivation extends StatefulWidget {
   final String data;
 
-  PinActivation(this.data);
+  const PinActivation(this.data);
 
   @override
-  _PinActivationState createState() => _PinActivationState();
+  PinActivationState createState() => PinActivationState();
 }
 
-class _PinActivationState extends State<PinActivation> {
+class PinActivationState extends State<PinActivation> {
   final kppRepo = KppRepo();
 
   final primaryColor = ColorConstant.primaryColor;
@@ -58,7 +60,7 @@ class _PinActivationState extends State<PinActivation> {
   _submit(context) async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      FocusScope.of(context).requestFocus(new FocusNode());
+      FocusScope.of(context).requestFocus(FocusNode());
 
       setState(() {
         // _height = ScreenUtil().setHeight(900);
@@ -123,15 +125,15 @@ class _PinActivationState extends State<PinActivation> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20.0),
-                  boxShadow: [
-                    const BoxShadow(
+                  boxShadow: const [
+                    BoxShadow(
                       color: Colors.black26,
-                      offset: const Offset(0.0, 15.0),
+                      offset: Offset(0.0, 15.0),
                       blurRadius: 15.0,
                     ),
-                    const BoxShadow(
+                    BoxShadow(
                       color: Colors.black12,
-                      offset: const Offset(0.0, -10.0),
+                      offset: Offset(0.0, -10.0),
                       blurRadius: 10.0,
                     ),
                   ],

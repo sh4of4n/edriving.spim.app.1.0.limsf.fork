@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/repository/fpx_repository.dart';
 import '/common_library/services/repository/profile_repository.dart';
@@ -16,18 +18,18 @@ import '../../router.gr.dart';
 
 class Pay extends StatefulWidget {
   @override
-  _PayState createState() => _PayState();
+  PayState createState() => PayState();
 }
 
-class _PayState extends State<Pay> {
+class PayState extends State<Pay> {
   final fpxRepo = FpxRepo();
   final profileRepo = ProfileRepo();
   final localStorage = LocalStorage();
   final customDialog = CustomDialog();
   final image = ImagesConstant();
   final _formKey = GlobalKey<FormState>();
-  var paymentForData;
-  var gatewayData;
+  dynamic paymentForData;
+  dynamic gatewayData;
   String? paymentFor = '';
   String? payBy = '';
   final removeBracket = RemoveBracket.remove;
@@ -38,11 +40,11 @@ class _PayState extends State<Pay> {
 
   String? _icNo = '';
   // String _name = '';
-  String _eMail = '';
-  String _birthDate = '';
-  String _race = '';
+  String eMail = '';
+  String birthDate = '';
+  String race = '';
   // String _nationality = '';
-  String _gender = '';
+  String gender = '';
 
   String message = '';
 
@@ -80,23 +82,25 @@ class _PayState extends State<Pay> {
       _getUserInfo();
     }
 
-    if (_icNo == null) {
-      customDialog.show(
-        context: context,
-        barrierDismissable: false,
-        content:
-            AppLocalizations.of(context)!.translate('complete_your_profile'),
-        customActions: <Widget>[
-          TextButton(
-            child: Text(AppLocalizations.of(context)!.translate('ok_btn')),
-            onPressed: () => context.router.pushAndPopUntil(
-              const UpdateProfile(),
-              predicate: ModalRoute.withName('Home'),
+    if (mounted) {
+      if (_icNo == null) {
+        customDialog.show(
+          context: context,
+          barrierDismissable: false,
+          content:
+              AppLocalizations.of(context)!.translate('complete_your_profile'),
+          customActions: <Widget>[
+            TextButton(
+              child: Text(AppLocalizations.of(context)!.translate('ok_btn')),
+              onPressed: () => context.router.pushAndPopUntil(
+                const UpdateProfile(),
+                predicate: ModalRoute.withName('Home'),
+              ),
             ),
-          ),
-        ],
-        type: DialogType.general,
-      );
+          ],
+          type: DialogType.general,
+        );
+      }
     }
 
     Future.wait([
@@ -110,10 +114,10 @@ class _PayState extends State<Pay> {
   }
 
   _getUserInfo() async {
-    String? _getStudentIc = await localStorage.getStudentIc();
+    String? getStudentIc = await localStorage.getStudentIc();
 
     setState(() {
-      _icNo = _getStudentIc;
+      _icNo = getStudentIc;
     });
   }
 
@@ -144,7 +148,7 @@ class _PayState extends State<Pay> {
     if (payBy!.isNotEmpty && paymentFor!.isNotEmpty) {
       if (_formKey.currentState!.validate()) {
         _formKey.currentState!.save();
-        FocusScope.of(context).requestFocus(new FocusNode());
+        FocusScope.of(context).requestFocus(FocusNode());
         setState(() {
           isLoading = true;
           message = '';
@@ -210,7 +214,7 @@ class _PayState extends State<Pay> {
         gradient: LinearGradient(
           colors: [
             Colors.white,
-            const Color(0xffffd225),
+            Color(0xffffd225),
           ],
           stops: [0.75, 1.2],
           begin: Alignment.topCenter,
@@ -238,7 +242,7 @@ class _PayState extends State<Pay> {
                   onTap: () async {
                     String? diCode = await localStorage.getMerchantDbCode();
 
-                    if (paymentFor!.isNotEmpty)
+                    if (paymentFor!.isNotEmpty) {
                       context.router.push(
                         PurchaseOrderList(
                           icNo: _icNo,
@@ -246,11 +250,12 @@ class _PayState extends State<Pay> {
                           diCode: diCode,
                         ),
                       );
-                    else
+                    } else {
                       setState(() {
                         message = AppLocalizations.of(context)!
                             .translate('select_payment_for');
                       });
+                    }
                   },
                   child: Center(
                     child: Text(
@@ -289,7 +294,7 @@ class _PayState extends State<Pay> {
                             paymentFor = value;
                           });
                         },
-                        items: paymentForData == null
+                        items: paymentForData
                             ? null
                             : paymentForData
                                 .map<DropdownMenuItem<String>>((dynamic value) {
@@ -318,7 +323,7 @@ class _PayState extends State<Pay> {
                             color: ColorConstant.primaryColor,
                           ),
                           labelStyle: const TextStyle(
-                            color: const Color(0xff808080),
+                            color: Color(0xff808080),
                           ),
                           labelText:
                               AppLocalizations.of(context)!.translate('amount'),
@@ -338,8 +343,9 @@ class _PayState extends State<Pay> {
                             // return 'Please enter amount above ${gatewayData[0].minAmt}';
                             return 'Transaction amount is Lower than the Minimum Limit RM${gatewayData[0].minAmt}';
                           } else if (value.replaceAll(',', '').toDouble()! >
-                              30000.00)
+                              30000.00) {
                             return 'Maximum Transaction Limit Exceeded RM30,000';
+                          }
                           return null;
                         },
                       ),
@@ -361,7 +367,7 @@ class _PayState extends State<Pay> {
                             payBy = value;
                           });
                         },
-                        items: gatewayData == null
+                        items: gatewayData
                             ? null
                             : gatewayData
                                 .map<DropdownMenuItem<String>>((dynamic value) {
@@ -432,7 +438,7 @@ class _PayState extends State<Pay> {
         gradient: LinearGradient(
           colors: [
             Colors.white,
-            const Color(0xffffd225),
+            Color(0xffffd225),
           ],
           stops: [0.75, 1.2],
           begin: Alignment.topCenter,
@@ -460,7 +466,7 @@ class _PayState extends State<Pay> {
                   onTap: () async {
                     String? diCode = await localStorage.getMerchantDbCode();
 
-                    if (paymentFor!.isNotEmpty)
+                    if (paymentFor!.isNotEmpty) {
                       context.router.push(
                         PurchaseOrderList(
                           icNo: _icNo,
@@ -468,11 +474,12 @@ class _PayState extends State<Pay> {
                           diCode: diCode,
                         ),
                       );
-                    else
+                    } else {
                       setState(() {
                         message = AppLocalizations.of(context)!
                             .translate('select_payment_for');
                       });
+                    }
                   },
                   child: Center(
                     child: Text(
@@ -516,7 +523,7 @@ class _PayState extends State<Pay> {
                             paymentFor = value;
                           });
                         },
-                        items: paymentForData == null
+                        items: paymentForData
                             ? null
                             : paymentForData
                                 .map<DropdownMenuItem<String>>((dynamic value) {
@@ -566,8 +573,9 @@ class _PayState extends State<Pay> {
                             // return 'Please enter amount above ${gatewayData[0].minAmt}';
                             return 'Transaction amount is Lower than the Minimum Limit RM${gatewayData[0].minAmt}';
                           } else if (value.replaceAll(',', '').toDouble()! >
-                              30000.00)
+                              30000.00) {
                             return 'Maximum Transaction Limit Exceeded RM30,000';
+                          }
                           return null;
                         },
                       ),
@@ -596,7 +604,7 @@ class _PayState extends State<Pay> {
                             payBy = value;
                           });
                         },
-                        items: gatewayData == null
+                        items: gatewayData
                             ? null
                             : gatewayData
                                 .map<DropdownMenuItem<String>>((dynamic value) {

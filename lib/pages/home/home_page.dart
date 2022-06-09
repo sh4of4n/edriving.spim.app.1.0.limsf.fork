@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'dart:async';
 import 'dart:io';
 
@@ -31,11 +33,11 @@ import 'home_top_menu.dart';
 
 class Home extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  HomeState createState() => HomeState();
 }
 
-class _HomeState extends State<Home> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+class HomeState extends State<Home> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   final authRepo = AuthRepo();
   final kppRepo = KppRepo();
@@ -44,7 +46,7 @@ class _HomeState extends State<Home> {
   final localStorage = LocalStorage();
   final primaryColor = ColorConstant.primaryColor;
   // String _username = '';
-  var studentEnrollmentData;
+  dynamic studentEnrollmentData;
   // var feed;
   final myImage = ImagesConstant();
   // get location
@@ -68,7 +70,7 @@ class _HomeState extends State<Home> {
   int _startIndex = 0;
   List<dynamic> items = [];
 
-  ScrollController _scrollController = new ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -83,47 +85,48 @@ class _HomeState extends State<Home> {
     _getAppVersion();
     getUnreadNotificationCount();
 
-    _scrollController
-      ..addListener(() {
-        if (_scrollController.position.pixels ==
-            _scrollController.position.maxScrollExtent) {
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        setState(() {
+          _startIndex += 10;
+        });
+
+        if (_message!.isEmpty) {
           setState(() {
-            _startIndex += 10;
+            _loadMore = true;
           });
 
-          if (_message!.isEmpty) {
-            setState(() {
-              _loadMore = true;
-            });
-
-            _getActiveFeed();
-          }
+          _getActiveFeed();
         }
-      });
+      }
+    });
   }
 
   getUnreadNotificationCount() async {
     var result = await inboxRepo.getUnreadNotificationCount();
 
-    if (result.isSuccess) {
-      if (int.tryParse(result.data[0].msgCount)! > 0) {
-        Provider.of<NotificationCount>(context, listen: false).setShowBadge(
-          showBadge: true,
-        );
+    if (mounted) {
+      if (result.isSuccess) {
+        if (int.tryParse(result.data[0].msgCount)! > 0) {
+          Provider.of<NotificationCount>(context, listen: false).setShowBadge(
+            showBadge: true,
+          );
 
-        Provider.of<NotificationCount>(context, listen: false)
-            .updateNotificationBadge(
-          notificationBadge: int.tryParse(result.data[0].msgCount),
-        );
+          Provider.of<NotificationCount>(context, listen: false)
+              .updateNotificationBadge(
+            notificationBadge: int.tryParse(result.data[0].msgCount),
+          );
+        } else {
+          Provider.of<NotificationCount>(context, listen: false).setShowBadge(
+            showBadge: false,
+          );
+        }
       } else {
         Provider.of<NotificationCount>(context, listen: false).setShowBadge(
           showBadge: false,
         );
       }
-    } else {
-      Provider.of<NotificationCount>(context, listen: false).setShowBadge(
-        showBadge: false,
-      );
     }
   }
 
@@ -351,13 +354,13 @@ class _HomeState extends State<Home> {
               onPressed: () async {
                 if (Platform.isIOS) {
                   await launchUrl(Uri.parse(
-                      'https://' + result.data[0].newVerApplestoreUrl));
+                      'https:// ${result.data[0].newVerApplestoreUrl}'));
                 } else {
                   await launchUrl(
                       Uri.parse(result.data[0].newVerGooglestoreUrl));
                 }
               },
-              child: Text('Ok'),
+              child: const Text('Ok'),
             ),
           ],
           type: DialogType.general,
@@ -375,7 +378,7 @@ class _HomeState extends State<Home> {
             Colors.white,
             primaryColor,
           ],
-          stops: [0.45, 0.65],
+          stops: const [0.45, 0.65],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
@@ -390,13 +393,13 @@ class _HomeState extends State<Home> {
           width: 450.w,
           child: FloatingActionButton(
             onPressed: () {
-              context.router.push(EmergencyDirectory());
+              context.router.push(const EmergencyDirectory());
             },
+            backgroundColor: Colors.transparent,
             child: Image.asset(
               myImage.sos,
               // width: ScreenUtil().setWidth(300),
             ),
-            backgroundColor: Colors.transparent,
           ),
         ),
         bottomNavigationBar: BottomMenu(
@@ -433,34 +436,29 @@ class _HomeState extends State<Home> {
                 },
                 child: SingleChildScrollView(
                   controller: _scrollController,
-                  child: Container(
-                    // margin:
-                    //     EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(40)),
-                    // height: ScreenUtil.screenHeightDp - ScreenUtil().setHeight(100),
-                    child: Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: ScreenUtil().setWidth(60)),
-                          child: HomePageHeader(
-                            instituteLogo: instituteLogo,
-                            // positionStream: positionStream,
-                          ),
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: ScreenUtil().setWidth(60)),
+                        child: HomePageHeader(
+                          instituteLogo: instituteLogo,
+                          // positionStream: positionStream,
                         ),
-                        HomeTopMenu(
-                          iconText: _iconText,
-                          getDiProfile: () => _getDiProfile(),
-                          getActiveFeed: () => _getActiveFeed(),
-                        ),
-                        LimitedBox(maxHeight: ScreenUtil().setHeight(30)),
-                        Feeds(
-                          feed: items,
-                          isLoading: _isLoading,
-                          appVersion: appVersion,
-                        ),
-                        if (_loadMore) shimmer(),
-                      ],
-                    ),
+                      ),
+                      HomeTopMenu(
+                        iconText: _iconText,
+                        getDiProfile: () => _getDiProfile(),
+                        getActiveFeed: () => _getActiveFeed(),
+                      ),
+                      LimitedBox(maxHeight: ScreenUtil().setHeight(30)),
+                      Feeds(
+                        feed: items,
+                        isLoading: _isLoading,
+                        appVersion: appVersion,
+                      ),
+                      if (_loadMore) shimmer(),
+                    ],
                   ),
                 ),
               ),

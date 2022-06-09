@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import '/common_library/utils/app_localizations.dart';
 import '/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +57,7 @@ class MerchantCard extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          Container(
+          SizedBox(
             width: 200.w,
             child: imageLink!.isEmpty
                 ? Image.asset(image.logo2, width: 200.w)
@@ -78,6 +80,7 @@ class MerchantCard extends StatelessWidget {
                   children: <Widget>[
                     RatingBar.builder(
                       initialRating: 4,
+                      // ignore: avoid_print
                       onRatingUpdate: (rating) => print(rating),
                       direction: Axis.horizontal,
                       allowHalfRating: false,
@@ -89,7 +92,7 @@ class MerchantCard extends StatelessWidget {
                       itemSize: 20.0,
                     ),
                     Text(cityName!, style: headerStyle),
-                    Text(distance! + 'KM', style: headerStyle),
+                    Text('${distance!} KM', style: headerStyle),
                   ],
                 ),
               ),
@@ -161,7 +164,7 @@ class MerchantCard extends StatelessWidget {
                       businessHours!,
                       style: bottomStyle,
                     ),
-                    Container(
+                    SizedBox(
                       width: 600.w,
                       child: Text(
                         businessDay!,
@@ -224,7 +227,7 @@ class MerchantCard extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
-                          Container(
+                          SizedBox(
                             width: 250.w,
                             child: Text(
                               AppLocalizations.of(context)!

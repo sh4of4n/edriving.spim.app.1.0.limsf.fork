@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import '/common_library/utils/app_localizations.dart';
 import '/pages/emergency/authorities_button.dart';
@@ -17,10 +19,10 @@ import '../../router.gr.dart';
 
 class Emergency extends StatefulWidget {
   @override
-  _EmergencyState createState() => _EmergencyState();
+  EmergencyState createState() => EmergencyState();
 }
 
-class _EmergencyState extends State<Emergency> {
+class EmergencyState extends State<Emergency> {
   // Box<dynamic> contactBox;
   final primaryColor = ColorConstant.primaryColor;
   final emergencyRepo = EmergencyRepo();
@@ -42,49 +44,52 @@ class _EmergencyState extends State<Emergency> {
 
     LocationPermission geolocationStatus = await Geolocator.checkPermission();
 
-    if (geolocationStatus == LocationPermission.whileInUse ||
-        geolocationStatus == LocationPermission.always) {
-      var response = await emergencyRepo.getSosContactSortByNearest(
-          context: context, sosContactType: 'POLICE', maxRadius: '30');
+    if (mounted) {
+      if (geolocationStatus == LocationPermission.whileInUse ||
+          geolocationStatus == LocationPermission.always) {
+        var response = await emergencyRepo.getSosContactSortByNearest(
+            context: context, sosContactType: 'POLICE', maxRadius: '30');
 
-      if (response.isSuccess) {
-        var policeContacts = response.data;
+        if (response.isSuccess) {
+          var policeContacts = response.data;
 
-        for (int i = 0; i < policeContacts.length; i += 1) {
-          if (policeContacts[i].sosContactSubtype == 'IPD' && mounted) {
-            setState(() {
-              policeNumber = policeContacts[i].phone;
-            });
-            break;
+          for (int i = 0; i < policeContacts.length; i += 1) {
+            if (policeContacts[i].sosContactSubtype == 'IPD' && mounted) {
+              setState(() {
+                policeNumber = policeContacts[i].phone;
+              });
+              break;
+            }
           }
         }
+      } else {
+        customDialog.show(
+          context: context,
+          barrierDismissable: false,
+          title: Text(
+              AppLocalizations.of(context)!.translate('loc_permission_title')),
+          content:
+              AppLocalizations.of(context)!.translate('loc_permission_desc'),
+          customActions: <Widget>[
+            TextButton(
+              child: Text(AppLocalizations.of(context)!.translate('yes_lbl')),
+              onPressed: () {
+                context.router.pop();
+                context.router.pop();
+                AppSettings.openLocationSettings();
+              },
+            ),
+            TextButton(
+              child: Text(AppLocalizations.of(context)!.translate('no_lbl')),
+              onPressed: () {
+                context.router.pop();
+                context.router.pop();
+              },
+            ),
+          ],
+          type: DialogType.general,
+        );
       }
-    } else {
-      customDialog.show(
-        context: context,
-        barrierDismissable: false,
-        title: Text(
-            AppLocalizations.of(context)!.translate('loc_permission_title')),
-        content: AppLocalizations.of(context)!.translate('loc_permission_desc'),
-        customActions: <Widget>[
-          TextButton(
-            child: Text(AppLocalizations.of(context)!.translate('yes_lbl')),
-            onPressed: () {
-              context.router.pop();
-              context.router.pop();
-              AppSettings.openLocationSettings();
-            },
-          ),
-          TextButton(
-            child: Text(AppLocalizations.of(context)!.translate('no_lbl')),
-            onPressed: () {
-              context.router.pop();
-              context.router.pop();
-            },
-          ),
-        ],
-        type: DialogType.general,
-      );
     }
   }
 
@@ -104,7 +109,7 @@ class _EmergencyState extends State<Emergency> {
       decoration: BoxDecoration(
         gradient: RadialGradient(
           colors: [Colors.amber.shade300, primaryColor],
-          stops: [0.5, 1],
+          stops: const [0.5, 1],
           radius: 0.9,
         ),
       ),
@@ -121,102 +126,101 @@ class _EmergencyState extends State<Emergency> {
             )
           ],
         ),
-        body: Container(
-          child: Column(
-            children: <Widget>[
-              SizedBox(
-                height: ScreenUtil().setHeight(120),
-              ),
-              Text(AppLocalizations.of(context)!.translate('authorities_lbl'),
-                  style: TextStyle(
-                    fontSize: ScreenUtil().setSp(90),
-                    fontWeight: FontWeight.w800,
-                    color: Colors.black,
-                  )),
-              SizedBox(
-                height: ScreenUtil().setHeight(20),
-              ),
-              Container(
-                width: ScreenUtil().setWidth(1200),
-                child: Text(
-                  AppLocalizations.of(context)!.translate('authorities_desc'),
-                  style: TextStyle(
-                    fontSize: ScreenUtil().setSp(70),
-                    fontWeight: FontWeight.w500,
-                  ),
-                  textAlign: TextAlign.center,
+        body: Column(
+          children: <Widget>[
+            SizedBox(
+              height: ScreenUtil().setHeight(120),
+            ),
+            Text(AppLocalizations.of(context)!.translate('authorities_lbl'),
+                style: TextStyle(
+                  fontSize: ScreenUtil().setSp(90),
+                  fontWeight: FontWeight.w800,
+                  color: Colors.black,
+                )),
+            SizedBox(
+              height: ScreenUtil().setHeight(20),
+            ),
+            SizedBox(
+              width: ScreenUtil().setWidth(1200),
+              child: Text(
+                AppLocalizations.of(context)!.translate('authorities_desc'),
+                style: TextStyle(
+                  fontSize: ScreenUtil().setSp(70),
+                  fontWeight: FontWeight.w500,
                 ),
+                textAlign: TextAlign.center,
               ),
-              SizedBox(
-                height: ScreenUtil().setHeight(70),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  AnimatedCrossFade(
-                    crossFadeState: policeNumber != null
-                        ? CrossFadeState.showFirst
-                        : CrossFadeState.showSecond,
-                    duration: const Duration(milliseconds: 1500),
-                    firstChild: AuthoritiesButton(
-                      tileFirstColor: const Color(0xff08457e),
-                      tileSecondColor: const Color(0xff0499c7),
-                      label:
-                          AppLocalizations.of(context)!.translate('police_lbl'),
-                      onTap: _callPoliceNumber,
-                    ),
-                    secondChild: SizedBox(
-                      width: ScreenUtil().setWidth(600),
-                      height: ScreenUtil().setHeight(450),
-                      child: Shimmer.fromColors(
-                        baseColor: Colors.grey[300]!,
-                        highlightColor: Colors.grey[100]!,
-                        child: AuthoritiesButton(
-                          tileFirstColor: const Color(0xff08457e),
-                          tileSecondColor: const Color(0xff0499c7),
-                          label: AppLocalizations.of(context)!
-                              .translate('police_lbl'),
-                          onTap: () {},
-                        ),
+            ),
+            SizedBox(
+              height: ScreenUtil().setHeight(70),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                AnimatedCrossFade(
+                  crossFadeState: policeNumber != null
+                      ? CrossFadeState.showFirst
+                      : CrossFadeState.showSecond,
+                  duration: const Duration(milliseconds: 1500),
+                  firstChild: AuthoritiesButton(
+                    tileFirstColor: const Color(0xff08457e),
+                    tileSecondColor: const Color(0xff0499c7),
+                    label:
+                        AppLocalizations.of(context)!.translate('police_lbl'),
+                    onTap: _callPoliceNumber,
+                  ),
+                  secondChild: SizedBox(
+                    width: ScreenUtil().setWidth(600),
+                    height: ScreenUtil().setHeight(450),
+                    child: Shimmer.fromColors(
+                      baseColor: Colors.grey[300]!,
+                      highlightColor: Colors.grey[100]!,
+                      child: AuthoritiesButton(
+                        tileFirstColor: const Color(0xff08457e),
+                        tileSecondColor: const Color(0xff0499c7),
+                        label: AppLocalizations.of(context)!
+                            .translate('police_lbl'),
+                        onTap: () {},
                       ),
                     ),
                   ),
-                  AnimatedCrossFade(
-                    crossFadeState: policeNumber != null
-                        ? CrossFadeState.showFirst
-                        : CrossFadeState.showSecond,
-                    duration: const Duration(milliseconds: 1500),
-                    firstChild: AuthoritiesButton(
-                      tileFirstColor: const Color(0xffc90000),
-                      tileSecondColor: const Color(0xffd43b3b),
-                      label: AppLocalizations.of(context)!.translate('999_lbl'),
-                      onTap: _callEmergencyNumber,
-                    ),
-                    secondChild: SizedBox(
-                      width: ScreenUtil().setWidth(600),
-                      height: ScreenUtil().setHeight(450),
-                      child: Shimmer.fromColors(
-                        baseColor: Colors.grey[300]!,
-                        highlightColor: Colors.grey[100]!,
-                        child: AuthoritiesButton(
-                          tileFirstColor: const Color(0xffc90000),
-                          tileSecondColor: const Color(0xffd43b3b),
-                          label: AppLocalizations.of(context)!
-                              .translate('999_lbl'),
-                          onTap: () {},
-                        ),
+                ),
+                AnimatedCrossFade(
+                  crossFadeState: policeNumber != null
+                      ? CrossFadeState.showFirst
+                      : CrossFadeState.showSecond,
+                  duration: const Duration(milliseconds: 1500),
+                  firstChild: AuthoritiesButton(
+                    tileFirstColor: const Color(0xffc90000),
+                    tileSecondColor: const Color(0xffd43b3b),
+                    label: AppLocalizations.of(context)!.translate('999_lbl'),
+                    onTap: _callEmergencyNumber,
+                  ),
+                  secondChild: SizedBox(
+                    width: ScreenUtil().setWidth(600),
+                    height: ScreenUtil().setHeight(450),
+                    child: Shimmer.fromColors(
+                      baseColor: Colors.grey[300]!,
+                      highlightColor: Colors.grey[100]!,
+                      child: AuthoritiesButton(
+                        tileFirstColor: const Color(0xffc90000),
+                        tileSecondColor: const Color(0xffd43b3b),
+                        label:
+                            AppLocalizations.of(context)!.translate('999_lbl'),
+                        onTap: () {},
                       ),
                     ),
-                  )
-                ],
-              ),
-            ],
-          ),
+                  ),
+                )
+              ],
+            ),
+          ],
         ),
       ),
     );
   }
 
+  @override
   void dispose() {
     super.dispose();
   }

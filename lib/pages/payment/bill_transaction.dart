@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import '/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
@@ -6,15 +8,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '/common_library/utils/app_localizations.dart';
 
 class BillTransaction extends StatefulWidget {
-  final data;
+  final dynamic data;
 
-  BillTransaction(this.data);
+  const BillTransaction(this.data);
 
   @override
-  _BillTransactionState createState() => _BillTransactionState();
+  BillTransactionState createState() => BillTransactionState();
 }
 
-class _BillTransactionState extends State<BillTransaction> {
+class BillTransactionState extends State<BillTransaction> {
   final TextEditingController _trxController = TextEditingController();
   final primaryColor = ColorConstant.primaryColor;
 
@@ -65,10 +67,10 @@ class _BillTransactionState extends State<BillTransaction> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(25.0),
-                  boxShadow: [
-                    const BoxShadow(
+                  boxShadow: const [
+                    BoxShadow(
                       color: Colors.black26,
-                      offset: const Offset(0.0, 8.0),
+                      offset: Offset(0.0, 8.0),
                       blurRadius: 8.0,
                       spreadRadius: 4.0,
                     ),
@@ -87,7 +89,7 @@ class _BillTransactionState extends State<BillTransaction> {
                       ),
                     ),
                     SizedBox(height: ScreenUtil().setHeight(70)),
-                    Container(
+                    SizedBox(
                       width: ScreenUtil().setWidth(1000),
                       child: TextField(
                         controller: _trxController,
@@ -177,9 +179,10 @@ class _BillTransactionState extends State<BillTransaction> {
         ],
       );
     }
-    return Container(height: 0, width: 0);
+    return const SizedBox(height: 0, width: 0);
   }
 
+  @override
   void dispose() {
     _trxController.dispose();
     super.dispose();

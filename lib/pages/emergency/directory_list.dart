@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import '/common_library/utils/app_localizations.dart';
 import '/common_library/services/location.dart';
@@ -11,15 +13,15 @@ import 'package:geolocator/geolocator.dart';
 import '../../router.gr.dart';
 
 class DirectoryList extends StatefulWidget {
-  final directoryType;
+  final dynamic directoryType;
 
-  DirectoryList(this.directoryType);
+  const DirectoryList(this.directoryType);
 
   @override
-  _DirectoryListState createState() => _DirectoryListState();
+  DirectoryListState createState() => DirectoryListState();
 }
 
-class _DirectoryListState extends State<DirectoryList> {
+class DirectoryListState extends State<DirectoryList> {
   final emergencyRepo = EmergencyRepo();
   final primaryColor = ColorConstant.primaryColor;
   final localStorage = LocalStorage();

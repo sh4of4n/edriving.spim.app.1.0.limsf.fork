@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import 'package:badges/badges.dart';
 import '/common_library/services/repository/epandu_repository.dart';
@@ -14,21 +16,21 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class HomeTopMenu extends StatefulWidget {
-  final iconText;
-  final getDiProfile;
-  final getActiveFeed;
+  final dynamic iconText;
+  final dynamic getDiProfile;
+  final dynamic getActiveFeed;
 
-  HomeTopMenu({
+  const HomeTopMenu({
     this.iconText,
     this.getDiProfile,
     this.getActiveFeed,
   });
 
   @override
-  _HomeTopMenuState createState() => _HomeTopMenuState();
+  HomeTopMenuState createState() => HomeTopMenuState();
 }
 
-class _HomeTopMenuState extends State<HomeTopMenu> {
+class HomeTopMenuState extends State<HomeTopMenu> {
   final epanduRepo = EpanduRepo();
   final myImage = ImagesConstant();
   final customDialog = CustomDialog();
@@ -39,24 +41,27 @@ class _HomeTopMenuState extends State<HomeTopMenu> {
   getUnreadNotificationCount() async {
     var result = await inboxRepo.getUnreadNotificationCount();
 
-    if (result.isSuccess) {
-      if (int.tryParse(result.data[0].msgCount)! > 0) {
-        Provider.of<NotificationCount>(context, listen: false).setShowBadge(
-          showBadge: true,
-        );
+    if (mounted) {
+      if (result.isSuccess) {
+        if (int.tryParse(result.data[0].msgCount)! > 0) {
+          Provider.of<NotificationCount>(context, listen: false).setShowBadge(
+            showBadge: true,
+          );
 
-        Provider.of<NotificationCount>(context, listen: false)
-            .updateNotificationBadge(
-          notificationBadge: int.tryParse(result.data[0].msgCount),
-        );
-      } else
+          Provider.of<NotificationCount>(context, listen: false)
+              .updateNotificationBadge(
+            notificationBadge: int.tryParse(result.data[0].msgCount),
+          );
+        } else {
+          Provider.of<NotificationCount>(context, listen: false).setShowBadge(
+            showBadge: false,
+          );
+        }
+      } else {
         Provider.of<NotificationCount>(context, listen: false).setShowBadge(
           showBadge: false,
         );
-    } else {
-      Provider.of<NotificationCount>(context, listen: false).setShowBadge(
-        showBadge: false,
-      );
+      }
     }
   }
 
@@ -92,7 +97,7 @@ class _HomeTopMenuState extends State<HomeTopMenu> {
     bool showBadge = context.watch<NotificationCount>().showBadge;
     int? badgeNo = context.watch<NotificationCount>().notificationBadge;
 
-    return Container(
+    return SizedBox(
       height: ScreenUtil().setHeight(350),
       child: Stack(
         children: <Widget>[
@@ -118,7 +123,7 @@ class _HomeTopMenuState extends State<HomeTopMenu> {
                             const Icon(
                               MyCustomIcons.scan_icon,
                               size: 26,
-                              color: const Color(0xff808080),
+                              color: Color(0xff808080),
                             ),
                             SizedBox(height: ScreenUtil().setHeight(20)),
                             Text(
@@ -139,7 +144,7 @@ class _HomeTopMenuState extends State<HomeTopMenu> {
                             const Icon(
                               MyCustomIcons.scan_helper,
                               size: 26,
-                              color: const Color(0xff808080),
+                              color: Color(0xff808080),
                             ),
                             SizedBox(height: ScreenUtil().setHeight(20)),
                             Text(

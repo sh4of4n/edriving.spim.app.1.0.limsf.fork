@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/repository/inbox_repository.dart';
 import '/common_library/services/model/inbox_model.dart';
@@ -16,10 +18,10 @@ import '../../router.gr.dart';
 
 class Inbox extends StatefulWidget {
   @override
-  _InboxState createState() => _InboxState();
+  InboxState createState() => InboxState();
 }
 
-class _InboxState extends State<Inbox> {
+class InboxState extends State<Inbox> {
   Future? _getInboxList;
   final primaryColor = ColorConstant.primaryColor;
   final inboxRepo = InboxRepo();
@@ -71,10 +73,10 @@ class _InboxState extends State<Inbox> {
 
       // print(items);
 
-      matches.forEach((match) {
+      for (var match in matches) {
         links.add(text.substring(match.start, match.end));
         // print(text.substring(match.start, match.end));
-      });
+      }
 
       // print(links);
 
@@ -139,13 +141,13 @@ class _InboxState extends State<Inbox> {
       List items = text.split(exp);
       List links = [];
 
-      matches.forEach((match) {
+      for (var match in matches) {
         links.add(text.substring(match.start, match.end));
-      });
+      }
 
       return RichText(
         text: TextSpan(
-          style: const TextStyle(color: const Color(0xff5c5c5c)),
+          style: const TextStyle(color: Color(0xff5c5c5c)),
           children: [
             TextSpan(
               text: items[0],
@@ -186,9 +188,9 @@ class _InboxState extends State<Inbox> {
       List items = text.split(exp);
       List links = [];
 
-      matches.forEach((match) {
+      for (var match in matches) {
         links.add(text.substring(match.start, match.end));
-      });
+      }
 
       return RichText(
         text: TextSpan(
@@ -267,11 +269,7 @@ class _InboxState extends State<Inbox> {
         separatorBuilder: (BuildContext context, int index) =>
             Divider(color: Colors.grey[400]),
         itemBuilder: (BuildContext context, int index) {
-          if (sortedInboxData[index]?.msgType == 'PDF')
-            /* return ListTile(
-              leading: Icon(Icons.mail, color: Color(0xff808080)),
-              title: parseInboxMessage(sortedInboxData[index].sendMsg),
-            ); */
+          if (sortedInboxData[index]?.msgType == 'PDF') {
             return Padding(
               padding: const EdgeInsets.all(10.0),
               child: Column(
@@ -286,8 +284,9 @@ class _InboxState extends State<Inbox> {
                 ],
               ),
             );
+          }
           return ListTile(
-            leading: const Icon(Icons.mail, color: const Color(0xff808080)),
+            leading: const Icon(Icons.mail, color: Color(0xff808080)),
             title: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Column(
@@ -390,7 +389,7 @@ class _InboxState extends State<Inbox> {
               builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                 switch (snapshot.connectionState) {
                   case ConnectionState.waiting:
-                    return Container(
+                    return SizedBox(
                       height: ScreenUtil().screenHeight,
                       child: const Center(
                         child: SpinKitFoldingCube(
@@ -402,7 +401,7 @@ class _InboxState extends State<Inbox> {
                     if (snapshot.data is String) {
                       if (inboxStorage.isEmpty &&
                           snapshot.data == 'No records found.') {
-                        return Container(
+                        return SizedBox(
                             height: ScreenUtil().screenHeight,
                             child: Center(
                               child: Text(

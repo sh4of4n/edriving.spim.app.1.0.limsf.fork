@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import '/custom_icon/my_custom_icons_icons.dart';
 import '/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +31,7 @@ class BottomMenu extends StatelessWidget {
                   onTap: () {},
                   borderRadius: BorderRadius.circular(10.0),
                   child: Padding(
-                    padding: EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                       vertical: 12.0,
                     ),
                     child: Column(
@@ -56,7 +58,7 @@ class BottomMenu extends StatelessWidget {
                   onTap: () {},
                   borderRadius: BorderRadius.circular(10.0),
                   child: Padding(
-                    padding: EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                       vertical: 12.0,
                     ),
                     child: Column(
@@ -76,12 +78,12 @@ class BottomMenu extends StatelessWidget {
                   onTap: () {},
                   borderRadius: BorderRadius.circular(10.0),
                   child: Padding(
-                    padding: EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                       vertical: 12.0,
                     ),
                     child: Column(
                       children: <Widget>[
-                        Icon(
+                        const Icon(
                           MyCustomIcons.gift_icon,
                           size: 22,
                           color: Color(0xff808080),

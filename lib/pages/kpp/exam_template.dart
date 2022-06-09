@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import '/pages/kpp/question_options.dart';
 import '/common_library/services/model/kpp_model.dart';
@@ -16,19 +18,19 @@ import '/common_library/utils/app_localizations.dart';
 import '../../router.gr.dart';
 
 class ExamTemplate extends StatefulWidget {
-  final snapshot;
-  final index;
-  final groupId;
-  final paperNo;
+  final dynamic snapshot;
+  final dynamic index;
+  final dynamic groupId;
+  final dynamic paperNo;
 
-  ExamTemplate({this.snapshot, this.index, this.groupId, this.paperNo});
+  const ExamTemplate({this.snapshot, this.index, this.groupId, this.paperNo});
 
   @override
-  _ExamTemplateState createState() => _ExamTemplateState();
+  ExamTemplateState createState() => ExamTemplateState();
 }
 
-class _ExamTemplateState extends State<ExamTemplate> {
-  var snapshotData;
+class ExamTemplateState extends State<ExamTemplate> {
+  dynamic snapshotData;
   final examDataBox = Hive.box('exam_data');
   KppExamData? kppExamData;
   final customSnackbar = CustomSnackbar();
@@ -649,8 +651,8 @@ class _ExamTemplateState extends State<ExamTemplate> {
                   bottom: BorderSide(color: Colors.black12),
                 ), */
                 borderRadius: BorderRadius.circular(10.0),
-                boxShadow: [
-                  const BoxShadow(
+                boxShadow: const [
+                  BoxShadow(
                       color: Colors.black12,
                       offset: Offset(0.0, 2.0),
                       blurRadius: 3.0),
@@ -674,8 +676,8 @@ class _ExamTemplateState extends State<ExamTemplate> {
                   bottom: BorderSide(color: Colors.black12),
                 ), */
                 borderRadius: BorderRadius.circular(10.0),
-                boxShadow: [
-                  const BoxShadow(
+                boxShadow: const [
+                  BoxShadow(
                       color: Colors.black12,
                       offset: Offset(0.0, 2.0),
                       blurRadius: 3.0),
@@ -708,10 +710,10 @@ class _ExamTemplateState extends State<ExamTemplate> {
                   bottom: BorderSide(color: Colors.black12),
                 ), */
                 borderRadius: BorderRadius.circular(10.0),
-                boxShadow: [
-                  const BoxShadow(
+                boxShadow: const [
+                  BoxShadow(
                       color: Colors.black12,
-                      offset: const Offset(0.0, 2.0),
+                      offset: Offset(0.0, 2.0),
                       blurRadius: 3.0),
                 ],
               ),
@@ -854,7 +856,7 @@ class _ExamTemplateState extends State<ExamTemplate> {
                     ? _questionImage()
                     : const SizedBox.shrink(),
                 // Question options I, II, III, IV, V
-                questionOption.length > 0
+                questionOption.isNotEmpty
                     ? QuestionOptions(
                         roman: roman,
                         questionOption: questionOption,
@@ -862,7 +864,7 @@ class _ExamTemplateState extends State<ExamTemplate> {
                       )
                     : const SizedBox.shrink(),
                 // Answers a, b, c, d, e
-                answers.length > 0 || answersImage.length > 0
+                answers.isNotEmpty || answersImage.isNotEmpty
                     ? _answers(
                         answers: answers,
                         answersImage: answersImage,

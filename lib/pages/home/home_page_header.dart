@@ -1,4 +1,6 @@
 // import '/custom_icon/my_custom_icons_icons.dart';
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/model/auth_model.dart';
 import '/utils/constants.dart';
@@ -12,7 +14,7 @@ import '../../router.gr.dart';
 
 class HomePageHeader extends StatelessWidget {
   final String? instituteLogo;
-  final positionStream;
+  final dynamic positionStream;
 
   HomePageHeader({this.instituteLogo, this.positionStream});
 
@@ -26,19 +28,20 @@ class HomePageHeader extends StatelessWidget {
       diList.add(Hive.box('di_list').getAt(i) as RegisteredDiArmasterProfile?);
     }
 
-    if (Hive.box('di_list').length > 1)
+    if (Hive.box('di_list').length > 1) {
       return Expanded(
         flex: 1,
         child: InkWell(
           onTap: () => selectDi(context, diList),
-          child: Icon(Icons.keyboard_arrow_down),
+          child: const Icon(Icons.keyboard_arrow_down),
         ),
       );
-    else
+    } else {
       return Expanded(
         flex: 1,
         child: Container(),
       );
+    }
   }
 
   selectDi(BuildContext context, diList) {
@@ -57,7 +60,7 @@ class HomePageHeader extends StatelessWidget {
           child: AspectRatio(
             aspectRatio: 28 / 9,
             child: InkWell(
-              onTap: () => context.router.push(MerchantProfile()),
+              onTap: () => context.router.push(const MerchantProfile()),
               child: FadeInImage(
                 alignment: Alignment.center,
                 height: 350.h,

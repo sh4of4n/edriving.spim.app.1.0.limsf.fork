@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, use_key_in_widget_constructors
 
 import 'package:app_settings/app_settings.dart';
 import 'package:auto_route/auto_route.dart';
@@ -21,10 +21,10 @@ import 'directory_card.dart';
 
 class EmergencyDirectory extends StatefulWidget {
   @override
-  _EmergencyDirectoryState createState() => _EmergencyDirectoryState();
+  EmergencyDirectoryState createState() => EmergencyDirectoryState();
 }
 
-class _EmergencyDirectoryState extends State<EmergencyDirectory> {
+class EmergencyDirectoryState extends State<EmergencyDirectory> {
   final primaryColor = ColorConstant.primaryColor;
   final localStorage = LocalStorage();
   final emergencyRepo = EmergencyRepo();

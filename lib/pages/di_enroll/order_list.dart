@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_interpolation_to_compose_strings
+// ignore_for_file: prefer_interpolation_to_compose_strings, use_key_in_widget_constructors
 
 import 'package:auto_route/auto_route.dart';
 import '/common_library/utils/app_localizations.dart';
@@ -18,17 +18,17 @@ class OrderList extends StatefulWidget {
   final String? packageCode;
   final String? diCode;
 
-  OrderList({
+  const OrderList({
     this.icNo,
     this.packageCode,
     this.diCode,
   });
 
   @override
-  _OrderListState createState() => _OrderListState();
+  OrderListState createState() => OrderListState();
 }
 
-class _OrderListState extends State<OrderList> {
+class OrderListState extends State<OrderList> {
   final fpxRepo = FpxRepo();
   final localStorage = LocalStorage();
   Future? getOrderList;

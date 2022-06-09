@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/repository/auth_repository.dart';
 import '/utils/constants.dart';
@@ -24,7 +26,7 @@ class EtestingCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [
             Colors.white,
@@ -64,16 +66,16 @@ class EtestingCategory extends StatelessWidget {
                 height: 60.h,
               ),
               ListView(
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 children: [
                   ListTile(
-                    onTap: () => context.router.push(ComingSoon()),
+                    onTap: () => context.router.push(const ComingSoon()),
                     title: Text('Tempahan Ujian', style: iconText),
                   ),
                   Divider(color: Colors.grey[400]),
                   ListTile(
-                    onTap: () => context.router.push(CheckInSlip()),
+                    onTap: () => context.router.push(const CheckInSlip()),
                     title: Text('Rekod Ujian Memandu', style: iconText),
                   ),
                   Divider(color: Colors.grey[400]),

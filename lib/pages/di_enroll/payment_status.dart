@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/repository/fpx_repository.dart';
 import '/utils/constants.dart';
@@ -11,13 +13,13 @@ import '/common_library/utils/app_localizations.dart';
 class PaymentStatus extends StatefulWidget {
   final String? icNo;
 
-  PaymentStatus({this.icNo});
+  const PaymentStatus({this.icNo});
 
   @override
-  _PaymentStatusState createState() => _PaymentStatusState();
+  PaymentStatusState createState() => PaymentStatusState();
 }
 
-class _PaymentStatusState extends State<PaymentStatus> {
+class PaymentStatusState extends State<PaymentStatus> {
   final fpxRepo = FpxRepo();
   final primaryColor = ColorConstant.primaryColor;
   Future? getPaymentStatus;
@@ -63,8 +65,8 @@ class _PaymentStatusState extends State<PaymentStatus> {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(15.0),
-                    boxShadow: [
-                      const BoxShadow(
+                    boxShadow: const [
+                      BoxShadow(
                         color: Colors.black26,
                         offset: Offset(0, 8.0),
                         blurRadius: 10.0,

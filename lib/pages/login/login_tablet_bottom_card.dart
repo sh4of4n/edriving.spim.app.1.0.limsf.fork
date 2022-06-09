@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/model/provider_model.dart';
 import '/common_library/utils/custom_dialog.dart';
@@ -13,10 +15,10 @@ import '../../router.gr.dart';
 
 class LoginTabletBottomCard extends StatefulWidget {
   @override
-  _LoginTabletBottomCardState createState() => _LoginTabletBottomCardState();
+  LoginTabletBottomCardState createState() => LoginTabletBottomCardState();
 }
 
-class _LoginTabletBottomCardState extends State<LoginTabletBottomCard> {
+class LoginTabletBottomCardState extends State<LoginTabletBottomCard> {
   final customDialog = CustomDialog();
   final localStorage = LocalStorage();
   int count = 0;
@@ -64,7 +66,7 @@ class _LoginTabletBottomCardState extends State<LoginTabletBottomCard> {
                 },
               ),
             ),
-            SizedBox(height: 5.0),
+            const SizedBox(height: 5.0),
             GestureDetector(
               onTap: () async {
                 count += 1;

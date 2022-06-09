@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import '/common_library/services/repository/vclub_repository.dart';
 import '/common_library/services/response.dart';
 import '/common_library/utils/local_storage.dart';
@@ -8,10 +10,10 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class MerchantProfile extends StatefulWidget {
   @override
-  _MerchantProfileState createState() => _MerchantProfileState();
+  MerchantProfileState createState() => MerchantProfileState();
 }
 
-class _MerchantProfileState extends State<MerchantProfile> {
+class MerchantProfileState extends State<MerchantProfile> {
   final vClubRepo = VclubRepo();
   final localStorage = LocalStorage();
   final myImage = ImagesConstant();
@@ -21,7 +23,7 @@ class _MerchantProfileState extends State<MerchantProfile> {
   final RegExp removeBracket =
       RegExp("\\[(.*?)\\]", multiLine: true, caseSensitive: true);
 
-  TextStyle _subtitleStyle = TextStyle(
+  TextStyle subtitleStyle = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.w600,
     color: Colors.grey.shade700,
@@ -80,19 +82,19 @@ class _MerchantProfileState extends State<MerchantProfile> {
       children: [
         ListTile(
             title: const Text('Name'),
-            subtitle: Text(data.name ?? '-', style: _subtitleStyle)),
+            subtitle: Text(data.name ?? '-', style: subtitleStyle)),
         ListTile(
             title: const Text('Description'),
             subtitle: Text(data.merchantDesc ?? '-')),
         ListTile(
             title: const Text('City'),
-            subtitle: Text(data.cityName ?? '-', style: _subtitleStyle)),
+            subtitle: Text(data.cityName ?? '-', style: subtitleStyle)),
         ListTile(
             title: const Text('Business Hours'),
-            subtitle: Text(data.businessHour ?? '-', style: _subtitleStyle)),
+            subtitle: Text(data.businessHour ?? '-', style: subtitleStyle)),
         ListTile(
             title: const Text('Business Day'),
-            subtitle: Text(data.businessDay ?? '-', style: _subtitleStyle)),
+            subtitle: Text(data.businessDay ?? '-', style: subtitleStyle)),
       ],
     );
   }
@@ -104,7 +106,7 @@ class _MerchantProfileState extends State<MerchantProfile> {
       decoration: BoxDecoration(
         gradient: RadialGradient(
           colors: [Colors.amber.shade300, primaryColor],
-          stops: [0.5, 1],
+          stops: const [0.5, 1],
           radius: 0.9,
         ),
       ),
@@ -121,7 +123,7 @@ class _MerchantProfileState extends State<MerchantProfile> {
             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
               switch (snapshot.connectionState) {
                 case ConnectionState.waiting:
-                  return Container(
+                  return SizedBox(
                     height: ScreenUtil().screenHeight,
                     child: const Center(
                       child: SpinKitFoldingCube(
@@ -142,7 +144,7 @@ class _MerchantProfileState extends State<MerchantProfile> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0),
                       ),
-                      child: Container(
+                      child: SizedBox(
                         width: ScreenUtil().screenWidth,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,

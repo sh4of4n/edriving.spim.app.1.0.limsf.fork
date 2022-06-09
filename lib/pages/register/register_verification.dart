@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/repository/auth_repository.dart';
 import '/utils/constants.dart';
@@ -10,15 +12,15 @@ import '/common_library/utils/app_localizations.dart';
 import '../../router.gr.dart';
 
 class RegisterVerification extends StatefulWidget {
-  final data;
+  final dynamic data;
 
-  RegisterVerification(this.data);
+  const RegisterVerification(this.data);
 
   @override
-  _RegisterVerificationState createState() => _RegisterVerificationState();
+  RegisterVerificationState createState() => RegisterVerificationState();
 }
 
-class _RegisterVerificationState extends State<RegisterVerification> {
+class RegisterVerificationState extends State<RegisterVerification> {
   final primaryColor = ColorConstant.primaryColor;
   final authRepo = AuthRepo();
   final image = ImagesConstant();
@@ -28,13 +30,13 @@ class _RegisterVerificationState extends State<RegisterVerification> {
   String? _correctVerificationCode = '';
   String? _message = '';
   TextStyle? _messageStyle;
-  bool _isLoading = false;
+  bool isLoading = false;
   bool _resend = false;
 
   int _time = 60;
   int _current = 60;
   String convertedCountdown = '';
-  var timer;
+  dynamic timer;
 
   @override
   void initState() {
@@ -138,7 +140,7 @@ class _RegisterVerificationState extends State<RegisterVerification> {
               Colors.white,
               primaryColor,
             ],
-            stops: [0.45, 0.85],
+            stops: const [0.45, 0.85],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -214,7 +216,7 @@ class _RegisterVerificationState extends State<RegisterVerification> {
                                 ),
                           Container(
                             alignment: Alignment.center,
-                            child: _isLoading
+                            child: isLoading
                                 ? const SpinKitFoldingCube(
                                     color: Colors.greenAccent,
                                   )
@@ -276,7 +278,7 @@ class _RegisterVerificationState extends State<RegisterVerification> {
               Colors.white,
               primaryColor,
             ],
-            stops: [0.45, 0.85],
+            stops: const [0.45, 0.85],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -357,7 +359,7 @@ class _RegisterVerificationState extends State<RegisterVerification> {
                                 ),
                           Container(
                             alignment: Alignment.center,
-                            child: _isLoading
+                            child: isLoading
                                 ? const SpinKitFoldingCube(
                                     color: Colors.greenAccent,
                                   )
@@ -372,13 +374,11 @@ class _RegisterVerificationState extends State<RegisterVerification> {
                                           const TextStyle(color: Colors.white),
                                     ),
                                     onPressed: _next,
-                                    child: Container(
-                                      child: Text(
-                                        AppLocalizations.of(context)!
-                                            .translate('next_btn'),
-                                        style: TextStyle(
-                                          fontSize: 35.sp,
-                                        ),
+                                    child: Text(
+                                      AppLocalizations.of(context)!
+                                          .translate('next_btn'),
+                                      style: TextStyle(
+                                        fontSize: 35.sp,
                                       ),
                                     ),
                                   ),
@@ -399,7 +399,7 @@ class _RegisterVerificationState extends State<RegisterVerification> {
   _next() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      FocusScope.of(context).requestFocus(new FocusNode());
+      FocusScope.of(context).requestFocus(FocusNode());
 
       if (_verificationCode == _correctVerificationCode) {
         context.router.push(
@@ -409,12 +409,13 @@ class _RegisterVerificationState extends State<RegisterVerification> {
         setState(() {
           _message = '';
         });
-      } else
+      } else {
         setState(() {
           _message = AppLocalizations.of(context)!
               .translate('incorrect_verification_code');
           _messageStyle = const TextStyle(color: Colors.red);
         });
+      }
     }
 
     // Navigator.push(context, SIGN_UP_FORM, arguments: widget.data);

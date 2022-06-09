@@ -1,5 +1,7 @@
 // import 'dart:convert';
 
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/model/auth_model.dart';
 import '/common_library/utils/app_localizations.dart';
@@ -12,15 +14,15 @@ import 'package:hive/hive.dart';
 import '../../router.gr.dart';
 
 class SelectDrivingInstitute extends StatefulWidget {
-  final diList;
+  final dynamic diList;
 
-  SelectDrivingInstitute(this.diList);
+  const SelectDrivingInstitute(this.diList);
 
   @override
-  _SelectDrivingInstituteState createState() => _SelectDrivingInstituteState();
+  SelectDrivingInstituteState createState() => SelectDrivingInstituteState();
 }
 
-class _SelectDrivingInstituteState extends State<SelectDrivingInstitute> {
+class SelectDrivingInstituteState extends State<SelectDrivingInstitute> {
   RegisteredDiArmasterProfile? diListData;
   final primaryColor = ColorConstant.primaryColor;
 
@@ -71,13 +73,14 @@ class _SelectDrivingInstituteState extends State<SelectDrivingInstitute> {
   }
 
   loadImage(diList) {
-    if (diList.merchantBannerFilename != null)
+    if (diList.merchantBannerFilename != null) {
       return AspectRatio(
         aspectRatio: 28 / 9,
         child: Image.network(
           diList.merchantBannerFilename.replaceAll(exp, '').split('\r\n')[0],
         ),
       );
+    }
     return AspectRatio(
       aspectRatio: 28 / 9,
       child: Container(

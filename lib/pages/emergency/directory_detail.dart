@@ -1,3 +1,7 @@
+// ignore_for_file: use_key_in_widget_constructors
+
+import 'package:flutter/foundation.dart';
+
 import '/common_library/utils/app_localizations.dart';
 import '/common_library/services/location.dart';
 import '/utils/constants.dart';
@@ -11,15 +15,15 @@ import 'package:map_launcher/map_launcher.dart';
 // import 'package:epandu/common_library/utils/map_launcher.dart';
 
 class DirectoryDetail extends StatefulWidget {
-  final snapshot;
+  final dynamic snapshot;
 
-  DirectoryDetail(this.snapshot);
+  const DirectoryDetail(this.snapshot);
 
   @override
-  _DirectoryDetailState createState() => _DirectoryDetailState();
+  DirectoryDetailState createState() => DirectoryDetailState();
 }
 
-class _DirectoryDetailState extends State<DirectoryDetail> {
+class DirectoryDetailState extends State<DirectoryDetail> {
   final customSnackbar = CustomSnackbar();
   final primaryColor = ColorConstant.primaryColor;
   final localStorage = LocalStorage();
@@ -108,7 +112,9 @@ class _DirectoryDetailState extends State<DirectoryDetail> {
         },
       );
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 

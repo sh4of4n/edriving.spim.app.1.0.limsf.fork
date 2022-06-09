@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import '/common_library/utils/app_localizations.dart';
 import '/base/page_base_class.dart';
@@ -11,10 +13,10 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class ForgotPasswordForm extends StatefulWidget {
   @override
-  _ForgotPasswordFormState createState() => _ForgotPasswordFormState();
+  ForgotPasswordFormState createState() => ForgotPasswordFormState();
 }
 
-class _ForgotPasswordFormState extends State<ForgotPasswordForm>
+class ForgotPasswordFormState extends State<ForgotPasswordForm>
     with PageBaseClass {
   final authRepo = AuthRepo();
 
@@ -43,13 +45,13 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm>
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20.0),
-        boxShadow: [
-          const BoxShadow(
+        boxShadow: const [
+          BoxShadow(
             color: Colors.black26,
             offset: Offset(0.0, 15.0),
             blurRadius: 15.0,
           ),
-          const BoxShadow(
+          BoxShadow(
             color: Colors.black12,
             offset: Offset(0.0, -10.0),
             blurRadius: 10.0,
@@ -162,7 +164,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm>
     return Column(
       children: <Widget>[
         _message!.isNotEmpty
-            ? Container(
+            ? SizedBox(
                 width: 900.w,
                 child: Text(
                   _message!,
@@ -170,7 +172,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm>
                   textAlign: TextAlign.center,
                 ),
               )
-            : Container(width: 0, height: 0),
+            : const SizedBox(width: 0, height: 0),
         Container(
           child: _isLoading
               ? SpinKitFoldingCube(
@@ -199,7 +201,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm>
   _submit() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      FocusScope.of(context).requestFocus(new FocusNode());
+      FocusScope.of(context).requestFocus(FocusNode());
 
       setState(() {
         // _height = ScreenUtil().setHeight(1200);
@@ -215,28 +217,30 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm>
           longitude: '999',
           phDeviceId: '');
 
-      if (result.isSuccess) {
-        context.router.pop();
-        CustomSnackbar().show(
-          context,
-          message: result.message.toString(),
-          type: MessageType.success,
-        );
-      } else {
-        if (result.message!.contains('timeout')) {
-          setState(() {
-            _message =
-                AppLocalizations.of(context)!.translate('timeout_exception');
-          });
-        } else if (result.message!.contains('socket')) {
-          setState(() {
-            _message =
-                AppLocalizations.of(context)!.translate('socket_exception');
-          });
+      if (mounted) {
+        if (result.isSuccess) {
+          context.router.pop();
+          CustomSnackbar().show(
+            context,
+            message: result.message.toString(),
+            type: MessageType.success,
+          );
         } else {
-          setState(() {
-            _message = result.message;
-          });
+          if (result.message!.contains('timeout')) {
+            setState(() {
+              _message =
+                  AppLocalizations.of(context)!.translate('timeout_exception');
+            });
+          } else if (result.message!.contains('socket')) {
+            setState(() {
+              _message =
+                  AppLocalizations.of(context)!.translate('socket_exception');
+            });
+          } else {
+            setState(() {
+              _message = result.message;
+            });
+          }
         }
 
         /* CustomSnackbar().show(

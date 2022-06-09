@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import '/common_library/utils/app_localizations.dart';
 import '/base/page_base_class.dart';
@@ -11,10 +13,10 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class ChangePasswordForm extends StatefulWidget {
   @override
-  _ChangePasswordFormState createState() => _ChangePasswordFormState();
+  ChangePasswordFormState createState() => ChangePasswordFormState();
 }
 
-class _ChangePasswordFormState extends State<ChangePasswordForm>
+class ChangePasswordFormState extends State<ChangePasswordForm>
     with PageBaseClass {
   final authRepo = AuthRepo();
 
@@ -51,15 +53,15 @@ class _ChangePasswordFormState extends State<ChangePasswordForm>
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20.0),
-        boxShadow: [
-          const BoxShadow(
+        boxShadow: const [
+          BoxShadow(
             color: Colors.black26,
             offset: Offset(0.0, 15.0),
             blurRadius: 15.0,
           ),
-          const BoxShadow(
+          BoxShadow(
             color: Colors.black12,
-            offset: const Offset(0.0, -10.0),
+            offset: Offset(0.0, -10.0),
             blurRadius: 10.0,
           ),
         ],
@@ -268,41 +270,47 @@ class _ChangePasswordFormState extends State<ChangePasswordForm>
   _submit() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      FocusScope.of(context).requestFocus(new FocusNode());
+      FocusScope.of(context).requestFocus(FocusNode());
 
-      // check if new password and confirm new password matches
-      if (_newPassword == _confirmNewPassword) {
-        // check if new password is the same as old password
-        if (_oldPassword != _newPassword) {
-          setState(() {
-            _height = ScreenUtil().setHeight(1350);
-            _isLoading = true;
-          });
-
-          var result = await authRepo.verifyOldPassword(
-            context: context,
-            currentPassword: _oldPassword,
-            newPassword: _newPassword,
-          );
-
-          if (result.isSuccess) {
-            context.router.popUntil(ModalRoute.withName('ProfileTab'));
-
-            CustomSnackbar().show(
-              context,
-              message: AppLocalizations.of(context)!.translate(result.message),
-              type: MessageType.success,
-            );
-          } else {
-            CustomSnackbar().show(
-              context,
-              message: AppLocalizations.of(context)!.translate(result.message),
-              type: MessageType.error,
-            );
-
+      if (mounted) {
+        // check if new password and confirm new password matches
+        if (_newPassword == _confirmNewPassword) {
+          // check if new password is the same as old password
+          if (_oldPassword != _newPassword) {
             setState(() {
-              _isLoading = false;
+              _height = ScreenUtil().setHeight(1350);
+              _isLoading = true;
             });
+
+            var result = await authRepo.verifyOldPassword(
+              context: context,
+              currentPassword: _oldPassword,
+              newPassword: _newPassword,
+            );
+
+            if (mounted) {
+              if (result.isSuccess) {
+                context.router.popUntil(ModalRoute.withName('ProfileTab'));
+
+                CustomSnackbar().show(
+                  context,
+                  message:
+                      AppLocalizations.of(context)!.translate(result.message),
+                  type: MessageType.success,
+                );
+              } else {
+                CustomSnackbar().show(
+                  context,
+                  message:
+                      AppLocalizations.of(context)!.translate(result.message),
+                  type: MessageType.error,
+                );
+              }
+
+              setState(() {
+                _isLoading = false;
+              });
+            }
           }
         } else {
           CustomSnackbar().show(

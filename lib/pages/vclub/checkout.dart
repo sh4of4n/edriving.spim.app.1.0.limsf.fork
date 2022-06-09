@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import '/services/provider/cart_status.dart';
 import '/common_library/services/repository/sales_order_repository.dart';
 import '/utils/constants.dart';
@@ -9,7 +11,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class Checkout extends StatefulWidget {
-  final slsDetailData;
+  final dynamic slsDetailData;
   final String? itemName;
   final String? dbcode;
   final String? date;
@@ -18,7 +20,7 @@ class Checkout extends StatefulWidget {
   final String? qty;
   final String? totalAmount;
 
-  Checkout({
+  const Checkout({
     this.slsDetailData,
     this.itemName,
     this.dbcode,
@@ -30,10 +32,10 @@ class Checkout extends StatefulWidget {
   });
 
   @override
-  _CheckoutState createState() => _CheckoutState();
+  CheckoutState createState() => CheckoutState();
 }
 
-class _CheckoutState extends State<Checkout> {
+class CheckoutState extends State<Checkout> {
   final salesOrderRepo = SalesOrderRepo();
   final customDialog = CustomDialog();
   final primaryColor = ColorConstant.primaryColor;
@@ -49,7 +51,7 @@ class _CheckoutState extends State<Checkout> {
   );
 
   bool _isLoading = false;
-  String _message = '';
+  String message = '';
 
   _renderCart() {
     return Container(
@@ -127,7 +129,7 @@ class _CheckoutState extends State<Checkout> {
   }
 
   _showOrdPrice(snapshot) {
-    if (double.tryParse(snapshot.discAmt)! > 0)
+    if (double.tryParse(snapshot.discAmt)! > 0) {
       return Row(
         children: <Widget>[
           Text(
@@ -150,8 +152,9 @@ class _CheckoutState extends State<Checkout> {
           ),
         ],
       );
+    }
 
-    return Container(width: 0, height: 0);
+    return const SizedBox(width: 0, height: 0);
   }
 
   _checkout(context) async {
@@ -282,11 +285,11 @@ class _CheckoutState extends State<Checkout> {
             child: _renderCart(),
           ),
           Center(
-            child: _message.isNotEmpty
+            child: message.isNotEmpty
                 ? Padding(
                     padding: EdgeInsets.only(left: 50.w),
                     child: Text(
-                      _message,
+                      message,
                       style: const TextStyle(color: Colors.red),
                     ),
                   )
