@@ -28,8 +28,8 @@ class PayState extends State<Pay> {
   final customDialog = CustomDialog();
   final image = ImagesConstant();
   final _formKey = GlobalKey<FormState>();
-  dynamic paymentForData;
-  dynamic gatewayData;
+  dynamic paymentForData = [];
+  dynamic gatewayData = [];
   String? paymentFor = '';
   String? payBy = '';
   final removeBracket = RemoveBracket.remove;
@@ -126,7 +126,11 @@ class PayState extends State<Pay> {
 
     if (result.isSuccess) {
       setState(() {
-        paymentForData = result.data;
+        if (result.data == null) {
+          paymentForData = [];
+        } else {
+          paymentForData = result.data;
+        }
       });
     }
   }
@@ -139,7 +143,11 @@ class PayState extends State<Pay> {
 
     if (result.isSuccess) {
       setState(() {
-        gatewayData = result.data;
+        if (result.data == null) {
+          gatewayData = [];
+        } else {
+          gatewayData = result.data;
+        }
       });
     }
   }
@@ -295,14 +303,12 @@ class PayState extends State<Pay> {
                           });
                         },
                         items: paymentForData
-                            ? null
-                            : paymentForData
-                                .map<DropdownMenuItem<String>>((dynamic value) {
-                                return DropdownMenuItem<String>(
-                                  value: value.menuCode,
-                                  child: Text(value.codeDesc),
-                                );
-                              }).toList(),
+                            .map<DropdownMenuItem<String>>((dynamic value) {
+                          return DropdownMenuItem<String>(
+                            value: value.menuCode,
+                            child: Text(value.codeDesc),
+                          );
+                        }).toList(),
                         validator: (value) {
                           if (value == null) {
                             return AppLocalizations.of(context)!
@@ -368,14 +374,12 @@ class PayState extends State<Pay> {
                           });
                         },
                         items: gatewayData
-                            ? null
-                            : gatewayData
-                                .map<DropdownMenuItem<String>>((dynamic value) {
-                                return DropdownMenuItem<String>(
-                                  value: value.gatewayId,
-                                  child: Text(value.gatewayId),
-                                );
-                              }).toList(),
+                            .map<DropdownMenuItem<String>>((dynamic value) {
+                          return DropdownMenuItem<String>(
+                            value: value.gatewayId,
+                            child: Text(value.gatewayId),
+                          );
+                        }).toList(),
                         validator: (value) {
                           if (value == null) {
                             return AppLocalizations.of(context)!

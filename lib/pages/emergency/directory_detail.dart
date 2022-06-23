@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+// ignore_for_file: use_key_in_widget_constructors, depend_on_referenced_packages
 
 import 'package:flutter/foundation.dart';
 
@@ -51,11 +51,9 @@ class DirectoryDetailState extends State<DirectoryDetail> {
 
     await location.getAddress(lat, long);
 
-    if (mounted) {
-      setState(() {
-        address = location.address;
-      });
-    }
+    setState(() {
+      address = location.address;
+    });
   }
 
   _phone() async {

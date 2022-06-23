@@ -70,22 +70,20 @@ class PaymentHistoryState extends State<PaymentHistory> {
 
     if (response.isSuccess) {
       if (response.data.length > 0) {
-        if (mounted) {
-          setState(() {
-            for (int i = 0; i < response.data.length; i += 1) {
-              items.add(response.data[i]);
-            }
-            _isLoading = false;
-          });
-        }
+        setState(() {
+          for (int i = 0; i < response.data.length; i += 1) {
+            items.add(response.data[i]);
+          }
+          _isLoading = false;
+        });
+
         // return response.data;
       } else {
-        if (mounted) {
-          setState(() {
-            _message = response.message;
-            _isLoading = false;
-          });
-        }
+        setState(() {
+          _message = response.message;
+          _isLoading = false;
+        });
+
         // return response.message;
       }
     }

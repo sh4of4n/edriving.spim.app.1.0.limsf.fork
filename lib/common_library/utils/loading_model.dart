@@ -19,7 +19,7 @@ class LoadingModel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Visibility(
-      visible: isVisible,
+      // visible: isVisible,
       child: Stack(
         children: <Widget>[
           Opacity(

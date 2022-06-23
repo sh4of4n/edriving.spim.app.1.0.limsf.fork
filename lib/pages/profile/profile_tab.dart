@@ -287,7 +287,7 @@ class ProfileTabState extends State<ProfileTab>
             profilepage.Profile(
               userProfile: userProfile,
               enrollData: enrollData,
-              isLoading: isLoading,
+              //isLoading: isLoading,
             ),
             // Edompet(),
             settingspage.Settings(widget.positionStream),

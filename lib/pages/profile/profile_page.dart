@@ -5,7 +5,7 @@ import '/common_library/utils/app_localizations.dart';
 import '/common_library/services/repository/profile_repository.dart';
 import '/utils/constants.dart';
 import '/common_library/utils/local_storage.dart';
-import '/common_library/utils/loading_model.dart';
+//import '/common_library/utils/loading_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -15,9 +15,9 @@ import '../../router.gr.dart';
 class Profile extends StatefulWidget {
   final dynamic userProfile;
   final dynamic enrollData;
-  final dynamic isLoading;
+  //final dynamic isLoading;
 
-  const Profile({this.userProfile, this.enrollData, this.isLoading});
+  const Profile({this.userProfile, this.enrollData}); //this.isLoading});
 
   @override
   ProfileState createState() => ProfileState();
@@ -130,11 +130,11 @@ class ProfileState extends State<Profile>
             ],
           ),
         ),
-        LoadingModel(
+        /* LoadingModel(
           isVisible: widget.isLoading,
           // opacity: 0.8,
           color: primaryColor,
-        ),
+        ),*/
       ],
     );
   }
@@ -331,11 +331,11 @@ class ProfileState extends State<Profile>
             ],
           ),
         ),
-        LoadingModel(
+        /* LoadingModel(
           isVisible: widget.isLoading,
           // opacity: 0.8,
           color: primaryColor,
-        ),
+        ),*/
       ],
     );
   }

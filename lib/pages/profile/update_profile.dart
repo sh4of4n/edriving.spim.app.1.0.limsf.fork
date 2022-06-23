@@ -86,8 +86,8 @@ class UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
   late File _image;
   late File _croppedImage;
   dynamic imageState;
-  dynamic ldlList;
-  dynamic cdlList;
+  dynamic ldlList = [];
+  dynamic cdlList = [];
 
   String? ldlItem = '';
   String? cdlItem = '';
@@ -138,7 +138,11 @@ class UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
 
     if (result.isSuccess) {
       setState(() {
-        ldlList = result.data;
+        if (result.data == null) {
+          ldlList = [];
+        } else {
+          ldlList = result.data;
+        }
       });
     }
   }
@@ -148,7 +152,11 @@ class UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
 
     if (result.isSuccess) {
       setState(() {
-        cdlList = result.data;
+        if (result.data == null) {
+          cdlList = [];
+        } else {
+          cdlList = result.data;
+        }
       });
     }
   }
@@ -758,15 +766,13 @@ class UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
                       });
                     },
                     value: ldlItem!.isEmpty ? null : ldlItem,
-                    items: ldlList
-                        ? null
-                        : ldlList
-                            .map<DropdownMenuItem<String>>((dynamic value) {
-                            return DropdownMenuItem<String>(
-                              value: value.groupId,
-                              child: Text(value.groupId),
-                            );
-                          }).toList(),
+                    items:
+                        ldlList.map<DropdownMenuItem<String>>((dynamic value) {
+                      return DropdownMenuItem<String>(
+                        value: value.groupId,
+                        child: Text(value.groupId),
+                      );
+                    }).toList(),
                     validator: (value) {
                       if (value == null) {
                         return AppLocalizations.of(context)!
@@ -814,15 +820,13 @@ class UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
                     value: cdlItem!.isEmpty
                         ? null
                         : cdlItem!.replaceAll('%20', ' '),
-                    items: cdlList
-                        ? null
-                        : cdlList
-                            .map<DropdownMenuItem<String>>((dynamic value) {
-                            return DropdownMenuItem<String>(
-                              value: value.groupId,
-                              child: Text(value.groupId),
-                            );
-                          }).toList(),
+                    items:
+                        cdlList.map<DropdownMenuItem<String>>((dynamic value) {
+                      return DropdownMenuItem<String>(
+                        value: value.groupId,
+                        child: Text(value.groupId),
+                      );
+                    }).toList(),
                     validator: (value) {
                       if (value == null) {
                         return AppLocalizations.of(context)!

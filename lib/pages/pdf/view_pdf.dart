@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+// ignore_for_file: use_key_in_widget_constructors, depend_on_referenced_packages
 
 import 'dart:typed_data';
 import '/common_library/utils/custom_dialog.dart';

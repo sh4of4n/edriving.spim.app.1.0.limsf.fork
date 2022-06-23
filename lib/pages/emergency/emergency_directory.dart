@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, use_key_in_widget_constructors
+// ignore_for_file: use_build_context_synchronously, use_key_in_widget_constructors, depend_on_referenced_packages
 
 import 'package:app_settings/app_settings.dart';
 import 'package:auto_route/auto_route.dart';
@@ -188,11 +188,9 @@ class EmergencyDirectoryState extends State<EmergencyDirectory> {
         }
       } */
 
-      if (mounted) {
-        setState(() {
-          ambulanceNumber = ambulanceContacts[0].phone;
-        });
-      }
+      setState(() {
+        ambulanceNumber = ambulanceContacts[0].phone;
+      });
     } else if (response.isSuccess && type == 'BOMBA') {
       var bombaContacts = response.data;
 

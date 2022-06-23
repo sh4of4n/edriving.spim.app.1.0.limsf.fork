@@ -1,5 +1,5 @@
 // import 'dart:io';
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, depend_on_referenced_packages
 import 'firebase_options.dart';
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/model/inbox_model.dart';

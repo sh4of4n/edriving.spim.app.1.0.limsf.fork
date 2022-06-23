@@ -61,7 +61,7 @@ class ProductState extends State<Product> {
 
   DateTime? scheduleDate;
   String batchNo = '';
-  bool _saveBtnIsLoading = false;
+  final bool _saveBtnIsLoading = false;
   bool isOfferedItem = false;
 
   String uomValue = '';
@@ -212,7 +212,7 @@ class ProductState extends State<Product> {
     );
   }
 
-  _submit() async {
+  /* _submit() async {
     setState(() {
       _saveBtnIsLoading = true;
     });
@@ -282,6 +282,7 @@ class ProductState extends State<Product> {
       }
     }
   }
+*/
 
   loadReview({required String name, required double rating}) {
     return Column(

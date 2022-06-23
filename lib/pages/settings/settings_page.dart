@@ -29,9 +29,9 @@ class SettingsState extends State<Settings> {
   DeviceInfo deviceInfo = DeviceInfo();
   String? _deviceBrand = '';
   String? _deviceModel = '';
-  String? _deviceVersion = '';
+  //String? _deviceVersion = '';
   String? _deviceId;
-  String? _deviceOs = '';
+  // String? _deviceOs = '';
 
   String? _regId = '';
 
@@ -66,16 +66,17 @@ class SettingsState extends State<Settings> {
 
   _getDeviceInfo() async {
     // get device info
+
     await deviceInfo.getDeviceInfo();
 
     _regId = await Hive.box('ws_url').get('push_token');
 
     _deviceBrand = deviceInfo.manufacturer;
     _deviceModel = deviceInfo.model;
-    _deviceVersion = deviceInfo.version;
+    // deviceVersion = deviceInfo.version;
     // _deviceId = deviceInfo.id;
     _deviceId = await localStorage.getLoginDeviceId();
-    _deviceOs = deviceInfo.os;
+    //_deviceOs = deviceInfo.os;
 
     // print('deviceId: ' + deviceId);
   }

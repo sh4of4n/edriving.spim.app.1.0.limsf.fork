@@ -97,11 +97,10 @@ class ChatHomeState extends State<ChatHome> {
     if (result.isSuccess) {
       (result.data.length > 0);
     }
-    if (mounted) {
-      setState(() {
-        _searchResult = result.data[0];
-      });
-    }
+
+    setState(() {
+      _searchResult = result.data[0];
+    });
 
     // else if (mounted)
     //   setState(() {
@@ -126,14 +125,12 @@ class ChatHomeState extends State<ChatHome> {
       return result.data;
     }
 
-    if (mounted) {
-      setState(() {
-        _searchResult = null;
+    setState(() {
+      _searchResult = null;
 
-        // _message = result.message;
-        // _isLoading = false;
-      });
-    }
+      // _message = result.message;
+      // _isLoading = false;
+    });
 
     return null;
   }

@@ -355,9 +355,9 @@ class AppRouter extends _i30.RootStackRouter {
       return _i30.MaterialPageX<dynamic>(
           routeData: routeData,
           child: _i13.Profile(
-              userProfile: args.userProfile,
-              enrollData: args.enrollData,
-              isLoading: args.isLoading));
+            userProfile: args.userProfile,
+            enrollData: args.enrollData, /*isLoading: args.isLoading*/
+          ));
     },
     ProfileTab.name: (routeData) {
       final args = routeData.argsAs<ProfileTabArgs>();

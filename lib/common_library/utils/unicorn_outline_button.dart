@@ -53,12 +53,9 @@ class _GradientPainter extends CustomPainter {
   final Gradient gradient;
 
   _GradientPainter(
-      {required double strokeWidth,
-      required double radius,
-      required Gradient gradient})
-      : strokeWidth = strokeWidth,
-        radius = radius,
-        gradient = gradient;
+      {required this.strokeWidth,
+      required this.radius,
+      required this.gradient});
 
   @override
   void paint(Canvas canvas, Size size) {

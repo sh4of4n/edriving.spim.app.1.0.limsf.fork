@@ -149,25 +149,21 @@ class ChatScreenState extends State<ChatScreen> {
 
     if (result.isSuccess) {
       if (result.data.length > 0) {
-        if (mounted) {
-          setState(() {
-            for (int i = 0; i < result.data.length; i += 1) {
-              //print(result.data[i].meetingDate);
-              messageTargetProfile = result.data[i];
-            }
-          });
-        } else if (mounted) {
-          setState(() {
-            _isLoading = false;
-          });
-        }
+        setState(() {
+          for (int i = 0; i < result.data.length; i += 1) {
+            //print(result.data[i].meetingDate);
+            messageTargetProfile = result.data[i];
+          }
+        });
+      } else if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
       } else {
-        if (mounted) {
-          setState(() {
-            // _message = result.message;
-            _isLoading = false;
-          });
-        }
+        setState(() {
+          // _message = result.message;
+          _isLoading = false;
+        });
       }
     }
   }

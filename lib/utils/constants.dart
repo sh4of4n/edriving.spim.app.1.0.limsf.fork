@@ -3,6 +3,12 @@ import 'package:flutter/material.dart';
 // import 'package:device_info/device_info.dart';
 // import 'package:flutter/painting.dart';
 
+const kPrimaryColor = Color.fromARGB(255, 13, 40, 160);
+const kTextColor = Color(0xFF3C4046);
+const kBackgroundColor = Color(0xFFF9F8FD);
+
+const double kDefaultPadding = 20.0;
+
 class ColorConstant {
   static const primaryColor = Color(0xffffcd0e);
   static const green = Colors.green;
