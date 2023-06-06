@@ -14,116 +14,45 @@ import '/common_library/utils/app_localizations.dart';
 // import '../../router.gr.dart';
 
 class NavigationControls extends StatelessWidget {
-  final dynamic type;
-  final dynamic backType;
+  const NavigationControls({super.key, required this.webViewController});
 
-  const NavigationControls({
-    required this.webViewControllerFuture,
-    this.type,
-    this.backType,
-  });
-
-  final Future<WebViewController> webViewControllerFuture;
-
-  backButton(BuildContext context, webViewReady, controller) async {
-    final customDialog = CustomDialog();
-
-    if (!webViewReady) {
-      return null;
-    } else {
-      if (backType == 'HOME') {
-        customDialog.show(
-          context: context,
-          content: AppLocalizations.of(context)!.translate('confirm_back'),
-          customActions: <Widget>[
-            TextButton(
-                child: Text(AppLocalizations.of(context)!.translate('yes_lbl')),
-                onPressed: () {
-                  Provider.of<CallStatusModel>(context, listen: false)
-                      .callStatus(false);
-                  context.router.popUntil(
-                    ModalRoute.withName('Home'),
-                  );
-                }),
-            TextButton(
-              child: Text(AppLocalizations.of(context)!.translate('no_lbl')),
-              onPressed: () {
-                context.router.pop();
-              },
-            ),
-          ],
-          type: DialogType.general,
-        );
-      } else {
-        if (await controller.canGoBack()) {
-          await controller.goBack();
-        } else {
-          /* customDialog.show(
-            context: context,
-            content: AppLocalizations.of(context).translate('confirm_back'),
-            customActions: <Widget>[
-              TextButton(
-                child: Text(AppLocalizations.of(context).translate('yes_lbl')),
-                onPressed: () {
-                  Provider.of<CallStatusModel>(context, listen: false)
-                      .callStatus(false);
-                  context.router.pop();
-                  context.router.pop();
-                  /* context.router.popUntil(
-                    ModalRoute.withName(Routes.home),
-                  ); */
-                },
-              ),
-              TextButton(
-                child: Text(AppLocalizations.of(context).translate('no_lbl')),
-                onPressed: () {
-                  context.router.pop();
-                },
-              ),
-            ],
-            type: DialogType.GENERAL,
-          ); */
-          Provider.of<CallStatusModel>(context, listen: false)
-              .callStatus(false);
-          context.router.pop();
-          return;
-        }
-      }
-    }
-  }
+  final WebViewController webViewController;
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<WebViewController>(
-      future: webViewControllerFuture,
-      builder:
-          (BuildContext context, AsyncSnapshot<WebViewController> snapshot) {
-        final bool webViewReady =
-            snapshot.connectionState == ConnectionState.done;
-        final WebViewController? controller = snapshot.data;
-        controllerGlobal = controller;
-
-        return Row(
-          children: <Widget>[
-            if (type == 'BACK')
-              IconButton(
-                icon: Platform.isIOS
-                    ? const Icon(Icons.arrow_back_ios)
-                    : const Icon(Icons.arrow_back),
-                onPressed: () => backButton(context, webViewReady, controller),
-              ),
-            if (type == 'RELOAD')
-              IconButton(
-                icon: const Icon(Icons.replay),
-                onPressed: !webViewReady
-                    ? null
-                    : () {
-                        controller!.reload();
-                      },
-              ),
-          ],
-        );
-      },
+    return Row(
+      children: <Widget>[
+        IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () async {
+            if (await webViewController.canGoBack()) {
+              await webViewController.goBack();
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('No back history item')),
+              );
+              return;
+            }
+          },
+        ),
+        IconButton(
+          icon: const Icon(Icons.arrow_forward_ios),
+          onPressed: () async {
+            if (await webViewController.canGoForward()) {
+              await webViewController.goForward();
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('No forward history item')),
+              );
+              return;
+            }
+          },
+        ),
+        IconButton(
+          icon: const Icon(Icons.replay),
+          onPressed: () => webViewController.reload(),
+        ),
+      ],
     );
   }
 }

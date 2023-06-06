@@ -34,7 +34,7 @@ def keystoreProperties = new Properties()
 
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 33
     ndkVersion flutter.ndkVersion
     
 

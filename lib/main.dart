@@ -211,6 +211,9 @@ class MyAppState extends State<MyApp> {
 
   Future<void> _firebaseMessagingBackgroundHandler(
       RemoteMessage message) async {
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform);
+
     debugPrint('Handling a background message ${message.messageId}');
 
     getUnreadNotificationCount();
@@ -343,7 +346,7 @@ class MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     precacheImage(AssetImage(image.logo2), context);
     return MaterialApp.router(
-      title: 'ePandu',
+      title: 'eDriving SPIM',
       theme: ThemeData(
         primaryColor: ColorConstant.primaryColor,
         fontFamily: 'Myriad',
