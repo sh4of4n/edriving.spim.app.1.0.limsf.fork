@@ -3,10 +3,14 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  connectivity_plus
+  emoji_picker_flutter
   firebase_core
   geolocator_windows
   pdfx
+  permission_handler_windows
   printing
+  record_windows
   url_launcher_windows
 )
 

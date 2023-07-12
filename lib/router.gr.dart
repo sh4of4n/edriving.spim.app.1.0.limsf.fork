@@ -13,10 +13,9 @@
 import 'package:auto_route/auto_route.dart' as _i30;
 import 'package:camera/camera.dart' as _i32;
 import 'package:flutter/material.dart' as _i31;
-
+import 'pages/chat/room_list.dart' as _i33;
 import 'coming_soon/coming_soon.dart' as _i28;
 import 'common_library/utils/image_viewer.dart' as _i26;
-import 'pages/chat/chat.dart' as _i25;
 import 'pages/di_enroll/di_enrollment.dart' as _i7;
 import 'pages/emergency/emergency.dart' as _i12;
 import 'pages/enroll/enroll.dart' as _i6;
@@ -390,6 +389,10 @@ class AppRouter extends _i30.RootStackRouter {
       return _i30.MaterialPageX<dynamic>(
           routeData: routeData, child: _i17.Inbox());
     },
+    RoomList.name: (routeData) {
+      return _i30.MaterialPageX<dynamic>(
+          routeData: routeData, child: _i33.RoomList());
+    },
     Invite.name: (routeData) {
       return _i30.MaterialPageX<dynamic>(
           routeData: routeData, child: _i18.Invite());
@@ -426,10 +429,6 @@ class AppRouter extends _i30.RootStackRouter {
       final args = routeData.argsAs<MerchantListArgs>();
       return _i30.MaterialPageX<dynamic>(
           routeData: routeData, child: _i9.MerchantList(args.merchantType));
-    },
-    ChatHome.name: (routeData) {
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i25.ChatHome());
     },
     TermsAndCondition.name: (routeData) {
       final args = routeData.argsAs<TermsAndConditionArgs>(
@@ -578,6 +577,7 @@ class AppRouter extends _i30.RootStackRouter {
             path: '/enrolmentInfoDetail'),
         _i30.RouteConfig(Inbox.name, path: '/inbox'),
         _i30.RouteConfig(Invite.name, path: '/invite'),
+        _i30.RouteConfig(RoomList.name, path: '/RoomList'),
         _i30.RouteConfig(AirtimeTransaction.name, path: '/airtimeTransaction'),
         _i30.RouteConfig(AirtimeBillDetail.name, path: '/airtimeBillDetail'),
         _i30.RouteConfig(AirtimeSelection.name, path: '/airtimeSelection'),
@@ -585,7 +585,6 @@ class AppRouter extends _i30.RootStackRouter {
         _i30.RouteConfig(BillDetail.name, path: '/billDetail'),
         _i30.RouteConfig(BillSelection.name, path: '/billSelection'),
         _i30.RouteConfig(MerchantList.name, path: '/merchantList'),
-        _i30.RouteConfig(ChatHome.name, path: '/chatHome'),
         _i30.RouteConfig(TermsAndCondition.name, path: '/termsAndCondition'),
         _i30.RouteConfig(FpxPaymentOption.name, path: '/fpxPaymentOption'),
         _i30.RouteConfig(ImageViewer.name, path: '/imageViewer'),
@@ -1739,6 +1738,14 @@ class Inbox extends _i30.PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [_i33.RoomList]
+class RoomList extends _i30.PageRouteInfo<void> {
+  const RoomList() : super(RoomList.name, path: '/RoomList');
+
+  static const String name = 'RoomList';
+}
+
+/// generated route for
 /// [_i18.Invite]
 class Invite extends _i30.PageRouteInfo<void> {
   const Invite() : super(Invite.name, path: '/invite');
@@ -1869,14 +1876,6 @@ class MerchantListArgs {
   String toString() {
     return 'MerchantListArgs{merchantType: $merchantType}';
   }
-}
-
-/// generated route for
-/// [_i25.ChatHome]
-class ChatHome extends _i30.PageRouteInfo<void> {
-  const ChatHome() : super(ChatHome.name, path: '/chatHome');
-
-  static const String name = 'ChatHome';
 }
 
 /// generated route for

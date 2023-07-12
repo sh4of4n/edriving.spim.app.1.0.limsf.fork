@@ -3,7 +3,9 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  emoji_picker_flutter
   printing
+  record_linux
   url_launcher_linux
 )
 

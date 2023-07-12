@@ -3,6 +3,8 @@
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:provider/provider.dart';
+import '../chat/socketclient_helper.dart';
 import '/base/page_base_class.dart';
 import '/common_library/utils/custom_dialog.dart';
 import '/router.gr.dart';
@@ -369,6 +371,7 @@ class LoginFormState extends State<LoginForm> with PageBaseClass {
               context: context, type: 'LOGIN');
 
           if (getRegisteredDi.isSuccess) {
+            context.read<SocketClientHelper>().loginUserRoom();
             localStorage.saveMerchantDbCode(getRegisteredDi.data[0].merchantNo);
 
             context.router.replace(const Home());
@@ -388,7 +391,7 @@ class LoginFormState extends State<LoginForm> with PageBaseClass {
           );
         } else {
           localStorage.saveMerchantDbCode(result.data[0].merchantNo);
-
+          context.read<SocketClientHelper>().loginUserRoom();
           context.router.replace(const Home());
         }
       } else {

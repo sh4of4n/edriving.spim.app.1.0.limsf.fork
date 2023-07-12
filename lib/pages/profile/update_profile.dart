@@ -6,6 +6,9 @@ import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:camera/camera.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:provider/provider.dart';
+import '../../common_library/services/database/DatabaseHelper.dart';
+import '../../common_library/services/model/m_roommember_model.dart';
 import '/base/page_base_class.dart';
 import '/pages/enroll/enroll.dart';
 import '/common_library/services/repository/auth_repository.dart';
@@ -25,6 +28,9 @@ import 'package:intl/intl.dart';
 
 import '/common_library/utils/app_localizations.dart';
 import '../../router.gr.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
+
+import '../chat/socketclient_helper.dart';
 
 enum AppState { free, picked, cropped }
 
@@ -34,6 +40,8 @@ class UpdateProfile extends StatefulWidget {
 }
 
 class UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
+  late IO.Socket socket;
+  final dbHelper = DatabaseHelper.instance;
   final profileRepo = ProfileRepo();
   final authRepo = AuthRepo();
   final customSnackbar = CustomSnackbar();
@@ -114,6 +122,11 @@ class UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
     _getAvailableCameras();
     _getLdlkEnqGroupList();
     _getCdlList();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final getSocket = Provider.of<SocketClientHelper>(context, listen: false);
+      socket = getSocket.socket;
+    });
   }
 
   @override
@@ -1151,7 +1164,26 @@ class UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
         });
 
         await authRepo.getUserRegisteredDI(context: context, type: 'UPDATE');
+        String? userId = await localStorage.getUserId();
+        await dbHelper.updateRoomMemberName(_nickName, userId!);
 
+        List<RoomMembers> roomMembers =
+            await dbHelper.getDistinctRoomMembersList();
+
+        roomMembers.forEach((roomMember) {
+          if (userId != roomMember.user_id) {
+            var groupJson = {
+              "notifiedRoomId": '',
+              "notifiedUserId": roomMember.user_id,
+              "title": '$userId just changed the name',
+              "description": '${_nickName}_just changed the name'
+            };
+            socket.emitWithAck('sendNotification', groupJson,
+                ack: (data) async {
+              print(data);
+            });
+          }
+        });
         context.router.pop(true);
       } else {
         setState(() {

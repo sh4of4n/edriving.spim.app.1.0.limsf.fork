@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import '/coming_soon/coming_soon.dart';
-import '/pages/chat/chat.dart';
 import '/pages/enroll/enroll.dart';
 import '/pages/epandu/epandu.dart';
 import '/pages/forgot_password/forgot_password.dart';
 import '/pages/inbox/inbox.dart';
+import '/pages/chat/room_list.dart';
 import '/pages/invite/invite.dart';
 import '/pages/kpp/kpp.dart';
 import '/pages/payment/airtime_bill_detail.dart';
@@ -17,7 +17,6 @@ import '/pages/profile/profile.dart';
 import '/pages/promotions/promotions.dart';
 import '/pages/register/register.dart';
 import '/pages/vclub/value_club.dart';
-
 import 'pages/di_enroll/di_enrollment.dart';
 import 'pages/emergency/emergency.dart';
 import 'pages/etesting/etesting.dart';
@@ -149,6 +148,7 @@ import '/common_library/utils/image_viewer.dart';
         page: EnrolmentInfoDetail,
         name: 'EnrolmentInfoDetail'),
     AutoRoute(path: '/inbox', page: Inbox, name: 'Inbox'),
+    AutoRoute(path: '/RoomList', page: RoomList, name: 'RoomList'),
     AutoRoute(path: '/invite', page: Invite, name: 'Invite'),
     AutoRoute(
         path: '/airtimeTransaction',
@@ -170,7 +170,7 @@ import '/common_library/utils/image_viewer.dart';
     AutoRoute(
         path: '/billSelection', page: BillSelection, name: 'BillSelection'),
     AutoRoute(path: '/merchantList', page: MerchantList, name: 'MerchantList'),
-    AutoRoute(path: '/chatHome', page: ChatHome, name: 'ChatHome'),
+    // AutoRoute(path: '/chatHome', page: ChatHome2, name: 'ChatHome'),
     AutoRoute(
         path: '/termsAndCondition',
         page: TermsAndCondition,

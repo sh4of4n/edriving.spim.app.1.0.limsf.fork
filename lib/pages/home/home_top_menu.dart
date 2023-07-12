@@ -1,5 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../chat/chatnotification_count.dart';
 import '/common_library/services/repository/epandu_repository.dart';
 import '/common_library/services/repository/inbox_repository.dart';
 import '/common_library/utils/local_storage.dart';
@@ -10,6 +12,7 @@ import '/utils/constants.dart';
 import '/common_library/utils/custom_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:badges/badges.dart' as badges;
 
 class HomeTopMenu extends StatefulWidget {
   final dynamic iconText;
@@ -93,6 +96,12 @@ class HomeTopMenuState extends State<HomeTopMenu> {
 
   @override
   Widget build(BuildContext context) {
+    int notificationCount = 0;
+    List<ChatNotification> chatNotificationCount =
+        context.watch<ChatNotificationCount>().getChatNotificationCountList;
+    chatNotificationCount.forEach((ChatNotification chatNotification) {
+      notificationCount += chatNotification.notificationBadge!;
+    });
     //bool showBadge = context.watch<NotificationCount>().showBadge;
     //int? badgeNo = context.watch<NotificationCount>().notificationBadge;
     Size size = MediaQuery.of(context).size;
@@ -144,61 +153,9 @@ class HomeTopMenuState extends State<HomeTopMenu> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    InkWell(
-                      onTap: () => context.router.push(const Pay()),
-                      borderRadius: BorderRadius.circular(10.0),
-                      child: Column(
-                        children: <Widget>[
-                          Container(
-                            decoration: const BoxDecoration(
-                                color: Colors.white,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(18))),
-                            padding: const EdgeInsets.all(12),
-                            child: const Icon(
-                              Icons.qr_code,
-                              color: Color.fromARGB(255, 32, 56, 90),
-                              size: 30,
-                            ),
-                          ),
-                          const Text(
-                            "Pay",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 14,
-                                color: Colors.black),
-                          ),
-                        ],
-                      ),
-                    ),
-                    InkWell(
-                        onTap: () => context.router.push(const Invite()),
-                        borderRadius: BorderRadius.circular(10.0),
-                        child: Column(children: <Widget>[
-                          Container(
-                            decoration: const BoxDecoration(
-                                color: Colors.white,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(18))),
-                            padding: const EdgeInsets.all(12),
-                            child: const Icon(
-                              MyCustomIcons.invite_icon,
-                              color: Color.fromARGB(255, 32, 56, 90),
-                              size: 30,
-                            ),
-                          ),
-                          const Text(
-                            "Invite",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 14,
-                                color: Colors.black),
-                          ),
-                        ])),
-                    InkWell(
-                        onTap: () => context.router
-                            .push(const Inbox())
-                            .then((value) => getUnreadNotificationCount()),
+                    Flexible(
+                      child: InkWell(
+                        onTap: () => context.router.push(const Pay()),
                         borderRadius: BorderRadius.circular(10.0),
                         child: Column(
                           children: <Widget>[
@@ -209,75 +166,173 @@ class HomeTopMenuState extends State<HomeTopMenu> {
                                       BorderRadius.all(Radius.circular(18))),
                               padding: const EdgeInsets.all(12),
                               child: const Icon(
-                                MyCustomIcons.inbox_icon,
+                                Icons.qr_code,
                                 color: Color.fromARGB(255, 32, 56, 90),
                                 size: 30,
                               ),
                             ),
                             const Text(
-                              "Notification",
+                              "Pay",
                               style: TextStyle(
                                   fontWeight: FontWeight.w700,
                                   fontSize: 14,
                                   color: Colors.black),
                             ),
                           ],
-                        )),
-                    InkWell(
-                        onTap: () => context.router.push(
-                              Scan(
-                                getActiveFeed: widget.getActiveFeed,
-                                getDiProfile: widget.getDiProfile,
+                        ),
+                      ),
+                    ),
+                    Flexible(
+                      child: InkWell(
+                          onTap: () => context.router.push(const Invite()),
+                          borderRadius: BorderRadius.circular(10.0),
+                          child: Column(children: <Widget>[
+                            Container(
+                              decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(18))),
+                              padding: const EdgeInsets.all(12),
+                              child: const Icon(
+                                MyCustomIcons.invite_icon,
+                                color: Color.fromARGB(255, 32, 56, 90),
+                                size: 30,
                               ),
                             ),
-                        borderRadius: BorderRadius.circular(10.0),
-                        child: Column(children: <Widget>[
-                          Container(
-                            decoration: const BoxDecoration(
-                                color: Colors.white,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(18))),
-                            padding: const EdgeInsets.all(12),
-                            child: const Icon(
-                              MyCustomIcons.scan_icon,
-                              color: Color.fromARGB(255, 32, 56, 90),
-                              size: 30,
+                            const Text(
+                              "Invite",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 14,
+                                  color: Colors.black),
                             ),
-                          ),
-                          const Text(
-                            "Scan",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 14,
-                                color: Colors.black),
-                          ),
-                        ])),
-                    InkWell(
-                        onTap: () => context.router.push(
-                              ProfileTab(positionStream: positionStream),
+                          ])),
+                    ),
+                    Flexible(
+                      child: InkWell(
+                          onTap: () => context.router
+                              .push(const Inbox())
+                              .then((value) => getUnreadNotificationCount()),
+                          borderRadius: BorderRadius.circular(10.0),
+                          child: Column(
+                            children: <Widget>[
+                              Container(
+                                decoration: const BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(18))),
+                                padding: const EdgeInsets.all(12),
+                                child: const Icon(
+                                  MyCustomIcons.inbox_icon,
+                                  color: Color.fromARGB(255, 32, 56, 90),
+                                  size: 30,
+                                ),
+                              ),
+                              const Text(
+                                "Notification",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 14,
+                                    color: Colors.black),
+                              ),
+                            ],
+                          )),
+                    ),
+                    Flexible(
+                      child: InkWell(
+                          onTap: () => context.router.push(
+                                Scan(
+                                  getActiveFeed: widget.getActiveFeed,
+                                  getDiProfile: widget.getDiProfile,
+                                ),
+                              ),
+                          borderRadius: BorderRadius.circular(10.0),
+                          child: Column(children: <Widget>[
+                            Container(
+                              decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(18))),
+                              padding: const EdgeInsets.all(12),
+                              child: const Icon(
+                                MyCustomIcons.scan_icon,
+                                color: Color.fromARGB(255, 32, 56, 90),
+                                size: 30,
+                              ),
                             ),
-                        borderRadius: BorderRadius.circular(10.0),
-                        child: Column(children: <Widget>[
-                          Container(
-                            decoration: const BoxDecoration(
-                                color: Colors.white,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(18))),
-                            padding: const EdgeInsets.all(12),
-                            child: const Icon(
-                              Icons.person_pin,
-                              color: Color.fromARGB(255, 32, 56, 90),
-                              size: 30,
+                            const Text(
+                              "Scan",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 14,
+                                  color: Colors.black),
                             ),
-                          ),
-                          const Text(
-                            "Profile",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 14,
-                                color: Colors.black),
-                          ),
-                        ])),
+                          ])),
+                    ),
+                    Flexible(
+                      child: InkWell(
+                          onTap: () => context.router.push(
+                                ProfileTab(positionStream: positionStream),
+                              ),
+                          borderRadius: BorderRadius.circular(10.0),
+                          child: Column(children: <Widget>[
+                            Container(
+                              decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(18))),
+                              padding: const EdgeInsets.all(12),
+                              child: const Icon(
+                                Icons.person_pin,
+                                color: Color.fromARGB(255, 32, 56, 90),
+                                size: 30,
+                              ),
+                            ),
+                            const Text(
+                              "Profile",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 14,
+                                  color: Colors.black),
+                            ),
+                          ])),
+                    ),
+                    // Flexible(
+                    //   child: InkWell(
+                    //     onTap: () => context.router.push(const RoomList()),
+                    //     borderRadius: BorderRadius.circular(10.0),
+                    //     child: Column(
+                    //       children: <Widget>[
+                    //         Container(
+                    //           decoration: const BoxDecoration(
+                    //               color: Colors.white,
+                    //               borderRadius:
+                    //                   BorderRadius.all(Radius.circular(18))),
+                    //           padding: const EdgeInsets.all(12),
+                    //           child: badges.Badge(
+                    //             showBadge: notificationCount > 0 ? true : false,
+                    //             badgeContent: Text(
+                    //               '$notificationCount',
+                    //               style: const TextStyle(color: Colors.white),
+                    //             ),
+                    //             child: const Icon(
+                    //               Icons.chat,
+                    //               color: Color.fromARGB(255, 32, 56, 90),
+                    //               size: 30,
+                    //             ),
+                    //           ),
+                    //         ),
+                    //         const Text(
+                    //           'Chat',
+                    //           style: TextStyle(
+                    //               fontWeight: FontWeight.w700,
+                    //               fontSize: 14,
+                    //               color: Colors.black),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

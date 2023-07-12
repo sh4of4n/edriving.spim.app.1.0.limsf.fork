@@ -341,18 +341,24 @@ class ProductState extends State<Product> {
                 ),
               ),
               child: Padding(
-                padding: EdgeInsets.only(top: 30.h, right: 50.w, bottom: 20.h),
-                child: badges.Badge(
-                  badgeColor: Colors.redAccent[700]!,
-                  animationType: badges.BadgeAnimationType.fade,
-                  showBadge: showBadge,
-                  badgeContent: Text(
-                    '$badgeNo',
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                  child: const Icon(Icons.shopping_cart),
-                ),
-              ),
+                  padding:
+                      EdgeInsets.only(top: 30.h, right: 50.w, bottom: 20.h),
+                  child: badges.Badge(
+                    //shape: BadgeShape.circle,
+                    //padding: EdgeInsets.all(8),
+                    showBadge: showBadge,
+                    //badgeColor: Colors.green,
+                    badgeStyle: badges.BadgeStyle(
+                        badgeColor: Colors.redAccent[700]!,
+                        shape: badges.BadgeShape.circle,
+                        padding: EdgeInsets.all(8)),
+                    badgeAnimation: badges.BadgeAnimation.fade(),
+                    badgeContent: Text(
+                      '$badgeNo',
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                    child: const Icon(Icons.shopping_cart),
+                  )),
             ),
           ],
         ),

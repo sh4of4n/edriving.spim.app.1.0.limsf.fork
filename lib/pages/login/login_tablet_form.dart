@@ -1,6 +1,8 @@
 // ignore_for_file: use_key_in_widget_constructors
 
 import 'package:auto_route/auto_route.dart';
+import 'package:provider/provider.dart';
+import '../chat/socketclient_helper.dart';
 import '/base/page_base_class.dart';
 import '/common_library/services/location.dart';
 import '/common_library/services/repository/auth_repository.dart';
@@ -337,7 +339,7 @@ class LoginTabletFormState extends State<LoginTabletForm> with PageBaseClass {
 
           if (getRegisteredDi.isSuccess) {
             localStorage.saveMerchantDbCode(getRegisteredDi.data[0].diCode);
-
+            await context.read<SocketClientHelper>().loginUserRoom();
             context.router.replace(const Home());
           } else {
             setState(() {
@@ -355,7 +357,7 @@ class LoginTabletFormState extends State<LoginTabletForm> with PageBaseClass {
           );
         } else {
           localStorage.saveMerchantDbCode(result.data[0].merchantNo);
-
+          await context.read<SocketClientHelper>().loginUserRoom();
           context.router.replace(const Home());
         }
       } else {

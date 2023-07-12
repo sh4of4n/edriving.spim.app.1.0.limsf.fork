@@ -1,6 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors
 
 import 'package:auto_route/auto_route.dart';
+import '../chat/socketclient_helper.dart';
 import '/common_library/utils/app_localizations.dart';
 import '/router.gr.dart';
 import '/common_library/services/model/provider_model.dart';
@@ -84,8 +85,10 @@ class AuthenticationState extends State<Authentication> {
     String? diCode = await localStorage.getMerchantDbCode();
 
     if (userId != null && userId.isNotEmpty && diCode!.isNotEmpty) {
+      context.read<SocketClientHelper>().loginUserRoom();
       context.router.replace(const Home());
     } else if (userId != null && userId.isNotEmpty && diCode!.isEmpty) {
+      context.read<SocketClientHelper>().logoutUserRoom();
       await authRepo.logout(context: context, type: '');
 
       context.router.replace(const Login());

@@ -1,6 +1,9 @@
 // ignore_for_file: use_key_in_widget_constructors
 
 //import 'package:auto_route/auto_route.dart';
+import 'package:auto_route/auto_route.dart';
+
+import '../../router.gr.dart';
 import '/common_library/services/location.dart';
 import '/common_library/services/repository/auth_repository.dart';
 import '/common_library/services/repository/kpp_repository.dart';
@@ -179,7 +182,7 @@ class HomeState extends State<Home> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Add your onPressed code here!
+          context.router.push(const RoomList());
         },
         tooltip: 'Chat',
         backgroundColor: const Color.fromARGB(255, 32, 56, 90),
