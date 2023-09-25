@@ -135,6 +135,125 @@ class LoginAcct {
   }
 }
 
+// Request device activation
+class RequestDeviceActivationRequest {
+  String? wsCodeCrypt;
+  String? caUid;
+  String? caPwd;
+  String? appCode;
+  String? appId;
+  String? loginId;
+  String? appVersion;
+  String? merchantNo;
+  String? boUserId;
+  String? deviceRemark;
+  String? phDeviceId;
+  String? phLine1Number;
+  String? phNetOpName;
+  String? phPhoneType;
+  String? phSimSerialNo;
+  String? bdBoard;
+  String? bdBrand;
+  String? bdDevice;
+  String? bdDisplay;
+  String? bdManufacturer;
+  String? bdModel;
+  String? bdProduct;
+  String? pfDeviceId;
+  String? regId;
+  String? latitude;
+  String? longitude;
+
+  RequestDeviceActivationRequest(
+    {this.wsCodeCrypt,
+      this.caUid,
+      this.caPwd,
+      this.appCode,
+      this.appId,
+      this.loginId,
+      this.appVersion,
+      this.merchantNo,
+      this.boUserId,
+      this.deviceRemark,
+      this.phDeviceId,
+      this.phLine1Number,
+      this.phNetOpName,
+      this.phPhoneType,
+      this.phSimSerialNo,
+      this.bdBoard,
+      this.bdBrand,
+      this.bdDevice,
+      this.bdDisplay,
+      this.bdManufacturer,
+      this.bdModel,
+      this.bdProduct,
+      this.pfDeviceId,
+      this.regId,
+      this.latitude,
+      this.longitude}
+  );
+
+  RequestDeviceActivationRequest.fromJson(Map<String, dynamic> json){
+    wsCodeCrypt = json['wsCodeCrypt'];
+    caUid = json['caUid'];
+    caPwd = json['caPwd'];
+    appCode = json['appCode'];
+    appId = json['appId'];
+    loginId = json['loginId'];
+    appVersion = json['appVersion'];
+    merchantNo = json['merchantNo'];
+    boUserId = json['boUserId'];
+    deviceRemark = json['deviceRemark'];
+    phDeviceId = json['phDeviceId'];
+    phLine1Number = json['phLine1Number'];
+    phNetOpName = json['phNetOpName'];
+    phPhoneType = json['phPhoneType'];
+    phSimSerialNo = json['phSimSerialNo'];
+    bdBoard = json['bdBoard'];
+    bdBrand = json['bdBrand'];
+    bdDevice = json['bdDevice'];
+    bdDisplay = json['bdDisplay'];
+    bdManufacturer = json['bdManufacturer'];
+    bdModel = json['bdModel'];
+    bdProduct = json['bdProduct'];
+    pfDeviceId = json['pfDeviceId'];
+    regId = json['regId'];
+    latitude = json['latitude'];
+    longitude = json['longitude'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['wsCodeCrypt'] = wsCodeCrypt;
+    data['caUid'] = caUid;
+    data['caPwd'] = caPwd;
+    data['appCode'] = appCode;
+    data['appId'] = appId;
+    data['loginId'] = loginId;
+    data['appVersion'] = appVersion;
+    data['merchantNo'] = merchantNo;
+    data['boUserId'] = boUserId;
+    data['deviceRemark'] = deviceRemark;
+    data['phDeviceId'] = phDeviceId;
+    data['phLine1Number'] = phLine1Number;
+    data['phNetOpName'] = phNetOpName;
+    data['phPhoneType'] = phPhoneType;
+    data['phSimSerialNo'] = phSimSerialNo;
+    data['bdBoard'] = bdBoard;
+    data['bdBrand'] = bdBrand;
+    data['bdDevice'] = bdDevice;
+    data['bdDisplay'] = bdDisplay;
+    data['bdManufacturer'] = bdManufacturer;
+    data['bdModel'] = bdModel;
+    data['bdProduct'] = bdProduct;
+    data['pfDeviceId'] = pfDeviceId;
+    data['regId'] = regId;
+    data['latitude'] = latitude;
+    data['longitude'] = longitude;
+    return data;
+  }
+}
+
 /* class LoginRequest {
   String wsCodeCrypt;
   String caUid;

@@ -92,6 +92,7 @@ void main() async {
   // _setupLogging();
   await Hive.openBox('ws_url');
   await Hive.openBox('di_list');
+  await Hive.openBox('credentials');
 
   await SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);

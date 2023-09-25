@@ -1,6 +1,9 @@
 # edriving_spim_app
 
-A new Flutter project.
+2023-09-25 v6.2.0
+ePandu WS v6.2.2
+
+-Request Device Activation function
 
 ## Getting Started
 

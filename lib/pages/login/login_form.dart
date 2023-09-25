@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:hive/hive.dart';
 import '/base/page_base_class.dart';
 import '/common_library/utils/custom_dialog.dart';
 import '/router.gr.dart';
@@ -48,6 +49,7 @@ class LoginFormState extends State<LoginForm> with PageBaseClass {
   Location location = Location();
   String latitude = '';
   String longitude = '';
+  final credentials = Hive.box('credentials');
 
   DeviceInfo deviceInfo = DeviceInfo();
   String? _deviceBrand = '';
@@ -367,6 +369,7 @@ class LoginFormState extends State<LoginForm> with PageBaseClass {
       );
 
       if (result.isSuccess) {
+        credentials.put('phone', _phone);
         if (result.data == 'empty') {
           if (!context.mounted) return;
           var getRegisteredDi = await authRepo.getUserRegisteredDI(
@@ -375,7 +378,7 @@ class LoginFormState extends State<LoginForm> with PageBaseClass {
           if (getRegisteredDi.isSuccess) {
             if (!context.mounted) return;
             localStorage.saveMerchantDbCode(getRegisteredDi.data[0].merchantNo);
-
+            credentials.put('merchantNo', getRegisteredDi.data[0].merchantNo);
             context.router.replace(const Home());
           } else {
             setState(() {

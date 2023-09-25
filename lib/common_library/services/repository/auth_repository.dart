@@ -21,6 +21,8 @@ class AuthRepo {
   final xml2json = Xml2Json();
   final networking = Networking();
   final profileRepo = ProfileRepo();
+  final wsUrlBox = Hive.box('ws_url');
+  final credentials = Hive.box('credentials');
 
   final RegExp removeBracket =
       RegExp("\\[(.*?)\\]", multiLine: true, caseSensitive: true);
@@ -166,6 +168,73 @@ class AuthRepo {
     }
   }
 
+  Future<Response> requestDeviceActivation({
+    context,
+    required String? boUserId,
+    String? latitude,
+    String? longitude,
+    required String? deviceId,
+    required String? deviceBrand,
+    required String? deviceModel,
+    required String? deviceVersion,
+  }) async {
+    final String? caUid = await localStorage.getCaUid();
+    final String? caPwd = await localStorage.getCaPwd();
+    String? pushToken = await Hive.box('ws_url').get('push_token');
+    String? userId = credentials.get('phone');
+    String? deviceId = await localStorage.getLoginDeviceId();
+    String? merchantDbCode = await localStorage.getMerchantDbCode();
+
+    RequestDeviceActivationRequest params = RequestDeviceActivationRequest(
+      wsCodeCrypt: appConfig.wsCodeCrypt,
+      caUid: caUid,
+      caPwd: caPwd,
+      appCode: appConfig.appCode,
+      appId: appConfig.appId,
+      loginId: userId,
+      appVersion: '1.0.0',
+      merchantNo: merchantDbCode,
+      boUserId: boUserId,
+      deviceRemark: deviceVersion,
+      phDeviceId: deviceId,
+      phLine1Number: '',
+      phNetOpName: '',
+      phPhoneType: '',
+      phSimSerialNo: '',
+      bdBoard: '',
+      bdBrand: deviceBrand,
+      bdDevice: '',
+      bdDisplay: '',
+      bdManufacturer: '',
+      bdModel: deviceModel,
+      bdProduct: '',
+      pfDeviceId: '',
+      regId: pushToken ?? '',
+      latitude: latitude ?? '',
+      longitude: longitude ?? '',
+    );
+
+    String body = jsonEncode(params);
+    String api = 'RequestDeviceActivation';
+    Map<String, String> headers = {'Content-Type': 'application/json'};
+
+    var response =
+        await networking.postData(api: api, body: body, headers: headers);
+
+    var message = '';
+
+    //Success
+    if (response.isSuccess && response.data != null) {
+      message = 'Your request will be processed.';
+
+      return Response(true, message: message);
+    }
+    //Fail
+    message = 'Request device activation failed. Please try again later.';
+
+    return Response(false, message: response.message ?? message);
+  }
+
   Future<Response> login({
     context,
     String? phone,
@@ -189,7 +258,7 @@ class AuthRepo {
         'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwdUrlEncode&diCode=${appConfig.diCode}&userPhone=$phone&userPwd=$password&ipAddress=0.0.0.0&latitude=$latitude&longitude=$longitude&appCode=${appConfig.appCode}&appId=${appConfig.appId}&deviceId=&appVersion=$appVersion&deviceRemark=${deviceRemark.isNotEmpty ? Uri.encodeComponent(deviceRemark) : ''}&phDeviceId=$phDeviceId&phLine1Number=&phNetOpName=&phPhoneType=&phSimSerialNo=&bdBoard=&bdBrand=${deviceBrand ?? ''}&bdDevice=&bdDisplay=&bdManufacturer=&bdModel=${deviceModel ?? ''}&bdProduct=&pfDeviceId=&regId=${pushToken ?? ''}';
 
     var response = await networking.getData(
-      path: 'GetUserByUserPhonePwdWithDeviceId?$path',
+      path: 'eDrivingAdminLoginResetPwd?$path',
     );
 
     if (response.isSuccess && response.data != null) {

@@ -383,6 +383,8 @@
   "enrolled_class": "Enrolled class",
   "check_in_successful": "You have checked in successfully. Your queue number is ",
   "checked_in_on": "Checked in on",
+  "requestApproval": "REQUEST APPROVAL",
+  "backOfficeId": "Back Office Login ID",
   "invalid_qr": "Invalid QR code.",
   "mismatch_di": "Different driving institute barcode detected."
 }
