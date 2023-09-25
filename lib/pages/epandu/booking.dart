@@ -1,5 +1,3 @@
-// ignore_for_file: use_key_in_widget_constructors
-
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/repository/epandu_repository.dart';
 import '/utils/constants.dart';
@@ -12,7 +10,10 @@ import 'package:transparent_image/transparent_image.dart';
 import '/common_library/utils/app_localizations.dart';
 import '../../router.gr.dart';
 
+@RoutePage()
 class Booking extends StatefulWidget {
+  const Booking({super.key});
+
   @override
   BookingState createState() => BookingState();
 }
@@ -77,7 +78,7 @@ class BookingState extends State<Booking> {
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
               shape: const CircleBorder(),
-              primary: const Color(0xffdd0e0e),
+              backgroundColor: const Color(0xffdd0e0e),
               textStyle: const TextStyle(color: Colors.white),
               padding: const EdgeInsets.all(12),
             ),

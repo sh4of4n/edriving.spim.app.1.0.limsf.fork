@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'dart:io';
 
@@ -13,10 +13,11 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '/common_library/utils/app_localizations.dart';
 
+@RoutePage()
 class TakeProfilePicture extends StatefulWidget {
   final List<CameraDescription>? camera;
 
-  const TakeProfilePicture(this.camera);
+  const TakeProfilePicture(this.camera, {super.key});
 
   @override
   TakeProfilePictureState createState() => TakeProfilePictureState();
@@ -152,7 +153,7 @@ class TakeProfilePictureState extends State<TakeProfilePicture> {
             // String test = await localStorage.getProfilePic();
 
             // print(test);
-
+            if (!context.mounted) return;
             context.router.pop();
             /* Navigator.push(
               context,

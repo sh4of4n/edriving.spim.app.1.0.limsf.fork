@@ -1,9 +1,9 @@
-// ignore_for_file: use_key_in_widget_constructors
-
 import '/common_library/utils/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class EnrollEnquiry extends StatelessWidget {
+  const EnrollEnquiry({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

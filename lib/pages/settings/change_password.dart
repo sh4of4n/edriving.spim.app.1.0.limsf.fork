@@ -1,4 +1,6 @@
-// ignore_for_file: use_key_in_widget_constructors
+
+
+import 'package:auto_route/auto_route.dart';
 
 import '/common_library/utils/app_localizations.dart';
 import '/utils/constants.dart';
@@ -7,8 +9,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'change_password_form.dart';
 
+@RoutePage()
 class ChangePassword extends StatelessWidget {
   final primaryColor = ColorConstant.primaryColor;
+
+  const ChangePassword({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +57,7 @@ class ChangePassword extends StatelessWidget {
                         SizedBox(
                           height: ScreenUtil().setHeight(200),
                         ),
-                        ChangePasswordForm(),
+                        const ChangePasswordForm(),
                       ],
                     ),
                   ),

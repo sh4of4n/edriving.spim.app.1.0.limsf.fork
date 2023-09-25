@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import '/custom_icon/my_custom_icons_icons.dart';
 import '/pages/home/home.dart';
@@ -11,6 +11,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '/common_library/utils/app_localizations.dart';
 
 class HomeTab extends StatefulWidget {
+  const HomeTab({super.key});
+
   @override
   HomeTabState createState() => HomeTabState();
 }
@@ -22,21 +24,21 @@ class HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
   final List<Tab> myTabs = <Tab>[
     const Tab(
       icon: Icon(
-        MyCustomIcons.home_icon,
+        MyCustomIcons.homeIcon,
         size: 30,
         color: Color(0xff808080),
       ),
     ),
     const Tab(
       icon: Icon(
-        MyCustomIcons.v_club_icon,
+        MyCustomIcons.vClubIcon,
         size: 30,
         color: Color(0xff808080),
       ),
     ),
     const Tab(
       icon: Icon(
-        MyCustomIcons.invite_icon,
+        MyCustomIcons.inviteIcon,
         size: 30,
         color: Color(0xff808080),
       ),
@@ -96,7 +98,7 @@ class HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
                     tabs: [
                       Tab(
                         icon: const Icon(
-                          MyCustomIcons.home_icon,
+                          MyCustomIcons.homeIcon,
                           size: 30,
                           color: Color(0xff808080),
                         ),
@@ -105,7 +107,7 @@ class HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
                       ),
                       Tab(
                         icon: const Icon(
-                          MyCustomIcons.v_club_icon,
+                          MyCustomIcons.vClubIcon,
                           size: 30,
                           color: Color(0xff808080),
                         ),
@@ -116,7 +118,7 @@ class HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
                           width: ScreenUtil().setWidth(300)),
                       Tab(
                         icon: const Icon(
-                          MyCustomIcons.invite_icon,
+                          MyCustomIcons.inviteIcon,
                           size: 30,
                           color: Color(0xff808080),
                         ),
@@ -140,7 +142,7 @@ class HomeTabState extends State<HomeTab> with SingleTickerProviderStateMixin {
           ),
           body: TabBarView(
             controller: _tabController,
-            children: [
+            children: const [
               Home(),
               Invite(),
               // Menu(),

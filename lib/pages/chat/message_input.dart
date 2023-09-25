@@ -1,5 +1,3 @@
-// ignore_for_file: use_key_in_widget_constructors
-
 import '/pages/chat/chat_bloc.dart';
 import '/services/database/chat_db.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +18,7 @@ class MessageInput extends StatefulWidget {
   final FocusNode? focusNode;
 
   const MessageInput(
-      {required this.textEditingController,
+      {super.key, required this.textEditingController,
       this.onPressedSend,
       this.onPressedAttach,
       this.onPressedVoice,

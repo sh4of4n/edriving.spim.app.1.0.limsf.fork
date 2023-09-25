@@ -1,5 +1,3 @@
-// ignore_for_file: use_key_in_widget_constructors
-
 import 'package:auto_route/auto_route.dart';
 import '/common_library/utils/app_localizations.dart';
 import '/common_library/services/location.dart';
@@ -12,10 +10,11 @@ import 'package:geolocator/geolocator.dart';
 
 import '../../router.gr.dart';
 
+@RoutePage()
 class DirectoryList extends StatefulWidget {
   final dynamic directoryType;
 
-  const DirectoryList(this.directoryType);
+  const DirectoryList(this.directoryType, {super.key});
 
   @override
   DirectoryListState createState() => DirectoryListState();
@@ -52,7 +51,7 @@ class DirectoryListState extends State<DirectoryList> {
           maxRadius = '0';
         });
       }
-
+      if (!context.mounted) return;
       var response = await emergencyRepo.getSosContactSortByNearest(
           context: context,
           sosContactType: widget.directoryType,
@@ -63,6 +62,7 @@ class DirectoryListState extends State<DirectoryList> {
       }
       return response.message;
     } else {
+      if (!context.mounted) return;
       context.router.popUntil(
         ModalRoute.withName('Home'),
       );

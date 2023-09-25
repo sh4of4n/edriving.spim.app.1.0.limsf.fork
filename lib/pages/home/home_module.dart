@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import '/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +12,8 @@ class HomeModule extends StatelessWidget {
     'assets/images/2.PNG',
     'assets/images/3.PNG'
   ];
+
+  HomeModule({super.key});
 
   @override
   Widget build(BuildContext context) {

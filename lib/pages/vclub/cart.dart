@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/router.gr.dart';
@@ -15,11 +15,12 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
+@RoutePage()
 class Cart extends StatefulWidget {
   final String? itemName;
   final String? dbcode;
 
-  const Cart({this.itemName, this.dbcode});
+  const Cart({super.key, this.itemName, this.dbcode});
 
   @override
   CartState createState() => CartState();
@@ -404,7 +405,7 @@ class CartState extends State<Cart> {
                 minimumSize: Size(420.w, 45.h),
                 padding: const EdgeInsets.symmetric(vertical: 11.0),
                 shape: const StadiumBorder(),
-                primary: const Color(0xffdd0e0e),
+                backgroundColor: const Color(0xffdd0e0e),
                 textStyle: const TextStyle(color: Colors.white),
               ),
               onPressed: _checkout,

@@ -1,5 +1,5 @@
 // import 'dart:convert';
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'dart:convert';
 
@@ -22,11 +22,11 @@ import 'package:intl/intl.dart';
 import 'package:package_info/package_info.dart';
 
 import '/common_library/utils/app_localizations.dart';
-
+@RoutePage()
 class RegisterUserToDi extends StatefulWidget {
   final dynamic barcode;
 
-  const RegisterUserToDi(this.barcode);
+  const RegisterUserToDi(this.barcode, {super.key});
 
   @override
   RegisterUserToDiState createState() => RegisterUserToDiState();
@@ -205,6 +205,7 @@ class RegisterUserToDiState extends State<RegisterUserToDi> {
       );
 
       if (result.isSuccess) {
+        if (!context.mounted) return;
         context.router.popUntil(ModalRoute.withName('Home'));
         /* customDialog.show(
           context: context,
@@ -229,6 +230,7 @@ class RegisterUserToDiState extends State<RegisterUserToDi> {
           type: DialogType.GENERAL,
         ); */
       } else {
+        if (!context.mounted) return;
         customDialog.show(
           context: context,
           content: result.message.toString(),

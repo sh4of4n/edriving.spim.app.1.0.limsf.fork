@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/model/provider_model.dart';
@@ -16,7 +16,7 @@ import '../../router.gr.dart';
 class Menu extends StatefulWidget {
   final dynamic data;
 
-  const Menu(this.data);
+  const Menu(this.data, {super.key});
 
   @override
   MenuState createState() => MenuState();

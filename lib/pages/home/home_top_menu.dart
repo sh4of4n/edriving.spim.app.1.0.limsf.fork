@@ -1,5 +1,6 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
+import 'package:edriving_spim_app/common_library/utils/app_localizations.dart';
 import '/common_library/services/repository/epandu_repository.dart';
 import '/common_library/services/repository/inbox_repository.dart';
 import '/common_library/utils/local_storage.dart';
@@ -16,7 +17,7 @@ class HomeTopMenu extends StatefulWidget {
   final dynamic getDiProfile;
   final dynamic getActiveFeed;
 
-  const HomeTopMenu({
+  const HomeTopMenu({super.key, 
     this.iconText,
     this.getDiProfile,
     this.getActiveFeed,
@@ -104,7 +105,15 @@ class HomeTopMenuState extends State<HomeTopMenu> {
             Container(
                 height: size.height * 0.35 - 50,
                 decoration: const BoxDecoration(
-                    color: Color.fromARGB(255, 233, 194, 38)),
+                  gradient: LinearGradient(
+                    colors: [
+                      Color.fromARGB(255, 243, 205, 56),
+                      Colors.white,],
+                      stops: [0.45, 0.85],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          ),
+                    ),
                 child: Stack(children: <Widget>[
                   Container(
                     margin: const EdgeInsets.symmetric(
@@ -118,14 +127,21 @@ class HomeTopMenuState extends State<HomeTopMenu> {
                             width: 180,
                             alignment: Alignment.center,
                           ),
+                          Image.asset(
+                            'assets/images/Axia.png',
+                            height: 90,
+                            width: 160,
+                            alignment: Alignment.center,
+                          ),
                         ]),
                       ],
                     ),
                   ),
                 ])),
             Positioned(
-              bottom: 0,
+              bottom: 70,
               left: 0,
+              top: 150,
               right: 0,
               child: Container(
                 margin: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
@@ -161,9 +177,10 @@ class HomeTopMenuState extends State<HomeTopMenu> {
                               size: 30,
                             ),
                           ),
-                          const Text(
-                            "Pay",
-                            style: TextStyle(
+                          Text(
+                            AppLocalizations.of(context)!
+                                  .translate('pay_lbl'),
+                            style: const TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 14,
                                 color: Colors.black),
@@ -182,14 +199,15 @@ class HomeTopMenuState extends State<HomeTopMenu> {
                                     BorderRadius.all(Radius.circular(18))),
                             padding: const EdgeInsets.all(12),
                             child: const Icon(
-                              MyCustomIcons.invite_icon,
+                              MyCustomIcons.inviteIcon,
                               color: Color.fromARGB(255, 32, 56, 90),
                               size: 30,
                             ),
                           ),
-                          const Text(
-                            "Invite",
-                            style: TextStyle(
+                          Text(
+                            AppLocalizations.of(context)!
+                                  .translate('invite_lbl'),
+                            style: const TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 14,
                                 color: Colors.black),
@@ -209,14 +227,15 @@ class HomeTopMenuState extends State<HomeTopMenu> {
                                       BorderRadius.all(Radius.circular(18))),
                               padding: const EdgeInsets.all(12),
                               child: const Icon(
-                                MyCustomIcons.inbox_icon,
+                                MyCustomIcons.inboxIcon,
                                 color: Color.fromARGB(255, 32, 56, 90),
                                 size: 30,
                               ),
                             ),
-                            const Text(
-                              "Notification",
-                              style: TextStyle(
+                            Text(
+                              AppLocalizations.of(context)!
+                                  .translate('inbox_lbl'),
+                              style: const TextStyle(
                                   fontWeight: FontWeight.w700,
                                   fontSize: 14,
                                   color: Colors.black),
@@ -239,14 +258,15 @@ class HomeTopMenuState extends State<HomeTopMenu> {
                                     BorderRadius.all(Radius.circular(18))),
                             padding: const EdgeInsets.all(12),
                             child: const Icon(
-                              MyCustomIcons.scan_icon,
+                              MyCustomIcons.scanIcon,
                               color: Color.fromARGB(255, 32, 56, 90),
                               size: 30,
                             ),
                           ),
-                          const Text(
-                            "Scan",
-                            style: TextStyle(
+                          Text(
+                            AppLocalizations.of(context)!
+                                  .translate('scan_lbl'),
+                            style: const TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 14,
                                 color: Colors.black),
@@ -270,9 +290,10 @@ class HomeTopMenuState extends State<HomeTopMenu> {
                               size: 30,
                             ),
                           ),
-                          const Text(
-                            "Profile",
-                            style: TextStyle(
+                          Text(
+                            AppLocalizations.of(context)!
+                                  .translate('profile_title'),
+                            style: const TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 14,
                                 color: Colors.black),

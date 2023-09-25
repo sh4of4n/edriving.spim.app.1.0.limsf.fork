@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import 'package:badges/badges.dart' as badges;
@@ -19,6 +19,7 @@ import 'package:provider/provider.dart';
 import '../../router.gr.dart' as route;
 import '/common_library/services/repository/products_repository.dart';
 
+@RoutePage()
 class Product extends StatefulWidget {
   final String? stkCode;
   final String? stkDesc1;
@@ -29,7 +30,7 @@ class Product extends StatefulWidget {
   final String? uom;
   final dynamic products;
 
-  const Product({
+  const Product({super.key, 
     this.stkCode,
     this.stkDesc1,
     this.stkDesc2,
@@ -200,7 +201,7 @@ class ProductState extends State<Product> {
               borderRadius: BorderRadius.circular(5),
               side: const BorderSide(color: Color(0xffdd0e0e)),
             ),
-            primary: const Color(0xffdd0e0e),
+            backgroundColor: const Color(0xffdd0e0e),
             textStyle: const TextStyle(color: Colors.white)),
         child: Text(
           'Add To Cart',
@@ -294,7 +295,6 @@ class ProductState extends State<Product> {
             RatingBar.builder(
               initialRating: rating,
               onRatingUpdate: (rating) {
-                // ignore: avoid_print
                 print(rating);
               },
               direction: Axis.horizontal,
@@ -343,8 +343,11 @@ class ProductState extends State<Product> {
               child: Padding(
                 padding: EdgeInsets.only(top: 30.h, right: 50.w, bottom: 20.h),
                 child: badges.Badge(
-                  badgeColor: Colors.redAccent[700]!,
-                  animationType: badges.BadgeAnimationType.fade,
+                  badgeStyle: badges.BadgeStyle(
+                    badgeColor: Colors.redAccent[700]!,
+                  
+                  ),
+                  badgeAnimation: const badges.BadgeAnimation.fade(),
                   showBadge: showBadge,
                   badgeContent: Text(
                     '$badgeNo',

@@ -1,4 +1,6 @@
-// ignore_for_file: use_key_in_widget_constructors
+
+
+import 'package:auto_route/auto_route.dart';
 
 import '/utils/constants.dart';
 import '/common_library/utils/custom_dialog.dart';
@@ -10,7 +12,10 @@ import 'login_form.dart';
 import 'login_tablet_bottom_card.dart';
 import 'login_tablet_form.dart';
 
+@RoutePage()
 class Login extends StatefulWidget {
+  const Login({super.key});
+
   @override
   LoginState createState() => LoginState();
 }
@@ -73,11 +78,11 @@ class LoginState extends State<Login> {
                         SizedBox(
                           height: 120.h,
                         ),
-                        LoginForm(),
+                        const LoginForm(),
                       ],
                     ),
                   ),
-                  LoginBottomCard(),
+                  const LoginBottomCard(),
                 ],
               ),
             ),
@@ -129,11 +134,11 @@ class LoginState extends State<Login> {
                         SizedBox(
                           height: 120.h,
                         ),
-                        LoginTabletForm(),
+                        const LoginTabletForm(),
                       ],
                     ),
                   ),
-                  LoginTabletBottomCard(),
+                  const LoginTabletBottomCard(),
                 ],
               ),
             ),

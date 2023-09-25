@@ -1,16 +1,17 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:edriving_spim_app/common_library/utils/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+// import '../../app_localizations.dart';
 import '../services/model/provider_model.dart';
-import 'app_localizations.dart';
 import 'application.dart';
 import 'local_storage.dart';
 
 class LanguageOptions extends StatelessWidget {
   final localStorage = LocalStorage();
 
-  LanguageOptions({Key? key}) : super(key: key);
+  LanguageOptions({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +22,9 @@ class LanguageOptions extends StatelessWidget {
           onTap: () {
             localStorage.saveLocale('en');
             application.onLocaleChanged(const Locale('en'));
-            Provider.of<LanguageModel>(context, listen: false).selectedLanguage(
-                AppLocalizations.of(context)!.translate('english_lbl'));
+            Provider.of<LanguageModel>(context, listen: false)
+                .selectedLanguage(
+                    AppLocalizations.of(context)!.translate('english_lbl'));
             context.router.pop();
           },
         ),
@@ -31,8 +33,9 @@ class LanguageOptions extends StatelessWidget {
           onTap: () {
             localStorage.saveLocale('ms');
             application.onLocaleChanged(const Locale('ms'));
-            Provider.of<LanguageModel>(context, listen: false).selectedLanguage(
-                AppLocalizations.of(context)!.translate('malay_lbl'));
+            Provider.of<LanguageModel>(context, listen: false)
+                .selectedLanguage(
+                    AppLocalizations.of(context)!.translate('malay_lbl'));
             context.router.pop();
           },
         ),

@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import '/custom_icon/my_custom_icons_icons.dart';
 import '/utils/constants.dart';
@@ -14,6 +14,8 @@ class BottomMenu extends StatelessWidget {
     fontSize: ScreenUtil().setSp(55),
     fontWeight: FontWeight.w500,
   );
+
+  BottomMenu({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +86,7 @@ class BottomMenu extends StatelessWidget {
                     child: Column(
                       children: <Widget>[
                         const Icon(
-                          MyCustomIcons.gift_icon,
+                          MyCustomIcons.giftIcon,
                           size: 22,
                           color: Color(0xff808080),
                         ),

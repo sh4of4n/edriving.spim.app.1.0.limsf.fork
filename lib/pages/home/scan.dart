@@ -14,6 +14,7 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:auto_route/auto_route.dart';
 import '../../router.gr.dart';
 
+@RoutePage()
 class Scan extends StatefulWidget {
   final dynamic getDiProfile;
   final dynamic getActiveFeed;
@@ -169,10 +170,12 @@ class _ScanState extends State<Scan> {
                   ],
                   type: DialogType.GENERAL,
                 ); */
+                if (!context.mounted) return;
               context.router.replace(
                 QueueNumber(data: result.data),
               );
             } else {
+              if (!context.mounted) return;
               customDialog.show(
                 context: context,
                 barrierDismissable: false,
@@ -216,6 +219,7 @@ class _ScanState extends State<Scan> {
         break;
 
       default:
+      if (!context.mounted) return;
         context.router
             .replace(
           RegisterUserToDi(

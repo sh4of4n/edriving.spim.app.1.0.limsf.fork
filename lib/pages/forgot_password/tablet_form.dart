@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/common_library/utils/app_localizations.dart';
@@ -12,6 +12,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class ForgotPasswordTabletForm extends StatefulWidget {
+  const ForgotPasswordTabletForm({super.key});
+
   @override
   ForgotPasswordTabletFormState createState() =>
       ForgotPasswordTabletFormState();
@@ -179,7 +181,7 @@ class ForgotPasswordTabletFormState extends State<ForgotPasswordTabletForm>
                 minimumSize: Size(420.w, 45.h),
                 padding: const EdgeInsets.symmetric(vertical: 11.0),
                 shape: const StadiumBorder(),
-                primary: const Color(0xffdd0e0e),
+                backgroundColor: const Color(0xffdd0e0e),
                 textStyle: const TextStyle(color: Colors.white),
               ),
               onPressed: _submit,
@@ -237,7 +239,7 @@ class ForgotPasswordTabletFormState extends State<ForgotPasswordTabletForm>
             _message = result.message;
           });
         }
-
+        if (!context.mounted) return;
         CustomSnackbar().show(
           context,
           message: _message,

@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:auto_route/auto_route.dart';
+
 import '/pages/chat/chat_bloc.dart';
 import '/services/database/chat_db.dart';
 import '/pages/chat/socket_helper.dart';
@@ -16,6 +18,7 @@ import 'package:uuid/uuid.dart';
 import '/common_library/services/model/chat_model.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 
+@RoutePage()
 class ChatHome extends StatefulWidget {
   const ChatHome({Key? key}) : super(key: key);
 

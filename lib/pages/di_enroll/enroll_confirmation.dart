@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously, use_key_in_widget_constructors
-
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/repository/auth_repository.dart';
 import '/common_library/services/repository/profile_repository.dart';
@@ -17,6 +15,7 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 // import 'package:readmore/readmore.dart';
 import '../../router.gr.dart';
 
+@RoutePage()
 class EnrollConfirmation extends StatefulWidget {
   final String? banner;
   final String? packageName;
@@ -119,6 +118,7 @@ class EnrollConfirmationState extends State<EnrollConfirmation> {
         _race == null ||
         _eMail == null ||
         _gender == null) {
+          if (!context.mounted) return;
       customDialog.show(
         context: context,
         barrierDismissable: false,
@@ -290,6 +290,7 @@ class EnrollConfirmationState extends State<EnrollConfirmation> {
         isLoading = false;
       });
 
+      if (!context.mounted) return;
       customDialog.show(
         context: context,
         type: DialogType.error,
@@ -308,6 +309,7 @@ class EnrollConfirmationState extends State<EnrollConfirmation> {
 
     if (result.isSuccess) {
       if (result.data[0].trnStatus.toUpperCase() != 'PAID') {
+        if (!context.mounted) return;
         context.router.push(
           FpxPaymentOption(
             icNo: _icNo,
@@ -334,6 +336,7 @@ class EnrollConfirmationState extends State<EnrollConfirmation> {
         isLoading = false;
       });
 
+      if (!context.mounted) return;
       customDialog.show(
         context: context,
         type: DialogType.error,
@@ -352,6 +355,7 @@ class EnrollConfirmationState extends State<EnrollConfirmation> {
     );
 
     if (result.isSuccess) {
+      if (!context.mounted) return;
       context.router.push(
         Webview(url: result.data[0].receiptUrl),
       );
@@ -376,6 +380,7 @@ class EnrollConfirmationState extends State<EnrollConfirmation> {
               onTap: () async {
                 String? diCode = await localStorage.getMerchantDbCode();
 
+                if (!context.mounted) return;
                 context.router.push(
                   OrderList(
                     icNo: _icNo,
@@ -570,8 +575,7 @@ class EnrollConfirmationState extends State<EnrollConfirmation> {
                                   children: [
                                     Text(
                                         '${index + 1})  ${packageDetlList[index].prodDesc}'),
-                                    // ignore: prefer_interpolation_to_compose_strings
-                                    Text('RM' + packageDetlList[index].amt),
+                                        Text('RM ${packageDetlList[index].amt}'),
                                   ],
                                 ),
                               ],
@@ -742,7 +746,7 @@ class EnrollConfirmationState extends State<EnrollConfirmation> {
 }
 
 class LabeledCheckbox extends StatelessWidget {
-  const LabeledCheckbox({
+  const LabeledCheckbox({super.key, 
     this.label,
     this.padding,
     this.value,

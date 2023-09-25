@@ -1,4 +1,5 @@
-// ignore_for_file: use_key_in_widget_constructors
+
+
 
 import '/common_library/services/repository/vclub_repository.dart';
 import '/utils/constants.dart';
@@ -10,7 +11,7 @@ import '/common_library/utils/app_localizations.dart';
 class MerchantProfile extends StatefulWidget {
   final dynamic data;
 
-  const MerchantProfile(this.data);
+  const MerchantProfile(this.data, {super.key});
 
   @override
   MerchantProfileState createState() => MerchantProfileState();
@@ -65,8 +66,8 @@ class MerchantProfileState extends State<MerchantProfile> {
                   child: Text(snapshot.data),
                 );
               }
-              return Column(
-                children: const <Widget>[],
+              return const Column(
+                children: <Widget>[],
               );
             default:
               return Center(

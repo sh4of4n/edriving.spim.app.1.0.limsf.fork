@@ -1,4 +1,6 @@
-// ignore_for_file: use_key_in_widget_constructors
+
+
+import 'package:auto_route/auto_route.dart';
 
 import '/common_library/utils/app_localizations.dart';
 import '/common_library/services/repository/auth_repository.dart';
@@ -12,8 +14,10 @@ import 'package:transparent_image/transparent_image.dart';
 
 import '../../router.gr.dart';
 import 'kpp_category_icon.dart';
-
+@RoutePage()
 class KppCategory extends StatefulWidget {
+  const KppCategory({super.key});
+
   @override
   KppCategoryState createState() => KppCategoryState();
 }
@@ -38,6 +42,7 @@ class KppCategoryState extends State<KppCategory> {
     String? instituteLogoPath = await localStorage.getInstituteLogo();
 
     if (instituteLogoPath != null && instituteLogoPath.isEmpty) {
+      if (!context.mounted) return;
       var result = await authRepo.getDiProfile(context: context);
 
       if (result.isSuccess && result.data != null) {

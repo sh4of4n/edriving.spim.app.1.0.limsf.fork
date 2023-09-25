@@ -1,196 +1,89 @@
 import 'package:auto_route/auto_route.dart';
-import '/coming_soon/coming_soon.dart';
-import '/pages/chat/chat.dart';
-import '/pages/enroll/enroll.dart';
-import '/pages/epandu/epandu.dart';
-import '/pages/forgot_password/forgot_password.dart';
-import '/pages/inbox/inbox.dart';
-import '/pages/invite/invite.dart';
-import '/pages/kpp/kpp.dart';
-import '/pages/payment/airtime_bill_detail.dart';
-import '/pages/payment/airtime_selection.dart';
-import '/pages/payment/bill_detail.dart';
-import '/pages/payment/bill_selection.dart';
-import '/pages/payment/bill_transaction.dart';
-import '/pages/pdf/view_pdf.dart';
-import '/pages/profile/profile.dart';
-import '/pages/promotions/promotions.dart';
-import '/pages/register/register.dart';
-import '/pages/vclub/value_club.dart';
+import 'package:edriving_spim_app/router.gr.dart';
 
-import 'pages/di_enroll/di_enrollment.dart';
-import 'pages/emergency/emergency.dart';
-import 'pages/etesting/etesting.dart';
-import 'pages/home/home.dart';
-import 'pages/login/login.dart';
-import 'pages/pay/pay.dart';
-import 'pages/payment/airtime_transaction.dart';
-import 'pages/settings/settings.dart';
-import '/common_library/utils/image_viewer.dart';
+@AutoRouterConfig(replaceInRouteName: 'Page,Route')
+class RootRouter extends $RootRouter {
 
-@MaterialAutoRouter(
-  replaceInRouteName: 'Page,Route',
-  routes: <AutoRoute>[
-    AutoRoute(path: '/authentication', page: Authentication, initial: true),
+  @override
+  final List<AutoRoute> routes = [
+    AutoRoute(path: '/', page: Authentication.page),
     AutoRoute(
-        path: '/clientAccount', page: ClientAccount, name: 'ClientAccount'),
-    AutoRoute(path: '/login', page: Login, name: 'Login'),
-    AutoRoute(
-        path: '/forgotPassword', page: ForgotPassword, name: 'ForgotPassword'),
-    AutoRoute(
-        path: '/changePassword', page: ChangePassword, name: 'ChangePassword'),
-    AutoRoute(
-        path: '/registerMobile', page: RegisterMobile, name: 'RegisterMobile'),
-    AutoRoute(
-        path: '/registerVerification',
-        page: RegisterVerification,
-        name: 'RegisterVerification'),
-    AutoRoute(path: '/registerForm', page: RegisterForm, name: 'RegisterForm'),
-    AutoRoute(path: '/home', page: Home, name: 'Home'),
-    AutoRoute(path: '/queueNumber', page: QueueNumber, name: 'QueueNumber'),
-    AutoRoute(path: '/enrollment', page: Enrollment, name: 'Enrollment'),
-    AutoRoute(path: '/diEnrollment', page: DiEnrollment, name: 'DiEnrollment'),
-    AutoRoute(
-        path: '/enrollConfirmation',
-        page: EnrollConfirmation,
-        name: 'EnrollConfirmation'),
-    AutoRoute(path: '/orderList', page: OrderList, name: 'OrderList'),
-    AutoRoute(path: '/bankList', page: BankList, name: 'BankList'),
-    AutoRoute(
-        path: '/paymentStatus', page: PaymentStatus, name: 'PaymentStatus'),
-    AutoRoute(path: '/kppCategory', page: KppCategory, name: 'KppCategory'),
-    AutoRoute(path: '/kppResult', page: KppResult, name: 'KppResult'),
-    AutoRoute(path: '/kppExam', page: KppExam, name: 'KppExam'),
-    AutoRoute(path: '/kppModule', page: KppModule, name: 'KppModule'),
-    AutoRoute(
-        path: '/pinActivation', page: PinActivation, name: 'PinActivation'),
-    AutoRoute(path: '/valueClub', page: ValueClub, name: 'ValueClub'),
-    AutoRoute(path: '/product', page: Product, name: 'Product'),
-    AutoRoute(path: '/productList', page: ProductList, name: 'ProductList'),
-    AutoRoute(path: '/cart', page: Cart, name: 'Cart'),
-    AutoRoute(path: '/cartItemEdit', page: CartItemEdit, name: 'CartItemEdit'),
-    AutoRoute(path: '/checkout', page: Checkout, name: 'Checkout'),
-    AutoRoute(
-        path: '/epanduCategory', page: EpanduCategory, name: 'EpanduCategory'),
-    AutoRoute(
-        path: '/epanduCategory',
-        page: EtestingCategory,
-        name: 'EtestingCategory'),
-    AutoRoute(
-        path: '/emergencyDirectory',
-        page: EmergencyDirectory,
-        name: 'EmergencyDirectory'),
-    AutoRoute(
-        path: '/directoryList', page: DirectoryList, name: 'DirectoryList'),
-    AutoRoute(
-        path: '/directoryDetail',
-        page: DirectoryDetail,
-        name: 'DirectoryDetail'),
-    AutoRoute(
-        path: '/selectInstitute',
-        page: SelectInstitute,
-        name: 'SelectInstitute'),
-    AutoRoute(path: '/selectClass', page: SelectClass, name: 'SelectClass'),
-    AutoRoute(
-        path: '/selectDrivingInstitute',
-        page: SelectDrivingInstitute,
-        name: 'SelectDrivingInstitute'),
-    AutoRoute(
-        path: '/takeProfilePicture',
-        page: TakeProfilePicture,
-        name: 'TakeProfilePicture'),
-    AutoRoute(path: '/booking', page: Booking, name: 'Booking'),
-    AutoRoute(path: '/addBooking', page: AddBooking, name: 'AddBooking'),
-    AutoRoute(path: '/records', page: Records, name: 'Records'),
-    AutoRoute(path: '/pay', page: Pay, name: 'Pay'),
-    AutoRoute(
-        path: '/purchaseOrderList',
-        page: PurchaseOrderList,
-        name: 'PurchaseOrderList'),
-    AutoRoute(
-        path: '/paymentHistory', page: PaymentHistory, name: 'PaymentHistory'),
-    AutoRoute(
-        path: '/paymentHistoryDetail',
-        page: PaymentHistoryDetail,
-        name: 'PaymentHistoryDetail'),
-    AutoRoute(
-        path: '/requestPickup', page: RequestPickup, name: 'RequestPickup'),
-    AutoRoute(
-        path: '/registeredCourse',
-        page: RegisteredCourse,
-        name: 'RegisteredCourse'),
-    AutoRoute(
-        path: '/registeredCourseDetail',
-        page: RegisteredCourseDetail,
-        name: 'RegisteredCourseDetail'),
-    AutoRoute(
-        path: '/attendanceRecord',
-        page: AttendanceRecord,
-        name: 'AttendanceRecord'),
-    AutoRoute(
-        path: '/attendanceTab', page: AttendanceTab, name: 'AttendanceTab'),
-    AutoRoute(path: '/promotions', page: Promotions, name: 'Promotions'),
-    AutoRoute(path: '/profile', page: Profile, name: 'Profile'),
-    AutoRoute(path: '/profileTab', page: ProfileTab, name: 'ProfileTab'),
-    AutoRoute(
-        path: '/updateProfile', page: UpdateProfile, name: 'UpdateProfile'),
-    AutoRoute(
-        path: 'registerUserToDi',
-        page: RegisterUserToDi,
-        name: 'RegisterUserToDi'),
-    AutoRoute(
-        path: '/identityBarcode',
-        page: IdentityBarcode,
-        name: 'IdentityBarcode'),
-    AutoRoute(
-        path: '/enrolmentInfo', page: EnrolmentInfo, name: 'EnrolmentInfo'),
-    AutoRoute(
-        path: '/enrolmentInfoDetail',
-        page: EnrolmentInfoDetail,
-        name: 'EnrolmentInfoDetail'),
-    AutoRoute(path: '/inbox', page: Inbox, name: 'Inbox'),
-    AutoRoute(path: '/invite', page: Invite, name: 'Invite'),
-    AutoRoute(
-        path: '/airtimeTransaction',
-        page: AirtimeTransaction,
-        name: 'AirtimeTransaction'),
-    AutoRoute(
-        path: '/airtimeBillDetail',
-        page: AirtimeBillDetail,
-        name: 'AirtimeBillDetail'),
-    AutoRoute(
-        path: '/airtimeSelection',
-        page: AirtimeSelection,
-        name: 'AirtimeSelection'),
-    AutoRoute(
-        path: '/billTransaction',
-        page: BillTransaction,
-        name: 'BillTransaction'),
-    AutoRoute(path: '/billDetail', page: BillDetail, name: 'BillDetail'),
-    AutoRoute(
-        path: '/billSelection', page: BillSelection, name: 'BillSelection'),
-    AutoRoute(path: '/merchantList', page: MerchantList, name: 'MerchantList'),
-    AutoRoute(path: '/chatHome', page: ChatHome, name: 'ChatHome'),
-    AutoRoute(
-        path: '/termsAndCondition',
-        page: TermsAndCondition,
-        name: 'TermsAndCondition'),
-    AutoRoute(
-        path: '/fpxPaymentOption',
-        page: FpxPaymentOption,
-        name: 'FpxPaymentOption'),
-    AutoRoute(path: '/imageViewer', page: ImageViewer, name: 'ImageViewer'),
-    AutoRoute(path: '/webview', page: Webview, name: 'Webview'),
-    AutoRoute(path: '/scan', page: Scan, name: 'Scan'),
-    AutoRoute(path: '/readMore', page: ReadMore, name: 'ReadMore'),
-    AutoRoute(path: '/viewPdf', page: ViewPdf, name: 'ViewPdf'),
-    AutoRoute(path: '/comingSoon', page: ComingSoon, name: 'ComingSoon'),
-    AutoRoute(path: '/checkInSlip', page: CheckInSlip, name: 'CheckInSlip'),
-    AutoRoute(path: '/multilevel', page: Multilevel, name: 'Multilevel'),
-    AutoRoute(
-        path: '/merchantProfile',
-        page: MerchantProfile,
-        name: 'MerchantProfile'),
-  ],
-)
+        path: '/clientAccount', page: ClientAccount.page/* , name: 'ClientAccount' */),
+    AutoRoute(page: Login.page/* , name: 'Login' */),
+    AutoRoute(page: ForgotPassword.page/* , name: 'ForgotPassword' */),
+    AutoRoute(page: ChangePassword.page/* , name: 'ChangePassword' */),
+    AutoRoute(page: RegisterMobile.page/* , name: 'RegisterMobile' */),
+    AutoRoute(page: RegisterVerification.page/*, name: 'RegisterVerification' */),
+    AutoRoute(page: RegisterForm.page/* , name: 'RegisterForm' */),
+    AutoRoute(page: Home.page/* , name: 'Home' */),
+    AutoRoute(page: QueueNumber.page/* , name: 'QueueNumber' */),
+    AutoRoute(page: Enrollment.page/* , name: 'Enrollment' */),
+    AutoRoute(page: DiEnrollment.page/* , name: 'DiEnrollment' */),
+    AutoRoute(page: EnrollConfirmation.page/* ,name: 'EnrollConfirmation' */),
+    AutoRoute(page: OrderList.page/* , name: 'OrderList' */),
+    AutoRoute(page: BankList.page/* , name: 'BankList' */),
+    AutoRoute(page: PaymentStatus.page/* , name: 'PaymentStatus' */),
+    AutoRoute(page: KppCategory.page/* , name: 'KppCategory' */),
+    AutoRoute(page: KppResult.page/* , name: 'KppResult' */),
+    AutoRoute(page: KppExam.page/* , name: 'KppExam' */),
+    AutoRoute(page: KppModule.page/* , name: 'KppModule' */),
+    AutoRoute(page: PinActivation.page/* , name: 'PinActivation' */),
+    AutoRoute(page: ValueClub.page/* , name: 'ValueClub' */),
+    AutoRoute(page: Product.page/* , name: 'Product' */),
+    AutoRoute(page: ProductList.page/* , name: 'ProductList' */),
+    AutoRoute(page: Cart.page/* , name: 'Cart' */),
+    AutoRoute(page: CartItemEdit.page/* , name: 'CartItemEdit' */),
+    AutoRoute(page: Checkout.page/* , name: 'Checkout' */),
+    AutoRoute(page: EpanduCategory.page/* , name: 'EpanduCategory' */),
+    AutoRoute(page: EtestingCategory.page/* ,name: 'EtestingCategory' */),
+    AutoRoute(page: EmergencyDirectory.page/* ,name: 'EmergencyDirectory' */),
+    AutoRoute(page: DirectoryList.page/* , name: 'DirectoryList' */),
+    AutoRoute(page: DirectoryDetail.page/* ,name: 'DirectoryDetail' */),
+    AutoRoute(page: SelectInstitute.page/* ,name: 'SelectInstitute' */),
+    AutoRoute(page: SelectClass.page/* , name: 'SelectClass' */),
+    AutoRoute(page: SelectDrivingInstitute.page/* ,name: 'SelectDrivingInstitute' */),
+    AutoRoute(page: TakeProfilePicture.page/* ,name: 'TakeProfilePicture' */),
+    AutoRoute(page: Booking.page/* , name: 'Booking' */),
+    AutoRoute(page: AddBooking.page/* , name: 'AddBooking' */),
+    AutoRoute(page: Records.page/* , name: 'Records' */),
+    AutoRoute(page: Pay.page/* , name: 'Pay' */),
+    AutoRoute(page: PurchaseOrderList.page/* ,name: 'PurchaseOrderList' */),
+    AutoRoute(page: PaymentHistory.page/* , name: 'PaymentHistory' */),
+    AutoRoute(page: PaymentHistoryDetail.page/* ,name: 'PaymentHistoryDetail' */),
+    AutoRoute(page: RequestPickup.page/* , name: 'RequestPickup' */),
+    AutoRoute(page: RegisteredCourse.page/* ,name: 'RegisteredCourse' */),
+    AutoRoute(page: RegisteredCourseDetail.page/* ,name: 'RegisteredCourseDetail' */),
+    AutoRoute(page: AttendanceRecord.page/* ,name: 'AttendanceRecord' */),
+    AutoRoute(page: AttendanceTab.page/* , name: 'AttendanceTab' */),
+    AutoRoute(page: Promotions.page/* , name: 'Promotions' */),
+    AutoRoute(page: Profile.page/* , name: 'Profile' */),
+    AutoRoute(page: ProfileTab.page/* , name: 'ProfileTab' */),
+    AutoRoute(page: UpdateProfile.page/* , name: 'UpdateProfile' */),
+    AutoRoute(page: RegisterUserToDi.page/* ,name: 'RegisterUserToDi' */),
+    AutoRoute(page: IdentityBarcode.page/* ,name: 'IdentityBarcode' */),
+    AutoRoute(page: EnrolmentInfo.page/* , name: 'EnrolmentInfo' */),
+    AutoRoute(page: EnrolmentInfoDetail.page/* ,name: 'EnrolmentInfoDetail' */),
+    AutoRoute(page: Inbox.page/* , name: 'Inbox' */),
+    AutoRoute(page: Invite.page/* , name: 'Invite' */),
+    AutoRoute(page: AirtimeTransaction.page/* ,name: 'AirtimeTransaction' */),
+    AutoRoute(page: AirtimeBillDetail.page/* ,name: 'AirtimeBillDetail' */),
+    AutoRoute(page: AirtimeSelection.page/* ,name: 'AirtimeSelection' */),
+    AutoRoute(page: BillTransaction.page/* ,name: 'BillTransaction' */),
+    AutoRoute(page: BillDetail.page/* , name: 'BillDetail' */),
+    AutoRoute(page: BillSelection.page/* , name: 'BillSelection' */),
+    AutoRoute(page: MerchantList.page/* , name: 'MerchantList' */),
+    AutoRoute(page: ChatHome.page/* , name: 'ChatHome' */),
+    AutoRoute(page: TermsAndCondition.page/* ,name: 'TermsAndCondition' */),
+    AutoRoute(page: FpxPaymentOption.page/* ,name: 'FpxPaymentOption' */),
+    AutoRoute(page: ImageViewer.page/* , name: 'ImageViewer' */),
+    AutoRoute(page: Webview.page/* , name: 'Webview' */),
+    AutoRoute(page: Scan.page/* , name: 'Scan' */),
+    AutoRoute(page: ReadMore.page/* , name: 'ReadMore' */),
+    AutoRoute(page: ViewPdf.page/* , name: 'ViewPdf' */),
+    AutoRoute(page: ComingSoon.page/* , name: 'ComingSoon' */),
+    AutoRoute(page: CheckInSlip.page/* , name: 'CheckInSlip' */),
+    AutoRoute(page: Multilevel.page/* , name: 'Multilevel' */),
+    AutoRoute(page: MerchantProfile.page/* ,name: 'MerchantProfile' */),
+  ];
+}
 class $AppRouter {}

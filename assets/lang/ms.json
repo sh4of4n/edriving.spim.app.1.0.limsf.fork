@@ -276,6 +276,8 @@
   "date": "Tarikh",
   "date_required": "Tarikh diperlukan.",
   "time": "Masa",
+  "business_hours": "Masa Business",
+  "business_day": "Hari Business",
   "time_required": "Masa diperlukan.",
   "to": "Ke",
   "booking_success": "Tempahan berjaya.",

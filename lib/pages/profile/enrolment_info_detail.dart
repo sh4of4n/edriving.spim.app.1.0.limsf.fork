@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/repository/auth_repository.dart';
@@ -10,10 +10,11 @@ import 'package:intl/intl.dart';
 
 import '/common_library/utils/app_localizations.dart';
 
+@RoutePage()
 class EnrolmentInfoDetail extends StatefulWidget {
   final dynamic groupId;
 
-  const EnrolmentInfoDetail(this.groupId);
+  const EnrolmentInfoDetail(this.groupId, {super.key});
 
   @override
   EnrolmentInfoDetailState createState() => EnrolmentInfoDetailState();
@@ -54,8 +55,8 @@ class EnrolmentInfoDetailState extends State<EnrolmentInfoDetail> {
 
   _loadHistoryData() {
     if (_isLoading && _enrollHistoryData == null) {
-      return Column(
-        children: const <Widget>[
+      return const Column(
+        children: <Widget>[
           Expanded(
             child: SpinKitFoldingCube(
               color: Colors.blue,
@@ -214,7 +215,7 @@ class EnrolmentInfoDetailState extends State<EnrolmentInfoDetail> {
                   minimumSize: Size(420.w, 45.h),
                   padding: const EdgeInsets.symmetric(vertical: 11.0),
                   shape: const StadiumBorder(),
-                  primary: const Color(0xffdd0e0e),
+                  backgroundColor: const Color(0xffdd0e0e),
                   textStyle: const TextStyle(color: Colors.white),
                 ),
                 onPressed: () => context.router.pop(),

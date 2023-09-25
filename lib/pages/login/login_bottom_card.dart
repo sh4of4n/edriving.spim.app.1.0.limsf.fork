@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/model/provider_model.dart';
@@ -14,6 +14,8 @@ import '/common_library/utils/app_localizations.dart';
 import '../../router.gr.dart';
 
 class LoginBottomCard extends StatefulWidget {
+  const LoginBottomCard({super.key});
+
   @override
   LoginBottomCardState createState() => LoginBottomCardState();
 }

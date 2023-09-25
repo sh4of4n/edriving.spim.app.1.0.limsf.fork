@@ -28,7 +28,7 @@ class CustomButton extends StatelessWidget {
         textStyle: TextStyle(
           color: fontColor ?? Colors.white,
         ),
-        primary: buttonColor,
+        backgroundColor: buttonColor,
         shape: const StadiumBorder(),
         minimumSize: Size(minWidth ?? 88.0, height ?? 36.0),
       ),

@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/repository/epandu_repository.dart';
@@ -11,7 +11,10 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+@RoutePage()
 class CheckInSlip extends StatefulWidget {
+  const CheckInSlip({super.key});
+
   @override
   CheckInSlipState createState() => CheckInSlipState();
 }
@@ -41,6 +44,7 @@ class CheckInSlipState extends State<CheckInSlip> {
     if (result.isSuccess) {
       checkInData = result.data;
     } else {
+      if (!context.mounted) return;
       customDialog.show(
         context: context,
         barrierDismissable: false,
@@ -60,10 +64,10 @@ class CheckInSlipState extends State<CheckInSlip> {
 
   renderQr() {
     if (!isLoading && checkInData != null) {
-      return QrImage(
+      return QrImageView(
         embeddedImage: AssetImage(image.ePanduIcon),
-        embeddedImageStyle: QrEmbeddedImageStyle(
-          size: const Size(40, 40),
+        embeddedImageStyle: const QrEmbeddedImageStyle(
+          size: Size(40, 40),
         ),
         data:
             '{"Table1":[{"group_id": "${checkInData[0].groupId}", "test_code": "${checkInData[0].testCode}", "nric_no": "${checkInData[0].nricNo}"}]}',

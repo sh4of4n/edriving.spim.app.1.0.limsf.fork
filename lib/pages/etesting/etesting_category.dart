@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/repository/auth_repository.dart';
@@ -11,7 +11,7 @@ import 'package:transparent_image/transparent_image.dart';
 import '../../router.gr.dart';
 
 // import 'bottom_menu.dart';
-
+@RoutePage()
 class EtestingCategory extends StatelessWidget {
   final authRepo = AuthRepo();
   final image = ImagesConstant();
@@ -22,6 +22,8 @@ class EtestingCategory extends StatelessWidget {
     color: Colors.black,
   );
   final myImage = ImagesConstant();
+
+  EtestingCategory({super.key});
 
   @override
   Widget build(BuildContext context) {

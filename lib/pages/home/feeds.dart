@@ -13,7 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
-import 'package:readmore/readmore.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:string_validator/string_validator.dart';
 // import 'package:url_launcher/url_launcher.dart';
@@ -29,19 +28,19 @@ class Feeds extends StatefulWidget {
   const Feeds({this.feed, this.isLoading, this.appVersion});
 
   @override
-  FeedsState createState() => FeedsState();
+  State<Feeds> createState() => FeedsState();
 }
 
 class FeedsState extends State<Feeds> {
   final adText = TextStyle(
-    fontSize: ScreenUtil().setSp(55),
-    fontWeight: FontWeight.w500,
+    fontSize: ScreenUtil().setSp(50),
+    fontWeight: FontWeight.bold,
     color: const Color(0xff231f20),
   );
 
   final adTabText = TextStyle(
-    fontSize: ScreenUtil().setSp(45),
-    fontWeight: FontWeight.w500,
+    fontSize: ScreenUtil().setSp(60),
+    fontWeight: FontWeight.bold,
     color: const Color(0xff231f20),
   );
 
@@ -88,7 +87,7 @@ class FeedsState extends State<Feeds> {
               Provider.of<HomeLoadingModel>(context, listen: false)
                   .loadingStatus(false);
               context.router.pop();
-              AppSettings.openLocationSettings();
+              AppSettings.openAppSettings();
             },
           ),
           TextButton(
@@ -114,11 +113,11 @@ class FeedsState extends State<Feeds> {
 
   _getCurrentLocation(feed, context) async {
     // LocationPermission permission = await checkPermission();
+    
     if (feed.udfReturnParameter != null &&
         feed.udfReturnParameter.contains('latitude') &&
         feed.udfReturnParameter.contains('longitude')) {
       LocationPermission permission = await location.checkLocationPermission();
-
       if (permission == LocationPermission.whileInUse ||
           permission == LocationPermission.always) {
         await location.getCurrentLocation();
@@ -153,7 +152,7 @@ class FeedsState extends State<Feeds> {
 
       var caUid = await localStorage.getCaUid();
       var caPwd = await localStorage.getCaPwd();
-
+      if (!context.mounted) return;
       var result = await profileRepo.getUserProfile(context: context);
 
       if (mounted) {
@@ -194,7 +193,7 @@ class FeedsState extends State<Feeds> {
               _getLatitude(udf: feed.udfReturnParameter) +
               _getLongitude(udf: feed.udfReturnParameter) +
               _getPackageCode(udf: feed.udfReturnParameter);
-
+          if (!context.mounted) return;
           context.router.push(
             Webview(url: url),
           );
@@ -298,7 +297,7 @@ class FeedsState extends State<Feeds> {
 
   getOnlinePaymentListByIcNo() async {
     String? icNo = await localStorage.getStudentIc();
-
+    if (!context.mounted) return;
     var result = await fpxRepo.getOnlinePaymentListByIcNo(
       context: context,
       icNo: icNo ?? '',
@@ -340,6 +339,7 @@ class FeedsState extends State<Feeds> {
   defaultLayout() {
     if (widget.feed.length > 0) {
       return ListView(
+        // padding: const EdgeInsets.only(top: 20.0),
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         children: <Widget>[
@@ -414,33 +414,13 @@ class FeedsState extends State<Feeds> {
                           _checkLocationPermission(item, context);
                         }
                       }
-                      /* else {
-                        context.router
-                            .push(Routes.promotions);
-                      } */
+                      // else {
+                      //   context.router
+                      //       .push(Promotions());
+                      // }
                     },
                     child: Column(
                       children: <Widget>[
-                        /* Container(
-                          // width: double.infinity,
-                          // height: ScreenUtil().setHeight(600),
-                          width: 1300.w,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(12),
-                              topRight: Radius.circular(12),
-                            ),
-                            child: feed[index].feedMediaFilename != null
-                                ? Image.network(
-                                    feed[index]
-                                        .feedMediaFilename
-                                        .replaceAll(removeBracket, '')
-                                        .split('\r\n')[0],
-                                    fit: BoxFit.contain,
-                                  )
-                                : Container(),
-                          ),
-                        ), */
                         AspectRatio(
                           aspectRatio: 16 / 9,
                           child: ClipRRect(
@@ -461,22 +441,30 @@ class FeedsState extends State<Feeds> {
                         Container(
                           // height: ScreenUtil().setHeight(180),
                           padding: EdgeInsets.symmetric(
-                              horizontal: 70.w, vertical: 30.h),
+                              horizontal: 70.w, vertical: 50.h),
                           decoration: const BoxDecoration(
                             borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(12),
                               bottomRight: Radius.circular(12),
                             ),
                           ),
-                          alignment: Alignment.centerLeft,
-                          child: ReadMoreText(
-                            item.feedText ?? '',
-                            trimLines: 3,
-                            colorClickableText: Colors.blue[900],
-                            trimMode: TrimMode.Line,
-                            trimCollapsedText: 'Read more',
-                            trimExpandedText: ' Read less',
-                            style: adText,
+                          // alignment: Alignment.centerLeft,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Flexible(
+                                child: Text(
+                                  item.feedText ?? '',
+                                  style: adText,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              if (item.feedText != null &&
+                                  item.feedText.isNotEmpty)
+                                const Icon(
+                                  Icons.chevron_right,
+                                ),
+                            ],
                           ),
                         ),
                         /* Container(
@@ -638,24 +626,26 @@ class FeedsState extends State<Feeds> {
                           ),
                         ),
                         Container(
-                          // height: ScreenUtil().setHeight(180),
+                          height: ScreenUtil().setHeight(180),
                           padding: EdgeInsets.symmetric(
-                              horizontal: 70.w, vertical: 30.h),
+                            horizontal: ScreenUtil().setWidth(70),
+                          ),
                           decoration: const BoxDecoration(
                             borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(12),
                               bottomRight: Radius.circular(12),
                             ),
                           ),
-                          alignment: Alignment.centerLeft,
-                          child: ReadMoreText(
-                            item.feedText ?? '',
-                            trimLines: 3,
-                            colorClickableText: Colors.blue[900],
-                            trimMode: TrimMode.Line,
-                            trimCollapsedText: 'Read more',
-                            trimExpandedText: ' Read less',
-                            style: adTabText,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(item.feedText ?? '', style: adText),
+                              if (item.feedText != null &&
+                                  item.feedText.isNotEmpty)
+                                const Icon(
+                                  Icons.chevron_right,
+                                ),
+                            ],
                           ),
                         ),
                         /* Container(

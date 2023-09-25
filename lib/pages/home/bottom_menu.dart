@@ -1,149 +1,79 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import '/utils/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:transparent_image/transparent_image.dart';
 
 class BottomMenu extends StatelessWidget {
   final dynamic iconText;
   final dynamic positionStream;
 
-  BottomMenu({this.iconText, this.positionStream});
+  BottomMenu({super.key, this.iconText, this.positionStream});
 
   final myImage = ImagesConstant();
   final primaryColor = ColorConstant.primaryColor;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 250.h,
+    return BottomAppBar(
+      shape: const CircularNotchedRectangle(),
       color: Colors.white,
-      child: Table(
-        children: [
-          TableRow(
-            children: [
-              /* Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: 12.0,
-                ),
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      height: 160.h,
-                      width: 80.w,
-                    ),
-                  ],
-                ),
-              ), */
-              /* InkWell(
-                onTap: () =>
-                    Navigator.popUntil(context, ModalRoute.withName(HOME)),
-                borderRadius: BorderRadius.circular(10.0),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: 12.0,
-                  ),
-                  child: Column(
-                    children: <Widget>[
-                      Icon(
-                        MyCustomIcons.home_icon,
-                        size: 18,
-                        color: Color(0xff808080),
-                      ),
-                      SizedBox(height: ScreenUtil().setHeight(20)),
-                      Text(AppLocalizations.of(context).translate('home_lbl'),
-                          style: iconText),
-                    ],
-                  ),
-                ),
-              ), */
-              /* InkWell(
-                onTap: () =>
-                    ExtendedNavigator.of(context).push(Routes.valueClub),
-                borderRadius: BorderRadius.circular(10.0),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: 12.0,
-                  ),
-                  child: Column(
-                    children: <Widget>[
-                      // Icon(
-                      //             MyCustomIcons.v_club_icon,
-                      //             size: 18,
-                      //             color: Color(0xff808080),
-                      //           ),
-                      Image.asset(
-                        myImage.vClub,
-                        height: 18,
-                      ),
-                      SizedBox(height: ScreenUtil().setHeight(20)),
-                      Text(AppLocalizations.of(context).translate('v_club_lbl'),
-                          style: iconText),
-                    ],
-                  ),
-                ),
-              ), */
-              Column(
-                children: <Widget>[
-                  Image.memory(
-                    kTransparentImage,
-                  ),
-                ],
-              ),
-              /* InkWell(
-                onTap: () => Navigator.push(context, INVITE),
-                borderRadius: BorderRadius.circular(10.0),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: 12.0,
-                  ),
-                  child: Column(
-                    children: <Widget>[
-                      Icon(
-                        MyCustomIcons.invite_icon,
-                        size: 18,
-                        color: Color(0xff808080),
-                      ),
-                      SizedBox(height: ScreenUtil().setHeight(20)),
-                      Text(
-                        AppLocalizations.of(context).translate('invite_lbl'),
-                        style: iconText,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              InkWell(
-                // onTap: () => Navigator.push(context, MENU,
-                //     arguments: positionStream),
+      child: IconTheme(
+        data: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            Material(
+              type: MaterialType.transparency,
+              child: InkWell(
                 onTap: () {},
-                borderRadius: BorderRadius.circular(10.0),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: 12.0,
-                  ),
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
                   child: Column(
-                    children: <Widget>[
-                      /* Icon(
-                                  MyCustomIcons.menu_icon,
-                                  size: 18,
-                                  color: Color(0xff808080),
-                                ), */
-                      Image.asset(
-                        myImage.menu,
-                        height: 18,
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.home,
+                        color: Colors.grey,
                       ),
-                      SizedBox(height: ScreenUtil().setHeight(20)),
-                      Text(AppLocalizations.of(context).translate('menu_lbl'),
-                          style: iconText),
+                      Text(
+                        'Home',
+                        style: TextStyle(
+                          color: Colors.grey,
+                        ),
+                      ),
                     ],
                   ),
                 ),
-              ), */
-            ],
-          ),
-        ],
+              ),
+            ),
+            Material(
+              type: MaterialType.transparency,
+              child: InkWell(
+                onTap: () {},
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.menu,
+                        color: Colors.grey,
+                      ),
+                      Text(
+                        'Menu',
+                        style: TextStyle(
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

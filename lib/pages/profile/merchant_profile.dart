@@ -1,4 +1,7 @@
-// ignore_for_file: use_key_in_widget_constructors
+
+
+import 'package:auto_route/auto_route.dart';
+import 'package:edriving_spim_app/common_library/utils/app_localizations.dart';
 
 import '/common_library/services/repository/vclub_repository.dart';
 import '/common_library/services/response.dart';
@@ -8,9 +11,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+@RoutePage()
 class MerchantProfile extends StatefulWidget {
+  const MerchantProfile({super.key});
+
   @override
-  MerchantProfileState createState() => MerchantProfileState();
+  State<MerchantProfile> createState() => MerchantProfileState();
 }
 
 class MerchantProfileState extends State<MerchantProfile> {
@@ -38,7 +44,8 @@ class MerchantProfileState extends State<MerchantProfile> {
 
   Future<dynamic> getMerchantApi() async {
     String? dbCode = await localStorage.getMerchantDbCode();
-
+    
+    if (!context.mounted) return;
     Response result = await vClubRepo.getMerchant(
       context: context,
       keywordSearch: dbCode,
@@ -81,19 +88,24 @@ class MerchantProfileState extends State<MerchantProfile> {
       physics: const NeverScrollableScrollPhysics(),
       children: [
         ListTile(
-            title: const Text('Name'),
+            title: Text(AppLocalizations.of(context)!
+                                  .translate('merchant_name')),
             subtitle: Text(data.name ?? '-', style: subtitleStyle)),
         ListTile(
-            title: const Text('Description'),
+            title: Text(AppLocalizations.of(context)!
+                                  .translate('description')),
             subtitle: Text(data.merchantDesc ?? '-')),
         ListTile(
-            title: const Text('City'),
+            title: Text(AppLocalizations.of(context)!
+                                  .translate('city_lbl')),
             subtitle: Text(data.cityName ?? '-', style: subtitleStyle)),
         ListTile(
-            title: const Text('Business Hours'),
+            title: Text(AppLocalizations.of(context)!
+                                  .translate('business_hours')),
             subtitle: Text(data.businessHour ?? '-', style: subtitleStyle)),
         ListTile(
-            title: const Text('Business Day'),
+            title: Text(AppLocalizations.of(context)!
+                                  .translate('business_day')),
             subtitle: Text(data.businessDay ?? '-', style: subtitleStyle)),
       ],
     );

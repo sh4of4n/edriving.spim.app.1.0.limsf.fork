@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/utils/constants.dart';
@@ -11,6 +11,8 @@ import '../../router.gr.dart';
 
 class PaymentPage extends StatelessWidget {
   final primaryColor = ColorConstant.primaryColor;
+
+  const PaymentPage({super.key});
 
   @override
   Widget build(BuildContext context) {

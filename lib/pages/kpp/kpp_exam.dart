@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/common_library/utils/app_localizations.dart';
@@ -12,12 +12,12 @@ import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hive/hive.dart';
-
+@RoutePage()
 class KppExam extends StatefulWidget {
   final String? groupId;
   final String? paperNo;
 
-  const KppExam({
+  const KppExam({super.key, 
     required this.groupId,
     required this.paperNo,
   });

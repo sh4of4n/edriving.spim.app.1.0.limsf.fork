@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors, depend_on_referenced_packages
+
 
 import 'dart:io';
 
@@ -19,6 +19,8 @@ import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LoginForm extends StatefulWidget {
+  const LoginForm({super.key});
+
   @override
   LoginFormState createState() => LoginFormState();
 }
@@ -76,6 +78,7 @@ class LoginFormState extends State<LoginForm> with PageBaseClass {
               int.tryParse(result.data[0].appMinVersion.split('.')[1])! ||
           int.tryParse(appVersion.split('.')[2])! <
               int.tryParse(result.data[0].appMinVersion.split('.')[2])!) {
+                if (!context.mounted) return;
         customDialog.show(
           context: context,
           content: 'App version is outdated and must be updated.',
@@ -320,7 +323,7 @@ class LoginFormState extends State<LoginForm> with PageBaseClass {
                 padding: const EdgeInsets.symmetric(vertical: 11.0),
                 textStyle: const TextStyle(color: Colors.white),
                 shape: const StadiumBorder(),
-                primary: const Color(0xffdd0e0e),
+                backgroundColor: const Color(0xffdd0e0e),
               ),
               onPressed: _submitLogin, // () => localStorage.reset(),
 
@@ -365,10 +368,12 @@ class LoginFormState extends State<LoginForm> with PageBaseClass {
 
       if (result.isSuccess) {
         if (result.data == 'empty') {
+          if (!context.mounted) return;
           var getRegisteredDi = await authRepo.getUserRegisteredDI(
               context: context, type: 'LOGIN');
 
           if (getRegisteredDi.isSuccess) {
+            if (!context.mounted) return;
             localStorage.saveMerchantDbCode(getRegisteredDi.data[0].merchantNo);
 
             context.router.replace(const Home());
@@ -382,13 +387,13 @@ class LoginFormState extends State<LoginForm> with PageBaseClass {
           // Navigate to DI selection page
           // Temporary navigate to home
           // Navigator.replace(context, HOME);
-
+          if (!context.mounted) return;
           context.router.replace(
             SelectDrivingInstitute(diList: result.data),
           );
         } else {
           localStorage.saveMerchantDbCode(result.data[0].merchantNo);
-
+          if (!context.mounted) return;
           context.router.replace(const Home());
         }
       } else {

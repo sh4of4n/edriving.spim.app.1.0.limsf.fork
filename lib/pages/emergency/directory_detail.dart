@@ -1,5 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors, depend_on_referenced_packages
-
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 
 import '/common_library/utils/app_localizations.dart';
@@ -14,10 +13,11 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:map_launcher/map_launcher.dart';
 // import 'package:epandu/common_library/utils/map_launcher.dart';
 
+@RoutePage()
 class DirectoryDetail extends StatefulWidget {
   final dynamic snapshot;
 
-  const DirectoryDetail(this.snapshot);
+  const DirectoryDetail(this.snapshot, {super.key});
 
   @override
   DirectoryDetailState createState() => DirectoryDetailState();

@@ -63,6 +63,8 @@
   "postcode_required_lbl": "Postcode*",
   "postcode_required_msg": "Postcode is required.",
   "city_lbl": "City",
+  "business_hours": "Business Hours",
+  "business_day": "Business Day",
   "state_lbl": "State",
   "country_lbl": "Country",
   "login_id": "Login ID",
