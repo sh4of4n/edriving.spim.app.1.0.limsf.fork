@@ -76,8 +76,8 @@ class LoginBottomCardState extends State<LoginBottomCard> {
                 if (count == 4) {
                   customDialog.show(
                     context: context,
-                    title: AppLocalizations.of(context)!
-                        .translate('client_acc_title'),
+                    title: Text(AppLocalizations.of(context)!
+                        .translate('client_acc_title')),
                     content: AppLocalizations.of(context)!
                         .translate('client_acc_desc'),
                     type: DialogType.success,

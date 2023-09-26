@@ -181,7 +181,8 @@ class AuthRepo {
     final String? caUid = await localStorage.getCaUid();
     final String? caPwd = await localStorage.getCaPwd();
     String? pushToken = await Hive.box('ws_url').get('push_token');
-    String? userId = credentials.get('phone');
+    // String? userId = credentials.get('phone');
+    String? userId = await localStorage.getUserPhone();
     String? deviceId = await localStorage.getLoginDeviceId();
     String? merchantDbCode = await localStorage.getMerchantDbCode();
 
@@ -235,6 +236,54 @@ class AuthRepo {
     return Response(false, message: response.message ?? message);
   }
 
+  Future<Response> eDrivingAdminLoginResetPwd({
+    context,
+    String? phone,
+    String? password,
+    String? latitude,
+    String? longitude,
+    String? deviceBrand,
+    String? deviceModel,
+    required String deviceRemark,
+    String? phDeviceId,
+  }) async {
+    final String? caUid = await localStorage.getCaUid();
+    // final String caPwd = await localStorage.getCaPwd();
+    final String? caPwdUrlEncode = await localStorage.getCaPwdEncode();
+    String? pushToken = await Hive.box('ws_url').get('push_token');
+    String? appVersion = await localStorage.getAppVersion();
+    // String appCode = appConfig.appCode;
+    // String appId = appConfig.appId;
+
+    String path =
+        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwdUrlEncode&diCode=${appConfig.diCode}&userPhone=$phone&userPwd=$password&ipAddress=0.0.0.0&latitude=$latitude&longitude=$longitude&appCode=${appConfig.appCode}&appId=${appConfig.appId}&deviceId=&appVersion=$appVersion&deviceRemark=${deviceRemark.isNotEmpty ? Uri.encodeComponent(deviceRemark) : ''}&phDeviceId=$phDeviceId&phLine1Number=&phNetOpName=&phPhoneType=&phSimSerialNo=&bdBoard=&bdBrand=$deviceBrand&bdDevice=&bdDisplay=&bdManufacturer=&bdModel=$deviceModel&bdProduct=&pfDeviceId=&regId=${pushToken ?? ''}';
+
+    var response = await networking.getData(
+      path: 'eDrivingAdminLoginResetPwd?$path',
+    );
+
+    if (response.isSuccess && response.data != null) {
+      LoginResponse loginResponse = LoginResponse.fromJson(response.data);
+      var responseData = loginResponse.table1![0];
+
+      if (responseData.userId != null && responseData.msg == null) {
+        print(responseData.userId);
+        print(responseData.sessionId);
+
+        localStorage.saveUserId(responseData.userId!);
+        localStorage.saveSessionId(responseData.sessionId!);
+        localStorage.saveLoginDeviceId(responseData.deviceId!);
+
+        var result = await getUserRegisteredDI(context: context, type: 'LOGIN');
+
+        return result;
+      }
+      return Response(false, message: responseData.msg);
+    }
+
+    return Response(false, message: 'Invalid phone and/or password.');
+  }
+
   Future<Response> login({
     context,
     String? phone,
@@ -255,10 +304,10 @@ class AuthRepo {
     // String appId = appConfig.appId;
 
     String path =
-        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwdUrlEncode&diCode=${appConfig.diCode}&userPhone=$phone&userPwd=$password&ipAddress=0.0.0.0&latitude=$latitude&longitude=$longitude&appCode=${appConfig.appCode}&appId=${appConfig.appId}&deviceId=&appVersion=$appVersion&deviceRemark=${deviceRemark.isNotEmpty ? Uri.encodeComponent(deviceRemark) : ''}&phDeviceId=$phDeviceId&phLine1Number=&phNetOpName=&phPhoneType=&phSimSerialNo=&bdBoard=&bdBrand=${deviceBrand ?? ''}&bdDevice=&bdDisplay=&bdManufacturer=&bdModel=${deviceModel ?? ''}&bdProduct=&pfDeviceId=&regId=${pushToken ?? ''}';
+        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwdUrlEncode&diCode=${appConfig.diCode}&userPhone=$phone&userPwd=$password&ipAddress=0.0.0.0&latitude=$latitude&longitude=$longitude&appCode=${appConfig.appCode}&appId=${appConfig.appId}&deviceId=&appVersion=$appVersion&deviceRemark=${deviceRemark.isNotEmpty ? Uri.encodeComponent(deviceRemark) : ''}&phDeviceId=$phDeviceId&phLine1Number=&phNetOpName=&phPhoneType=&phSimSerialNo=&bdBoard=&bdBrand=$deviceBrand&bdDevice=&bdDisplay=&bdManufacturer=&bdModel=$deviceModel&bdProduct=&pfDeviceId=&regId=${pushToken ?? ''}';
 
     var response = await networking.getData(
-      path: 'eDrivingAdminLoginResetPwd?$path',
+      path: 'GetUserByUserPhonePwdWithDeviceId?$path',
     );
 
     if (response.isSuccess && response.data != null) {
@@ -266,8 +315,8 @@ class AuthRepo {
       var responseData = loginResponse.table1![0];
 
       if (responseData.userId != null && responseData.msg == null) {
-        debugPrint(responseData.userId);
-        debugPrint(responseData.sessionId);
+        print(responseData.userId);
+        print(responseData.sessionId);
 
         localStorage.saveUserId(responseData.userId!);
         localStorage.saveSessionId(responseData.sessionId!);
@@ -300,7 +349,9 @@ class AuthRepo {
 
     var response = await networking.getData(
       path: 'GetUserRegisteredDI?$path',
+    
     );
+    
 
     if (response.isSuccess && response.data != null) {
       UserRegisteredDiResponse userRegisteredDiResponse =
@@ -333,7 +384,6 @@ class AuthRepo {
 
       // save empty on DiCode for user to choose
       if (type == 'LOGIN') localStorage.saveMerchantDbCode('');
-
       return Response(true, data: responseData);
     }
 

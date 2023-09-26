@@ -8,7 +8,7 @@ import 'package:edriving_spim_app/common_library/utils/custom_dialog.dart';
 import 'package:edriving_spim_app/common_library/utils/device_info.dart';
 import 'package:edriving_spim_app/utils/app_config.dart';
 import 'package:hive/hive.dart';
-
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '/common_library/services/repository/vclub_repository.dart';
 import '/common_library/services/response.dart';
 import '/common_library/utils/local_storage.dart';
@@ -68,7 +68,7 @@ class MerchantProfileState extends State<MerchantProfile> {
 
   Future<dynamic> getMerchantApi() async {
     String? dbCode = await localStorage.getMerchantDbCode();
-    
+    bOfficeLoginId = await credentials.get('boUserId');
     if (!context.mounted) return;
     Response result = await vClubRepo.getMerchant(
       context: context,
@@ -82,6 +82,10 @@ class MerchantProfileState extends State<MerchantProfile> {
     );
 
     if (result.isSuccess) {
+      if (bOfficeLoginId != null) {
+        bOfficeLoginIdController.text = bOfficeLoginId!;
+      }
+      
       return result.data;
     }
     return result.message;
@@ -137,8 +141,11 @@ class MerchantProfileState extends State<MerchantProfile> {
   }
 
   _requestApproval() async {
-    String? merchantDbCode = await credentials.get('merchantNo');
-
+    // String? merchantDbCode = await credentials.get('merchantNo');
+    EasyLoading.show(
+      maskType: EasyLoadingMaskType.black,
+    );
+    String? merchantDbCode = await localStorage.getMerchantDbCode();
     if (merchantDbCode != AppConfig().diCode) {
       if (bOfficeLoginIdController.text.isNotEmpty) {
         await credentials.put('boUserId', bOfficeLoginIdController.text);
@@ -155,6 +162,7 @@ class MerchantProfileState extends State<MerchantProfile> {
 
         if (result.isSuccess) {
           if (!context.mounted) return;
+          EasyLoading.dismiss();
           customDialog.show(
               context: context,
               title: const Center(
@@ -167,15 +175,17 @@ class MerchantProfileState extends State<MerchantProfile> {
               content: 'Successfully informed',
               barrierDismissable: false,
               type: DialogType.success,
-              onPressed: () {
-                // await context.router.pop();
+              onPressed: ()async {
+                await context.router.pop();
+                if (!context.mounted) return;
                 context.router.pop();
               });
         } else {
           if (!context.mounted) return;
+          EasyLoading.dismiss();
           customDialog.show(
             context: context,
-            content: 'gg',
+            content: 'Fail to send request',
             onPressed: () => Navigator.pop(context),
             type: DialogType.error,
           );
@@ -184,6 +194,7 @@ class MerchantProfileState extends State<MerchantProfile> {
         setState(() {});
       } else {
         if (!context.mounted) return;
+        EasyLoading.dismiss();
         customDialog.show(
           context: context,
           content: 'Back Office Login ID is required',
@@ -192,6 +203,7 @@ class MerchantProfileState extends State<MerchantProfile> {
       }
     } else {
       if (!context.mounted) return;
+      EasyLoading.dismiss();
       customDialog.show(
         context: context,
         content: 'Please register to a valid merchant before proceeding.',

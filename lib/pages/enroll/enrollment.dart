@@ -942,7 +942,7 @@ class EnrollmentState extends State<Enrollment> with PageBaseClass {
               _getImageGallery();
             }),
       ],
-      type: DialogType.simpledialog,
+      type: DialogType.simpleDialog,
     );
   }
 

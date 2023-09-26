@@ -356,7 +356,7 @@ class LoginFormState extends State<LoginForm> with PageBaseClass {
         password: _password,
       ); */
 
-      var result = await authRepo.login(
+      var result = await authRepo.eDrivingAdminLoginResetPwd(
         context: context,
         phone: _phone,
         password: _password,
@@ -378,7 +378,8 @@ class LoginFormState extends State<LoginForm> with PageBaseClass {
           if (getRegisteredDi.isSuccess) {
             if (!context.mounted) return;
             localStorage.saveMerchantDbCode(getRegisteredDi.data[0].merchantNo);
-            credentials.put('merchantNo', getRegisteredDi.data[0].merchantNo);
+            localStorage.saveDiCode(getRegisteredDi.data[0].merchantNo);
+
             context.router.replace(const Home());
           } else {
             setState(() {

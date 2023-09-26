@@ -309,7 +309,7 @@ class FeedsState extends State<Feeds> {
       if (result.isSuccess) {
         return customDialog.show(
           context: context,
-          title: AppLocalizations.of(context)!.translate('success'),
+          title: Text(AppLocalizations.of(context)!.translate('success')),
           content:
               'Paid Amount: ${result.data[0].paidAmt}\nTransaction status: ${result.data[0].status}',
           customActions: <Widget>[

@@ -363,7 +363,7 @@ class UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
               _getImageGallery();
             }),
       ],
-      type: DialogType.simpledialog,
+      type: DialogType.simpleDialog,
     );
   }
 

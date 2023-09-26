@@ -1,5 +1,11 @@
 # edriving_spim_app
 
+2023-09-26 v6.2.1
+ePandu WS v6.2.3
+
+-Adding loading animation after send request
+-Get the backOfficeLoginId everytime user login or click into the DI
+
 2023-09-25 v6.2.0
 ePandu WS v6.2.2
 

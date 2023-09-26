@@ -238,7 +238,7 @@ class RegisterFormState extends State<RegisterForm> with PageBaseClass {
               _getImageGallery();
             }),
       ],
-      type: DialogType.simpledialog,
+      type: DialogType.simpleDialog,
     );
   }
 
