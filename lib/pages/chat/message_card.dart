@@ -17,7 +17,9 @@ class MessageCard extends StatelessWidget {
       required this.onCancelReply,
       required this.callback,
       required this.resendCallback,
-      required this.roomDesc})
+      required this.roomDesc,
+      required this.searchKey,
+      required this.isSearching})
       : super(key: key);
 
   final MessageDetails messageDetails;
@@ -27,6 +29,8 @@ class MessageCard extends StatelessWidget {
   final ResendCallback resendCallback;
   final ReplyMessageDetails replyMessageDetails;
   final String roomDesc;
+  final String searchKey;
+  final bool isSearching;
 
   @override
   Widget build(BuildContext context) {
@@ -82,13 +86,15 @@ class MessageCard extends StatelessWidget {
                         style: MyTheme.heading2.copyWith(fontSize: 13),
                       ),
                   replyMessageDetails.reply_to_id == 0
-                      ? Text(
-                          messageDetails.msg_body!,
-                          style: MyTheme.bodyText1.copyWith(
-                              color: localUser == messageDetails.user_id!
-                                  ? Colors.white
-                                  : Colors.black87),
-                        )
+                      ? !isSearching
+                          ? Text(
+                              messageDetails.msg_body!,
+                              style: MyTheme.bodyText1.copyWith(
+                                  color: localUser == messageDetails.user_id!
+                                      ? Colors.white
+                                      : Colors.black87),
+                            )
+                          : buildRichText(searchKey, messageDetails.msg_body!)
                       : Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
@@ -399,4 +405,48 @@ class MessageCard extends StatelessWidget {
       );
     }
   }
+}
+
+RichText buildRichText(String searchText, String fullText) {
+  List<InlineSpan> textSpans = [];
+  final RegExp regex = RegExp(searchText, caseSensitive: false);
+  int startIndex = 0;
+
+  for (final match in regex.allMatches(fullText)) {
+    final String beforeMatch = fullText.substring(startIndex, match.start);
+    final String matchingText = fullText.substring(match.start, match.end);
+
+    if (beforeMatch.isNotEmpty) {
+      textSpans.add(TextSpan(text: beforeMatch));
+    }
+
+    textSpans.add(
+      WidgetSpan(
+        child: Container(
+          padding: EdgeInsets.all(4.0),
+          decoration: BoxDecoration(
+            color: Colors.grey[300], // Light grey background color
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+          child: Text(
+            matchingText,
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
+    );
+
+    startIndex = match.end;
+  }
+
+  if (startIndex < fullText.length) {
+    final String remainingText = fullText.substring(startIndex);
+    textSpans.add(TextSpan(text: remainingText));
+  }
+
+  return RichText(
+    text: TextSpan(
+      children: textSpans,
+    ),
+  );
 }

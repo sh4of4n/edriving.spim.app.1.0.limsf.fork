@@ -57,7 +57,7 @@ dependencies:
   flutter_custom_clippers: ^2.1.0 
   map_launcher: ^2.4.0 
   app_settings: ^4.1.8 
-  camera: ^0.10.1 
+  camera: ^0.10.5+2 
   datetime_picker_formfield: ^2.0.1 
   image_picker: ^0.8.6 
   image_cropper: ^3.0.1 

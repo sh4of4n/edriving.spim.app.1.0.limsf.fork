@@ -997,6 +997,11 @@ class _ChatHome2State extends State<ChatHome2> {
                                     callback: tapListitem,
                                     resendCallback: tapResend,
                                     roomDesc: widget.roomDesc,
+                                    searchKey: _desiredItemIndex == index &&
+                                            isSearching
+                                        ? searcheditingController.text
+                                        : '',
+                                    isSearching: isSearching,
                                   ))
                             ]
                           ],
