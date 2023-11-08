@@ -1,10 +1,15 @@
 # edriving_spim_app
+2023-11-08 v6.2.2
+ePandu WS v6.2.24
+
+- Latest version of VehicleList and Schedule WS
+- Added access to location service apps WAZE, GoogleMap
 
 2023-09-26 v6.2.1
 ePandu WS v6.2.3
 
--Adding loading animation after send request
--Get the backOfficeLoginId everytime user login or click into the DI
+- Adding loading animation after send request
+- Get the backOfficeLoginId everytime user login or click into the DI
 
 2023-09-25 v6.2.0
 ePandu WS v6.2.2

@@ -88,7 +88,7 @@ class AuthenticationState extends State<Authentication> {
     String? diCode = await localStorage.getMerchantDbCode();
     if (!context.mounted) return;
     if (userId != null && userId.isNotEmpty && diCode!.isNotEmpty) {
-      context.router.replace(const Home());
+      context.router.replace(Home());
     } else if (userId != null && userId.isNotEmpty && diCode!.isEmpty) {
       await authRepo.logout(context: context, type: '');
       if (!context.mounted) return;

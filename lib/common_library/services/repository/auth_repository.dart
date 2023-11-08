@@ -181,10 +181,9 @@ class AuthRepo {
     final String? caUid = await localStorage.getCaUid();
     final String? caPwd = await localStorage.getCaPwd();
     String? pushToken = await Hive.box('ws_url').get('push_token');
-    // String? userId = credentials.get('phone');
-    String? userId = await localStorage.getUserPhone();
-    String? deviceId = await localStorage.getLoginDeviceId();
+    String? userId = credentials.get('phone');  
     String? merchantDbCode = await localStorage.getMerchantDbCode();
+    
 
     RequestDeviceActivationRequest params = RequestDeviceActivationRequest(
       wsCodeCrypt: appConfig.wsCodeCrypt,
@@ -252,14 +251,15 @@ class AuthRepo {
     final String? caPwdUrlEncode = await localStorage.getCaPwdEncode();
     String? pushToken = await Hive.box('ws_url').get('push_token');
     String? appVersion = await localStorage.getAppVersion();
+    String? merchantNo = await localStorage.getMerchantDbCode();
     // String appCode = appConfig.appCode;
     // String appId = appConfig.appId;
 
     String path =
-        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwdUrlEncode&diCode=${appConfig.diCode}&userPhone=$phone&userPwd=$password&ipAddress=0.0.0.0&latitude=$latitude&longitude=$longitude&appCode=${appConfig.appCode}&appId=${appConfig.appId}&deviceId=&appVersion=$appVersion&deviceRemark=${deviceRemark.isNotEmpty ? Uri.encodeComponent(deviceRemark) : ''}&phDeviceId=$phDeviceId&phLine1Number=&phNetOpName=&phPhoneType=&phSimSerialNo=&bdBoard=&bdBrand=$deviceBrand&bdDevice=&bdDisplay=&bdManufacturer=&bdModel=$deviceModel&bdProduct=&pfDeviceId=&regId=${pushToken ?? ''}';
+        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwdUrlEncode&merchantNo=$merchantNo&diCode=${appConfig.diCode}&userPhone=$phone&userPwd=$password&ipAddress=0.0.0.0&latitude=$latitude&longitude=$longitude&appCode=${appConfig.appCode}&appId=${appConfig.appId}&deviceId=&appVersion=$appVersion&deviceRemark=${deviceRemark.isNotEmpty ? Uri.encodeComponent(deviceRemark) : ''}&phDeviceId=$phDeviceId&phLine1Number=&phNetOpName=&phPhoneType=&phSimSerialNo=&bdBoard=&bdBrand=$deviceBrand&bdDevice=&bdDisplay=&bdManufacturer=&bdModel=$deviceModel&bdProduct=&pfDeviceId=&regId=${pushToken ?? ''}';
 
     var response = await networking.getData(
-      path: 'eDrivingAdminLoginResetPwd?$path',
+      path: 'eDrivingAdminLoginResetPwdV2?$path',
     );
 
     if (response.isSuccess && response.data != null) {
@@ -678,7 +678,7 @@ class AuthRepo {
     );
 
     String body = jsonEncode(saveUserPasswordRequest);
-    String api = 'SaveUserPassword';
+    String api = 'SaveUserPasswordV2';
     Map<String, String> headers = {'Content-Type': 'application/json'};
 
     var response =
@@ -1144,6 +1144,7 @@ class AuthRepo {
       caUid: caUid,
       caPwd: caPwd,
       diCode: appConfig.diCode,
+      merchantNo: 'EPANDU',
       userId: 'EPANDU',
       name: name,
       nickName: nickName,
@@ -1195,7 +1196,7 @@ class AuthRepo {
     );
 
     String body = jsonEncode(params);
-    String api = 'CreateAppAccountWithPwd';
+    String api = 'eDrivingAdminSignUpV2'; //CreateAppAccountWithPwd
     Map<String, String> headers = {'Content-Type': 'application/json'};
 
     var response =
@@ -1357,11 +1358,11 @@ class AuthRepo {
       caPwd: caPwd,
       appCode: appConfig.appCode,
       appId: appConfig.appId,
-      appVersion: appVersion,
-      merchantNo: merchantNo,
+      appVersion: appVersion ?? '',
+      merchantNo: merchantNo ?? '',
       loginId: loginId,
       userId: userId ?? '',
-      bodyTemperature: bodyTemperature ?? '',
+      bodyTemperature: bodyTemperature ?? '0',
       scannedAppId: scannedAppId ?? '',
       scannedAppVer: scannedAppVer ?? '',
       scannedLoginId: scannedLoginId ?? '',
@@ -1406,6 +1407,140 @@ class AuthRepo {
     message = 'Sign up failed, please try again later.';
 
     return Response(false, message: message);
+  }
+
+  Future<Response> getUserRegisteredDI2({context, required merchantId}) async {
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwdEncode();
+
+    String? userId = await localStorage.getUserId();
+    String? diCode = '';
+
+    String path =
+        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&appCode=${appConfig.appCode}&appId=${appConfig.appId}&diCode=$diCode&userId=$userId';
+
+    var response = await networking.getData(
+      path: 'GetUserRegisteredDI?$path',
+    );
+
+    if (response.isSuccess && response.data != null) {
+      UserRegisteredDiResponse userRegisteredDiResponse =
+          UserRegisteredDiResponse.fromJson(response.data);
+      var responseData = userRegisteredDiResponse.armasterProfile;
+
+      await Hive.box('di_list').clear();
+
+      for (int i = 0; i < responseData!.length; i += 1) {
+        RegisteredDiArmasterProfile diListData = RegisteredDiArmasterProfile(
+          iD: responseData[i].iD,
+          appId: responseData[i].appId,
+          merchantNo: responseData[i].merchantNo,
+          userId: responseData[i].userId,
+          sponsor: responseData[i].sponsor,
+          sponsorAppId: responseData[i].sponsorAppId,
+          appCode: responseData[i].appCode,
+          appVersion: responseData[i].appVersion,
+          deleted: responseData[i].deleted,
+          createUser: responseData[i].createUser,
+          createDate: responseData[i].createDate,
+          editUser: responseData[i].editUser,
+          editDate: responseData[i].editDate,
+          compCode: responseData[i].compCode,
+          branchCode: responseData[i].branchCode,
+          transtamp: responseData[i].transtamp,
+          appBackgroundPhotoPath: responseData[i].appBackgroundPhotoPath,
+          merchantIconFilename: responseData[i].merchantIconFilename,
+          merchantBannerFilename: responseData[i].merchantBannerFilename,
+          merchantProfilePhotoFilename:
+              responseData[i].merchantProfilePhotoFilename,
+          name: responseData[i].name,
+          shortName: responseData[i].shortName,
+        );
+        await Hive.box('di_list').add(diListData);
+      }
+
+      localStorage.saveMerchantDbCode(merchantId);
+      return Response(true, data: responseData);
+    } else {
+      return Response(false, message: 'Please try again later.');
+    }
+  }
+
+  Future<Response> addUpdateTrainer({
+    required bool isNew,
+    required String? trnCode,
+    required String? name,
+    required String? add1,
+    required String? add2,
+    required String? add3,
+    required String? icNo,
+    required String? oldIcNo,
+    required String? homePhone,
+    required String? handPhone,
+    required String? pagerNo,
+    required String? eduGrade,
+    required String? jpjNote,
+    required String? sm2No,
+    required String? sm2ExpiryDateString,
+    required String? kppGroupId,
+    required String? spimGroupId,
+    required String? qtiGroupId,
+    String? photo,
+  }) async {
+    final String? caUid = await localStorage.getCaUid();
+    final String? caPwd = await localStorage.getCaPwd();
+    String? mLoginId = await localStorage.getUserPhone();
+    String? deviceId = await localStorage.getLoginDeviceId();
+    String? diCode = await localStorage.getMerchantDbCode();
+
+    AddUpdateTrainerRequest params = AddUpdateTrainerRequest(
+      wsCodeCrypt: appConfig.wsCodeCrypt,
+      caUid: caUid,
+      caPwd: caPwd,
+      mLoginId: mLoginId,
+      isNew: isNew,
+      appId: appConfig.appId,
+      deviceId: deviceId,
+      diCode: diCode ?? appConfig.diCode,
+      trnCode: trnCode, 
+      name: name, 
+      add1: add1, 
+      add2: add2, 
+      add3: add3, 
+      icNo: icNo, 
+      oldIcNo: oldIcNo, 
+      homePhone: homePhone, 
+      handPhone: handPhone, 
+      pagerNo: pagerNo, 
+      eduGrade: eduGrade, 
+      jpjNote: jpjNote, 
+      sm2No: sm2No, 
+      sm2ExpiryDateString: sm2ExpiryDateString, 
+      kppGroupId: kppGroupId, 
+      spimGroupId: spimGroupId, 
+      qtiGroupId: qtiGroupId,
+      photo: photo ?? ''
+    );
+
+    String body = jsonEncode(params);
+    String api = 'AddUpdateTrainer';
+    Map<String, String> headers = {'Content-Type': 'application/json'};
+
+    var response =
+        await networking.postData(api: api, body: body, headers: headers);
+
+    var message = '';
+
+    //Success
+    if (response.isSuccess && response.data != null) {
+      message = 'Your request will be processed.';
+
+      return Response(true, message: message);
+    }
+    //Fail
+    message = 'Add or update trainer failed. Please try again later.';
+
+    return Response(false, message: response.message ?? message);
   }
 
   // DI enrollment
@@ -1606,6 +1741,7 @@ class AuthRepo {
   Future validateAppVersion({required String appVersion}) async {
     String? caUid = await localStorage.getCaUid();
     String? caPwd = await localStorage.getCaPwd();
+    appVersion = 'x.x.x.x';
 
     String path =
         'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&appId=${appConfig.appId}&appCode=${appConfig.appCode}&appVersion=$appVersion';

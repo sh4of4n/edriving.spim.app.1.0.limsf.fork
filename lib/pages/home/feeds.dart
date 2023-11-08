@@ -373,10 +373,10 @@ class FeedsState extends State<Feeds> {
                         if (!isUrl) {
                           switch (feedValue) {
                             case 'ETESTING':
-                              context.router.push(const EtestingCategory());
+                              context.router.push( EtestingCategory());
                               break;
                             case 'EDRIVING':
-                              context.router.push(const EpanduCategory());
+                              context.router.push( EpanduCategory());
                               break;
                             case 'ENROLLMENT':
                               context.router.push(const Enrollment());
@@ -540,10 +540,10 @@ class FeedsState extends State<Feeds> {
                         if (!isUrl) {
                           switch (feedValue) {
                             case 'ETESTING':
-                              context.router.push(const EtestingCategory());
+                              context.router.push( EtestingCategory());
                               break;
                             case 'EDRIVING':
-                              context.router.push(const EpanduCategory());
+                              context.router.push( EpanduCategory());
                               break;
                             case 'ENROLLMENT':
                               context.router.push(const Enrollment());

@@ -100,7 +100,7 @@ class EpanduCategory extends StatelessWidget {
                   ),
                   Divider(color: Colors.grey[400]),
                   ListTile(
-                    onTap: () => context.router.push(const Records()),
+                    onTap: () => context.router.push(Records()),
                     title: Text(
                         AppLocalizations.of(context)!.translate('records'),
                         style: iconText),

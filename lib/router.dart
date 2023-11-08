@@ -84,6 +84,9 @@ class RootRouter extends $RootRouter {
     AutoRoute(page: CheckInSlip.page/* , name: 'CheckInSlip' */),
     AutoRoute(page: Multilevel.page/* , name: 'Multilevel' */),
     AutoRoute(page: MerchantProfile.page/* ,name: 'MerchantProfile' */),
+    AutoRoute(page: Vehicle.page),
+    AutoRoute(page: TrainerSchedule.page),
+    AutoRoute(page: MapScreen.page)
   ];
 }
 class $AppRouter {}

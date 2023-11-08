@@ -39,11 +39,11 @@ class MerchantProfileState extends State<MerchantProfile> {
   String? bOfficeLoginId;
 
   DeviceInfo deviceInfo = DeviceInfo();
-  final String _deviceBrand = '';
-  final String _deviceModel = '';
-  final String _deviceVersion = '';
-  final String _deviceId = '';
-  final String _deviceOs = '';
+  String _deviceBrand = '';
+  String _deviceModel = '';
+  String _deviceVersion = '';
+  String _deviceId = '';
+  String _deviceOs = '';
 
 
   final credentials = Hive.box('credentials');
@@ -62,7 +62,7 @@ class MerchantProfileState extends State<MerchantProfile> {
   @override
   void initState() {
     super.initState();
-
+    _getDeviceInfo();
     getMerchant = getMerchantApi();
   }
 
@@ -141,16 +141,15 @@ class MerchantProfileState extends State<MerchantProfile> {
   }
 
   _requestApproval() async {
-    // String? merchantDbCode = await credentials.get('merchantNo');
     EasyLoading.show(
       maskType: EasyLoadingMaskType.black,
     );
-    String? merchantDbCode = await localStorage.getMerchantDbCode();
+    // String? merchantDbCode = await localStorage.getMerchantDbCode();
+    String? merchantDbCode = await credentials.get('boUserId');
+
     if (merchantDbCode != AppConfig().diCode) {
       if (bOfficeLoginIdController.text.isNotEmpty) {
         await credentials.put('boUserId', bOfficeLoginIdController.text);
-
-        setState(() {});
 
         var result = await authRepo.requestDeviceActivation(
           boUserId: bOfficeLoginIdController.text,
@@ -163,6 +162,7 @@ class MerchantProfileState extends State<MerchantProfile> {
         if (result.isSuccess) {
           if (!context.mounted) return;
           EasyLoading.dismiss();
+          // Provider.of<FeedsLoadingModel>(context, listen: false).loadingStatus(false);
           customDialog.show(
               context: context,
               title: const Center(
@@ -175,7 +175,7 @@ class MerchantProfileState extends State<MerchantProfile> {
               content: 'Successfully informed',
               barrierDismissable: false,
               type: DialogType.success,
-              onPressed: ()async {
+              onPressed: () async {
                 await context.router.pop();
                 if (!context.mounted) return;
                 context.router.pop();
@@ -191,7 +191,6 @@ class MerchantProfileState extends State<MerchantProfile> {
           );
         }
 
-        setState(() {});
       } else {
         if (!context.mounted) return;
         EasyLoading.dismiss();
@@ -210,6 +209,16 @@ class MerchantProfileState extends State<MerchantProfile> {
         type: DialogType.warning,
       );
     }
+  }
+
+  _getDeviceInfo() async {
+    await deviceInfo.getDeviceInfo();
+
+    _deviceBrand = deviceInfo.manufacturer ?? '';
+    _deviceModel = deviceInfo.model ?? '';
+    _deviceVersion = deviceInfo.version ?? '';
+    _deviceId = deviceInfo.id ?? '';
+    _deviceOs = deviceInfo.os ?? '';
   }
 
   backOfficeLoginIdField() {
@@ -283,7 +292,9 @@ class MerchantProfileState extends State<MerchantProfile> {
                             _profileImage(snapshot.data[0]),
                             _merchantInfo(snapshot.data[0]),
                             CustomButton(
-                              onPressed: _requestApproval,
+                              onPressed: (){
+                                _requestApproval();
+                              },
                               buttonColor: primaryColor,
                               title: AppLocalizations.of(context)!
                                   .translate('requestApproval'),

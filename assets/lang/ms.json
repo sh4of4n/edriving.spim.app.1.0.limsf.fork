@@ -386,5 +386,14 @@
   "requestApproval": "REQUEST APPROVAL",
   "backOfficeId": "Back Office Login ID",
   "invalid_qr": "Kod QR tidak sah.",
-  "mismatch_di": "Kod QR institut memandu tidak sama."
+  "mismatch_di": "Kod QR institut memandu tidak sama.",
+  "add_trainer": "Tambah Trainer",
+  "update_trainer": "Kemas Kini Trainer",
+  "update_btn": "Kemas Kini",
+  "edit_btn": "Edit",
+  "vehicle_lbl": "Kenderaan",
+  "instructor_lbl": "Pengajar",
+  "trn_det_lbl": "Perincian Pengajar",
+  "scd_lbl": "Jadual Pengajar",
+  "map_lbl": "Alamat Pelajar"
 }

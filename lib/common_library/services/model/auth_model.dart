@@ -254,6 +254,124 @@ class RequestDeviceActivationRequest {
   }
 }
 
+class AddUpdateTrainerRequest {
+  String? wsCodeCrypt;
+  String? caUid;
+  String? caPwd;
+  String? appId;
+  String? mLoginId;
+  String? deviceId;
+  String? diCode;
+  bool? isNew;
+  String? trnCode;
+  String? name;
+  String? add1; 
+  String? add2; 
+  String? add3; 
+  String? icNo; 
+  String? oldIcNo; 
+  String? homePhone; 
+  String? handPhone; 
+  String? pagerNo;
+  String? eduGrade; 
+  String? jpjNote;
+  String? sm2No; 
+  String? sm2ExpiryDateString;
+  String? kppGroupId; 
+  String? spimGroupId; 
+  String? qtiGroupId;
+  String? photo;
+
+  AddUpdateTrainerRequest({
+    this.wsCodeCrypt,
+    this.caUid,
+    this.caPwd,
+    this.mLoginId,
+    this.deviceId,
+    this.appId,
+    this.diCode,
+    this.isNew,
+    this.trnCode,
+    this.name, 
+    this.add1, 
+    this.add2, 
+    this.add3, 
+    this.icNo, 
+    this.oldIcNo, 
+    this.homePhone, 
+    this.handPhone, 
+    this.pagerNo, 
+    this.eduGrade, 
+    this.jpjNote, 
+    this.sm2No, 
+    this.sm2ExpiryDateString, 
+    this.kppGroupId, 
+    this.spimGroupId, 
+    this.qtiGroupId,
+    this.photo
+  });
+
+  AddUpdateTrainerRequest.fromJson(Map<String, dynamic> json){
+    wsCodeCrypt = json['wsCodeCrypt'];
+    caUid = json['caUid'];
+    caPwd = json['caPwd'];
+    mLoginId = json['mLoginId'];
+    isNew = json['isNew'];
+    deviceId = json['deviceId'];
+    appId = json['appId'];
+    diCode = json['diCode'];
+    trnCode = json['trnCode']; 
+    name = json['name'];
+    add1 = json['add1']; 
+    add2 = json['add2']; 
+    add3 = json['add3']; 
+    icNo = json['icNo']; 
+    oldIcNo = json['oldIcNo'];
+    homePhone = json['homePhone'];
+    handPhone = json['handPhone']; 
+    pagerNo = json['pagerNo'];
+    eduGrade = json['eduGrade']; 
+    jpjNote = json['jpjNote'];
+    sm2No = json['sm2No'];
+    sm2ExpiryDateString = json['sm2ExpiryDateString'];
+    kppGroupId = json['kppGroupId'];
+    spimGroupId = json['spimGroupId'];
+    qtiGroupId = json['qtiGroupId'];
+    photo = json['base64Photo'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String,dynamic> data = <String,dynamic>{};
+    data['wsCodeCrypt'] = wsCodeCrypt;
+    data['caUid'] = caUid;
+    data['caPwd'] = caPwd;
+    data['mLoginId'] = mLoginId;
+    data['deviceId'] = deviceId;
+    data['appId'] = appId;
+    data['diCode'] = diCode;
+    data['isNew'] = isNew;
+    data['trnCode'] = trnCode; 
+    data['name'] = name; 
+    data['add1'] = add1; 
+    data['add2'] = add2; 
+    data['add3'] = add3; 
+    data['icNo'] = icNo; 
+    data['oldIcNo'] = oldIcNo; 
+    data['homePhone'] = homePhone; 
+    data['handPhone'] = handPhone; 
+    data['pagerNo'] = pagerNo;
+    data['eduGrade'] = eduGrade; 
+    data['jpjNote'] = jpjNote; 
+    data['sm2No'] = sm2No;
+    data['sm2ExpiryDateString'] = sm2ExpiryDateString; 
+    data['kppGroupId'] = kppGroupId;
+    data['spimGroupId'] = spimGroupId; 
+    data['qtiGroupId'] = qtiGroupId;
+    data['base64Photo'] = photo;
+    return data;
+  }
+}
+
 /* class LoginRequest {
   String wsCodeCrypt;
   String caUid;
@@ -2505,6 +2623,7 @@ class RegisterRequest {
   String? caUid;
   String? caPwd;
   String? diCode;
+  String? merchantNo;
   String? userId;
   String? name;
   String? nickName;
@@ -2559,6 +2678,7 @@ class RegisterRequest {
       this.caUid,
       this.caPwd,
       this.diCode,
+      this.merchantNo,
       this.userId,
       this.name,
       this.nickName,
@@ -2613,6 +2733,7 @@ class RegisterRequest {
     caUid = json['caUid'];
     caPwd = json['caPwd'];
     diCode = json['diCode'];
+    merchantNo = json['merchantNo'];
     userId = json['userId'];
     name = json['name'];
     nickName = json['nickName'];
@@ -2669,6 +2790,7 @@ class RegisterRequest {
     data['caUid'] = caUid;
     data['caPwd'] = caPwd;
     data['diCode'] = diCode;
+    data['merchantNo'] = merchantNo;
     data['userId'] = userId;
     data['name'] = name;
     data['nickName'] = nickName;

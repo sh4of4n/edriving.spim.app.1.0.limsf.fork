@@ -78,6 +78,7 @@ class ImagesConstant {
   String bookingIcon = 'assets/images/booking.png';
   String faqIcon = 'assets/images/faq.png';
   String classIcon = 'assets/images/classes.png';
+  String dummyProfile = 'assets/images/dummy-pic.jpg';
   String paymentIcon = 'assets/images/payment.png';
   String attendanceIcon = 'assets/images/attendance.png';
   String chatIcon = 'assets/images/chat.png';

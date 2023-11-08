@@ -382,7 +382,7 @@ class SelectClassState extends State<SelectClass> {
                     context: context, type: 'UPDATE');
                     if (!context.mounted) return;
                 context.router
-                    .pushAndPopUntil(const Home(), predicate: (r) => false);
+                    .pushAndPopUntil(Home(), predicate: (r) => false);
               },
             ),
           ],

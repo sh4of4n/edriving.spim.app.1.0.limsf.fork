@@ -1,0 +1,766 @@
+import 'dart:io';
+
+import 'package:auto_route/auto_route.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:edriving_spim_app/common_library/services/repository/schedule_repository.dart';
+import 'package:edriving_spim_app/common_library/utils/app_localizations.dart';
+import 'package:edriving_spim_app/common_library/utils/custom_dialog.dart';
+import 'package:edriving_spim_app/common_library/utils/local_storage.dart';
+import 'package:edriving_spim_app/router.gr.dart';
+import 'package:edriving_spim_app/utils/constants.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:intl/intl.dart';
+import 'package:map_launcher/map_launcher.dart';
+import 'package:syncfusion_flutter_calendar/calendar.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+@RoutePage()
+class TrainerSchedule extends StatefulWidget {
+  const TrainerSchedule({super.key});
+
+  @override
+  State<TrainerSchedule> createState() => _TrainerScheduleState();
+}
+
+class MeetingDataSource extends CalendarDataSource {
+  MeetingDataSource(List<Appointment> source) {
+    appointments = source;
+  }
+}
+
+class _TrainerScheduleState extends State<TrainerSchedule> {
+  final primaryColor = ColorConstant.primaryColor;
+  Future? _getSchedule;
+  final localStorage = LocalStorage();
+  final customDialog = CustomDialog();
+  final scheduleRepo = ScheduleRepo();
+  final selectedDateFocus = FocusNode();
+  final selectedDateController = TextEditingController();
+  final calendarController = CalendarController();
+  DateTime today = DateTime.now();
+  final int _startIndex = 0;
+  final int _noOfRecord = 100;
+  var timeLogData;
+  List<Appointment> meetings = <Appointment>[];
+  String startDt = '';
+  String endDt = '';
+  String startDate = '';
+  String endDate = '';
+  String subject = '';
+  String add1 = '';
+  String add2 = '';
+  String add3 = '';
+  String state = '';
+  String city = '';
+  String zip = '';
+  String courseCode = '';
+  String cupertinoDob = '';
+  String totalAdd = '';
+  String dateFrom = DateFormat('yyyy-MM-dd').format(DateTime.now());
+  String dateTo = DateFormat('yyyy-MM-dd').format(DateTime.now());
+  String nxtAppDt = '';
+  String address = '';
+  DateTime selectedDate = DateTime.now();
+
+  getSchedule() async {
+    var result = await scheduleRepo.getTrainerSchedule(
+        context: context,
+        dateFrom: dateFrom,
+        dateTo: dateTo,
+        startIndex: _startIndex,
+        trnCode: 'SHAIK',
+        noOfRecords: _noOfRecord);
+      
+    if (result.isSuccess) {
+      setState(() {
+        for (var i = 0; i < result.data.length; i++){
+
+          if(result.data[i].startDate != null){
+            startDt = result.data[i].startDate;
+            endDt = result.data[i].endDate;
+          } else {
+            startDt = calendarController.selectedDate.toString();
+            endDt = calendarController.selectedDate.toString();
+          }
+          if(result.data[i].subject != null){
+            courseCode = result.data[i].courseCode ?? '';
+            subject = result.data[i].subject ?? '';
+            add1 = result.data[i].add1 ?? '';
+            add2 = result.data[i].add2 ?? '';
+            add3 = result.data[i].add3 ?? '';
+            state = result.data[i].state ?? '';
+            city = result.data[i].city ?? '';
+            zip = result.data[i].zip ?? '';
+            address = '$add1, $add2, $add3';
+          }
+          getAppointments(startDt, endDt, subject, address, state, city, zip);
+        }
+      });
+      return result.data;
+    }
+
+    return result.message;
+  }
+
+
+  List<Appointment> getAppointments(
+    startDt,
+    endDt,
+    subject, 
+    address, 
+    state, 
+    city, 
+    zip
+    ){
+    DateTime startTime;
+    DateTime endTime;
+    String formattedString = '$courseCode   \n''${subject.replaceAll(' - ', '\n')}';
+
+    startTime = DateTime.parse(parseDateWithoutOffset(startDt));
+    endTime = DateTime.parse(parseDateWithoutOffset(endDt));
+
+    int year = startTime.year;
+    int month = startTime.month;
+    int day = startTime.day;
+    int hour = startTime.hour;
+    int minute = startTime.minute;
+    int second = startTime.second;
+    int endYear = endTime.year;
+    int endMonth = endTime.month;
+    int endDay = endTime.day;
+    int endHour = endTime.hour;
+    int endMinute = endTime.minute;
+    int endSecond = endTime.second;
+
+    setState(() {
+      meetings.add(Appointment(
+            startTime: DateTime(year, month, day, hour, minute, second), 
+            endTime: DateTime(endYear, endMonth, endDay, endHour, endMinute, endSecond),
+            subject: formattedString,
+            notes: '$address+$state+$city+$zip',
+            color: Colors.blue,
+            // recurrenceRule: 'FREQ=DAILY;COUNT=10',
+            // isAllDay: true
+          ));
+    });
+    // startTime = DateTime(today.year, today.month, today.day, 9, 0, 0);
+    // endTime = startTime.add(const Duration(hours: 2));
+    
+    return meetings;
+  }
+
+  String extractTimeFromDateTimeString(String dateTimeString) {
+    final dateTime = DateTime.parse(dateTimeString);
+    final time = TimeOfDay.fromDateTime(dateTime);
+    return time.format(context); 
+  }
+
+  DateTime convertTimeStringToDateTime(String timeString) {
+    final formattedTime = DateFormat('HH:mm').parse(timeString);
+    return formattedTime;
+  }
+
+  String parseDateWithoutOffset(String dateString) {
+    DateFormat format = DateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+    DateTime dateTime = format.parse(dateString);
+    return DateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(dateTime);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getSchedule = getSchedule();
+
+    setState(() {
+      selectedDateController.text =
+          DateFormat('yyyy-MM-dd').format(
+        today,
+      );
+      // if(today.isBefore(DateTime.parse(startDt))){
+      //   nxtAppDt = startDt;
+      // }
+    });
+  }
+
+//   void openMapWithAddress(String address) async {
+
+//   Uri mapUri = Uri(
+//   scheme: 'https',
+//   host: 'www.google.com',
+//   path: '/maps/search/',
+//   queryParameters: {
+//     'api': '1',
+//     'query': address,
+//   },
+// );
+
+//   if (await canLaunchUrl(mapUri)) {
+//     await launchUrl(mapUri);
+//   } else {
+//     throw 'Could not launch $mapUri';
+//   }
+// }
+
+  Future<List<Location>> getLocationFromAddress(String address) async {
+    try {
+      final locations = await locationFromAddress(address);
+      return locations;
+    } catch (e) {
+      print("Error converting address to coordinates: $e");
+      return [];
+    }
+  }
+
+  _openDestination(context) async {
+      try {
+        const title = 'Student Address';
+        final locations = await getLocationFromAddress(totalAdd);
+        String description = totalAdd;
+        double latitude = locations[0].latitude; 
+        double longitude = locations[0].longitude; 
+        final coords = Coords(latitude,longitude);
+        final availableMaps = await MapLauncher.installedMaps;
+
+        showModalBottomSheet(
+          context: context,
+          builder: (BuildContext context) {
+            return SafeArea(
+              child: SingleChildScrollView(
+                child: Wrap(
+                  children: <Widget>[
+                    for (var map in availableMaps)
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ListTile(
+                          onTap: () {
+                            map.showMarker(
+                              coords: coords,
+                              title: title,
+                              description: description,
+                            );
+                          },
+                          title: Text(map.mapName),
+                          leading: SvgPicture.asset(
+                            map.icon,
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      } catch (e) {
+        print(e);
+      }
+    }
+
+  refreshData() {
+    setState(() {
+      meetings.clear();
+      dateFrom = cupertinoDob;
+      dateTo = cupertinoDob;
+      _getSchedule = getSchedule();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+        length: 4,
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: RadialGradient(
+              colors: [Colors.amber.shade300, primaryColor],
+              stops: const [0.5, 1],
+              radius: 0.9,
+            ),
+          ),
+          child: Scaffold(
+              appBar: AppBar(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                title: Text(AppLocalizations.of(context)!.translate('scd_lbl')),
+              ),
+              backgroundColor: Colors.transparent,
+              body: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(16.0, 8, 16, 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      DateTimeField(
+                        focusNode: selectedDateFocus,
+                        controller: selectedDateController,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                        readOnly: true,
+                        format: DateFormat("yyyy-MM-dd"),
+                        decoration: InputDecoration(
+                          isDense: true,
+                          focusedBorder: const OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(width: 3, color: Colors.blue)),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: const BorderSide(
+                                  width: 3, color: Colors.white)),
+                          contentPadding: const EdgeInsets.all(10.0),
+                          prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0) ,
+                          prefixIcon: const Text('    Date:',style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20
+                          )),
+                        ),
+                        onShowPicker: (context, currentValue) async {
+                          if (Platform.isAndroid) {
+                            if (selectedDateController.text.isEmpty) {
+                              setState(() {
+                                selectedDateController.text =
+                                    DateFormat('yyyy-MM-dd').format(
+                                  today,
+                                );
+                              });
+                            }
+
+                            await showCupertinoModalPopup(
+                              context: context,
+                              builder: (context) {
+                                return CupertinoActionSheet(
+                                  title: const Text('Pick a date'),
+                                  cancelButton: CupertinoActionSheetAction(
+                                    child: const Text('Cancel'),
+                                    onPressed: () => context.router.pop(),
+                                  ),
+                                  actions: <Widget>[
+                                    SizedBox(
+                                      height: 900.h,
+                                      child: CupertinoDatePicker(
+                                        initialDateTime: DateTime.parse(
+                                            selectedDateController.text),
+                                        onDateTimeChanged: (DateTime date) {
+                                          setState(() {
+                                            cupertinoDob =
+                                                DateFormat('yyyy-MM-dd')
+                                                    .format(date);
+                                          });
+                                        },
+                                        minimumYear: 2000,
+                                        maximumYear: 2100,
+                                        mode: CupertinoDatePickerMode.date,
+                                      ),
+                                    ),
+                                    CupertinoActionSheetAction(
+                                      child: const Text('Confirm'),
+                                      onPressed: () {
+                                        if (cupertinoDob.isNotEmpty) {
+                                          selectedDateController.text =
+                                              cupertinoDob;
+                                          calendarController.selectedDate = DateTime.parse(cupertinoDob);
+                                          calendarController.displayDate = DateTime.parse(cupertinoDob);
+                                          // credentials.put('date', cupertinoDob);
+                                        }
+                                        refreshData();
+                                        context.router.pop();
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          } else {
+                            return showDatePicker(
+                                context: context,
+                                firstDate: DateTime(2000),
+                                initialDate: currentValue ?? today,
+                                lastDate: DateTime(2100));
+                          }
+                          return null;
+                        },
+                      ),
+                      FutureBuilder(
+                          future: _getSchedule,
+                          builder: (BuildContext context,
+                              AsyncSnapshot<dynamic> snapshot) {
+                            switch (snapshot.connectionState) {
+                              case ConnectionState.waiting:
+                                return Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: ScreenUtil().setHeight(600)),
+                                  child: const Center(
+                                    child:
+                                        SpinKitHourGlass(color: Colors.white),
+                                  ),
+                                );
+                              case ConnectionState.done:
+                                if (snapshot.data is String) {
+                                  return Center(
+                                    child: Text(snapshot.data),
+                                  );
+                                } else if (snapshot.hasData) {
+                                  return Container(
+                                  margin:const EdgeInsets.only(top: 30),
+                                  
+                                  child: ListTile(
+                                    title: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment
+                                              .center,
+                                      children: [
+                                        const Text(
+                                            // '(${widget.trnInfo.trnCode ?? ''})',
+                                            'SHAIK',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 20
+                                            ),),
+                                        const Padding(
+                                          padding:
+                                              EdgeInsets
+                                                  .all(8.0),
+                                          child: Text(
+                                              // '${widget.trnInfo.trnName ?? ''}',
+                                              'SHAIK',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 20
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                        ),
+                                        Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          ElevatedButton.icon(
+                                            icon: const Icon(Icons.arrow_back),
+                                            onPressed: () {
+                                              setState(() {
+                                                String date= '';
+                                                  selectedDate = selectedDate.subtract(const Duration(days: 1));
+                                                  date = DateFormat('yyyy-MM-dd').format(selectedDate);
+                                                  selectedDateController.text = date;
+                                                  cupertinoDob = date;
+                                                });
+                                              calendarController.backward!();
+                                              refreshData();
+                                            }, 
+                                            label: const Text('Previous Date'),
+                                          ),
+                                          SizedBox(
+                                            width: 200.w,
+                                          ),
+                                          ElevatedButton.icon(
+                                            icon: const Icon(Icons.arrow_forward),
+                                            onPressed: () {
+                                              setState(() {
+                                                String date = '';
+                                                  selectedDate = selectedDate.add(const Duration(days: 1));
+                                                  date = DateFormat('yyyy-MM-dd').format(selectedDate);
+                                                  selectedDateController.text = date;
+                                                  cupertinoDob = date;
+                                                });
+                                                calendarController.forward!();
+                                                refreshData();
+                                              }, 
+                                              label: const Text('Next Date'),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 60.h,
+                                        ),
+                                        SizedBox(
+                                          height: ScreenUtil().setHeight(2200),
+                                          child: SfCalendar( 
+                                            controller: calendarController,
+                                            view: CalendarView.day,
+                                            initialSelectedDate:  today,
+                                            minDate: DateTime(2000-01-01),
+                                            maxDate: DateTime(2100-12-31),
+                                            initialDisplayDate: today,
+                                            onViewChanged: (ViewChangedDetails viewChangedDetails){
+                                                selectedDate = viewChangedDetails.visibleDates[0];
+                                            },
+                                            backgroundColor: Colors.white,
+                                            dataSource: MeetingDataSource(meetings),
+                                            onTap: (CalendarTapDetails details) {
+                                                // dynamic appointment = details.appointments;
+                                                // DateTime date = details.date!;
+                                                // CalendarElement element = details.targetElement;
+                                                setState(() {
+                                                  if(details.targetElement == CalendarElement.appointment){
+                                                    String add = details.appointments?[0].notes;
+                                                    List<String> partAdd = add.split('+');
+                                                    String address = partAdd[0].trim();
+                                                    String state = partAdd[1].trim();
+                                                    String city = partAdd[2].trim();
+                                                    String zip = partAdd[3].trim();
+                                                    totalAdd = '$address, $state, $city, $zip';
+
+                                                    String subject = details.appointments?[0].subject;
+                                                    List<String> parts = subject.split('\n');
+                                                    String course = parts[0].trim();
+                                                    String timeRange = parts[1];
+                                                    String name = parts[2].trim();
+                                                    String phoneNumber = parts[3].trim();
+                                                    String code = parts[4].trim();
+                                                    String vehicleNo = parts[5].trim();
+
+                                                    List<String> times = timeRange.split(" -> ");
+                                                    String startTime = times[0].trim();
+                                                    String endTime = times[1].trim();
+
+                                                  showDialog(
+                                                    context: context, 
+                                                    builder: (BuildContext context) {
+                                                    return AlertDialog(
+                                                      title: const Text('Student Details', style: TextStyle(
+                                                        fontSize: 30,
+                                                        color: Colors.black,
+                                                        fontWeight: FontWeight.bold
+                                                      ),),
+                                                      content: Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: <Widget>[
+                                                          Text('Name: $name \n'),
+                                                          Text('Phone Number: $phoneNumber \n'),
+                                                          Text('Trainer Code: $code \n'),
+                                                          Text('Course Code: $course \n'),
+                                                          Text('Vehicle Plate Number: $vehicleNo \n'),
+                                                          Text(
+                                                            'Start Time: $startTime\n'
+                                                            'End Time: $endTime\n'),
+                                                          Text('Address: $address \n'),
+                                                          Text('State: $state \n'),
+                                                          Text('City: $city \n'),
+                                                          Text('Zip: $zip \n'),
+                                                        // Text(
+                                                        //   'Start Time: ${details.appointments?[0].startTime}\n'
+                                                        //   'End Time: ${details.appointments?[0].endTime}',
+                                                        // ),
+                                                          Row(
+                                                            mainAxisAlignment: MainAxisAlignment.center,
+                                                            children: [
+                                                              ElevatedButton.icon(
+                                                                onPressed: () { 
+                                                                  var phoneNo = phoneNumber
+                                                                            .replaceAll(
+                                                                                "tel_hp:",
+                                                                                "");
+                                                                        final Uri
+                                                                            telLaunchUri =
+                                                                            Uri(
+                                                                          scheme: 'tel',
+                                                                          path: phoneNo,
+                                                                        );
+                                                                        showDialog(
+                                                                          context: context,
+                                                                          builder:
+                                                                              (BuildContext
+                                                                                  context) {
+                                                                            return AlertDialog(
+                                                                              content:
+                                                                                  const Text(
+                                                                                      'Do you sure you want to call this number?'),
+                                                                              actions: <Widget>[
+                                                                                TextButton(
+                                                                                  onPressed:
+                                                                                      () {
+                                                                                    launchUrl(
+                                                                                        telLaunchUri);
+                                                                                  },
+                                                                                  child: const Text(
+                                                                                      'Call'),
+                                                                                ),
+                                                                                TextButton(
+                                                                                  onPressed:
+                                                                                      () {
+                                                                                    Navigator.of(context)
+                                                                                        .pop();
+                                                                                  },
+                                                                                  child: const Text(
+                                                                                      'Cancel'),
+                                                                                )
+                                                                              ],
+                                                                            );
+                                                                          },
+                                                                        ); },
+                                                                icon: const Icon(Icons.phone),
+                                                                label: const Text('Call'),
+                                                              ),
+                                                              SizedBox(
+                                                                width: 50.w,
+                                                              ),
+                                                              ElevatedButton.icon(
+                                                                icon: const Icon(Icons.location_on), 
+                                                                label: const Text('Address Location'),
+                                                                onPressed: (){
+                                                                  context.router.push(
+                                                                  MapScreen(
+                                                                    address: totalAdd,
+                                                                    studName: name,
+                                                                  ));
+                                                                }, 
+                                                              ),
+                                                              SizedBox(
+                                                                width: 50.w,
+                                                              ),
+                                                              ElevatedButton.icon(
+                                                                icon: const Icon(Icons.navigation_rounded), 
+                                                                label: const Text('Navigate'),
+                                                                onPressed: (){
+                                                                  _openDestination(context);
+                                                                }, 
+                                                              ),
+                                                            ],
+                                                          )
+                                                      ]),
+                                                      actions: <Widget>[
+                                                        TextButton(
+                                                          onPressed:
+                                                              () {
+                                                            Navigator.of(context)
+                                                                .pop();
+                                                          },
+                                                          child: const Text(
+                                                              'Ok'),
+                                                        )
+                                                      ],
+                                                    );
+                                                  },);}
+                                                });
+                                              },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ));
+                                }
+                                return Container(
+                                  margin: const EdgeInsets.only(top: 30.0),
+                                  child: Column(
+                                    children: <Widget>[
+                                      const Text(
+                                          // '(${widget.trnInfo.trnCode ?? ''})',
+                                          'SHAIK',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20
+                                          ),),
+                                      const Padding(
+                                        padding:
+                                            EdgeInsets
+                                                .all(8.0),
+                                        child: Text(
+                                            // '${widget.trnInfo.trnName ?? ''}',
+                                            'SHAIK',
+                                            style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                      const Text('No appointments today', style: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold
+                                      ),),
+                                      // Text('Next Appointment Date: $nxtAppDt', style: const TextStyle(
+                                      //   fontSize: 20,
+                                      //   color: Colors.white,
+                                      //   fontWeight: FontWeight.bold
+                                      // ),),
+                                      SizedBox(
+                                        height: 60.h,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          ElevatedButton.icon(
+                                            icon: const Icon(Icons.arrow_back),
+                                            onPressed: () {
+                                              setState(() {
+                                                  String date= '';
+                                                  selectedDate = selectedDate.subtract(const Duration(days: 1));
+                                                  date = DateFormat('yyyy-MM-dd').format(selectedDate);
+                                                  selectedDateController.text = date;
+                                                  cupertinoDob = date;
+                                                });
+                                              calendarController.backward!();
+                                              refreshData();
+                                            }, 
+                                            label: const Text('Previous Date'),
+                                          ),
+                                          SizedBox(
+                                            width: 200.w,
+                                          ),
+                                          ElevatedButton.icon(
+                                            icon: const Icon(Icons.arrow_forward),
+                                            onPressed: () {
+                                              setState(() {
+                                                String date = '';
+                                                  selectedDate = selectedDate.add(const Duration(days: 1));
+                                                  date = DateFormat('yyyy-MM-dd').format(selectedDate);
+                                                  selectedDateController.text = date;
+                                                  cupertinoDob = date;
+                                                });
+                                              calendarController.forward!();
+                                              refreshData();
+                                            }, 
+                                            label: const Text('Next Date'),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 60.h,
+                                      ),
+                                      SizedBox(
+                                        height: ScreenUtil().setHeight(2200),
+                                        child: SfCalendar(
+                                          controller: calendarController,
+                                          view: CalendarView.day,
+                                          initialSelectedDate: today,
+                                          initialDisplayDate: today,
+                                          onViewChanged: (ViewChangedDetails viewChangedDetails){
+                                              selectedDate = viewChangedDetails.visibleDates[0];
+                                          },
+                                          backgroundColor: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              default:
+                                return Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: ScreenUtil().setHeight(600)),
+                                  child: Center(
+                                    child:
+                                        SpinKitHourGlass(color: primaryColor),
+                                  ),
+                                );
+                            }
+                          })
+                    ],
+                  ),
+                ),
+              )),
+        ));
+  }
+}

@@ -285,13 +285,13 @@ class RegisterFormState extends State<RegisterForm> with PageBaseClass {
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
       if (constraints.maxWidth < 600) {
-        return defaultLayout();
+        return defaultLayout(context);
       }
       return tabLayout();
     });
   }
 
-  defaultLayout() {
+  defaultLayout(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
@@ -577,7 +577,7 @@ class RegisterFormState extends State<RegisterForm> with PageBaseClass {
                               ldlItem = value;
                             });
                           },
-                          items: ldlList
+                          items: (ldlList == null)
                               ? null
                               : ldlList.map<DropdownMenuItem<String>>(
                                   (dynamic value) {
@@ -613,7 +613,7 @@ class RegisterFormState extends State<RegisterForm> with PageBaseClass {
                               cdlItem = value;
                             });
                           },
-                          items: cdlList
+                          items: (cdlList == null)
                               ? null
                               : cdlList.map<DropdownMenuItem<String>>(
                                   (dynamic value) {
@@ -1064,7 +1064,7 @@ class RegisterFormState extends State<RegisterForm> with PageBaseClass {
                               ldlItem = value;
                             });
                           },
-                          items: ldlList
+                          items:(ldlList == null)
                               ? null
                               : ldlList.map<DropdownMenuItem<String>>(
                                   (dynamic value) {
@@ -1100,7 +1100,7 @@ class RegisterFormState extends State<RegisterForm> with PageBaseClass {
                               cdlItem = value;
                             });
                           },
-                          items: cdlList
+                          items: (cdlList == null)
                               ? null
                               : cdlList.map<DropdownMenuItem<String>>(
                                   (dynamic value) {
@@ -1298,6 +1298,7 @@ class RegisterFormState extends State<RegisterForm> with PageBaseClass {
 
         if (mounted) {
           if (result.isSuccess) {
+            localStorage.saveTrnCode(_name);
             customDialog.show(
               context: context,
               title: const Center(
@@ -1371,7 +1372,7 @@ class RegisterFormState extends State<RegisterForm> with PageBaseClass {
         if (!context.mounted) return;
         localStorage.saveMerchantDbCode(getRegisteredDi.data[0].merchantNo);
 
-        context.router.pushAndPopUntil(const Home(), predicate: (r) => false);
+        context.router.pushAndPopUntil( Home(), predicate: (r) => false);
       } else {
         if (!context.mounted) return;
         context.router.pushAndPopUntil(const Login(), predicate: (r) => false);

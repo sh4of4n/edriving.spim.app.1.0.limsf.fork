@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:edriving_spim_app/common_library/services/repository/profile_repository.dart';
 import 'package:hive/hive.dart';
 import '/base/page_base_class.dart';
 import '/common_library/utils/custom_dialog.dart';
@@ -34,6 +35,7 @@ class LoginFormState extends State<LoginForm> with PageBaseClass {
   final FocusNode _passwordFocus = FocusNode();
   final primaryColor = ColorConstant.primaryColor;
   final localStorage = LocalStorage();
+  final profileRepo = ProfileRepo();
 
   bool _isLoading = false;
 
@@ -374,13 +376,16 @@ class LoginFormState extends State<LoginForm> with PageBaseClass {
           if (!context.mounted) return;
           var getRegisteredDi = await authRepo.getUserRegisteredDI(
               context: context, type: 'LOGIN');
+          if (!context.mounted) return;
+          var profileResult = await profileRepo.getUserProfile(context: context);
 
           if (getRegisteredDi.isSuccess) {
             if (!context.mounted) return;
             localStorage.saveMerchantDbCode(getRegisteredDi.data[0].merchantNo);
             localStorage.saveDiCode(getRegisteredDi.data[0].merchantNo);
-
-            context.router.replace(const Home());
+            localStorage.saveTrnCode(profileResult.data[0].name);
+            credentials.put('merchantNo', getRegisteredDi.data[0].merchantNo);
+            context.router.replace(Home());
           } else {
             setState(() {
               _isLoading = false;
@@ -397,8 +402,9 @@ class LoginFormState extends State<LoginForm> with PageBaseClass {
           );
         } else {
           localStorage.saveMerchantDbCode(result.data[0].merchantNo);
+          localStorage.saveDiCode(result.data[0].merchantNo);
           if (!context.mounted) return;
-          context.router.replace(const Home());
+          context.router.replace(Home());
         }
       } else {
         setState(() {

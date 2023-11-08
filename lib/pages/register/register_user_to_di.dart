@@ -4,6 +4,7 @@
 import 'dart:convert';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:hive/hive.dart';
 // import '/router.gr.dart';
 import '/common_library/services/model/auth_model.dart';
 import '/common_library/services/location.dart';
@@ -60,19 +61,19 @@ class RegisterUserToDiState extends State<RegisterUserToDi> {
   final phoneController = TextEditingController();
   final merchantIdController = TextEditingController();
   final merchantNameController = TextEditingController();
+  final _diList = Hive.box('di_list');
 
   String? _deviceManufacturer = '';
   // String _deviceVersion = '';
   String? _deviceId = '';
   // String _deviceOs = '';
   String? _deviceModel = '';
+  bool duplicateMerchant = false;
 
   @override
   void initState() {
     super.initState();
 
-    ScanResponse scanResponse =
-        ScanResponse.fromJson(jsonDecode(widget.barcode));
 
     /* setState(() {
       name = scanResponse.qRCode[0].name;
@@ -88,11 +89,16 @@ class RegisterUserToDiState extends State<RegisterUserToDi> {
     _getDeviceInfo();
     _checkLocationPermission();
 
+    
+    ScanResponse scanResponse =
+        ScanResponse.fromJson(jsonDecode(widget.barcode));
+
     if (scanResponse.qRCode?[0] != null) {
       setState(() {
-        nameController.text = scanResponse.qRCode![0].name!;
-        phoneController.text = scanResponse.qRCode![0].loginId!;
-        merchantIdController.text = scanResponse.qRCode![0].merchantDbCode!;
+        nameController.text = scanResponse.qRCode![0].name ?? '';
+        phoneController.text = scanResponse.qRCode![0].loginId ?? '';
+        merchantIdController.text =
+            scanResponse.qRCode![0].merchantDbCode ?? '';
         merchantNameController.text = scanResponse.qRCode![0].merchantName!;
       });
     } else {
@@ -176,7 +182,17 @@ class RegisterUserToDiState extends State<RegisterUserToDi> {
   }
 
   registerUserToDi() async {
+    for (var i = 0; i < _diList.length; i++) {
+      if (_diList.getAt(i).merchantNo == merchantId) {
+        duplicateMerchant = true;
+        break;
+      }
+    }
     if (_formKey.currentState!.validate()) {
+      if (duplicateMerchant) {
+        localStorage.saveMerchantDbCode(merchantId);
+        context.router.popUntil((route) => route.settings.name == 'Home');
+      }else{
       _formKey.currentState!.save();
       FocusScope.of(context).requestFocus(FocusNode());
 
@@ -206,29 +222,14 @@ class RegisterUserToDiState extends State<RegisterUserToDi> {
 
       if (result.isSuccess) {
         if (!context.mounted) return;
+        
+        var diResult = await authRepo.getUserRegisteredDI2(
+              context: context, merchantId: merchantId);
+          if (diResult.isSuccess) {
+            print(diResult.data.length);
+          }
+        if (!context.mounted) return;
         context.router.popUntil(ModalRoute.withName('Home'));
-        /* customDialog.show(
-          context: context,
-          title: Center(
-            child: Icon(
-              Icons.check_circle_outline,
-              color: Colors.green,
-              size: 120,
-            ),
-          ),
-          content: result.message.toString(),
-          barrierDismissable: false,
-          customActions: <Widget>[
-            TextButton(
-              child: Text(AppLocalizations.of(context).translate('ok_btn')),
-              onPressed: () => Navigator.popUntil(
-                context,
-                ModalRoute.withName(HOME),
-              ),
-            )
-          ],
-          type: DialogType.GENERAL,
-        ); */
       } else {
         if (!context.mounted) return;
         customDialog.show(
@@ -242,6 +243,7 @@ class RegisterUserToDiState extends State<RegisterUserToDi> {
       setState(() {
         _isLoading = false;
       });
+      }
     }
   }
 

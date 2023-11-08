@@ -1,4 +1,5 @@
 import 'package:edriving_spim_app/router.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'firebase_options.dart';
 import 'package:auto_route/auto_route.dart';
@@ -373,6 +374,8 @@ class MyAppState extends State<MyApp> {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
+
+      builder: EasyLoading.init(),
       // routerDelegate:
       //     _appRouter.delegate(
       //       deepLinkBuilder:(_)=> DeepLink(Authentication as List<PageRouteInfo>)

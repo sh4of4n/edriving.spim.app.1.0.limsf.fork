@@ -151,7 +151,7 @@ class SelectDrivingInstituteState extends State<SelectDrivingInstitute> {
                         localStorage.saveMerchantDbCode(
                             widget.diList[index].merchantNo);
 
-                        context.router.replace(const Home());
+                        context.router.replace( Home());
                       },
                       title: loadImage(widget.diList[index]),
                     ),

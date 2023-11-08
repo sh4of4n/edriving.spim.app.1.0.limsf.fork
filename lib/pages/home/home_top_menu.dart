@@ -28,6 +28,7 @@ class HomeTopMenu extends StatefulWidget {
 }
 
 class HomeTopMenuState extends State<HomeTopMenu> {
+  bool showBadge = false;
   final epanduRepo = EpanduRepo();
   final myImage = ImagesConstant();
   final customDialog = CustomDialog();
@@ -138,85 +139,27 @@ class HomeTopMenuState extends State<HomeTopMenu> {
                     ),
                   ),
                 ])),
-            Positioned(
-              bottom: 70,
-              left: 0,
-              top: 150,
-              right: 0,
-              child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                height: 90,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                          offset: const Offset(0, 10),
-                          blurRadius: 50,
-                          color: kPrimaryColor.withOpacity(0.2))
-                    ]),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    InkWell(
-                      onTap: () => context.router.push(const Pay()),
-                      borderRadius: BorderRadius.circular(10.0),
-                      child: Column(
-                        children: <Widget>[
-                          Container(
-                            decoration: const BoxDecoration(
-                                color: Colors.white,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(18))),
-                            padding: const EdgeInsets.all(12),
-                            child: const Icon(
-                              Icons.qr_code,
-                              color: Color.fromARGB(255, 32, 56, 90),
-                              size: 30,
-                            ),
-                          ),
-                          Text(
-                            AppLocalizations.of(context)!
-                                  .translate('pay_lbl'),
-                            style: const TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 14,
-                                color: Colors.black),
-                          ),
-                        ],
-                      ),
-                    ),
-                    InkWell(
-                        onTap: () => context.router.push(const Invite()),
-                        borderRadius: BorderRadius.circular(10.0),
-                        child: Column(children: <Widget>[
-                          Container(
-                            decoration: const BoxDecoration(
-                                color: Colors.white,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(18))),
-                            padding: const EdgeInsets.all(12),
-                            child: const Icon(
-                              MyCustomIcons.inviteIcon,
-                              color: Color.fromARGB(255, 32, 56, 90),
-                              size: 30,
-                            ),
-                          ),
-                          Text(
-                            AppLocalizations.of(context)!
-                                  .translate('invite_lbl'),
-                            style: const TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 14,
-                                color: Colors.black),
-                          ),
-                        ])),
-                    InkWell(
-                        onTap: () => context.router
-                            .push(const Inbox())
-                            .then((value) => getUnreadNotificationCount()),
+            Container(
+              margin: const EdgeInsets.fromLTRB(20, 140, 20, 0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+              height: 170,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                        offset: const Offset(0, 10),
+                        blurRadius: 50,
+                        color: kPrimaryColor.withOpacity(0.2))
+                  ]),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      InkWell(
+                        onTap: () => context.router.push(const Pay()),
                         borderRadius: BorderRadius.circular(10.0),
                         child: Column(
                           children: <Widget>[
@@ -227,81 +170,199 @@ class HomeTopMenuState extends State<HomeTopMenu> {
                                       BorderRadius.all(Radius.circular(18))),
                               padding: const EdgeInsets.all(12),
                               child: const Icon(
-                                MyCustomIcons.inboxIcon,
+                                Icons.qr_code,
                                 color: Color.fromARGB(255, 32, 56, 90),
                                 size: 30,
                               ),
                             ),
                             Text(
                               AppLocalizations.of(context)!
-                                  .translate('inbox_lbl'),
+                                    .translate('pay_lbl'),
                               style: const TextStyle(
                                   fontWeight: FontWeight.w700,
                                   fontSize: 14,
                                   color: Colors.black),
                             ),
                           ],
-                        )),
-                    InkWell(
-                        onTap: () => context.router.push(
-                              Scan(
-                                getActiveFeed: widget.getActiveFeed,
-                                getDiProfile: widget.getDiProfile,
+                        ),
+                      ),
+                      InkWell(
+                          onTap: () => context.router.push(const Invite()),
+                          borderRadius: BorderRadius.circular(10.0),
+                          child: Column(children: <Widget>[
+                            Container(
+                              decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(18))),
+                              padding: const EdgeInsets.all(12),
+                              child: const Icon(
+                                MyCustomIcons.inviteIcon,
+                                color: Color.fromARGB(255, 32, 56, 90),
+                                size: 30,
                               ),
                             ),
-                        borderRadius: BorderRadius.circular(10.0),
-                        child: Column(children: <Widget>[
-                          Container(
+                            Text(
+                              AppLocalizations.of(context)!
+                                    .translate('invite_lbl'),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 14,
+                                  color: Colors.black),
+                            ),
+                          ])),
+                      InkWell(
+                          onTap: () => context.router
+                              .push(const Inbox())
+                              .then((value) => getUnreadNotificationCount()),
+                          borderRadius: BorderRadius.circular(10.0),
+                          child: Column(
+                            children: <Widget>[
+                              Container(
+                                decoration: const BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(18))),
+                                padding: const EdgeInsets.all(12),
+                                child: const Icon(
+                                  MyCustomIcons.inboxIcon,
+                                  color: Color.fromARGB(255, 32, 56, 90),
+                                  size: 30,
+                                ),
+                              ),
+                              Text(
+                                AppLocalizations.of(context)!
+                                    .translate('inbox_lbl'),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 14,
+                                    color: Colors.black),
+                              ),
+                            ],
+                          )),
+                      InkWell(
+                          onTap: () => context.router.push(
+                                Scan(
+                                  getActiveFeed: widget.getActiveFeed,
+                                  getDiProfile: widget.getDiProfile,
+                                ),
+                              ),
+                          borderRadius: BorderRadius.circular(10.0),
+                          child: Column(children: <Widget>[
+                            Container(
+                              decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(18))),
+                              padding: const EdgeInsets.all(12),
+                              child: const Icon(
+                                MyCustomIcons.scanIcon,
+                                color: Color.fromARGB(255, 32, 56, 90),
+                                size: 30,
+                              ),
+                            ),
+                            Text(
+                              AppLocalizations.of(context)!
+                                    .translate('scan_lbl'),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 14,
+                                  color: Colors.black),
+                            ),
+                          ])),
+                    ],
+                  ),
+                  Row(
+                crossAxisAlignment:CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  InkWell(
+                          onTap: () => context.router.push(
+                                ProfileTab(positionStream: positionStream),
+                              ),
+                          borderRadius: BorderRadius.circular(10.0),
+                          child: Column(children: <Widget>[
+                            Container(
+                              decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(18))),
+                              padding: const EdgeInsets.all(12),
+                              child: const Icon(
+                                Icons.person_pin,
+                                color: Color.fromARGB(255, 32, 56, 90),
+                                size: 30,
+                              ),
+                            ),
+                            Text(
+                              AppLocalizations.of(context)!
+                                    .translate('profile_title'),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 14,
+                                  color: Colors.black),
+                            ),
+                          ])),
+                  //new icon
+                  InkWell(
+                    onTap: () => context.router.push(const Vehicle()),
+                    borderRadius: BorderRadius.circular(10.0),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
                             decoration: const BoxDecoration(
                                 color: Colors.white,
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(18))),
                             padding: const EdgeInsets.all(12),
                             child: const Icon(
-                              MyCustomIcons.scanIcon,
+                              Icons.directions_car,
                               color: Color.fromARGB(255, 32, 56, 90),
                               size: 30,
                             ),
                           ),
-                          Text(
+                        Text(
                             AppLocalizations.of(context)!
-                                  .translate('scan_lbl'),
+                                .translate('vehicle_lbl'),
                             style: const TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 14,
-                                color: Colors.black),
-                          ),
-                        ])),
-                    InkWell(
-                        onTap: () => context.router.push(
-                              ProfileTab(positionStream: positionStream),
-                            ),
-                        borderRadius: BorderRadius.circular(10.0),
-                        child: Column(children: <Widget>[
-                          Container(
+                                color: Colors.black),),
+                      ],
+                    ),
+                  ),
+                  InkWell(
+                    onTap: ()=> context.router.push(const TrainerSchedule()),
+                    borderRadius: BorderRadius.circular(10.0),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
                             decoration: const BoxDecoration(
                                 color: Colors.white,
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(18))),
                             padding: const EdgeInsets.all(12),
                             child: const Icon(
-                              Icons.person_pin,
+                              Icons.calendar_month,
                               color: Color.fromARGB(255, 32, 56, 90),
                               size: 30,
                             ),
                           ),
-                          Text(
+                        Text(
                             AppLocalizations.of(context)!
-                                  .translate('profile_title'),
+                                .translate('scd_lbl'),
                             style: const TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 14,
-                                color: Colors.black),
-                          ),
-                        ])),
-                  ],
-                ),
+                                color: Colors.black),),
+                      ],
+                    ),
+                  ),
+                ],
               ),
+                ],
+              ),
+              
             ),
           ],
         ));

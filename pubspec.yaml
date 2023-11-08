@@ -15,7 +15,7 @@ description: A new Flutter project.
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 6.2.0+1
+version: 6.2.1+2
 
 environment:
   sdk: ">=3.1.0 <4.0.0"
@@ -43,10 +43,14 @@ dependencies:
   build_runner:
   webview_flutter:
   intl: 
-  flutter_geocoder: 
   geolocator: 
   http: 
   another_flushbar: 
+  flutter_map: ^4.0.0
+  geocoding:
+  geocode:
+  flutter_svg:
+  latlong2:
   device_info: 
   photo_view: 
   auto_route: 
@@ -69,6 +73,7 @@ dependencies:
   image_cropper: 
   qr_flutter: 
   flutter_easyloading:
+  syncfusion_flutter_calendar:
   readmore: 
   string_validator: 
   package_info: 

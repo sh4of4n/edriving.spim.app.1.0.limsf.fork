@@ -51,13 +51,13 @@ class PaymentPage extends StatelessWidget {
               shrinkWrap: true,
               children: <Widget>[
                 ListTile(
-                  onTap: () => context.router.push(const AirtimeSelection()),
+                  onTap: () => context.router.push( AirtimeSelection()),
                   leading: const Icon(Icons.attach_money),
                   title: Text(
                       AppLocalizations.of(context)!.translate('airtime_lbl')),
                 ),
                 ListTile(
-                  onTap: () => context.router.push(const BillSelection()),
+                  onTap: () => context.router.push( BillSelection()),
                   leading: const Icon(Icons.attach_money),
                   title:
                       Text(AppLocalizations.of(context)!.translate('bill_lbl')),

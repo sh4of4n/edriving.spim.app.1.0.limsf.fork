@@ -10,7 +10,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'login_bottom_card.dart';
 import 'login_form.dart';
 import 'login_tablet_bottom_card.dart';
-import 'login_tablet_form.dart';
 
 @RoutePage()
 class Login extends StatefulWidget {
@@ -134,7 +133,7 @@ class LoginState extends State<Login> {
                         SizedBox(
                           height: 120.h,
                         ),
-                        const LoginTabletForm(),
+                        const LoginForm(),
                       ],
                     ),
                   ),

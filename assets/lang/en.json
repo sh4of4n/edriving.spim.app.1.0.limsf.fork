@@ -386,5 +386,14 @@
   "requestApproval": "REQUEST APPROVAL",
   "backOfficeId": "Back Office Login ID",
   "invalid_qr": "Invalid QR code.",
-  "mismatch_di": "Different driving institute barcode detected."
+  "mismatch_di": "Different driving institute barcode detected.",
+  "add_trainer": "Add Trainer",
+  "update_trainer": "Update Trainer",
+  "update_btn": "Update",
+  "edit_btn": "Edit",
+  "vehicle_lbl": "Vehicle",
+  "instructor_lbl": "Instructor",
+  "trn_det_lbl": "Instructor Detail",
+  "scd_lbl": "Schedule",
+  "map_lbl": "Student's Address"
 }

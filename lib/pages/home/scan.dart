@@ -1,15 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
 
-import '/common_library/services/model/auth_model.dart';
-import '/common_library/services/model/provider_model.dart';
+import 'package:hive/hive.dart';
+
 import '/common_library/services/repository/epandu_repository.dart';
 import '/common_library/utils/app_localizations.dart';
 import '/common_library/utils/custom_dialog.dart';
 import '/common_library/utils/loading_model.dart';
 import '/common_library/utils/local_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:auto_route/auto_route.dart';
 import '../../router.gr.dart';
@@ -36,8 +35,9 @@ class _ScanState extends State<Scan> {
   final epanduRepo = EpanduRepo();
   final customDialog = CustomDialog();
   final localStorage = LocalStorage();
+   final credentials = Hive.box('credentials');
 
-  bool _isLoading = false;
+  final bool _isLoading = false;
 
   // In order to get hot reload to work we need to pause the camera if the platform
   // is android, or resume the camera if the platform is iOS.
@@ -91,26 +91,39 @@ class _ScanState extends State<Scan> {
     );
   }
 
-  void _onQRViewCreated(QRViewController controller) {
+  Future<void> _onQRViewCreated(QRViewController controller) async {
     setState(() {
       this.controller = controller;
     });
+    await controller.resumeCamera();
     controller.scannedDataStream.listen((scanData) async {
       await controller.pauseCamera();
-      String? merchantNo = await localStorage.getMerchantDbCode();
+      // String? merchantNo = await localStorage.getMerchantDbCode();
+      String? merchantNo = await credentials.get('boUserId');
 
       try {
-        CheckInScanResponse checkInScanResponse =
-            CheckInScanResponse.fromJson(jsonDecode(scanData.code!));
+        print(jsonDecode(scanData.code!)['QRCode'][0]['merchant_no']);
 
-        debugPrint(jsonDecode(scanData.code!)['Table1'][0]['merchant_no']);
-
-        if (merchantNo ==
-            jsonDecode(scanData.code!)['Table1'][0]['merchant_no']) {
-          _scanResult(
-              checkInScanResponse: checkInScanResponse, scanData: scanData);
+        if (jsonDecode(scanData.code!).containsKey('QRCode')) {
+          if (!context.mounted) return;
+          context.router
+              .replace(
+            RegisterUserToDi(
+              barcode: scanData.code,
+            ),
+          )
+              .then((value) {
+            widget.getActiveFeed();
+            widget.getDiProfile();
+          });
         } else {
-          invalidQr(type: 'MISMATCH');
+          if (merchantNo ==
+              jsonDecode(scanData.code!)['QRCode'][0]['merchant_no']) {
+            // _scanResult(
+            //     checkInScanResponse: checkInScanResponse, scanData: scanData);
+          } else {
+            invalidQr(type: 'MISMATCH');
+          }
         }
       } catch (e) {
         invalidQr();
@@ -118,120 +131,120 @@ class _ScanState extends State<Scan> {
     });
   }
 
-  Future _scanResult(
-      {required CheckInScanResponse checkInScanResponse,
-      required Barcode scanData}) async {
-    switch (checkInScanResponse.table1![0].action) {
-      case 'JPJ_PART2_CHECK_IN':
-        Provider.of<HomeLoadingModel>(context, listen: false)
-            .loadingStatus(true);
+  // Future _scanResult(
+  //     {required CheckInScanResponse checkInScanResponse,
+  //     required Barcode scanData}) async {
+  //   switch (checkInScanResponse.QRCode![0].action) {
+  //     case 'JPJ_PART2_CHECK_IN':
+  //       Provider.of<HomeLoadingModel>(context, listen: false)
+  //           .loadingStatus(true);
 
-        String? icNo = await localStorage.getStudentIc();
+  //       String? icNo = await localStorage.getStudentIc();
 
-        if (mounted) {
-          if (icNo != null && icNo.isNotEmpty) {
-            setState(() {
-              _isLoading = true;
-            });
+  //       if (mounted) {
+  //         if (icNo != null && icNo.isNotEmpty) {
+  //           setState(() {
+  //             _isLoading = true;
+  //           });
 
-            final result = await epanduRepo.verifyScanCode(
-              context: context,
-              qrcodeJson: scanData.code,
-              icNo: icNo,
-            );
+  //           final result = await epanduRepo.verifyScanCode(
+  //             context: context,
+  //             qrcodeJson: scanData.code,
+  //             icNo: icNo,
+  //           );
 
-            if (result.isSuccess) {
-              /* customDialog.show(
-                  context: context,
-                  title: Text(
-                    '${AppLocalizations.of(context).translate('checked_in_on')}: ' +
-                        '${result.data[0].regDate.substring(0, 10)}:' +
-                        '${result.data[0].regDate.substring(11, 20)}',
-                    style: TextStyle(
-                      color: Colors.green[800],
-                    ),
-                  ),
-                  content: AppLocalizations.of(context)
-                          .translate('check_in_successful') +
-                      '${result.data[0].queueNo}' +
-                      '\n' +
-                      AppLocalizations.of(context).translate('name_lbl') +
-                      ': ${result.data[0].fullname}' +
-                      '\nNRIC: ${result.data[0].nricNo}' +
-                      '\n' +
-                      AppLocalizations.of(context).translate('group_id') +
-                      ': ${result.data[0].groupId}',
-                  customActions: [
-                    TextButton(
-                      child: Text(
-                          AppLocalizations.of(context).translate('ok_btn')),
-                      onPressed: () => ExtendedNavigator.of(context).pop(),
-                    ),
-                  ],
-                  type: DialogType.GENERAL,
-                ); */
-                if (!context.mounted) return;
-              context.router.replace(
-                QueueNumber(data: result.data),
-              );
-            } else {
-              if (!context.mounted) return;
-              customDialog.show(
-                context: context,
-                barrierDismissable: false,
-                content: result.message!,
-                onPressed: () {
-                  context.router.pop();
+  //           if (result.isSuccess) {
+  //             /* customDialog.show(
+  //                 context: context,
+  //                 title: Text(
+  //                   '${AppLocalizations.of(context).translate('checked_in_on')}: ' +
+  //                       '${result.data[0].regDate.substring(0, 10)}:' +
+  //                       '${result.data[0].regDate.substring(11, 20)}',
+  //                   style: TextStyle(
+  //                     color: Colors.green[800],
+  //                   ),
+  //                 ),
+  //                 content: AppLocalizations.of(context)
+  //                         .translate('check_in_successful') +
+  //                     '${result.data[0].queueNo}' +
+  //                     '\n' +
+  //                     AppLocalizations.of(context).translate('name_lbl') +
+  //                     ': ${result.data[0].fullname}' +
+  //                     '\nNRIC: ${result.data[0].nricNo}' +
+  //                     '\n' +
+  //                     AppLocalizations.of(context).translate('group_id') +
+  //                     ': ${result.data[0].groupId}',
+  //                 customActions: [
+  //                   TextButton(
+  //                     child: Text(
+  //                         AppLocalizations.of(context).translate('ok_btn')),
+  //                     onPressed: () => ExtendedNavigator.of(context).pop(),
+  //                   ),
+  //                 ],
+  //                 type: DialogType.GENERAL,
+  //               ); */
+  //               if (!context.mounted) return;
+  //             context.router.replace(
+  //               QueueNumber(data: result.data),
+  //             );
+  //           } else {
+  //             if (!context.mounted) return;
+  //             customDialog.show(
+  //               context: context,
+  //               barrierDismissable: false,
+  //               content: result.message!,
+  //               onPressed: () {
+  //                 context.router.pop();
 
-                  controller!.resumeCamera();
-                },
-                type: DialogType.info,
-              );
+  //                 controller!.resumeCamera();
+  //               },
+  //               type: DialogType.info,
+  //             );
 
-              setState(() {
-                _isLoading = false;
-              });
-            }
-          } else {
-            customDialog.show(
-              context: context,
-              barrierDismissable: false,
-              content: AppLocalizations.of(context)!
-                  .translate('complete_your_profile'),
-              customActions: <Widget>[
-                TextButton(
-                  child:
-                      Text(AppLocalizations.of(context)!.translate('ok_btn')),
-                  onPressed: () => context.router.push(
-                    const UpdateProfile(),
-                  ),
-                ),
-              ],
-              type: DialogType.general,
-            );
-          }
-        }
+  //             setState(() {
+  //               _isLoading = false;
+  //             });
+  //           }
+  //         } else {
+  //           customDialog.show(
+  //             context: context,
+  //             barrierDismissable: false,
+  //             content: AppLocalizations.of(context)!
+  //                 .translate('complete_your_profile'),
+  //             customActions: <Widget>[
+  //               TextButton(
+  //                 child:
+  //                     Text(AppLocalizations.of(context)!.translate('ok_btn')),
+  //                 onPressed: () => context.router.push(
+  //                   const UpdateProfile(),
+  //                 ),
+  //               ),
+  //             ],
+  //             type: DialogType.general,
+  //           );
+  //         }
+  //       }
 
-        (BuildContext context) {
-          Provider.of<HomeLoadingModel>(context, listen: false)
-              .loadingStatus(false);
-        };
-        break;
+  //       (BuildContext context) {
+  //         Provider.of<HomeLoadingModel>(context, listen: false)
+  //             .loadingStatus(false);
+  //       };
+  //       break;
 
-      default:
-      if (!context.mounted) return;
-        context.router
-            .replace(
-          RegisterUserToDi(
-            barcode: scanData.code,
-          ),
-        )
-            .then((value) {
-          widget.getActiveFeed();
-          widget.getDiProfile();
-        });
-    }
-  }
+  //     default:
+  //     if (!context.mounted) return;
+  //       context.router
+  //           .replace(
+  //         RegisterUserToDi(
+  //           barcode: scanData.code,
+  //         ),
+  //       )
+  //           .then((value) {
+  //         widget.getActiveFeed();
+  //         widget.getDiProfile();
+  //       });
+  //   }
+  // }
 
   @override
   void dispose() {

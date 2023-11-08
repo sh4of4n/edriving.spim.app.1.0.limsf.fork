@@ -363,7 +363,7 @@ class RequestPickupState extends State<RequestPickup> with PageBaseClass {
               TextButton(
                 child: Text(AppLocalizations.of(context)!.translate('ok_btn')),
                 onPressed: () => context.router
-                    .pushAndPopUntil(const Home(), predicate: (r) => false),
+                    .pushAndPopUntil(Home(), predicate: (r) => false),
               ),
             ],
           );
