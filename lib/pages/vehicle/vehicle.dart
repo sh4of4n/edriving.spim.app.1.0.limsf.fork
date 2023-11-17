@@ -39,6 +39,7 @@ class _VehicleState extends State<Vehicle> {
   String model = '';
   String groupId = '';
   String trnCode = '';
+  String _message = '';
   String dateWithoutOffset = 'Expiry Date not set';
   String puspakomWithoutOffset = 'Expiry Date not set';
   DateTime today = DateTime.now();
@@ -172,8 +173,8 @@ class _VehicleState extends State<Vehicle> {
     setState(() {
       _lazyload = false;
     });
-    
-    return result.message;
+    _message = result.message!;
+    return _message;
   }
 
   void _showMultiSelect() async {
@@ -236,7 +237,7 @@ class _VehicleState extends State<Vehicle> {
                             Row(
                               children: [
                                 Expanded(
-                                  flex: 6,
+                                  flex: 4,
                                   child: TextFormField(
                                     style: const TextStyle(
                                         color: Colors.white,
@@ -376,8 +377,8 @@ class _VehicleState extends State<Vehicle> {
                               Padding(
                                 padding: EdgeInsets.symmetric(
                                     vertical: ScreenUtil().setHeight(600)),
-                                child: const Center(
-                                  child: Text('No Vehicles Found')
+                                child: Center(
+                                  child: Text(_message)
                                 ),
                               ),
                           ])))),

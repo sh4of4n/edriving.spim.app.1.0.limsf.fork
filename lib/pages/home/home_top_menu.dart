@@ -156,7 +156,8 @@ class HomeTopMenuState extends State<HomeTopMenu> {
               child: Column(
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment:CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
                       InkWell(
                         onTap: () => context.router.push(const Pay()),
@@ -240,7 +241,13 @@ class HomeTopMenuState extends State<HomeTopMenu> {
                               ),
                             ],
                           )),
-                      InkWell(
+                    ],
+                  ),
+                  Row(
+                crossAxisAlignment:CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  InkWell(
                           onTap: () => context.router.push(
                                 Scan(
                                   getActiveFeed: widget.getActiveFeed,
@@ -270,39 +277,33 @@ class HomeTopMenuState extends State<HomeTopMenu> {
                                   color: Colors.black),
                             ),
                           ])),
-                    ],
-                  ),
-                  Row(
-                crossAxisAlignment:CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  InkWell(
-                          onTap: () => context.router.push(
-                                ProfileTab(positionStream: positionStream),
-                              ),
-                          borderRadius: BorderRadius.circular(10.0),
-                          child: Column(children: <Widget>[
-                            Container(
-                              decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(18))),
-                              padding: const EdgeInsets.all(12),
-                              child: const Icon(
-                                Icons.person_pin,
-                                color: Color.fromARGB(255, 32, 56, 90),
-                                size: 30,
-                              ),
-                            ),
-                            Text(
-                              AppLocalizations.of(context)!
-                                    .translate('profile_title'),
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 14,
-                                  color: Colors.black),
-                            ),
-                          ])),
+                  // InkWell(
+                  //         onTap: () => context.router.push(
+                  //               ProfileTab(positionStream: positionStream),
+                  //             ),
+                  //         borderRadius: BorderRadius.circular(10.0),
+                  //         child: Column(children: <Widget>[
+                  //           Container(
+                  //             decoration: const BoxDecoration(
+                  //                 color: Colors.white,
+                  //                 borderRadius:
+                  //                     BorderRadius.all(Radius.circular(18))),
+                  //             padding: const EdgeInsets.all(12),
+                  //             child: const Icon(
+                  //               Icons.person_pin,
+                  //               color: Color.fromARGB(255, 32, 56, 90),
+                  //               size: 30,
+                  //             ),
+                  //           ),
+                  //           Text(
+                  //             AppLocalizations.of(context)!
+                  //                   .translate('profile_title'),
+                  //             style: const TextStyle(
+                  //                 fontWeight: FontWeight.w700,
+                  //                 fontSize: 14,
+                  //                 color: Colors.black),
+                  //           ),
+                  //         ])),
                   //new icon
                   InkWell(
                     onTap: () => context.router.push(const Vehicle()),

@@ -166,3 +166,116 @@ class TrainerSchedule{
     return data;
   }
 }
+
+class GetStudentLicenseResponse {
+  List<StudentLicense>? studentLicense;
+  GetStudentLicenseResponse({this.studentLicense});
+
+  GetStudentLicenseResponse.fromJson(Map<String, dynamic> json){
+    if (json['Licence'] != null) {
+      studentLicense = <StudentLicense>[];
+      json['Licence'].forEach((v) {
+        studentLicense!.add(StudentLicense.fromJson(v));
+      });
+    }
+  }
+
+   Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (studentLicense != null) {
+      data['Licence'] = studentLicense!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class StudentLicense {
+  String? id;
+  String? icNo;
+  String? licenType;
+  String? licenCode;
+  String? siriNo;
+  String? isuDate;
+  String? isuPlace;
+  String? expDate;
+  String? recNo;
+  String? groupId;
+  String? mchNo;
+  String? payDate;
+  String? transtamp;
+  String? compCode;
+  String? branchCode;
+  String? rowKey;
+  String? lastupload;
+  String? deleted;
+  String? diCode;
+
+  StudentLicense({
+    this.id,
+    this.icNo,
+    this.licenType,
+    this.licenCode,
+    this.siriNo,
+    this.isuDate,
+    this.isuPlace,
+    this.expDate,
+    this.recNo,
+    this.groupId,
+    this.mchNo,
+    this.payDate,
+    this.transtamp,
+    this.compCode,
+    this.branchCode,
+    this.rowKey,
+    this.lastupload,
+    this.deleted,
+    this.diCode
+  });
+
+  StudentLicense.fromJson(Map<String,dynamic> json){
+    id = json['id'];
+    icNo = json['ic_no'];
+    licenType = json['licen_type'];
+    licenCode = json['licen_code'];
+    siriNo = json['siri_no'];
+    isuDate = json['isu_date'];
+    isuPlace = json['isu_place'];
+    expDate = json['exp_date'] ?? 'No test is issued';
+    recNo = json['rec_no'];
+    groupId = json['group_id'];
+    mchNo = json['mch_no'];
+    payDate = json['pay_date'];
+    transtamp = json['transtamp'];
+    compCode = json['comp_code'];
+    branchCode = json['branch_code'];
+    rowKey = json['row_key'];
+    lastupload = json['lastupload'];
+    deleted = json['deleted'];
+    diCode = json['di_code'];
+  }
+
+  Map<String, dynamic> toJson(){
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['ic_no'] = icNo;
+    data['licen_type'] = licenType;
+    data['licen_code'] = licenCode;
+    data['siri_no'] = siriNo;
+    data['isu_date'] = isuDate;
+    data['isu_place'] = isuPlace;
+    data['exp_date'] = expDate;
+    data['rec_no'] = recNo;
+    data['group_id'] = groupId;
+    data['mch_no'] = mchNo;
+    data['pay_date'] = payDate;
+    data['transtamp'] = transtamp;
+    data['comp_code'] = compCode;
+    data['branch_code'] = branchCode;
+    data['row_key'] = rowKey;
+    data['lastupload'] = lastupload;
+    data['deleted'] = deleted;
+    data['di_code'] = diCode;
+
+    return data;
+  }
+}

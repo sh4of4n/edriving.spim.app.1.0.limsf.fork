@@ -53,4 +53,46 @@ class ScheduleRepo{
 
     return Response(false, message: response.message);
   }
+
+  Future<Response> getStudentLicense({
+    required context,
+    icNo,
+    licenseType
+  }) async {
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwd();
+    String? diCode = await localStorage.getMerchantDbCode();
+    // String? licenseType = 'LDL';
+
+    String path = 
+      'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=$diCode&icNo=$icNo&licenseType=$licenseType';
+
+    var response = await networking.getData(
+      path: 'GetStudentLicenseByIcNo?$path',
+    );
+
+    if (response.isSuccess && response.data != null) {
+      GetStudentLicenseResponse getStudentLicenseResponse =
+          GetStudentLicenseResponse.fromJson(response.data);
+
+
+      return Response(true, data: getStudentLicenseResponse.studentLicense);
+    } else if (response.message != null &&
+        response.message!.contains('timeout')) {
+      return Response(false,
+          message: 'Data took too long to load, please try again.');
+    } else if (response.message != null &&
+        response.message!.contains('socket')) {
+      return Response(false,
+          message: 'Our servers appear to be down. Please try again later.');
+    } else if (response.message != null && response.message!.contains('http')) {
+      return Response(false,
+          message: 'Server error, we apologize for any inconvenience.');
+    } else if (response.message != null &&
+        response.message!.contains('format')) {
+      return Response(false, message: 'Please verify your client account.');
+    }
+
+    return Response(false, message: response.message);
+  }
 }

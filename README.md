@@ -1,9 +1,8 @@
 # edriving_spim_app
-2023-11-08 v6.2.2
-ePandu WS v6.2.24
+2023-11-17 v6.2.2
+ePandu WS v6.2.27
 
 - Latest version of VehicleList and Schedule WS
-- Added access to location service apps WAZE, GoogleMap
 
 2023-09-26 v6.2.1
 ePandu WS v6.2.3

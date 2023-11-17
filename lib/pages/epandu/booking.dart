@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:edriving_spim_app/common_library/utils/local_storage.dart';
 import '/common_library/services/repository/epandu_repository.dart';
 import '/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,7 @@ class Booking extends StatefulWidget {
 class BookingState extends State<Booking> {
   final image = ImagesConstant();
   final epanduRepo = EpanduRepo();
+  final localStorage = LocalStorage();
   Future? getDTestByCode;
   final primaryColor = ColorConstant.primaryColor;
   final dateFormat = DateFormat("yyyy-MM-dd");
@@ -43,7 +45,10 @@ class BookingState extends State<Booking> {
   }
 
   _getDTestByCode() async {
-    var response = await epanduRepo.getDTestByCode(context: context);
+    var response = await epanduRepo.getDTestByCode(
+      context: context,
+      icNo: localStorage.getStudentIc()
+    );
 
     if (response.isSuccess) {
       return response.data;
