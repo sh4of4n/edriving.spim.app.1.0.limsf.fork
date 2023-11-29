@@ -241,13 +241,7 @@ class HomeTopMenuState extends State<HomeTopMenu> {
                               ),
                             ],
                           )),
-                    ],
-                  ),
-                  Row(
-                crossAxisAlignment:CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  InkWell(
+                          InkWell(
                           onTap: () => context.router.push(
                                 Scan(
                                   getActiveFeed: widget.getActiveFeed,
@@ -277,33 +271,12 @@ class HomeTopMenuState extends State<HomeTopMenu> {
                                   color: Colors.black),
                             ),
                           ])),
-                  // InkWell(
-                  //         onTap: () => context.router.push(
-                  //               ProfileTab(positionStream: positionStream),
-                  //             ),
-                  //         borderRadius: BorderRadius.circular(10.0),
-                  //         child: Column(children: <Widget>[
-                  //           Container(
-                  //             decoration: const BoxDecoration(
-                  //                 color: Colors.white,
-                  //                 borderRadius:
-                  //                     BorderRadius.all(Radius.circular(18))),
-                  //             padding: const EdgeInsets.all(12),
-                  //             child: const Icon(
-                  //               Icons.person_pin,
-                  //               color: Color.fromARGB(255, 32, 56, 90),
-                  //               size: 30,
-                  //             ),
-                  //           ),
-                  //           Text(
-                  //             AppLocalizations.of(context)!
-                  //                   .translate('profile_title'),
-                  //             style: const TextStyle(
-                  //                 fontWeight: FontWeight.w700,
-                  //                 fontSize: 14,
-                  //                 color: Colors.black),
-                  //           ),
-                  //         ])),
+                    ],
+                  ),
+                  Row(
+                crossAxisAlignment:CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
                   //new icon
                   InkWell(
                     onTap: () => context.router.push(const Vehicle()),
@@ -325,6 +298,33 @@ class HomeTopMenuState extends State<HomeTopMenu> {
                         Text(
                             AppLocalizations.of(context)!
                                 .translate('vehicle_lbl'),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 14,
+                                color: Colors.black),),
+                      ],
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () => context.router.push(const Class()),
+                    borderRadius: BorderRadius.circular(10.0),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(18))),
+                            padding: const EdgeInsets.all(12),
+                            child: const Icon(
+                              Icons.alarm,
+                              color: Color.fromARGB(255, 32, 56, 90),
+                              size: 30,
+                            ),
+                          ),
+                        Text(
+                            AppLocalizations.of(context)!
+                                .translate('class_lbl'),
                             style: const TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 14,

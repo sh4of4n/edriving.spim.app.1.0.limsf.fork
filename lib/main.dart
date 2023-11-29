@@ -353,7 +353,18 @@ class MyAppState extends State<MyApp> {
 
     precacheImage(AssetImage(image.logo2), context);
     return MaterialApp.router(
-      routerConfig: _appRouter.config(),
+      routerConfig: _appRouter.config(
+        deepLinkBuilder: (deepLink) {
+          if (deepLink.path.startsWith('/')) {
+            // continute with the platfrom link
+            return deepLink;
+          } else {
+            return DeepLink.defaultPath;
+            // or DeepLink.path('/')
+            // or DeepLink([HomeRoute()])
+          }
+        }
+      ),
       title: 'eDriving SPIM',
       theme: ThemeData(
         primaryColor: ColorConstant.primaryColor,

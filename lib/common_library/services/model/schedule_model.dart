@@ -55,6 +55,7 @@ class TrainerSchedule{
   String? state;
   String? city;
   String? zip;
+  String? phnNo;
 
   TrainerSchedule({
     this.trnCode,
@@ -90,6 +91,7 @@ class TrainerSchedule{
     this.state,
     this.city,
     this.zip,
+    this.phnNo,
   });
 
   TrainerSchedule.fromJson(Map<String, dynamic> json) {
@@ -126,6 +128,7 @@ class TrainerSchedule{
     state = json['state'];
     city = json['city'];
     zip = json['zip'];
+    phnNo = json['hand_phone'];
   }
 
   Map<String, dynamic> toJson() {
@@ -163,6 +166,7 @@ class TrainerSchedule{
     data['state'] = state;
     data['city'] = city;
     data['zip'] = zip;
+    data['hand_phone'] = phnNo;
     return data;
   }
 }

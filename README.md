@@ -1,5 +1,10 @@
 # edriving_spim_app
-2023-11-17 v6.2.2
+2023-11-29 v6.2.3
+ePandu WS v6.2.29
+
+- Added Class Features (Today, Progress and History)
+
+2023-11-20 v6.2.2
 ePandu WS v6.2.27
 
 - Latest version of VehicleList and Schedule WS
