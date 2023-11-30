@@ -216,6 +216,7 @@ class _ClassState extends State<Class> {
                 controller: _tabController,
                 children: <Widget>[
                   todaypage.TodayClass(
+                    trnCode: trnCode,
                     todayClassInfo: today,
                     message: todayMessage,
                   ),

@@ -1776,6 +1776,280 @@ class Dgroup {
   }
 }
 
+class GetCourseByCodeResponse{
+  List<CourseList>? courseList;
+
+  GetCourseByCodeResponse({this.courseList});
+
+  GetCourseByCodeResponse.fromJson(Map<String, dynamic> json){
+    if (json['Course'] != null) {
+      courseList = <CourseList>[];
+      json['Course'].forEach((v) {
+        courseList!.add(CourseList.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson(){
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (courseList != null) {
+      data['Course'] = courseList!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class CourseList{
+  String? iD;
+  String? merchantNo;
+  String? courseCode;
+  String? description;
+  String? transtamp;
+  String? createUser;
+  String? createDate;
+  String? editUser;
+  String? editDate;
+  String? compCode;
+  String? branchCode;
+  String? rowKey;
+  String? lastupload;
+  String? deleted;
+  String? diCode;
+
+  CourseList({
+    this.iD,
+      this.merchantNo,
+      this.courseCode,
+      this.description,
+      this.transtamp,
+      this.createUser,
+      this.createDate,
+      this.editUser,
+      this.editDate,
+      this.compCode,
+      this.branchCode,
+      this.rowKey,
+      this.lastupload,
+      this.deleted,
+      this.diCode
+  });
+
+  CourseList.fromJson(Map<String, dynamic> json){
+    iD = json['ID'];
+    merchantNo = json['merchant_no'];
+    courseCode = json['course_code'];
+    description = json['description'];
+    transtamp = json['transtamp'];
+    createUser = json['create_user'];
+    createDate = json['create_date'];
+    editUser = json['edit_user'];
+    editDate = json['edit_date'];
+    compCode = json['comp_code'];
+    branchCode = json['branch_code'];
+    rowKey = json['row_key'];
+    lastupload = json['lastupload'];
+    deleted = json['deleted'];
+    diCode = json['di_code'];
+  }
+
+  Map<String, dynamic> toJson(){
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['ID'] = iD;
+    data['merchant_no'] = merchantNo;
+    data['course_code'] = courseCode;
+    data['description'] = description;
+    data['transtamp'] = transtamp;
+    data['create_user'] = createUser;
+    data['create_date'] = createDate;
+    data['edit_user'] = editUser;
+    data['edit_date'] = editDate;
+    data['comp_code'] = compCode;
+    data['branch_code'] = branchCode;
+    data['row_key'] = rowKey;
+    data['lastupload'] = lastupload;
+    data['deleted'] = deleted;
+    data['di_code'] = diCode;
+    return data;
+  }
+}
+
+class GetGroupIdResponse{
+  List<GroupIdList>? groupIdList;
+
+  GetGroupIdResponse({this.groupIdList});
+
+  GetGroupIdResponse.fromJson(Map<String, dynamic> json){
+    if (json['Dgroup'] != null) {
+      groupIdList = <GroupIdList>[];
+      json['Dgroup'].forEach((v) {
+        groupIdList!.add(GroupIdList.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson(){
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (groupIdList != null) {
+      data['Dgroup'] = groupIdList!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class GroupIdList{
+  String? groupId;
+  String? grpDesc;
+  String? tranCateg;
+  String? defaAmt;
+  String? handChrg;
+  String? servChrg;
+  String? servTax;
+  String? taxCode;
+  String? priceIncludeGst;
+  String? transtamp;
+  String? totalTime;
+  String? serialType;
+  String? commAmt;
+  String? agentCommAmt;
+  String? cshSlsAcct;
+  String? cshSlsDept;
+  String? lesenType;
+  String? onlineEnroll;
+  String? productCode;
+  String? productDesc1;
+  String? productDesc2;
+  String? fee;
+  String? defaultPicture;
+  String? defaultPictureFilename;
+  String? diCode;
+  String? compCode;
+  String? branchCode;
+  String? rowKey;
+  String? lastupload;
+  String? deleted;
+  String? createUser;
+  String? createDate;
+  String? editUser;
+  String? editDate;
+  String? iD;
+
+  GroupIdList({
+    this.groupId,
+    this.grpDesc,
+    this.tranCateg,
+    this.defaAmt,
+    this.handChrg,
+    this.servChrg,
+    this.servTax,
+    this.taxCode,
+    this.priceIncludeGst,
+    this.transtamp,
+    this.totalTime,
+    this.serialType,
+    this.commAmt,
+    this.agentCommAmt,
+    this.cshSlsAcct,
+    this.cshSlsDept,
+    this.lesenType,
+    this.onlineEnroll,
+    this.productCode,
+    this.productDesc1,
+    this.productDesc2,
+    this.fee,
+    this.defaultPicture,
+    this.defaultPictureFilename,
+    this.diCode,
+    this.compCode,
+    this.branchCode,
+    this.rowKey,
+    this.lastupload,
+    this.deleted,
+    this.createUser,
+    this.createDate,
+    this.editUser,
+    this.editDate,
+    this.iD
+  });
+
+  GroupIdList.fromJson(Map<String, dynamic> json){
+    groupId = json['group_id'];
+    grpDesc = json['grp_desc'];
+    tranCateg = json['tran_categ'];
+    defaAmt = json['defa_amt'];
+    handChrg = json['hand_chrg'];
+    servChrg = json['serv_chrg'];
+    servTax = json['serv_tax'];
+    taxCode = json['tax_code'];
+    priceIncludeGst = json['price_include_gst'];
+    transtamp = json['transtamp'];
+    totalTime = json['total_time'];
+    serialType = json['serial_type'];
+    commAmt = json['comm_amt'];
+    agentCommAmt = json['agent_comm_amt'];
+    cshSlsAcct = json['csh_sls_acct'];
+    cshSlsDept = json['csh_sls_dept'];
+    lesenType = json['lesen_type'];
+    onlineEnroll = json['online_enroll'];
+    productCode = json['product_code'];
+    productDesc1 = json['product_desc1'];
+    productDesc2 = json['product_desc2'];
+    fee = json['fee'];
+    defaultPicture = json['default_picture'];
+    defaultPictureFilename = json['default_picture_filename'];
+    diCode = json['di_code'];
+    compCode = json['comp_code'];
+    branchCode = json['branch_code'];
+    rowKey = json['row_key'];
+    lastupload = json['lastupload'];
+    deleted = json['deleted'];
+    createUser = json['create_user'];
+    createDate = json['create_date'];
+    editUser = json['edit_user'];
+    editDate = json['edit_date'];
+    iD = json['ID'];
+  }
+
+  Map<String, dynamic> toJson(){
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['group_id'] = groupId;
+    data['grp_desc'] = grpDesc;
+    data['tran_categ'] = tranCateg;
+    data['defa_amt'] = defaAmt;
+    data['hand_chrg'] = handChrg;
+    data['serv_chrg'] = servChrg;
+    data['serv_tax'] = servTax;
+    data['tax_code'] = taxCode;
+    data['price_include_gst'] = priceIncludeGst;
+    data['transtamp'] = transtamp;
+    data['total_time'] = totalTime;
+    data['serial_type'] = serialType;
+    data['comm_amt'] = commAmt;
+    data['agent_comm_amt'] = agentCommAmt;
+    data['csh_sls_acct'] = cshSlsAcct;
+    data['csh_sls_dept'] = cshSlsDept;
+    data['lesen_type'] = lesenType;
+    data['online_enroll'] = onlineEnroll;
+    data['product_code'] = productCode;
+    data['product_desc1'] = productDesc1;
+    data['product_desc2'] = productDesc2;
+    data['fee'] = fee;
+    data['default_picture'] = defaultPicture;
+    data['default_picture_filename'] = defaultPictureFilename;
+    data['di_code'] = diCode;
+    data['comp_code'] = compCode;
+    data['branch_code'] = branchCode;
+    data['row_key'] = rowKey;
+    data['lastupload'] = lastupload;
+    data['deleted'] = deleted;
+    data['create_user'] = createUser;
+    data['create_date'] = createDate;
+    data['edit_user'] = editUser;
+    data['edit_date'] = editDate;
+    data['ID'] = iD;
+    return data;
+  }
+}
+
 // Save enrollment
 class SaveEnrollmentRequest {
   String? wsCodeCrypt;

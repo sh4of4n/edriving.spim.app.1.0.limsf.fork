@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 class MultiSelect extends StatefulWidget {
   final List<String> groupID;
   final List<String> initialSelectedGroup;
+  final title;
   const MultiSelect({
     Key? key, 
     required this.groupID,
     required this.initialSelectedGroup,
+    required this.title,
   }) : super(key: key);
 
   @override
@@ -57,7 +59,7 @@ class _MultiSelectState extends State<MultiSelect> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text("Select Group Id"),
+      title: Text('${widget.title}'),
       content: SingleChildScrollView(
         child: ListBody(
           children: widget.groupID
@@ -67,27 +69,6 @@ class _MultiSelectState extends State<MultiSelect> {
                   onChanged: (isChecked) => itemChange(item, isChecked!)))
               .toList(),
         ),
-        /* CheckboxListTile(
-            title: Text(groupid),
-            value: selectedGroup.contains(groupid),
-            onChanged: (value) {
-              setState(() {
-                if (value != null) {
-                  selectedGroup.add(groupid);
-                  kppGroupIdController
-                          .text =
-                      selectedGroup
-                          .join(", ");
-                } else {
-                  selectedGroup
-                      .remove(groupid);
-                }
-              });
-            },
-            activeColor: Colors.blue,
-            checkColor: Colors.white,
-            controlAffinity: ListTileControlAffinity.leading,
-          ); */
       ),
       actions: [
         ElevatedButton(

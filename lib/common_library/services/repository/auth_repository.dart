@@ -795,6 +795,83 @@ class AuthRepo {
     return Response(false, message: 'No records found.');
   }
 
+  Future<Response> getGroupId({context}) async {
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwd();
+    String? diCode = await localStorage.getMerchantDbCode();
+
+    String path =
+        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=$diCode';
+
+    var response = await networking.getData(
+      path: 'GetGroupId?$path',
+    );
+
+    if (response.isSuccess && response.data != null) {
+      GetGroupIdResponse getGroupIdResponse =
+          GetGroupIdResponse.fromJson(response.data);
+
+
+      return Response(true, data: getGroupIdResponse.groupIdList);
+    } else if (response.message != null &&
+        response.message!.contains('timeout')) {
+      return Response(false,
+          message: 'Data took too long to load, please try again.');
+    } else if (response.message != null &&
+        response.message!.contains('socket')) {
+      return Response(false,
+          message: 'Our servers appear to be down. Please try again later.');
+    } else if (response.message != null && response.message!.contains('http')) {
+      return Response(false,
+          message: 'Server error, we apologize for any inconvenience.');
+    } else if (response.message != null &&
+        response.message!.contains('format')) {
+      return Response(false, message: 'Please verify your client account.');
+    }
+
+    return Response(false, message: response.message);
+  }
+
+  Future<Response> getCourseCode({
+    required context,
+    courseCode
+  }) async {
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwd();
+    String? merchantNo = await localStorage.getMerchantDbCode();
+
+    String path =
+        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&merchantNo=$merchantNo&courseCode=$courseCode';
+  
+    var response = await networking.getData(
+      path: 'GetCourseByCode?$path',
+    );
+
+    if (response.isSuccess && response.data != null) {
+      GetCourseByCodeResponse getCourseByCodeResponse =
+          GetCourseByCodeResponse.fromJson(response.data);
+
+
+      return Response(true, data: getCourseByCodeResponse.courseList);
+    } else if (response.message != null &&
+        response.message!.contains('timeout')) {
+      return Response(false,
+          message: 'Data took too long to load, please try again.');
+    } else if (response.message != null &&
+        response.message!.contains('socket')) {
+      return Response(false,
+          message: 'Our servers appear to be down. Please try again later.');
+    } else if (response.message != null && response.message!.contains('http')) {
+      return Response(false,
+          message: 'Server error, we apologize for any inconvenience.');
+    } else if (response.message != null &&
+        response.message!.contains('format')) {
+      return Response(false, message: 'Please verify your client account.');
+    }
+
+    return Response(false, message: response.message);
+  }
+
   Future<Response> saveEnrollmentWithParticular({
     context,
     String? phoneCountryCode,

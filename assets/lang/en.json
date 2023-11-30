@@ -395,5 +395,6 @@
   "instructor_lbl": "Instructor",
   "trn_det_lbl": "Instructor Detail",
   "scd_lbl": "Schedule",
-  "map_lbl": "Student's Address"
+  "map_lbl": "Student's Address",
+  "add_class_lbl": "Add Class"
 }

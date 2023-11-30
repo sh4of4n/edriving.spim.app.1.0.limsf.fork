@@ -16,10 +16,15 @@ import 'package:url_launcher/url_launcher.dart';
 
 @RoutePage()
 class TodayClass extends StatefulWidget {
+  final trnCode;
   final todayClassInfo;
   final message;
   const TodayClass(
-      {super.key, required this.todayClassInfo, required this.message});
+      {super.key, 
+      required this.trnCode,
+      required this.todayClassInfo, 
+      required this.message
+      });
 
   @override
   State<TodayClass> createState() => _TodayClassState();
@@ -118,53 +123,6 @@ class _TodayClassState extends State<TodayClass> {
     }
     return response.message;
   }
-
-  // getTodayClass() async {
-  //   var result = await classRepo.getTodayClass(
-  //       context: context,
-  //       groupId: todayClass.groupId,
-  //       trnCode: todayClass.trnCode,
-  //       icNo: todayClass.icNo,
-  //       startIndex: _startIndex,
-  //       noOfRecords: _noOfRecord);
-
-  //   if (result.isSuccess) {
-  //     setState(() {
-  //       for (var i = 0; i < result.data.length; i++) {
-  //         if (result.data[i].startDate != null) {
-  //           startDt = result.data[i].startDate;
-  //           endDt = result.data[i].endDate;
-  //         }
-  //         courseCode = result.data[i].courseCode ?? '-';
-  //         groupId = result.data[i].groupId ?? '-';
-  //         // subject = result.data[i].subject ?? 'No Subject';
-  //         studentIc = result.data[i].icNo ?? '-';
-  //         add1 = result.data[i].add1 ?? '-';
-  //         add2 = result.data[i].add2 ?? '';
-  //         add3 = result.data[i].add3 ?? '';
-  //         state = result.data[i].state ?? '-';
-  //         city = result.data[i].city ?? '-';
-  //         zip = result.data[i].zip ?? '-';
-  //         phnNo = result.data[i].phnNo ?? '-';
-  //         address = '$add1, $add2, $add3';
-  //         vehNo = result.data[i].vehNo ?? '-';
-  //         name = result.data[i].name ?? '-';
-  //         getAppointments(startDt, endDt, address, state, city, zip, studentIc,
-  //             phnNo, vehNo, name);
-  //       }
-  //     });
-  //     return result.data;
-  //   } else {
-  //     setState(() {
-  //       if (result.message == null) {
-  //         todayMessage = 'No class today';
-  //       } else {
-  //         todayMessage = result.message!;
-  //       }
-  //     });
-  //   }
-  //   return todayMessage;
-  // }
 
   List<Appointment> getAppointments() {
     DateTime startTime;
@@ -310,7 +268,7 @@ class _TodayClassState extends State<TodayClass> {
             child: FittedBox(
           child: FloatingActionButton(
             onPressed: () {
-              setState(() {});
+              context.router.push(const AddClass());
             },
             backgroundColor: const Color.fromARGB(255, 243, 33, 33),
             child: const Icon(Icons.add),
@@ -330,7 +288,7 @@ class _TodayClassState extends State<TodayClass> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        '($trnCode)',
+                        '(${widget.trnCode})',
                         style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -339,8 +297,20 @@ class _TodayClassState extends State<TodayClass> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          trnCode,
+                          widget.trnCode,
                           style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      if(widget.message == "No class today")
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          "No class today",
+                          style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                               fontSize: 20),

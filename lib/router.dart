@@ -90,7 +90,10 @@ class RootRouter extends $RootRouter {
     AutoRoute(page: Class.page),
     AutoRoute(page: TodayClass.page),
     AutoRoute(page: HistoryClass.page),
-    AutoRoute(page: ProgressClass.page)
+    AutoRoute(page: ProgressClass.page),
+    AutoRoute(page: AddClass.page),
+    AutoRoute(page: MyKad.page),
+    AutoRoute(page: MiFare.page)
   ];
 }
 class $AppRouter {}

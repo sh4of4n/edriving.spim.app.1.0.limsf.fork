@@ -395,5 +395,6 @@
   "instructor_lbl": "Pengajar",
   "trn_det_lbl": "Perincian Pengajar",
   "scd_lbl": "Jadual Pengajar",
-  "map_lbl": "Alamat Pelajar"
+  "map_lbl": "Alamat Pelajar",
+  "add_class_lbl": "Tambah Kelas"
 }
