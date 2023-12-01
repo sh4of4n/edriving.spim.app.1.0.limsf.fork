@@ -96,6 +96,8 @@ class ImagesConstant {
   String fpxLogo = 'assets/images/fpx-logo-1.jpg';
   String fpxLogo2 = 'assets/images/fpx-logo-2.png';
   String fpxLogo3 = 'assets/images/fpx-logo-3.png';
+  String mykadimg = 'assets/images/MyKad.png';
+  String mifareimg = 'assets/images/MiFare.png';
 
   // emergency
   String ambulanceIcon = 'assets/images/ambulance.png';

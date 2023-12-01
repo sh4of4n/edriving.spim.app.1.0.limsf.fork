@@ -396,5 +396,7 @@
   "trn_det_lbl": "Perincian Pengajar",
   "scd_lbl": "Jadual Pengajar",
   "map_lbl": "Alamat Pelajar",
-  "add_class_lbl": "Tambah Kelas"
+  "add_class_lbl": "Tambah Kelas",
+  "myKad_lbl": "My Kad",
+  "miFare_lbl": "Mi Fare"
 }

@@ -1,4 +1,12 @@
 # edriving_spim_app
+2023-12-1 v6.2.4
+ePandu WS v6.2.32
+
+- Added Add Class Feature
+- Read My Kad Details
+- Allow Student to Thumb In
+- Added MiFare UI
+
 2023-11-29 v6.2.3
 ePandu WS v6.2.29
 

@@ -9,6 +9,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:map_launcher/map_launcher.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
@@ -41,6 +42,7 @@ class _TodayClassState extends State<TodayClass> {
   final primaryColor = ColorConstant.primaryColor;
   final classRepo = ClassRepo();
   final epanduRepo = EpanduRepo();
+  final credentials = Hive.box('credentials');
   final scheduleRepo = ScheduleRepo();
   DateTime today = DateTime.now();
   List<Appointment> meetings = <Appointment>[];
@@ -268,7 +270,10 @@ class _TodayClassState extends State<TodayClass> {
             child: FittedBox(
           child: FloatingActionButton(
             onPressed: () {
-              context.router.push(const AddClass());
+              credentials.put('trncode', widget.trnCode);
+              context.router.push(AddClass(
+                myKadDetails: ''
+              ));
             },
             backgroundColor: const Color.fromARGB(255, 243, 33, 33),
             child: const Icon(Icons.add),

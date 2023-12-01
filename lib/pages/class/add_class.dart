@@ -1,16 +1,24 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:edriving_spim_app/common_library/services/repository/auth_repository.dart';
+import 'package:edriving_spim_app/common_library/services/repository/vehicle_repository.dart';
 import 'package:edriving_spim_app/common_library/utils/app_localizations.dart';
+import 'package:edriving_spim_app/common_library/utils/custom_dialog.dart';
 import 'package:edriving_spim_app/pages/vehicle/multiselect.dart';
 import 'package:edriving_spim_app/router.gr.dart';
 import 'package:edriving_spim_app/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive/hive.dart';
 
 @RoutePage()
 class AddClass extends StatefulWidget {
-  const AddClass({super.key});
+  final myKadDetails;
+  const AddClass({
+    super.key,
+    required this.myKadDetails,
+  });
 
   @override
   State<AddClass> createState() => _AddClassState();
@@ -22,14 +30,18 @@ class _AddClassState extends State<AddClass> {
   final authRepo = AuthRepo();
   final groupIdController = TextEditingController();
   final courseCodeController = TextEditingController();
+  static const platform = MethodChannel('samples.flutter.dev/mykad');
   final groupIdFocus = FocusNode();
   final courseCodeFocus = FocusNode();
+  final customDialog = CustomDialog();
+  final formKey = GlobalKey<FormState>();
   List<String> groupId = [];
   List<String> groupDesc = [];
   List<String> courseCode = [];
   List<String> selectedGroup = [];
   List<String> selectedCode = [];
   String groupIdTxt = '';
+  String status = '';
   int year = 0;
   int month = 0;
   int day = 0;
@@ -182,108 +194,140 @@ class _AddClassState extends State<AddClass> {
                           SizedBox(
                             height: 100.h,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text(
-                                'Group Id: ',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 50.w,
-                              ),
-                              Expanded(
-                                flex: 2,
-                                child: TextFormField(
-                                  style: const TextStyle(
-                                      color: Colors.black,
-                                      // fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                  controller: groupIdController,
-                                  focusNode: groupIdFocus,
-                                  textInputAction: TextInputAction.next,
-                                  readOnly: true,
-                                  decoration: InputDecoration(
-                                    focusedErrorBorder:
-                                        const OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                width: 3, color: Colors.red)),
-                                    focusedBorder: const OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            width: 3, color: Colors.blue)),
-                                    enabledBorder: const OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            width: 1, color: Colors.black)),
-                                    contentPadding: const EdgeInsets.all(5.0),
-                                    hintStyle: TextStyle(
-                                      color: primaryColor,
+                          Form(
+                            key: formKey,
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Text(
+                                      'Group Id: ',
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                      ),
                                     ),
-                                    labelStyle: const TextStyle(
-                                      color: Colors.black,
+                                    SizedBox(
+                                      width: 50.w,
                                     ),
-                                    labelText: ' Please select group id',
-                                  ),
-                                  onTap: () {
-                                    _showMultiSelect();
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 100.h,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              const Text(
-                                'Course Code: ',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 50.w,
-                              ),
-                              Expanded(
-                                flex: 2,
-                                child: TextFormField(
-                                  style: const TextStyle(
-                                      color: Colors.black,
-                                      // fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                  controller: courseCodeController,
-                                  focusNode: courseCodeFocus,
-                                  textInputAction: TextInputAction.next,
-                                  readOnly: true,
-                                  decoration: InputDecoration(
-                                    focusedErrorBorder:
-                                        const OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                width: 3, color: Colors.red)),
-                                    focusedBorder: const OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            width: 3, color: Colors.blue)),
-                                    enabledBorder: const OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            width: 1, color: Colors.black)),
-                                    contentPadding: const EdgeInsets.all(5.0),
-                                    hintStyle: TextStyle(
-                                      color: primaryColor,
+                                    Expanded(
+                                      flex: 2,
+                                      child: TextFormField(
+                                        style: const TextStyle(
+                                            color: Colors.black,
+                                            // fontWeight: FontWeight.bold,
+                                            fontSize: 15),
+                                        controller: groupIdController,
+                                        focusNode: groupIdFocus,
+                                        textInputAction: TextInputAction.next,
+                                        readOnly: true,
+                                        decoration: InputDecoration(
+                                          focusedErrorBorder:
+                                              const OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      width: 3,
+                                                      color: Colors.red)),
+                                          focusedBorder:
+                                              const OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      width: 3,
+                                                      color: Colors.blue)),
+                                          enabledBorder:
+                                              const OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      width: 1,
+                                                      color: Colors.black)),
+                                          contentPadding:
+                                              const EdgeInsets.all(5.0),
+                                          hintStyle: TextStyle(
+                                            color: primaryColor,
+                                          ),
+                                          labelStyle: const TextStyle(
+                                            color: Colors.black,
+                                          ),
+                                          labelText: ' Please select group id',
+                                        ),
+                                        onTap: () {
+                                          _showMultiSelect();
+                                        },
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return 'Please select group id';
+                                          }
+                                          return null;
+                                        },
+                                      ),
                                     ),
-                                    labelStyle: const TextStyle(
-                                      color: Colors.black,
-                                    ),
-                                    labelText: ' Please select course code',
-                                  ),
-                                  onTap: () {
-                                    _showCourseCode();
-                                  },
+                                  ],
                                 ),
-                              )
-                            ],
+                                SizedBox(
+                                  height: 100.h,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    const Text(
+                                      'Course Code: ',
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 50.w,
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: TextFormField(
+                                        style: const TextStyle(
+                                            color: Colors.black,
+                                            // fontWeight: FontWeight.bold,
+                                            fontSize: 15),
+                                        controller: courseCodeController,
+                                        focusNode: courseCodeFocus,
+                                        textInputAction: TextInputAction.next,
+                                        readOnly: true,
+                                        decoration: InputDecoration(
+                                          focusedErrorBorder:
+                                              const OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      width: 3,
+                                                      color: Colors.red)),
+                                          focusedBorder:
+                                              const OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      width: 3,
+                                                      color: Colors.blue)),
+                                          enabledBorder:
+                                              const OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      width: 1,
+                                                      color: Colors.black)),
+                                          contentPadding:
+                                              const EdgeInsets.all(5.0),
+                                          hintStyle: TextStyle(
+                                            color: primaryColor,
+                                          ),
+                                          labelStyle: const TextStyle(
+                                            color: Colors.black,
+                                          ),
+                                          labelText:
+                                              ' Please select course code',
+                                        ),
+                                        onTap: () {
+                                          _showCourseCode();
+                                        },
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return 'Please select course code';
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                           SizedBox(
                             height: 300.h,
@@ -299,8 +343,67 @@ class _AddClassState extends State<AddClass> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               ElevatedButton(
-                                onPressed: () {
-                                  context.router.push(const MyKad());
+                                onPressed: () async {
+                                  EasyLoading.show(
+                                    maskType: EasyLoadingMaskType.black,
+                                  );
+                                  try {
+                                    final result = await platform
+                                        .invokeMethod<String>('onCreate');
+                                    setState(() {
+                                      status = result.toString();
+                                    });
+                                  } on PlatformException catch (e) {
+                                    setState(() {
+                                      status = "'${e.message}'.";
+                                    });
+                                  }
+                                  if (formKey.currentState!.validate()) {
+                                    formKey.currentState!.save();
+                                    if (status == "Connect success") {
+                                      if (!context.mounted) return;
+                                      EasyLoading.dismiss();
+                                      customDialog.show(
+                                        context: context,
+                                        title: const Center(
+                                          child: Icon(
+                                            Icons.check_circle_outline,
+                                            color: Colors.green,
+                                            size: 120,
+                                          ),
+                                        ),
+                                        content: 'Connected success',
+                                        barrierDismissable: false,
+                                        type: DialogType.success,
+                                        onPressed: () {
+                                          // await context.router.pop();
+                                          // if (!context.mounted) return;
+                                          context.router.push(const MyKad());
+                                          context.router.pop();
+                                        },
+                                      );
+                                    } else {
+                                      if (!context.mounted) return;
+                                      EasyLoading.dismiss();
+                                      customDialog.show(
+                                        context: context,
+                                        content: 'Fail to connect device',
+                                        onPressed: () => Navigator.pop(context),
+                                        type: DialogType.error,
+                                      );
+                                    }
+                                  } else {
+                                    if (!context.mounted) return;
+                                    EasyLoading.dismiss();
+                                    if (groupIdController.text.isEmpty) {
+                                      FocusScope.of(context)
+                                          .requestFocus(groupIdFocus);
+                                    } else if (courseCodeController
+                                        .text.isEmpty) {
+                                      FocusScope.of(context)
+                                          .requestFocus(courseCodeFocus);
+                                    }
+                                  }
                                 },
                                 child: const Text('My Kad'),
                               ),
@@ -309,11 +412,49 @@ class _AddClassState extends State<AddClass> {
                               ),
                               ElevatedButton(
                                 onPressed: () {
-                                  context.router.push(const MiFare());
+                                  EasyLoading.show(
+                                    maskType: EasyLoadingMaskType.black,
+                                  );
+                                  if (formKey.currentState!.validate()) {
+                                    EasyLoading.dismiss();
+                                    formKey.currentState!.save();
+                                    var groupid = groupIdController.text;
+                                    context.router
+                                        .push(MiFare(groupId: groupid));
+                                  } else {
+                                    EasyLoading.dismiss();
+                                    if (groupIdController.text.isEmpty) {
+                                      FocusScope.of(context)
+                                          .requestFocus(groupIdFocus);
+                                    } else if (courseCodeController
+                                        .text.isEmpty) {
+                                      FocusScope.of(context)
+                                          .requestFocus(courseCodeFocus);
+                                    }
+                                  }
                                 },
                                 child: const Text('MiFare'),
                               ),
                             ],
+                          ),
+                          SizedBox(
+                            height: 50.h,
+                          ),
+                          Text(status),
+                          SizedBox(
+                            height: 50.h,
+                          ),
+                          Text('Student details: ${widget.myKadDetails}'),
+                          SizedBox(
+                            height: 50.h,
+                          ),
+                          Text('Trainer details: '),
+                          SizedBox(
+                            height: 50.h,
+                          ),
+                          ElevatedButton(
+                            onPressed: () {},
+                            child: const Text('Create Class'),
                           ),
                           SizedBox(
                             height: 200.h,

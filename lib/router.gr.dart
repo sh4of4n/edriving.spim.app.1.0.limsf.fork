@@ -131,9 +131,13 @@ abstract class $RootRouter extends _i88.RootStackRouter {
       );
     },
     AddClass.name: (routeData) {
+      final args = routeData.argsAs<AddClassArgs>();
       return _i88.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i2.AddClass(),
+        child: _i2.AddClass(
+          key: args.key,
+          myKadDetails: args.myKadDetails,
+        ),
       );
     },
     AirtimeBillDetail.name: (routeData) {
@@ -568,9 +572,13 @@ abstract class $RootRouter extends _i88.RootStackRouter {
       );
     },
     MiFare.name: (routeData) {
+      final args = routeData.argsAs<MiFareArgs>();
       return _i88.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i49.MiFare(),
+        child: _i49.MiFare(
+          key: args.key,
+          groupId: args.groupId,
+        ),
       );
     },
     Multilevel.name: (routeData) {
@@ -957,16 +965,40 @@ class AddBooking extends _i88.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.AddClass]
-class AddClass extends _i88.PageRouteInfo<void> {
-  const AddClass({List<_i88.PageRouteInfo>? children})
-      : super(
+class AddClass extends _i88.PageRouteInfo<AddClassArgs> {
+  AddClass({
+    _i89.Key? key,
+    required dynamic myKadDetails,
+    List<_i88.PageRouteInfo>? children,
+  }) : super(
           AddClass.name,
+          args: AddClassArgs(
+            key: key,
+            myKadDetails: myKadDetails,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'AddClass';
 
-  static const _i88.PageInfo<void> page = _i88.PageInfo<void>(name);
+  static const _i88.PageInfo<AddClassArgs> page =
+      _i88.PageInfo<AddClassArgs>(name);
+}
+
+class AddClassArgs {
+  const AddClassArgs({
+    this.key,
+    required this.myKadDetails,
+  });
+
+  final _i89.Key? key;
+
+  final dynamic myKadDetails;
+
+  @override
+  String toString() {
+    return 'AddClassArgs{key: $key, myKadDetails: $myKadDetails}';
+  }
 }
 
 /// generated route for
@@ -2464,16 +2496,39 @@ class MerchantProfile extends _i88.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i49.MiFare]
-class MiFare extends _i88.PageRouteInfo<void> {
-  const MiFare({List<_i88.PageRouteInfo>? children})
-      : super(
+class MiFare extends _i88.PageRouteInfo<MiFareArgs> {
+  MiFare({
+    _i89.Key? key,
+    required dynamic groupId,
+    List<_i88.PageRouteInfo>? children,
+  }) : super(
           MiFare.name,
+          args: MiFareArgs(
+            key: key,
+            groupId: groupId,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'MiFare';
 
-  static const _i88.PageInfo<void> page = _i88.PageInfo<void>(name);
+  static const _i88.PageInfo<MiFareArgs> page = _i88.PageInfo<MiFareArgs>(name);
+}
+
+class MiFareArgs {
+  const MiFareArgs({
+    this.key,
+    required this.groupId,
+  });
+
+  final _i89.Key? key;
+
+  final dynamic groupId;
+
+  @override
+  String toString() {
+    return 'MiFareArgs{key: $key, groupId: $groupId}';
+  }
 }
 
 /// generated route for
