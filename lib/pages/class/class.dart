@@ -8,6 +8,7 @@ import 'package:edriving_spim_app/pages/class/today_class.dart' as todaypage;
 import 'package:edriving_spim_app/pages/class/history_class.dart' as historypage;
 import 'package:edriving_spim_app/pages/class/progress_class.dart' as progresspage;
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 @RoutePage()
 class Class extends StatefulWidget {
@@ -68,7 +69,7 @@ class _ClassState extends State<Class> {
         if (result.data[i].trnCode != null) {
           setState(() {
             trnCode = result.data[i].trnCode;
-            trnName = result.data[i].empno;
+            trnName = result.data[i].trnName;
             icNo = result.data[i].nric;
             groupId = result.data[i].spimGroupId;
           });
@@ -83,7 +84,9 @@ class _ClassState extends State<Class> {
       });
       return result.data;
     } else {
+      EasyLoading.dismiss();
       setState(() {
+        _isLoading = true;
         if (result.message == null) {
           _message = 'Trainer not registered';
         } else {
@@ -110,8 +113,6 @@ class _ClassState extends State<Class> {
           today.add(result.data[i]);
         });
       }
-      setState(() {
-      });
       return result.data;
     } else {
       setState(() {
@@ -132,7 +133,8 @@ class _ClassState extends State<Class> {
         trnCode: trnCode,
         icNo: icNo,
         startIndex: _startIndex,
-        noOfRecords: _noOfRecord);
+        noOfRecords: _noOfRecord,
+        keywordSearch: '');
 
     if (result.isSuccess) {
       for (var i = 0; i < result.data.length; i++) {
@@ -140,8 +142,6 @@ class _ClassState extends State<Class> {
           progress.add(result.data[i]);
         });
       }
-      setState(() {
-      });
       return result.data;
     } else {
       setState(() {
@@ -162,7 +162,8 @@ class _ClassState extends State<Class> {
       trnCode: trnCode,
       icNo: icNo,
       startIndex: _startIndex,
-      noOfRecords: _noOfRecord
+      noOfRecords: _noOfRecord,
+      keywordSearch: ''
     );
 
     if(result.isSuccess){
@@ -171,8 +172,6 @@ class _ClassState extends State<Class> {
           history.add(result.data[i]);
         });
       }
-      setState(() {
-      });
       return result.data;
     } else {
       setState(() {
@@ -211,11 +210,24 @@ class _ClassState extends State<Class> {
                 title: Text(AppLocalizations.of(context)!.translate('class_lbl')),
               ),
               backgroundColor: Colors.transparent,
-              body: _isLoading ? Container() 
+              body: _isLoading ? Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: ScreenUtil().setHeight(600)),
+                      child: Center(
+                        child: Text(
+                          _message,
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    )
                 :TabBarView(
                 controller: _tabController,
                 children: <Widget>[
                   todaypage.TodayClass(
+                    trnName: trnName,
                     trnCode: trnCode,
                     todayClassInfo: today,
                     message: todayMessage,

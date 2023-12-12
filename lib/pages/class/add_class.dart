@@ -11,6 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
+import 'package:intl/intl.dart';
 
 @RoutePage()
 class AddClass extends StatefulWidget {
@@ -42,6 +43,7 @@ class _AddClassState extends State<AddClass> {
   List<String> selectedCode = [];
   String groupIdTxt = '';
   String status = '';
+  String readMyKad = '';
   int year = 0;
   int month = 0;
   int day = 0;
@@ -180,13 +182,13 @@ class _AddClassState extends State<AddClass> {
                       child: Column(
                         children: <Widget>[
                           Text(
-                            "$day-$month-$year",
+                            "${DateFormat('EEEE').format(today)} ,$day-$month-$year",
                             style: const TextStyle(
                               fontSize: 25,
                             ),
                           ),
                           Text(
-                            "Current Time:$hour:$minute",
+                            "Current Time: ${DateFormat('HH:mm a').format(DateTime.now())}",
                             style: const TextStyle(
                               fontSize: 20,
                             ),
@@ -356,6 +358,17 @@ class _AddClassState extends State<AddClass> {
                                   } on PlatformException catch (e) {
                                     setState(() {
                                       status = "'${e.message}'.";
+                                    });
+                                  }
+                                  try {
+                                    final result =
+                                        await platform.invokeMethod<String>('onReadMyKad');
+                                    setState(() {
+                                      readMyKad = result.toString();
+                                    });
+                                  } on PlatformException catch (e) {
+                                    setState(() {
+                                      readMyKad = "'${e.message}'";
                                     });
                                   }
                                   if (formKey.currentState!.validate()) {

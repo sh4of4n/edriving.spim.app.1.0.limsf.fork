@@ -85,7 +85,7 @@ class _MyKadState extends State<MyKad> {
                                 ),
                                 Text(readMyKad),
                                 SizedBox(
-                                  height: 120.h,
+                                  height: 100.h,
                                 ),
                                 ElevatedButton(
                                   onPressed: () async {
@@ -113,7 +113,7 @@ class _MyKadState extends State<MyKad> {
                                 ),
                                 Text(fingerPrintVerify),
                                 SizedBox(
-                                  height: 120.h,
+                                  height: 100.h,
                                 ),
                                 ElevatedButton(
                                   onPressed: (){

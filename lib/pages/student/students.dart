@@ -1,9 +1,9 @@
+import 'dart:convert';
+
 import 'package:auto_route/auto_route.dart';
-import 'package:edriving_spim_app/common_library/services/model/vehicle_model.dart';
+import 'package:edriving_spim_app/common_library/services/repository/class_repository.dart';
 import 'package:edriving_spim_app/common_library/services/repository/instructor_repository.dart';
-import 'package:edriving_spim_app/common_library/services/repository/vehicle_repository.dart';
 import 'package:edriving_spim_app/common_library/utils/app_localizations.dart';
-import 'package:edriving_spim_app/pages/vehicle/multiselect.dart';
 import 'package:edriving_spim_app/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,70 +12,74 @@ import 'package:intl/intl.dart';
 import 'package:supercharged/supercharged.dart';
 
 @RoutePage()
-class Vehicle extends StatefulWidget {
-  const Vehicle({super.key});
+class Students extends StatefulWidget {
+  const Students({super.key});
 
   @override
-  State<Vehicle> createState() => _VehicleState();
+  State<Students> createState() => _StudentsState();
 }
 
-class _VehicleState extends State<Vehicle> {
+class _StudentsState extends State<Students> {
   final primaryColor = ColorConstant.primaryColor;
-  final vehicleRepo = VehicleRepo();
+  final classRepo = ClassRepo();
   final trainerRepo = InstructorRepo();
+  final ScrollController _scrollController = ScrollController();
   final searchController = TextEditingController();
   final searchFocus = FocusNode();
-  List<dynamic> items = [];
-  bool _lazyload = true;
-  int _startIndex = 0;
-  final int _noOfRecord = 10;
-  bool isLessThanOneMonth = false;
-  bool rtisLessThanOneMonth = false;
-  bool isExpired = false;
-  bool rtisExpired = false;
-  TextStyle dateStyle = const TextStyle(fontSize: 14);
-  String expiredText = '';
-  String vehNo = '';
-  String make = '';
+  final myImage = ImagesConstant();
   String search = '';
-  String model = '';
-  String groupId = '';
   String trnCode = '';
   String _message = '';
   String trnName = '';
-  String dateWithoutOffset = 'Expiry Date not set';
-  String puspakomWithoutOffset = 'Expiry Date not set';
+  String expiredText = '';
+  String icNo = '';
+  String profilePicBase64 = '';
+  TextStyle dateStyle = const TextStyle(fontSize: 14);
   DateTime today = DateTime.now();
-  final ScrollController _scrollController = ScrollController();
-  List<String> selectedGroup = [];
-  String selectedText = '';
+  int _startIndex = 0;
+  bool _lazyload = true;
+  List<dynamic> students = [];
+  String studName = '';
+  final int _noOfRecord = 10;
   final RegExp removeBracket =
       RegExp("\\[(.*?)\\]", multiLine: true, caseSensitive: true);
-  final List<String> groupID = [
-    "D",
-    "DA",
-    "B",
-    "B2",
-    "E",
-    "E1",
-    "E2",
-    "ALL",
-  ];
 
-  @override
-  void initState() {
-    super.initState();
-    getTrainerInfo();
-    _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
-        setState(() {
-          _startIndex += 10;
-          getTrainerInfo();
-          _lazyload = true;
-        });
-      }
+  void refreshData() {
+    setState(() {
+      students.clear();
+      _startIndex = 0;
+      _lazyload = true;
+      getTrainerInfo();
     });
+  }
+  
+  String convertTo12HourFormat(String timeString) {
+    if (timeString != '') {
+      // Parse the input time string
+      DateTime dateTime = DateFormat('HH:mm:ss').parse(timeString);
+
+      // Check if it's after 12:00 PM
+      bool isAfterNoon = dateTime.hour >= 12;
+
+      // Format the time as hh:mm a (12-hour format with AM/PM)
+      String formattedTime = DateFormat('hh:mm a').format(dateTime);
+
+      // Add a condition to show PM for times after 12:00 PM
+      if (isAfterNoon) {
+        formattedTime = formattedTime.replaceFirst(
+            RegExp('^0+'), ''); // Remove leading zeros
+        formattedTime = formattedTime.replaceAll('AM', 'PM');
+      }
+
+      return formattedTime;
+    } else {
+      return 'Not thumb yet';
+    }
+  }
+
+  String processPhotoFileName(String photoFileName) {
+      // Split by '\r\n' and take the first part after removing brackets
+    return photoFileName.replaceAll(removeBracket, '').split('\r\n')[0];
   }
 
   String parseDateAndCheck(String dateString) {
@@ -106,15 +110,6 @@ class _VehicleState extends State<Vehicle> {
     return ' -';
   }
 
-  void refreshData() {
-    setState(() {
-      items.clear();
-      _startIndex = 0;
-      _lazyload = true;
-      getTrainerInfo();
-    });
-  }
-
   getTrainerInfo() async {
     var result = await trainerRepo.getTrainerInfo(context: context);
 
@@ -127,7 +122,7 @@ class _VehicleState extends State<Vehicle> {
           });
         }
       }
-      getVehicle(trnCode);
+      getStudentPrac(trnCode);
       return result.data;
     } else {
       setState(() {
@@ -143,83 +138,84 @@ class _VehicleState extends State<Vehicle> {
     }
   }
 
-  getVehicle(String trnCode) async {
-    var result = await vehicleRepo.getVehicleList(
-        context: context,
-        groupId: selectedText,
-        trnCode: trnCode,
-        startIndex: _startIndex,
-        noOfRecords: _noOfRecord,
-        keywordSearch: search);
+  getStudentPrac(String trnCode) async {
+    var result = await classRepo.getStuPracByTrnCode(
+      context: context,
+      trnCode: trnCode,
+      groupId: '',
+      icNo: '',
+      dateFromString: '',
+      dateToString: '',
+      startIndex: _startIndex,
+      noOfRecords: _noOfRecord,
+      keywordSearch: search
+    );
 
     if (result.isSuccess) {
-      List<VehicleList> vehicleListCopy = List.from(result.data);
       for (var i = 0; i < result.data.length; i++) {
         setState(() {
-          items.add(result.data[i]);
+          students.add(result.data[i]);
         });
-        //sorting date
-        // vehicleListCopy.sort((a, b) {
-        //   final aDate = DateTime.tryParse(a.sm3ExpDt ?? '');
-        //   final bDate = DateTime.tryParse(b.sm3ExpDt ?? '');
-
-        //   if (aDate == null && bDate == null) {
-        //     return 0;
-        //   } else if (aDate == null) {
-        //     return 1;
-        //   } else if (bDate == null) {
-        //     return -1;
-        //   }
-        //   return aDate.compareTo(bDate);
-        // });
-
       }
       setState(() {
         _lazyload = false;
       });
-      return vehicleListCopy;
+      return result.data;
     }
     setState(() {
       _lazyload = false;
       if (result.message == null) {
-        _message = 'No vehicle found';
+        _message = 'No students found';
       } else {
         _message = result.message!;
       }
     });
-
     return _message;
   }
 
-  void _showMultiSelect() async {
-    final List<String>? results = await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return MultiSelect(
-          title: "Select Group Id",
-          groupID: groupID, 
-          initialSelectedGroup: selectedGroup);
-      },
-    );
-
-    // Update UI
-    if (results != null) {
-      setState(() {
-        // Clear the existing selection
-        selectedGroup.clear();
-        selectedGroup.addAll(results); // Update with new selection
-        if (selectedGroup.contains("ALL") ||
-            selectedGroup.contains("D;DA") &&
-                selectedGroup.contains("B;B2") &&
-                selectedGroup.contains("E;E1;E2")) {
-          selectedText = "";
-          refreshData();
-        } else {
-          selectedText = selectedGroup.join(", ");
-          refreshData();
-        }
-      });
+  profileImage(String profilePicUrl) {
+    if (profilePicBase64.isNotEmpty && profilePicUrl.isEmpty) {
+      return InkWell(
+        child: Image.memory(
+          base64Decode(profilePicBase64),
+          width: 200.w,
+          height: 200.w,
+          fit: BoxFit.cover,
+          // gaplessPlayback: true,
+        ),
+      );
+    } else if (profilePicUrl.isNotEmpty && profilePicBase64.isEmpty) {
+      return InkWell(
+        child: Image.network(
+          profilePicUrl,
+          width: 200.w,
+          height: 200.w,
+          fit: BoxFit.cover,
+        ),
+      );
+    } else {
+      return Image(
+        image: AssetImage(
+          myImage.dummyProfile,
+        ),
+      );
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getTrainerInfo();
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        setState(() {
+          _startIndex += 10;
+          getTrainerInfo();
+          _lazyload = true;
+        });
+      }
+    });
   }
 
   @override
@@ -238,10 +234,9 @@ class _VehicleState extends State<Vehicle> {
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0,
-            title: Text(AppLocalizations.of(context)!.translate('vehicle_lbl')),
+            title: Text(AppLocalizations.of(context)!.translate('student_lbl')),
           ),
           backgroundColor: Colors.transparent,
-          //TO DO
           body: SingleChildScrollView(
             controller: _scrollController,
             child: Padding(
@@ -297,22 +292,12 @@ class _VehicleState extends State<Vehicle> {
                               suffixIconColor: Colors.white),
                         ),
                       ),
-                      SizedBox(
-                        width: 50.w,
-                      ),
-                      Expanded(
-                        flex: 1, // Adjust the flex value as needed
-                        child: ElevatedButton(
-                          onPressed: _showMultiSelect,
-                          child: const Text('Filter'),
-                        ),
-                      ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 25.0,
+                  SizedBox(
+                    height: 50.h,
                   ),
-                  for (var item in items)
+                  for (var item in students)
                     InkWell(
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(0, 3, 0, 3),
@@ -321,59 +306,69 @@ class _VehicleState extends State<Vehicle> {
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
                               children: <Widget>[
+                                // Column(
+                                //   children: [
+                                //     profileImage(
+                                //           processPhotoFileName(
+                                //               item.customerPhoto ??
+                                //                   ''))
+                                //   ],
+                                // ),
                                 ListTile(
                                   title: Text(
-                                    item.vehNo ?? 'Vehicle not found',
+                                    item.name,
                                     textAlign: TextAlign.left,
                                     style: const TextStyle(
                                         fontSize: 20,
+                                        color: Colors.black,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  // dense: true,
-                                  visualDensity:
-                                      const VisualDensity(vertical: -2),
-                                ),
-                                ListTile(
-                                  title: Text(
-                                    'Vehicle: ${item.make ?? ' -'}',
-                                    textAlign: TextAlign.left,
-                                  ),
-                                  subtitle: Text(item.model ?? ''),
+                                  leading: profileImage(
+                                          processPhotoFileName(
+                                              item.customerphotoFilename ??
+                                                  '')),
                                   visualDensity:
                                       const VisualDensity(vertical: -4),
                                 ),
                                 ListTile(
                                   title: Text(
-                                    'Vehicle Class: ${item.groupId ?? ' -'}',
+                                    'Ic Number: ${item.icNo}',
                                     textAlign: TextAlign.left,
                                   ),
                                   visualDensity:
-                                      const VisualDensity(vertical: -4),
+                                      const VisualDensity(vertical: 2),
                                 ),
                                 ListTile(
                                   title: Text(
-                                    'Road Tax Expiry Date: ${parseDateAndCheck(item.rtExpDt ?? '')}$expiredText',
+                                    'Date: ${parseDateAndCheck(item.trandate)}',
                                     textAlign: TextAlign.left,
-                                    style: dateStyle,
+                                  ),
+                                  visualDensity:
+                                      const VisualDensity(vertical: 2),
+                                ),
+                                ListTile(
+                                  title: Text(
+                                    'Vehicle Used: ${item.vehNo}',
+                                    textAlign: TextAlign.left,
+                                  ),
+                                  subtitle: Text('Course Code: ${item.courseCode}',
+                                    style: const TextStyle(fontSize: 15),
+                                  ),
+                                  visualDensity:
+                                      const VisualDensity(vertical: 2),
+                                ),
+                                ListTile(
+                                  title: Text(
+                                    'Class Time: ${convertTo12HourFormat(item.actBgTime)} -> ${convertTo12HourFormat(item.actEndTime)}',
+                                    textAlign: TextAlign.left,
                                   ),
                                   subtitle: Text(
-                                    'PUSPAKOM Expiry Date: ${parseDateAndCheck(item.sm3ExpDt ?? '')}$expiredText',
-                                    style: dateStyle,
+                                    'Class Code: ${item.classCode}',
                                     textAlign: TextAlign.left,
+                                    style: const TextStyle(fontSize: 15),
                                   ),
-                                  // visualDensity: const VisualDensity(vertical: -4),
-                                ),
-                                ListTile(
-                                          title: Text('Next Service Date: ${parseDateAndCheck(item.nextInspectDt ?? '')}',
-                                            textAlign: TextAlign.left,
-                                            style: dateStyle,
-                                          ),
-                                        ),
-                                ListTile(
-                                  title: Text(
-                                    'Trainer Name:  $trnName',
-                                    textAlign: TextAlign.left,
-                                  ),
+                                  visualDensity:
+                                      const VisualDensity(vertical: 2),
                                 ),
                               ],
                             ),
@@ -389,7 +384,7 @@ class _VehicleState extends State<Vehicle> {
                             child: SpinKitHourGlass(color: Colors.white),
                           ),
                         )
-                      : trnCode.isEmpty || items.isEmpty
+                      : students.isEmpty
                           ? Padding(
                               padding: EdgeInsets.symmetric(
                                   vertical: ScreenUtil().setHeight(600)),

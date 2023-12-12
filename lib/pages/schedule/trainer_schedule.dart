@@ -1,9 +1,11 @@
+import 'dart:ffi';
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:edriving_spim_app/common_library/services/repository/epandu_repository.dart';
 import 'package:edriving_spim_app/common_library/services/repository/instructor_repository.dart';
+import 'package:edriving_spim_app/common_library/services/repository/payment_repository.dart';
 import 'package:edriving_spim_app/common_library/services/repository/schedule_repository.dart';
 import 'package:edriving_spim_app/common_library/utils/app_localizations.dart';
 import 'package:edriving_spim_app/common_library/utils/custom_dialog.dart';
@@ -43,6 +45,7 @@ class _TrainerScheduleState extends State<TrainerSchedule> {
   final customDialog = CustomDialog();
   final scheduleRepo = ScheduleRepo();
   final trainerRepo = InstructorRepo();
+  final paymentRepo = PaymentRepo();
   final epanduRepo = EpanduRepo();
   final selectedDateFocus = FocusNode();
   final selectedDateController = TextEditingController();
@@ -82,6 +85,12 @@ class _TrainerScheduleState extends State<TrainerSchedule> {
   String nxtAppDt = '';
   String address = '';
   String _message = '';
+  String message = '';
+  bool noData = false;
+  String totalPrice = '';
+  String paidAmount = '';
+  double checking = 0;
+  String paymentStatus = '';
   DateTime selectedDate = DateTime.now();
 
   getTrainerInfo() async {
@@ -93,17 +102,22 @@ class _TrainerScheduleState extends State<TrainerSchedule> {
           setState(() {
             trnCode = result.data[i].trnCode;
             // trnCode = 'SHAIK';
-            trnName = result.data[i].empno;
+            trnName = result.data[i].trnName;
           });
         }
       }
-      getSchedule(trnCode);
+      await getSchedule(trnCode);
       return result.data;
     } else {
       setState(() {
-        _message = result.message!;
+        noData = true;
+        if (result.message == null) {
+          message = 'Trainer not registered';
+        } else {
+          message = result.message!;
+        }
       });
-      return _message;
+      return message;
     }
   }
 
@@ -167,6 +181,13 @@ class _TrainerScheduleState extends State<TrainerSchedule> {
       icNo: icNo,
       licenseType: 'L',
     );
+    if (!context.mounted) return;
+    var results = await paymentRepo.getStudentPaymentStatus(
+      context: context,
+      icNo: icNo,
+      startIndex: _startIndex,
+      noOfRecords: _noOfRecord,
+    );
 
     if (result.isSuccess) {
       setState(() {
@@ -186,13 +207,36 @@ class _TrainerScheduleState extends State<TrainerSchedule> {
           testDt = convertDateFormat(response.data[i].testDate);
         }
       });
-      return response.data;
     } else {
       setState(() {
         testDt = 'Test Date Not Set';
       });
     }
-    return response.message;
+
+    if(results.isSuccess){
+      setState(() {
+        for (var i = 0; i < response.data.length; i++) {
+          totalPrice = results.data[i].tranTotal;
+          paidAmount = results.data[i].payAmount;
+          checking = double.parse(totalPrice) - double.parse(paidAmount);
+          if (checking == 0){
+            paymentStatus = 'Paid';
+          } else if (checking > 0) {
+            paymentStatus = 'Still having ${checking.toStringAsFixed(2)} not paid';
+          } else if (checking < 0) {
+            paymentStatus = 'User had paid extra ${checking.abs().toStringAsFixed(2)}';
+          }
+        }
+      });
+      return results.data;
+    } else {
+      setState(() {
+        totalPrice = '-';
+        paidAmount = '-';
+        paymentStatus = '-';
+      });
+    }
+    return results.message;
   }
 
   List<Appointment> getAppointments(startDt, endDt, address, state, city, zip,
@@ -501,7 +545,7 @@ class _TrainerScheduleState extends State<TrainerSchedule> {
                               child: Column(
                                 children: <Widget>[
                                   Text(
-                                    '($trnCode)',
+                                    trnCode,
                                     style: const TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
@@ -519,18 +563,21 @@ class _TrainerScheduleState extends State<TrainerSchedule> {
                                       textAlign: TextAlign.center,
                                     ),
                                   ),
+                                  noData?
                                   Text(
-                                    '${snapshot.data}',
+                                    message,
+                                    style: const TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ):Text(
+                                    snapshot.data,
                                     style: const TextStyle(
                                         fontSize: 20,
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  // Text('Next Appointment Date: $nxtAppDt', style: const TextStyle(
-                                  //   fontSize: 20,
-                                  //   color: Colors.white,
-                                  //   fontWeight: FontWeight.bold
-                                  // ),),
+                                  
                                   SizedBox(
                                     height: 60.h,
                                   ),
@@ -629,6 +676,11 @@ class _TrainerScheduleState extends State<TrainerSchedule> {
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
+                                    // Text('Next Appointment Date: $nxtAppDt', style: const TextStyle(
+                                    //   fontSize: 20,
+                                    //   color: Colors.white,
+                                    //   fontWeight: FontWeight.bold
+                                    // ),),
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -739,6 +791,7 @@ class _TrainerScheduleState extends State<TrainerSchedule> {
                                                     times[0].trim();
                                                 String endTime =
                                                     times[1].trim();
+                                                    
 
                                                 await _getDTestByCode(icNo);
                                                 if (!context.mounted) {
@@ -759,166 +812,172 @@ class _TrainerScheduleState extends State<TrainerSchedule> {
                                                                 FontWeight
                                                                     .bold),
                                                       ),
-                                                      content: Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: <Widget>[
-                                                            Text(
-                                                                'Name: $name \n'),
-                                                            Text(
-                                                                'Phone Number: $phoneNumber \n'),
-                                                            Text(
-                                                                "Student's Ic: $icNo\n"),
-
-                                                            // '${widget.trnInfo.trnName ?? ''}',
-                                                            Text(
-                                                                "Trainer's Code:  $trnCode \n"),
-                                                            Text(
-                                                                'Course Code: $course \n'),
-                                                            Text(
-                                                                'Test Date: $testDt \n'),
-                                                            Text(
-                                                                'License Expiry Date: $licenseExpDt \n'),
-                                                            Text(
-                                                                'Group Id: $groupid \n'),
-                                                            Text(
-                                                                'Vehicle Plate Number: $vehicleNo \n'),
-                                                            Text(
-                                                                'Start Time: $startTime\n'
-                                                                'End Time: $endTime\n'),
-                                                            Text(
-                                                                'Address: \n$address, $state, $city, $zip \n'),
-                                                            // Text(
-                                                            //   'Start Time: ${details.appointments?[0].startTime}\n'
-                                                            //   'End Time: ${details.appointments?[0].endTime}',
-                                                            // ),
-                                                            Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              children: [
-                                                                ElevatedButton
-                                                                    .icon(
-                                                                  onPressed:
-                                                                      () {
-                                                                    if (phoneNumber ==
-                                                                        '-') {
-                                                                      showDialog(
-                                                                        context:
-                                                                            context,
-                                                                        builder:
-                                                                            (BuildContext
-                                                                                context) {
-                                                                          return AlertDialog(
-                                                                            content:
-                                                                                const Text('Please require admin to add a phone number to this student'),
-                                                                            actions: <Widget>[
-                                                                              TextButton(
-                                                                                onPressed: () {
-                                                                                  Navigator.of(context).pop();
-                                                                                },
-                                                                                child: const Text('Ok'),
-                                                                              )
-                                                                            ],
-                                                                          );
-                                                                        },
-                                                                      );
-                                                                    } else {
-                                                                      var phoneNo =
-                                                                          phoneNumber.replaceAll(
-                                                                              "tel_hp:",
-                                                                              "");
-
-                                                                      final Uri
-                                                                          telLaunchUri =
-                                                                          Uri(
-                                                                        scheme:
-                                                                            'tel',
-                                                                        path:
-                                                                            phoneNo,
-                                                                      );
-                                                                      showDialog(
-                                                                        context:
-                                                                            context,
-                                                                        builder:
-                                                                            (BuildContext
-                                                                                context) {
-                                                                          return AlertDialog(
-                                                                            content:
-                                                                                const Text('Do you sure you want to call this number?'),
-                                                                            actions: <Widget>[
-                                                                              TextButton(
-                                                                                onPressed: () {
-                                                                                  launchUrl(telLaunchUri);
-                                                                                },
-                                                                                child: const Text('Call'),
-                                                                              ),
-                                                                              TextButton(
-                                                                                onPressed: () {
-                                                                                  Navigator.of(context).pop();
-                                                                                },
-                                                                                child: const Text('Cancel'),
-                                                                              )
-                                                                            ],
-                                                                          );
-                                                                        },
-                                                                      );
-                                                                    }
-                                                                  },
-                                                                  icon: const Icon(
-                                                                      Icons
-                                                                          .phone),
-                                                                  label:
-                                                                      const Text(
-                                                                          'Call'),
-                                                                ),
-                                                                SizedBox(
-                                                                  width: 50.w,
-                                                                ),
-                                                                ElevatedButton
-                                                                    .icon(
-                                                                  icon: const Icon(
-                                                                      Icons
-                                                                          .navigation_rounded),
-                                                                  label: const Text(
-                                                                      'Navigate'),
-                                                                  onPressed:
-                                                                      () {
-                                                                    _openDestination(
-                                                                        context);
-                                                                  },
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              children: [
-                                                                ElevatedButton
-                                                                    .icon(
-                                                                  icon: const Icon(
-                                                                      Icons
-                                                                          .location_on),
-                                                                  label: const Text(
-                                                                      'Address Location'),
-                                                                  onPressed:
-                                                                      () {
-                                                                    context
-                                                                        .router
-                                                                        .push(
-                                                                            MapScreen(
-                                                                      address:
-                                                                          totalAdd,
-                                                                      studName:
-                                                                          name,
-                                                                    ));
-                                                                  },
-                                                                ),
-                                                              ],
-                                                            )
-                                                          ]),
+                                                      content: SingleChildScrollView(
+                                                        child: Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: <Widget>[
+                                                              Text(
+                                                                  'Name: $name \n'),
+                                                              Text(
+                                                                  'Phone Number: $phoneNumber \n'),
+                                                              Text(
+                                                                  "Student's Ic: $icNo\n"),
+                                                      
+                                                              // '${widget.trnInfo.trnName ?? ''}',
+                                                              Text(
+                                                                  "Trainer's Name:  $trnName \n"),
+                                                              Text(
+                                                                  'Course Code: $course \n'),
+                                                              Text(
+                                                                  'Test Date: $testDt \n'),
+                                                              Text(
+                                                                  'License Expiry Date: $licenseExpDt \n'),
+                                                              Text(
+                                                                  'Group Id: $groupid \n'),
+                                                              Text(
+                                                                  'Vehicle Plate Number: $vehicleNo \n'),
+                                                              Text(
+                                                                  'Start Time: $startTime\n'
+                                                                  'End Time: $endTime\n'),
+                                                              Text(
+                                                                'Total Price: $totalPrice\n'
+                                                                'Paid Amount: $paidAmount\n'
+                                                                'Payment Status: $paymentStatus\n'),
+                                                              Text(
+                                                                  'Address: \n$address, $state, $city, $zip \n'),
+                                                              // Text(
+                                                              //   'Start Time: ${details.appointments?[0].startTime}\n'
+                                                              //   'End Time: ${details.appointments?[0].endTime}',
+                                                              // ),
+                                                              Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: [
+                                                                  ElevatedButton
+                                                                      .icon(
+                                                                    onPressed:
+                                                                        () {
+                                                                      if (phoneNumber ==
+                                                                          '-') {
+                                                                        showDialog(
+                                                                          context:
+                                                                              context,
+                                                                          builder:
+                                                                              (BuildContext
+                                                                                  context) {
+                                                                            return AlertDialog(
+                                                                              content:
+                                                                                  const Text('Please require admin to add a phone number to this student'),
+                                                                              actions: <Widget>[
+                                                                                TextButton(
+                                                                                  onPressed: () {
+                                                                                    Navigator.of(context).pop();
+                                                                                  },
+                                                                                  child: const Text('Ok'),
+                                                                                )
+                                                                              ],
+                                                                            );
+                                                                          },
+                                                                        );
+                                                                      } else {
+                                                                        var phoneNo =
+                                                                            phoneNumber.replaceAll(
+                                                                                "tel_hp:",
+                                                                                "");
+                                                      
+                                                                        final Uri
+                                                                            telLaunchUri =
+                                                                            Uri(
+                                                                          scheme:
+                                                                              'tel',
+                                                                          path:
+                                                                              phoneNo,
+                                                                        );
+                                                                        showDialog(
+                                                                          context:
+                                                                              context,
+                                                                          builder:
+                                                                              (BuildContext
+                                                                                  context) {
+                                                                            return AlertDialog(
+                                                                              content:
+                                                                                  const Text('Do you sure you want to call this number?'),
+                                                                              actions: <Widget>[
+                                                                                TextButton(
+                                                                                  onPressed: () {
+                                                                                    launchUrl(telLaunchUri);
+                                                                                  },
+                                                                                  child: const Text('Call'),
+                                                                                ),
+                                                                                TextButton(
+                                                                                  onPressed: () {
+                                                                                    Navigator.of(context).pop();
+                                                                                  },
+                                                                                  child: const Text('Cancel'),
+                                                                                )
+                                                                              ],
+                                                                            );
+                                                                          },
+                                                                        );
+                                                                      }
+                                                                    },
+                                                                    icon: const Icon(
+                                                                        Icons
+                                                                            .phone),
+                                                                    label:
+                                                                        const Text(
+                                                                            'Call'),
+                                                                  ),
+                                                                  SizedBox(
+                                                                    width: 50.w,
+                                                                  ),
+                                                                  ElevatedButton
+                                                                      .icon(
+                                                                    icon: const Icon(
+                                                                        Icons
+                                                                            .navigation_rounded),
+                                                                    label: const Text(
+                                                                        'Navigate'),
+                                                                    onPressed:
+                                                                        () {
+                                                                      _openDestination(
+                                                                          context);
+                                                                    },
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: [
+                                                                  ElevatedButton
+                                                                      .icon(
+                                                                    icon: const Icon(
+                                                                        Icons
+                                                                            .location_on),
+                                                                    label: const Text(
+                                                                        'Address Location'),
+                                                                    onPressed:
+                                                                        () {
+                                                                      context
+                                                                          .router
+                                                                          .push(
+                                                                              MapScreen(
+                                                                        address:
+                                                                            totalAdd,
+                                                                        studName:
+                                                                            name,
+                                                                      ));
+                                                                    },
+                                                                  ),
+                                                                ],
+                                                              )
+                                                            ]),
+                                                      ),
                                                       actions: <Widget>[
                                                         TextButton(
                                                           onPressed: () {

@@ -122,21 +122,7 @@ class _MiFareState extends State<MiFare> {
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
-                        haveData
-                            ? Padding(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: ScreenUtil().setHeight(600)),
-                                child: Center(
-                                  child: Text(
-                                    message,
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              )
-                            : Padding(
+                             Padding(
                                 padding:
                                     const EdgeInsets.fromLTRB(16.0, 8, 16, 8),
                                 child: InkWell(
@@ -170,7 +156,55 @@ class _MiFareState extends State<MiFare> {
                                                 SizedBox(
                                                   width: 50.w,
                                                 ),
-                                                Expanded(
+                                                haveData?
+                                                  Expanded(
+                                                  flex: 2,
+                                                  child: TextFormField(
+                                                    style: const TextStyle(
+                                                        color: Colors.black,
+                                                        // fontWeight: FontWeight.bold,
+                                                        fontSize: 15),
+                                                    controller:
+                                                        vehicleController,
+                                                    focusNode: vehicleFocus,
+                                                    textInputAction:
+                                                        TextInputAction.next,
+                                                    readOnly: true,
+                                                    decoration: InputDecoration(
+                                                      focusedErrorBorder:
+                                                          const OutlineInputBorder(
+                                                              borderSide:
+                                                                  BorderSide(
+                                                                      width: 3,
+                                                                      color: Colors
+                                                                          .red)),
+                                                      focusedBorder:
+                                                          const OutlineInputBorder(
+                                                              borderSide: BorderSide(
+                                                                  width: 3,
+                                                                  color: Colors
+                                                                      .blue)),
+                                                      enabledBorder:
+                                                          const OutlineInputBorder(
+                                                              borderSide: BorderSide(
+                                                                  width: 1,
+                                                                  color: Colors
+                                                                      .black)),
+                                                      contentPadding:
+                                                          const EdgeInsets.all(
+                                                              5.0),
+                                                      hintStyle: TextStyle(
+                                                        color: primaryColor,
+                                                      ),
+                                                      labelStyle:
+                                                          const TextStyle(
+                                                        color: Colors.black,
+                                                      ),
+                                                      labelText: message,
+                                                    ),
+                                                  ),
+                                                )
+                                                : Expanded(
                                                   flex: 2,
                                                   child: TextFormField(
                                                     style: const TextStyle(

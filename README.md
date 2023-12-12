@@ -1,4 +1,10 @@
 # edriving_spim_app
+2023-12-12 v6.2.6
+ePandu WS v6.2.34
+
+- Added Get Students's Details
+- Using new WS
+
 2023-12-1 v6.2.4
 ePandu WS v6.2.32
 

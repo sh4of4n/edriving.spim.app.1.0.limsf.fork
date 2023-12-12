@@ -468,6 +468,29 @@ class TodayClassList{
   }
 }
 
+class GetStuPracResponse{
+  List<CompleteClassList>? stuPrac;
+
+  GetStuPracResponse({this.stuPrac});
+
+  GetStuPracResponse.fromJson(Map<String, dynamic> json){
+    if (json['StuPrac'] != null) {
+      stuPrac = <CompleteClassList>[];
+      json['StuPrac'].forEach((v) {
+        stuPrac!.add(CompleteClassList.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (stuPrac != null) {
+      data['StuPrac'] = stuPrac!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
 class GetCompleteClassResponse{
   List<CompleteClassList>? completeClassList;
 
@@ -553,8 +576,73 @@ class CompleteClassList{
 	String? branchCode;
 	String? rowKey;
 	String? lastupload;
+  String? customerphoto;
+  String? customerphotoFilename;
 	String? deleted;
 	String? diCode;
+  String? iD1;
+	String? icNo1;
+	String? nric;
+	String? oldIc;
+	String? category;
+	String? name;
+	String? add1;
+	String? add2;
+	String? add3;
+	String? state;
+	String? city;
+	String? zip;
+	String? emailAddr;
+	String? handPhone;
+	String? homePhone;
+	String? offPhone;
+	String? off2Phone;
+	String? sex;
+	String? race;
+	String? birthPl;
+	String? birthDt;
+	String? citizenship;
+	String? customerPhoto;
+	String? customerPhotoFilename;
+	String? qGroup;
+	String? hwyExpDt;
+	String? pic1;
+	String? pic2;
+	String? pic3;
+	String? remarks;
+	String? edeclCode;
+	String? edeclReqid;
+	String? eregCode;
+	String? eregReqid;
+	String? ekppCode1;
+	String? ekppReqid1;
+	String? transtamp1;
+	String? dsCode1;
+	String? eregTick;
+	String? eregStat;
+	String? eregInd;
+	String? pgaHukum;
+	String? pgaGila;
+	String? pgaCacat;
+	String? pgaPitam;
+	String? pgaMata;
+	String? pgaLain;
+	String? lainRemark;
+	String? pgaTiada;
+	String? eregRemark;
+	String? smcCount;
+	String? entryType1;
+	String? racetext;
+	String? gpsLatitude;
+	String? gpsLongitude;
+	String? gpsZip;
+	String? pickup;
+	String? compCode1;
+	String? branchCode1;
+	String? rowKey1;
+	String? lastupload1;
+	String? deleted1;
+	String? diCode1;
 
   CompleteClassList({
     this.id, 
@@ -618,74 +706,204 @@ class CompleteClassList{
     this.branchCode, 
     this.rowKey, 
     this.lastupload, 
+    this.customerphoto,
+    this.customerphotoFilename,
     this.deleted, 
-    this.diCode
+    this.diCode,
+    this.iD1, 
+    this.icNo1, 
+    this.nric, 
+    this.oldIc, 
+    this.category,
+    this.name, 
+    this.add1, 
+    this.add2, 
+    this.add3, 
+    this.state, 
+    this.city, 
+    this.zip, 
+    this.emailAddr, 
+    this.handPhone, 
+    this.homePhone, 
+    this.offPhone, 
+    this.off2Phone, 
+    this.sex, 
+    this.race, 
+    this.birthPl, 
+    this.birthDt, 
+    this.citizenship, 
+    this.customerPhoto, 
+    this.customerPhotoFilename, 
+    this.qGroup, 
+    this.hwyExpDt,
+    this.pic1, 
+    this.pic2, 
+    this.pic3, 
+    this.remarks, 
+    this.edeclCode, 
+    this.edeclReqid, 
+    this.eregCode, 
+    this.eregReqid, 
+    this.ekppCode1, 
+    this.ekppReqid1, 
+    this.transtamp1, 
+    this.dsCode1, 
+    this.eregTick, 
+    this.eregStat, 
+    this.eregInd, 
+    this.pgaHukum, 
+    this.pgaGila, 
+    this.pgaCacat, 
+    this.pgaPitam, 
+    this.pgaMata, 
+    this.pgaLain, 
+    this.lainRemark, 
+    this.pgaTiada, 
+    this.eregRemark, 
+    this.smcCount, 
+    this.entryType1, 
+    this.racetext, 
+    this.gpsLatitude, 
+    this.gpsLongitude, 
+    this.gpsZip, 
+    this.pickup, 
+    this.compCode1, 
+    this.branchCode1, 
+    this.rowKey1, 
+    this.lastupload1, 
+    this.deleted1, 
+    this.diCode1
   });
 
   CompleteClassList.fromJson(Map<String, dynamic> json){
-    id = json['id'];
-		merchantNo = json['merchant_no'];
-		icNo = json['ic_no'];
-		stuNo = json['stu_no'];
-		trandate = json['trandate'];
-		vehNo = json['veh_no'];
-		trnCode = json['trn_code'];
-		slipNo = json['slip_no'];
-		sm4No = json['sm4_no'];
-		certNo = json['cert_no'];
-		groupId = json['group_id'];
-		kppGroupId = json['kpp_group_id'];
-		kppGroupId2 = json['kpp_group_id_2'];
-		kppGroupId3 = json['kpp_group_id_3'];
-		classes = json['class'];
-		bgTime = json['bg_time'];
-		endTime = json['end_time'];
-		employeNo = json['employe_no'];
-		remark = json['remark'];
-		dsCode = json['ds_code'];
-		pracType = json['prac_type'];
-		sysTime = json['sys_time'];
-		closeUser = json['close_user'];
-		closeDate = json['close_date'];
-		epretCode = json['epret_code'];
-		epretReqid = json['epret_reqid'];
-		ekppCode = json['ekpp_code'];
-		ekppReqid = json['ekpp_reqid'];
-		transtamp = json['transtamp'];
-		actBgTime = json['act_bg_time'];
-		actEndTime = json['act_end_time'];
-		byFingerprn = json['by_fingerprn'];
-		ej2aTick = json['ej2a_tick'];
-		ej2aInd = json['ej2a_ind'];
-		ej2aStat = json['ej2a_stat'];
-		ej2bInd = json['ej2b_ind'];
-		ej2bTick = json['ej2b_tick'];
-		ej2bStat = json['ej2b_stat'];
-		snoBkpp = json['sno_bkpp'];
-		adminId1 = json['admin_id1'];
-		actBgTime2 = json['act_bg_time2'];
-		classCode = json['class_code'];
-		verifyTrncode = json['verify_trncode'];
-		actEndTime2 = json['act_end_time2'];
-		ej2aRemark = json['ej2a_remark'];
-		ej2bRemark = json['ej2b_remark'];
-		entryType = json['entry_type'];
-		sjlprndate = json['sjlprndate'];
-		issueSjDate = json['issue_sj_date'];
-		courseCode = json['course_code'];
-		location = json['location'];
-		theoryType = json['theory_type'];
-		totalTime = json['total_time'];
-		kpp02CertNo = json['kpp02_cert_no'];
-		kpp02IssueSjDate = json['kpp02_issue_sj_date'];
-		kpp02Sjlprndate = json['kpp02_sjlprndate'];
-		sessionTotalTime = json['session_total_time'];
-		compCode = json['comp_code'];
-		branchCode = json['branch_code'];
-		rowKey = json['row_key'];
-		lastupload = json['lastupload'];
-		deleted = json['deleted'];
-		diCode = json['di_code'];
+    id = json['id'] ?? '';
+		merchantNo = json['merchant_no'] ?? '';
+		icNo = json['ic_no'] ?? '';
+		stuNo = json['stu_no'] ?? '';
+		trandate = json['trandate'] ?? '';
+		vehNo = json['veh_no'] ?? '';
+		trnCode = json['trn_code'] ?? '';
+		slipNo = json['slip_no'] ?? '';
+		sm4No = json['sm4_no'] ?? '';
+		certNo = json['cert_no'] ?? '';
+		groupId = json['group_id'] ?? '';
+		kppGroupId = json['kpp_group_id'] ?? '';
+		kppGroupId2 = json['kpp_group_id_2'] ?? '';
+		kppGroupId3 = json['kpp_group_id_3'] ?? '';
+		classes = json['class'] ?? '';
+		bgTime = json['bg_time'] ?? '';
+		endTime = json['end_time'] ?? '';
+		employeNo = json['employe_no'] ?? '';
+		remark = json['remark'] ?? '';
+		dsCode = json['ds_code'] ?? '';
+		pracType = json['prac_type'] ?? '';
+		sysTime = json['sys_time'] ?? '';
+		closeUser = json['close_user'] ?? '';
+		closeDate = json['close_date'] ?? '';
+		epretCode = json['epret_code'] ?? '';
+		epretReqid = json['epret_reqid'] ?? '';
+		ekppCode = json['ekpp_code'] ?? '';
+		ekppReqid = json['ekpp_reqid'] ?? '';
+		transtamp = json['transtamp'] ?? '';
+		actBgTime = json['act_bg_time'] ?? '';
+		actEndTime = json['act_end_time'] ?? '';
+		byFingerprn = json['by_fingerprn'] ?? '';
+		ej2aTick = json['ej2a_tick'] ?? '';
+		ej2aInd = json['ej2a_ind'] ?? '';
+		ej2aStat = json['ej2a_stat'] ?? '';
+		ej2bInd = json['ej2b_ind'] ?? '';
+		ej2bTick = json['ej2b_tick'] ?? '';
+		ej2bStat = json['ej2b_stat'] ?? '';
+		snoBkpp = json['sno_bkpp'] ?? '';
+		adminId1 = json['admin_id1'] ?? '';
+		actBgTime2 = json['act_bg_time2'] ?? '';
+		classCode = json['class_code'] ?? '';
+		verifyTrncode = json['verify_trncode'] ?? '';
+		actEndTime2 = json['act_end_time2'] ?? '';
+		ej2aRemark = json['ej2a_remark'] ?? '';
+		ej2bRemark = json['ej2b_remark'] ?? '';
+		entryType = json['entry_type'] ?? '';
+		sjlprndate = json['sjlprndate'] ?? '';
+		issueSjDate = json['issue_sj_date'] ?? '';
+		courseCode = json['course_code'] ?? '';
+		location = json['location'] ?? '';
+		theoryType = json['theory_type'] ?? '';
+		totalTime = json['total_time'] ?? '';
+		kpp02CertNo = json['kpp02_cert_no'] ?? '';
+		kpp02IssueSjDate = json['kpp02_issue_sj_date'] ?? '';
+		kpp02Sjlprndate = json['kpp02_sjlprndate'] ?? '';
+		sessionTotalTime = json['session_total_time'] ?? '';
+		compCode = json['comp_code'] ?? '';
+		branchCode = json['branch_code'] ?? '';
+		rowKey = json['row_key'] ?? '';
+		lastupload = json['lastupload'] ?? '';
+    customerphoto = json['__customer_photo'] ?? '';
+    customerphotoFilename = json['__customer_photo_filename'] ?? '';
+		deleted = json['deleted'] ?? '';
+		diCode = json['di_code'] ?? '';
+    iD1 = json['ID1'] ?? '';
+		icNo1 = json['ic_no1'] ?? '';
+		nric = json['nric'] ?? '';
+		oldIc = json['old_ic'] ?? '';
+		category = json['category'] ?? '';
+		name = json['name'] ?? '';
+		add1 = json['add1'] ?? '';
+		add2 = json['add2'] ?? '';
+		add3 = json['add3'] ?? '';
+		state = json['state'] ?? '';
+		city = json['city'] ?? '';
+		zip = json['zip'] ?? '';
+		emailAddr = json['email_addr'] ?? '';
+		handPhone = json['hand_phone'] ?? '';
+		homePhone = json['home_phone'] ?? '';
+		offPhone = json['off_phone'] ?? '';
+		off2Phone = json['off2_phone'] ?? '';
+		sex = json['sex'] ?? '';
+		race = json['race'] ?? '';
+		birthPl = json['birth_pl'] ?? '';
+		birthDt = json['birth_dt'] ?? '';
+		citizenship = json['citizenship'] ?? '';
+		customerPhoto = json['customer_photo'] ?? '';
+		customerPhotoFilename = json['customer_photo_filename'] ?? '';
+		qGroup = json['q_group'] ?? '';
+		hwyExpDt = json['hwy_exp_dt'] ?? '';
+		pic1 = json['pic_1'] ?? '';
+		pic2 = json['pic_2'] ?? '';
+		pic3 = json['pic_3'] ?? '';
+		remarks = json['remarks'] ?? '';
+		edeclCode = json['edecl_code'] ?? '';
+		edeclReqid = json['edecl_reqid'] ?? '';
+		eregCode = json['ereg_code'] ?? '';
+		eregReqid = json['ereg_reqid'] ?? '';
+		ekppCode1 = json['ekpp_code1'] ?? '';
+		ekppReqid1 = json['ekpp_reqid1'] ?? '';
+		transtamp1 = json['transtamp1'] ?? '';
+		dsCode1 = json['ds_code1'] ?? '';
+		eregTick = json['ereg_tick'] ?? '';
+		eregStat = json['ereg_stat'] ?? '';
+		eregInd = json['ereg_ind'] ?? '';
+		pgaHukum = json['pga_hukum'] ?? '';
+		pgaGila = json['pga_gila'] ?? '';
+		pgaCacat = json['pga_cacat'] ?? '';
+		pgaPitam = json['pga_pitam'] ?? '';
+		pgaMata = json['pga_mata'] ?? '';
+		pgaLain = json['pga_lain'] ?? '';
+		lainRemark = json['lain_remark'] ?? '';
+		pgaTiada = json['pga_tiada'] ?? '';
+		eregRemark = json['ereg_remark'] ?? '';
+		smcCount = json['smc_count'] ?? '';
+		entryType1 = json['entry_type1'] ?? '';
+		racetext = json['racetext'] ?? '';
+		gpsLatitude = json['gps_latitude'] ?? '';
+		gpsLongitude = json['gps_longitude'] ?? '';
+		gpsZip = json['gps_zip'] ?? '';
+		pickup = json['pickup'] ?? '';
+		compCode1 = json['comp_code1'] ?? '';
+		branchCode1 = json['branch_code1'] ?? '';
+		rowKey1 = json['row_key1'] ?? '';
+		lastupload1 = json['lastupload1'] ?? '';
+		deleted1 = json['deleted1'] ?? '';
+		diCode1 = json['di_code1'] ?? '';
   }
 
   Map<String, dynamic> toJson(){
@@ -751,8 +969,73 @@ class CompleteClassList{
 		data['branch_code'] = branchCode;
 		data['row_key'] = rowKey;
 		data['lastupload'] = lastupload;
+    data['__customer_photo'] = customerphoto;
+    data['__customer_photo_filename'] = customerphotoFilename;
 		data['deleted'] = deleted;
 		data['di_code'] = diCode;
+    data['ID1'] = iD1;
+		data['ic_no1'] = icNo1;
+		data['nric'] = nric;
+		data['old_ic'] = oldIc;
+		data['category'] = category;
+		data['name'] = name;
+		data['add1'] = add1;
+		data['add2'] = add2;
+		data['add3'] = add3;
+		data['state'] = state;
+		data['city'] = city;
+		data['zip'] = zip;
+		data['email_addr'] = emailAddr;
+		data['hand_phone'] = handPhone;
+		data['home_phone'] = homePhone;
+		data['off_phone'] = offPhone;
+		data['off2_phone'] = off2Phone;
+		data['sex'] = sex;
+		data['race'] = race;
+		data['birth_pl'] = birthPl;
+		data['birth_dt'] = birthDt;
+		data['citizenship'] = citizenship;
+		data['customer_photo'] = customerPhoto;
+		data['customer_photo_filename'] = customerPhotoFilename;
+		data['q_group'] = qGroup;
+		data['hwy_exp_dt'] = hwyExpDt;
+		data['pic_1'] = pic1;
+		data['pic_2'] = pic2;
+		data['pic_3'] = pic3;
+		data['remarks'] = remarks;
+		data['edecl_code'] = edeclCode;
+		data['edecl_reqid'] = edeclReqid;
+		data['ereg_code'] = eregCode;
+		data['ereg_reqid'] = eregReqid;
+		data['ekpp_code1'] = ekppCode1;
+		data['ekpp_reqid1'] = ekppReqid1;
+		data['transtamp1'] = transtamp1;
+		data['ds_code1'] = dsCode1;
+		data['ereg_tick'] = eregTick;
+		data['ereg_stat'] = eregStat;
+		data['ereg_ind'] = eregInd;
+		data['pga_hukum'] = pgaHukum;
+		data['pga_gila'] = pgaGila;
+		data['pga_cacat'] = pgaCacat;
+		data['pga_pitam'] = pgaPitam;
+		data['pga_mata'] = pgaMata;
+		data['pga_lain'] = pgaLain;
+		data['lain_remark'] = lainRemark;
+		data['pga_tiada'] = pgaTiada;
+		data['ereg_remark'] = eregRemark;
+		data['smc_count'] = smcCount;
+		data['entry_type1'] = entryType1;
+		data['racetext'] = racetext;
+		data['gps_latitude'] = gpsLatitude;
+		data['gps_longitude'] = gpsLongitude;
+		data['gps_zip'] = gpsZip;
+		data['pickup'] = pickup;
+		data['comp_code1'] = compCode1;
+		data['branch_code1'] = branchCode1;
+		data['row_key1'] = rowKey1;
+		data['lastupload1'] = lastupload1;
+		data['deleted1'] = deleted1;
+		data['di_code1'] = diCode1;
     return data;
   }
 }

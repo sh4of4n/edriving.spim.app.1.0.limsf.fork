@@ -15,14 +15,15 @@ class ClassRepo{
     trnCode,
     icNo,
     startIndex,
-    noOfRecords
+    noOfRecords,
+    keywordSearch
   }) async {
     String? caUid = await localStorage.getCaUid();
     String? caPwd = await localStorage.getCaPwd();
     String? diCode = await localStorage.getMerchantDbCode();
 
     String path = 
-        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=$diCode&groupId=$groupId&trnCode=$trnCode&icNo=$icNo&startIndex=$startIndex&noOfRecords=$noOfRecords';
+        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=$diCode&groupId=$groupId&trnCode=$trnCode&icNo=$icNo&startIndex=$startIndex&noOfRecords=$noOfRecords&keywordSearch=$keywordSearch';
 
     var response = await networking.getData(
       path: 'GetTodayInProgressStuPrac?$path',
@@ -103,14 +104,15 @@ class ClassRepo{
     trnCode,
     icNo,
     startIndex,
-    noOfRecords
+    noOfRecords,
+    keywordSearch
   }) async {
     String? caUid = await localStorage.getCaUid();
     String? caPwd = await localStorage.getCaPwd();
     String? diCode = await localStorage.getMerchantDbCode();
 
     String path = 
-        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=$diCode&groupId=$groupId&trnCode=$trnCode&icNo=$icNo&startIndex=$startIndex&noOfRecords=$noOfRecords';
+        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=$diCode&groupId=$groupId&trnCode=$trnCode&icNo=$icNo&startIndex=$startIndex&noOfRecords=$noOfRecords&keywordSearch=$keywordSearch';
 
     var response = await networking.getData(
       path: 'GetTodayCompleteStuPrac?$path',
@@ -122,6 +124,53 @@ class ClassRepo{
 
 
       return Response(true, data: getCompleteClassResponse.completeClassList);
+    } else if (response.message != null &&
+        response.message!.contains('timeout')) {
+      return Response(false,
+          message: 'Data took too long to load, please try again.');
+    } else if (response.message != null &&
+        response.message!.contains('socket')) {
+      return Response(false,
+          message: 'Our servers appear to be down. Please try again later.');
+    } else if (response.message != null && response.message!.contains('http')) {
+      return Response(false,
+          message: 'Server error, we apologize for any inconvenience.');
+    } else if (response.message != null &&
+        response.message!.contains('format')) {
+      return Response(false, message: 'Please verify your client account.');
+    }
+
+    return Response(false, message: response.message);
+  }
+
+  Future<Response> getStuPracByTrnCode({
+    required context,
+    trnCode,
+    groupId,
+    icNo,
+    dateFromString,
+    dateToString,
+    startIndex,
+    noOfRecords,
+    keywordSearch
+  }) async {
+    String? caUid = await localStorage.getCaUid();
+    String? caPwd = await localStorage.getCaPwd();
+    String? diCode = await localStorage.getMerchantDbCode();
+
+    String path = 
+        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=$diCode&trnCode=$trnCode&groupId=$groupId&icNo=$icNo&dateFromString=$dateFromString&dateToString=$dateToString&startIndex=$startIndex&noOfRecords=$noOfRecords&keywordSearch=$keywordSearch';
+
+    var response = await networking.getData(
+      path: 'GetStuPracByTrnCode?$path',
+    );
+
+    if (response.isSuccess && response.data != null) {
+      GetStuPracResponse getStuPracResponse =
+          GetStuPracResponse.fromJson(response.data);
+
+
+      return Response(true, data: getStuPracResponse.stuPrac);
     } else if (response.message != null &&
         response.message!.contains('timeout')) {
       return Response(false,

@@ -40,7 +40,7 @@ class Networking extends BaseRepo {
         url = await wsUrlBox.get('wsUrl');
       }
     }
-
+    // url = 'https://72f0c6afaeac98.lhr.life/MainService.svc';
     try {
       http.Response response;
       // for getWsUrl

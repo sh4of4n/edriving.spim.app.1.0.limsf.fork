@@ -20,11 +20,13 @@ class TodayClass extends StatefulWidget {
   final trnCode;
   final todayClassInfo;
   final message;
+  final trnName;
   const TodayClass(
       {super.key, 
       required this.trnCode,
+      required this.trnName,
       required this.todayClassInfo, 
-      required this.message
+      required this.message,
       });
 
   @override
@@ -302,7 +304,7 @@ class _TodayClassState extends State<TodayClass> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          widget.trnCode,
+                          widget.trnName,
                           style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -322,6 +324,7 @@ class _TodayClassState extends State<TodayClass> {
                           textAlign: TextAlign.center,
                         ),
                       ),
+
                       SizedBox(
                         height: 60.h,
                       ),
@@ -396,7 +399,7 @@ class _TodayClassState extends State<TodayClass> {
 
                                               // '${widget.trnInfo.trnName ?? ''}',
                                               Text(
-                                                  "Trainer's Code:  $trnCode \n"),
+                                                  "Trainer's Name:  ${widget.trnName} \n"),
                                               Text('Course Code: $course \n'),
                                               Text('Test Date: $testDt \n'),
                                               Text(

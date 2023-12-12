@@ -93,7 +93,8 @@ class RootRouter extends $RootRouter {
     AutoRoute(page: ProgressClass.page),
     AutoRoute(page: AddClass.page),
     AutoRoute(page: MyKad.page),
-    AutoRoute(page: MiFare.page)
+    AutoRoute(page: MiFare.page),
+    AutoRoute(page: Students.page)
   ];
 }
 class $AppRouter {}
