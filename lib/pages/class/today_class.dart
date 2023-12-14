@@ -21,13 +21,13 @@ class TodayClass extends StatefulWidget {
   final todayClassInfo;
   final message;
   final trnName;
-  const TodayClass(
-      {super.key, 
-      required this.trnCode,
-      required this.trnName,
-      required this.todayClassInfo, 
-      required this.message,
-      });
+  const TodayClass({
+    super.key,
+    required this.trnCode,
+    required this.trnName,
+    required this.todayClassInfo,
+    required this.message,
+  });
 
   @override
   State<TodayClass> createState() => _TodayClassState();
@@ -69,24 +69,49 @@ class _TodayClassState extends State<TodayClass> {
   String licenseExpDt = '';
   String testDt = '';
   String trnCode = '';
+  int year = 0;
+  int month = 0;
+  int day = 0;
+  int hour = 0;
+  int minute = 0;
+  int second = 0;
+  int endYear = 0;
+  int endMonth = 0;
+  int endDay = 0;
+  int endHour = 0;
+  int endMinute = 0;
+  int endSecond = 0;
 
   String extractTimeFromDateTimeString(DateTime dateTime) {
+    String dateString = dateTime.toString();
+    if(dateString != ''){
     final time = TimeOfDay.fromDateTime(dateTime);
     return time.format(context);
+    } else {
+      return '-';
+    }
   }
 
   String parseDateWithoutOffset(String dateString) {
-    DateFormat format = DateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
-    DateTime dateTime = format.parse(dateString);
-    return DateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(dateTime);
+    if (dateString != '') {
+      DateFormat format = DateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+      DateTime dateTime = format.parse(dateString);
+      return DateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(dateTime);
+    } else {
+      return '-';
+    }
   }
 
   String convertDateFormat(String dateString) {
-    DateFormat format = DateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
-    DateTime dateTime = format.parse(dateString);
-    String formattedDate = DateFormat("yyyy-MM-dd").format(dateTime);
+    if (dateString != '') {
+      DateFormat format = DateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+      DateTime dateTime = format.parse(dateString);
+      String formattedDate = DateFormat("yyyy-MM-dd").format(dateTime);
 
-    return formattedDate;
+      return formattedDate;
+    } else {
+      return '-';
+    }
   }
 
   _getDTestByCode(String icNo) async {
@@ -131,6 +156,8 @@ class _TodayClassState extends State<TodayClass> {
   List<Appointment> getAppointments() {
     DateTime startTime;
     DateTime endTime;
+    String extractedTime = '';
+    String extractedEndTime = '';
     for (var i = 0; i < widget.todayClassInfo.length; i++) {
       setState(() {
         trnCode = widget.todayClassInfo[i].trnCode;
@@ -150,27 +177,40 @@ class _TodayClassState extends State<TodayClass> {
         address = '$add1, $add2, $add3';
         vehNo = widget.todayClassInfo[i].vehNo ?? '-';
         name = widget.todayClassInfo[i].name ?? '-';
-    });
+      });
+    }
+    if(startDt != '') {
+      setState(() {
+        startTime = DateTime.parse(parseDateWithoutOffset(startDt));
+        year = startTime.year;
+        month = startTime.month;
+        day = startTime.day;
+        hour = startTime.hour;
+        minute = startTime.minute;
+        second = startTime.second;
+        extractedTime = extractTimeFromDateTimeString(startTime);
+      });
+    } else {
+
+    }
+    if(endDt != '') {
+      setState(() {
+        endTime = DateTime.parse(parseDateWithoutOffset(endDt));
+        endYear = endTime.year;
+        endMonth = endTime.month;
+        endDay = endTime.day;
+        endHour = endTime.hour;
+        endMinute = endTime.minute;
+        endSecond = endTime.second;
+        extractedEndTime = extractTimeFromDateTimeString(endTime);
+      });
     }
 
-    startTime = DateTime.parse(parseDateWithoutOffset(startDt));
-    endTime = DateTime.parse(parseDateWithoutOffset(endDt));
-
     String formattedString =
-        '$courseCode   \n$groupId\n$studentIc\n${extractTimeFromDateTimeString(startTime)} -> ${extractTimeFromDateTimeString(endTime)}\n$name\n$phnNo\n$vehNo';
+        '$courseCode   \n$groupId\n$studentIc\n$extractedTime -> $extractedEndTime\n$name\n$phnNo\n$vehNo';
 
-    int year = startTime.year;
-    int month = startTime.month;
-    int day = startTime.day;
-    int hour = startTime.hour;
-    int minute = startTime.minute;
-    int second = startTime.second;
-    int endYear = endTime.year;
-    int endMonth = endTime.month;
-    int endDay = endTime.day;
-    int endHour = endTime.hour;
-    int endMinute = endTime.minute;
-    int endSecond = endTime.second;
+    
+    
 
     setState(() {
       meetings.add(Appointment(
@@ -273,9 +313,7 @@ class _TodayClassState extends State<TodayClass> {
           child: FloatingActionButton(
             onPressed: () {
               credentials.put('trncode', widget.trnCode);
-              context.router.push(AddClass(
-                myKadDetails: ''
-              ));
+              context.router.push(AddClass(myKadDetails: ''));
             },
             backgroundColor: const Color.fromARGB(255, 243, 33, 33),
             child: const Icon(Icons.add),
@@ -312,19 +350,18 @@ class _TodayClassState extends State<TodayClass> {
                           textAlign: TextAlign.center,
                         ),
                       ),
-                      if(widget.message == "No class today")
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          "No class today",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20),
-                          textAlign: TextAlign.center,
+                      if (widget.message == "No class today")
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text(
+                            "No class today",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
-                      ),
-
                       SizedBox(
                         height: 60.h,
                       ),

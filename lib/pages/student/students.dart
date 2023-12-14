@@ -335,6 +335,11 @@ class _StudentsState extends State<Students> {
                                     'Ic Number: ${item.icNo}',
                                     textAlign: TextAlign.left,
                                   ),
+                                  subtitle: Text(
+                                    'Phone Number: ${item.handPhone}',
+                                    style: const TextStyle(fontSize: 15),
+                                    textAlign: TextAlign.left,
+                                  ),
                                   visualDensity:
                                       const VisualDensity(vertical: 2),
                                 ),

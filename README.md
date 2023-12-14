@@ -1,4 +1,10 @@
 # edriving_spim_app
+2023-12-14 v6.2.7
+ePandu WS v6.2.34
+
+- Fixed some DateTime error
+- Added NFC MiFare
+
 2023-12-12 v6.2.6
 ePandu WS v6.2.34
 

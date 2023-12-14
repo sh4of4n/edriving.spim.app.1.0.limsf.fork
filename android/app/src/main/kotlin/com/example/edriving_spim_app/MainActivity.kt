@@ -234,6 +234,17 @@ class MainActivity: FlutterActivity() {
             }
     }
 
+    // override fun onResume() {
+    //     super.onResume()
+    //     val intent = Intent(context, javaClass).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+    //     val pendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
+    //     NfcAdapter.getDefaultAdapter(context)?.enableForegroundDispatch(this, pendingIntent, null, null)
+    //   }
+    //   override fun onPause() {
+    //     super.onPause()
+    //     NfcAdapter.getDefaultAdapter(context)?.disableForegroundDispatch(this)
+    //   }
+
     companion object {
         private const val CHANNEL = "samples.flutter.dev/mykad"
     }

@@ -8,11 +8,8 @@ import 'package:intl/intl.dart';
 class ProgressClass extends StatefulWidget {
   final progressClassInfo;
   final message;
-  const ProgressClass({
-    super.key,
-    required this.progressClassInfo,
-    required this.message
-  });
+  const ProgressClass(
+      {super.key, required this.progressClassInfo, required this.message});
 
   @override
   State<ProgressClass> createState() => _ProgressClassState();
@@ -23,24 +20,45 @@ class _ProgressClassState extends State<ProgressClass> {
   List<dynamic> progress = [];
 
   String convertDateFormat(String dateString) {
-    DateFormat format = DateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
-    DateTime dateTime = format.parse(dateString);
-    String formattedDate = DateFormat("yyyy-MM-dd").format(dateTime);
+    if (dateString != '') {
+      DateFormat format = DateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+      DateTime dateTime = format.parse(dateString);
+      String formattedDate = DateFormat("yyyy-MM-dd").format(dateTime);
 
-    return formattedDate;
+      return formattedDate;
+    } else {
+      return '-';
+    }
   }
 
-  profileImage(){
+  String convertTimeToAMPM(String timeString) {
+    try {
+      // Parse the time string to a DateTime object
+      DateTime dateTime = DateTime.parse('2022-01-01 $timeString');
+
+      // Format the DateTime object to display only the time in AM/PM format
+      String formattedTime = DateFormat('h:mm a').format(dateTime);
+
+      return formattedTime;
+    } catch (e) {
+      // Handle any parsing errors
+      print('Error parsing time: $e');
+      return 'Not Thumb In Yet';
+    }
+  }
+
+  profileImage() {
     return Image(
-        width: 200.w,
-        height: 200.w,
-        image: AssetImage(
-          myImage.dummyProfile,
-        ),
-      );
+      width: 200.w,
+      height: 200.w,
+      image: AssetImage(
+        myImage.dummyProfile,
+      ),
+    );
   }
+
   @override
-  void initState(){
+  void initState() {
     super.initState();
     progress = widget.progressClassInfo;
   }
@@ -54,66 +72,63 @@ class _ProgressClassState extends State<ProgressClass> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             for (var item in progress)
-            InkWell(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 3, 0, 3),
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: <Widget>[
-                        ListTile(
-                          title: Text('${item.classes}'),
-                          leading: profileImage(),
-                          visualDensity:
-                            const VisualDensity(vertical: -2),
-                        ),
-                        SizedBox(
-                          height: 50.h,
-                        ),
-                        ListTile(
-                          title: Text('Trainer Code: ${item.trnCode}'),
-                          visualDensity:
-                            const VisualDensity(vertical: -2),
-                        ),
-                        SizedBox(
-                          height: 50.h,
-                        ),
-                        ListTile(
-                          title: Text('Trainer IC: ${item.icNo}'),
-                          visualDensity:
-                            const VisualDensity(vertical: -2),
-                        ),
-                        SizedBox(
-                          height: 50.h,
-                        ),
-                        ListTile(
-                          title: Text('Class Date: ${convertDateFormat(item.trandate)}'),
-                          visualDensity:
-                            const VisualDensity(vertical: -2),
-                        ),
-                        SizedBox(
-                          height: 50.h,
-                        ),
-                        ListTile(
-                          title: Text('Time: ${item.actBgTime} -> ${item.actEndTime} (${item.totalTime})'),
-                          visualDensity:
-                            const VisualDensity(vertical: -2),
-                        ),
-                        SizedBox(
-                          height: 50.h,
-                        ),
-                        ListTile(
-                          title: Text('Course Code: ${item.courseCode}'),
-                          visualDensity:
-                            const VisualDensity(vertical: -2),
-                        ),
-                      ],
+              InkWell(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 3, 0, 3),
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: <Widget>[
+                          ListTile(
+                            title: Text('${item.classes}'),
+                            leading: profileImage(),
+                            visualDensity: const VisualDensity(vertical: -2),
+                          ),
+                          SizedBox(
+                            height: 50.h,
+                          ),
+                          ListTile(
+                            title: Text('Trainer Code: ${item.trnCode}'),
+                            visualDensity: const VisualDensity(vertical: -2),
+                          ),
+                          SizedBox(
+                            height: 50.h,
+                          ),
+                          ListTile(
+                            title: Text('Trainer IC: ${item.icNo}'),
+                            visualDensity: const VisualDensity(vertical: -2),
+                          ),
+                          SizedBox(
+                            height: 50.h,
+                          ),
+                          ListTile(
+                            title: Text(
+                                'Class Date: ${convertDateFormat(item.trandate)}'),
+                            visualDensity: const VisualDensity(vertical: -2),
+                          ),
+                          SizedBox(
+                            height: 50.h,
+                          ),
+                          ListTile(
+                            title: Text(
+                                'Time: ${convertTimeToAMPM(item.actBgTime)} -> ${convertTimeToAMPM(item.actEndTime)}'),
+                            subtitle: Text('Total Time: ${item.totalTime}', style: const TextStyle(fontSize: 14),),
+                            visualDensity: const VisualDensity(vertical: -2),
+                          ),
+                          SizedBox(
+                            height: 50.h,
+                          ),
+                          ListTile(
+                            title: Text('Course Code: ${item.courseCode}'),
+                            visualDensity: const VisualDensity(vertical: -2),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
             // Padding(
             //     padding:
             //         EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(600)),
@@ -128,19 +143,19 @@ class _ProgressClassState extends State<ProgressClass> {
             //     ),
             //   ),
             if (widget.message.isNotEmpty)
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      vertical: ScreenUtil().setHeight(600)),
-                  child: Center(
-                    child: Text(
-                      widget.message,
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold),
-                    ),
+              Padding(
+                padding:
+                    EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(600)),
+                child: Center(
+                  child: Text(
+                    widget.message,
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold),
                   ),
-                )
+                ),
+              )
           ],
         ),
       ),

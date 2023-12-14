@@ -39,6 +39,22 @@ class _HistoryClassState extends State<HistoryClass> {
 
     return formattedDate;
   }
+
+  String convertTimeToAMPM(String timeString) {
+    try {
+      // Parse the time string to a DateTime object
+      DateTime dateTime = DateTime.parse('2022-01-01 $timeString');
+
+      // Format the DateTime object to display only the time in AM/PM format
+      String formattedTime = DateFormat('h:mm a').format(dateTime);
+
+      return formattedTime;
+    } catch (e) {
+      // Handle any parsing errors
+      print('Error parsing time: $e');
+      return 'Invalid Time';
+    }
+  }
   
   @override
   void initState(){
@@ -97,7 +113,8 @@ class _HistoryClassState extends State<HistoryClass> {
                           height: 50.h,
                         ),
                         ListTile(
-                          title: Text('Time: ${item.actBgTime} -> ${item.actEndTime} (${item.totalTime})'),
+                          title: Text('Time: ${convertTimeToAMPM(item.actBgTime)} -> ${convertTimeToAMPM(item.actEndTime)}'),
+                          subtitle: Text('Total Time: ${item.totalTime}', style: const TextStyle(fontSize: 14),),
                           visualDensity:
                             const VisualDensity(vertical: -2),
                         ),

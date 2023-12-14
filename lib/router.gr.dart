@@ -94,7 +94,7 @@ import 'package:edriving_spim_app/pages/profile/take_profile_picture.dart'
     as _i80;
 import 'package:edriving_spim_app/pages/profile/update_profile.dart' as _i84;
 import 'package:edriving_spim_app/pages/promotions/multilevel_page.dart'
-    as _i50;
+    as _i49;
 import 'package:edriving_spim_app/pages/promotions/promotions_page.dart'
     as _i63;
 import 'package:edriving_spim_app/pages/register/register_form.dart' as _i68;
@@ -107,8 +107,8 @@ import 'package:edriving_spim_app/pages/schedule/student_location.dart' as _i46;
 import 'package:edriving_spim_app/pages/schedule/trainer_schedule.dart' as _i83;
 import 'package:edriving_spim_app/pages/settings/change_password.dart' as _i16;
 import 'package:edriving_spim_app/pages/student/students.dart' as _i79;
-import 'package:edriving_spim_app/pages/thumbin/mifare.dart' as _i49;
-import 'package:edriving_spim_app/pages/thumbin/mykad.dart' as _i51;
+import 'package:edriving_spim_app/pages/thumbin/mifare.dart' as _i51;
+import 'package:edriving_spim_app/pages/thumbin/mykad.dart' as _i50;
 import 'package:edriving_spim_app/pages/vclub/cart.dart' as _i14;
 import 'package:edriving_spim_app/pages/vclub/checkout.dart' as _i19;
 import 'package:edriving_spim_app/pages/vclub/edit_cart.dart' as _i15;
@@ -572,22 +572,12 @@ abstract class $RootRouter extends _i89.RootStackRouter {
         child: const _i48.MerchantProfile(),
       );
     },
-    MiFare.name: (routeData) {
-      final args = routeData.argsAs<MiFareArgs>();
-      return _i89.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: _i49.MiFare(
-          key: args.key,
-          groupId: args.groupId,
-        ),
-      );
-    },
     Multilevel.name: (routeData) {
       final args = routeData.argsAs<MultilevelArgs>(
           orElse: () => const MultilevelArgs());
       return _i89.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i50.Multilevel(
+        child: _i49.Multilevel(
           key: args.key,
           feed: args.feed,
           appVersion: args.appVersion,
@@ -597,7 +587,18 @@ abstract class $RootRouter extends _i89.RootStackRouter {
     MyKad.name: (routeData) {
       return _i89.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i51.MyKad(),
+        child: const _i50.MyKad(),
+      );
+    },
+    Nfc.name: (routeData) {
+      final args = routeData.argsAs<NfcArgs>();
+      return _i89.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i51.Nfc(
+          key: args.key,
+          textByte: args.textByte,
+          groupId: args.groupId,
+        ),
       );
     },
     OrderList.name: (routeData) {
@@ -2503,44 +2504,7 @@ class MerchantProfile extends _i89.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i49.MiFare]
-class MiFare extends _i89.PageRouteInfo<MiFareArgs> {
-  MiFare({
-    _i90.Key? key,
-    required dynamic groupId,
-    List<_i89.PageRouteInfo>? children,
-  }) : super(
-          MiFare.name,
-          args: MiFareArgs(
-            key: key,
-            groupId: groupId,
-          ),
-          initialChildren: children,
-        );
-
-  static const String name = 'MiFare';
-
-  static const _i89.PageInfo<MiFareArgs> page = _i89.PageInfo<MiFareArgs>(name);
-}
-
-class MiFareArgs {
-  const MiFareArgs({
-    this.key,
-    required this.groupId,
-  });
-
-  final _i90.Key? key;
-
-  final dynamic groupId;
-
-  @override
-  String toString() {
-    return 'MiFareArgs{key: $key, groupId: $groupId}';
-  }
-}
-
-/// generated route for
-/// [_i50.Multilevel]
+/// [_i49.Multilevel]
 class Multilevel extends _i89.PageRouteInfo<MultilevelArgs> {
   Multilevel({
     _i90.Key? key,
@@ -2583,7 +2547,7 @@ class MultilevelArgs {
 }
 
 /// generated route for
-/// [_i51.MyKad]
+/// [_i50.MyKad]
 class MyKad extends _i89.PageRouteInfo<void> {
   const MyKad({List<_i89.PageRouteInfo>? children})
       : super(
@@ -2594,6 +2558,48 @@ class MyKad extends _i89.PageRouteInfo<void> {
   static const String name = 'MyKad';
 
   static const _i89.PageInfo<void> page = _i89.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i51.Nfc]
+class Nfc extends _i89.PageRouteInfo<NfcArgs> {
+  Nfc({
+    _i90.Key? key,
+    required dynamic textByte,
+    required dynamic groupId,
+    List<_i89.PageRouteInfo>? children,
+  }) : super(
+          Nfc.name,
+          args: NfcArgs(
+            key: key,
+            textByte: textByte,
+            groupId: groupId,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'Nfc';
+
+  static const _i89.PageInfo<NfcArgs> page = _i89.PageInfo<NfcArgs>(name);
+}
+
+class NfcArgs {
+  const NfcArgs({
+    this.key,
+    required this.textByte,
+    required this.groupId,
+  });
+
+  final _i90.Key? key;
+
+  final dynamic textByte;
+
+  final dynamic groupId;
+
+  @override
+  String toString() {
+    return 'NfcArgs{key: $key, textByte: $textByte, groupId: $groupId}';
+  }
 }
 
 /// generated route for

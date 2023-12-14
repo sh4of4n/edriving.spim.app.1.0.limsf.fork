@@ -145,7 +145,7 @@ class HomeTopMenuState extends State<HomeTopMenu> {
             ),
           ),
           Container(
-            margin: const EdgeInsets.fromLTRB(20, 140, 20, 0),
+            margin: const EdgeInsets.fromLTRB(20, 130, 20, 0),
             padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
             height: 170,
             decoration: BoxDecoration(

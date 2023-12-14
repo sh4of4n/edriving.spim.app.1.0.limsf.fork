@@ -10,15 +10,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
 
 @RoutePage()
-class MiFare extends StatefulWidget {
+class Nfc extends StatefulWidget {
+  final textByte;
   final groupId;
-  const MiFare({super.key, required this.groupId});
+  const Nfc({super.key, required this.textByte, required this.groupId});
 
   @override
-  State<MiFare> createState() => _MiFareState();
+  State<Nfc> createState() => _NfcState();
 }
 
-class _MiFareState extends State<MiFare> {
+class _NfcState extends State<Nfc> {
   final primaryColor = ColorConstant.primaryColor;
   final vehicleRepo = VehicleRepo();
   final formKey = GlobalKey<FormState>();
@@ -112,182 +113,182 @@ class _MiFareState extends State<MiFare> {
                   Text(AppLocalizations.of(context)!.translate('miFare_lbl')),
             ),
             backgroundColor: Colors.transparent,
-            body: Padding(
-              padding:
-                  EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(600)),
-              child: Center(
-                child: Form(
-                  key: formKey,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                             Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(16.0, 8, 16, 8),
-                                child: InkWell(
-                                  child: Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(0, 3, 0, 3),
-                                    child: Card(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(20.0),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            Image.asset(
-                                              myImage.mifareimg,
-                                              height: 150,
-                                            ),
-                                            SizedBox(
-                                              height: 150.h,
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                const Text(
-                                                  'Vehicle: ',
-                                                  style: TextStyle(
-                                                    fontSize: 15,
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: 50.w,
-                                                ),
-                                                haveData?
-                                                  Expanded(
-                                                  flex: 2,
-                                                  child: TextFormField(
-                                                    style: const TextStyle(
-                                                        color: Colors.black,
-                                                        // fontWeight: FontWeight.bold,
-                                                        fontSize: 15),
-                                                    controller:
-                                                        vehicleController,
-                                                    focusNode: vehicleFocus,
-                                                    textInputAction:
-                                                        TextInputAction.next,
-                                                    readOnly: true,
-                                                    decoration: InputDecoration(
-                                                      focusedErrorBorder:
-                                                          const OutlineInputBorder(
-                                                              borderSide:
-                                                                  BorderSide(
-                                                                      width: 3,
-                                                                      color: Colors
-                                                                          .red)),
-                                                      focusedBorder:
-                                                          const OutlineInputBorder(
-                                                              borderSide: BorderSide(
-                                                                  width: 3,
-                                                                  color: Colors
-                                                                      .blue)),
-                                                      enabledBorder:
-                                                          const OutlineInputBorder(
-                                                              borderSide: BorderSide(
-                                                                  width: 1,
-                                                                  color: Colors
-                                                                      .black)),
-                                                      contentPadding:
-                                                          const EdgeInsets.all(
-                                                              5.0),
-                                                      hintStyle: TextStyle(
-                                                        color: primaryColor,
-                                                      ),
-                                                      labelStyle:
-                                                          const TextStyle(
-                                                        color: Colors.black,
-                                                      ),
-                                                      labelText: message,
-                                                    ),
-                                                  ),
-                                                )
-                                                : Expanded(
-                                                  flex: 2,
-                                                  child: TextFormField(
-                                                    style: const TextStyle(
-                                                        color: Colors.black,
-                                                        // fontWeight: FontWeight.bold,
-                                                        fontSize: 15),
-                                                    controller:
-                                                        vehicleController,
-                                                    focusNode: vehicleFocus,
-                                                    textInputAction:
-                                                        TextInputAction.next,
-                                                    readOnly: true,
-                                                    decoration: InputDecoration(
-                                                      focusedErrorBorder:
-                                                          const OutlineInputBorder(
-                                                              borderSide:
-                                                                  BorderSide(
-                                                                      width: 3,
-                                                                      color: Colors
-                                                                          .red)),
-                                                      focusedBorder:
-                                                          const OutlineInputBorder(
-                                                              borderSide: BorderSide(
-                                                                  width: 3,
-                                                                  color: Colors
-                                                                      .blue)),
-                                                      enabledBorder:
-                                                          const OutlineInputBorder(
-                                                              borderSide: BorderSide(
-                                                                  width: 1,
-                                                                  color: Colors
-                                                                      .black)),
-                                                      contentPadding:
-                                                          const EdgeInsets.all(
-                                                              5.0),
-                                                      hintStyle: TextStyle(
-                                                        color: primaryColor,
-                                                      ),
-                                                      labelStyle:
-                                                          const TextStyle(
-                                                        color: Colors.black,
-                                                      ),
-                                                      labelText:
-                                                          ' Please select vehicle',
-                                                    ),
-                                                    onTap: () {
-                                                      _showMultiSelect();
-                                                    },
-                                                    validator: (value) {
-                                                      if (value!.isEmpty) {
-                                                        return 'Please select group id';
-                                                      }
-                                                      return null;
-                                                    },
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: 150.h,
-                                            ),
-                                            ElevatedButton(
-                                                onPressed: () {
-                                                  setState(() {
-                                                    context.router.push(
-                                                        AddClass(
-                                                            myKadDetails: ''));
-                                                  });
-                                                },
-                                                child: const Text('Proceed')
-                                            ),
-                                            SizedBox(
-                                              height: 100.h,
-                                            ),
-                                          ],
-                                        ),
+            body: Center(
+              child: Form(
+                key: formKey,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(16.0, 8, 16, 8),
+                        child: InkWell(
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 3, 0, 3),
+                            child: Card(
+                              child: Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Image.asset(
+                                      myImage.mifareimg,
+                                      height: 150,
+                                    ),
+                                    SizedBox(
+                                      height: 150.h,
+                                    ),
+                                    Text(
+                                      widget.textByte,
+                                      style: const TextStyle(
+                                        fontSize: 15,
                                       ),
                                     ),
-                                  ),
+                                    SizedBox(
+                                      height: 150.h,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        const Text(
+                                          'Vehicle: ',
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 50.w,
+                                        ),
+                                        haveData
+                                            ? Expanded(
+                                                flex: 2,
+                                                child: TextFormField(
+                                                  style: const TextStyle(
+                                                      color: Colors.black,
+                                                      // fontWeight: FontWeight.bold,
+                                                      fontSize: 15),
+                                                  controller: vehicleController,
+                                                  focusNode: vehicleFocus,
+                                                  textInputAction:
+                                                      TextInputAction.next,
+                                                  readOnly: true,
+                                                  decoration: InputDecoration(
+                                                    focusedErrorBorder:
+                                                        const OutlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                                    width: 3,
+                                                                    color: Colors
+                                                                        .red)),
+                                                    focusedBorder:
+                                                        const OutlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                                    width: 3,
+                                                                    color: Colors
+                                                                        .blue)),
+                                                    enabledBorder:
+                                                        const OutlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                                    width: 1,
+                                                                    color: Colors
+                                                                        .black)),
+                                                    contentPadding:
+                                                        const EdgeInsets.all(
+                                                            5.0),
+                                                    hintStyle: TextStyle(
+                                                      color: primaryColor,
+                                                    ),
+                                                    labelStyle: const TextStyle(
+                                                      color: Colors.black,
+                                                    ),
+                                                    labelText: message,
+                                                  ),
+                                                ),
+                                              )
+                                            : Expanded(
+                                                flex: 2,
+                                                child: TextFormField(
+                                                  style: const TextStyle(
+                                                      color: Colors.black,
+                                                      // fontWeight: FontWeight.bold,
+                                                      fontSize: 15),
+                                                  controller: vehicleController,
+                                                  focusNode: vehicleFocus,
+                                                  textInputAction:
+                                                      TextInputAction.next,
+                                                  readOnly: true,
+                                                  decoration: InputDecoration(
+                                                    focusedErrorBorder:
+                                                        const OutlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                                    width: 3,
+                                                                    color: Colors
+                                                                        .red)),
+                                                    focusedBorder:
+                                                        const OutlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                                    width: 3,
+                                                                    color: Colors
+                                                                        .blue)),
+                                                    enabledBorder:
+                                                        const OutlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide(
+                                                                    width: 1,
+                                                                    color: Colors
+                                                                        .black)),
+                                                    contentPadding:
+                                                        const EdgeInsets.all(
+                                                            5.0),
+                                                    hintStyle: TextStyle(
+                                                      color: primaryColor,
+                                                    ),
+                                                    labelStyle: const TextStyle(
+                                                      color: Colors.black,
+                                                    ),
+                                                    labelText:
+                                                        ' Please select vehicle',
+                                                  ),
+                                                  onTap: () {
+                                                    _showMultiSelect();
+                                                  },
+                                                  validator: (value) {
+                                                    if (value!.isEmpty) {
+                                                      return 'Please select group id';
+                                                    }
+                                                    return null;
+                                                  },
+                                                ),
+                                              ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 150.h,
+                                    ),
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            context.router.push(
+                                                AddClass(myKadDetails: ''));
+                                          });
+                                        },
+                                        child: const Text('Proceed')),
+                                    SizedBox(
+                                      height: 100.h,
+                                    ),
+                                  ],
                                 ),
                               ),
-                      ],
-                    ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),

@@ -1,8 +1,12 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:edriving_spim_app/common_library/services/repository/auth_repository.dart';
 import 'package:edriving_spim_app/common_library/services/repository/vehicle_repository.dart';
 import 'package:edriving_spim_app/common_library/utils/app_localizations.dart';
 import 'package:edriving_spim_app/common_library/utils/custom_dialog.dart';
+import 'package:edriving_spim_app/pages/class/nfc_session.dart';
 import 'package:edriving_spim_app/pages/vehicle/multiselect.dart';
 import 'package:edriving_spim_app/router.gr.dart';
 import 'package:edriving_spim_app/utils/constants.dart';
@@ -12,6 +16,9 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
+import 'package:nfc_manager/nfc_manager.dart';
+import 'package:nfc_manager/platform_tags.dart';
+import 'package:provider/provider.dart';
 
 @RoutePage()
 class AddClass extends StatefulWidget {
@@ -26,6 +33,8 @@ class AddClass extends StatefulWidget {
 }
 
 class _AddClassState extends State<AddClass> {
+  ValueNotifier<dynamic> result = ValueNotifier(null);
+
   final primaryColor = ColorConstant.primaryColor;
   DateTime today = DateTime.now();
   final authRepo = AuthRepo();
@@ -41,9 +50,12 @@ class _AddClassState extends State<AddClass> {
   List<String> courseCode = [];
   List<String> selectedGroup = [];
   List<String> selectedCode = [];
+  String textByte = '';
   String groupIdTxt = '';
   String status = '';
   String readMyKad = '';
+  String title = 'Ready to Scan';
+  String message = 'Hold your device near the item';
   int year = 0;
   int month = 0;
   int day = 0;
@@ -74,6 +86,91 @@ class _AddClassState extends State<AddClass> {
     }
 
     return result.message;
+  }
+
+  void tagRead() {
+    NfcManager.instance.isAvailable().then((isAvailable) {
+      if (isAvailable) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Ready to Scan'),
+              content: const Text('Hold your device near the item'),
+              actions: [
+                TextButton(
+                  child: const Text('Cancel'),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ],
+            );
+          },
+        );
+        NfcManager.instance.startSession(
+          onDiscovered: (NfcTag tag) async {
+            result.value = tag.data;
+
+            Ndef? ndef = Ndef.from(tag);
+            final languageCodeLength =
+                ndef!.cachedMessage!.records[0].payload.first;
+            final textBytes = ndef.cachedMessage!.records[0].payload
+                .sublist(1 + languageCodeLength);
+            print(utf8.decode(textBytes));
+            NfcManager.instance.stopSession();
+            setState(() {
+              textByte = utf8.decode(textBytes);
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text('Success'),
+                    content: const Text('Tag Read Completed'),
+                    actions: [
+                      TextButton(
+                        child: const Text('Ok'),
+                        onPressed: () async {
+                          var groupid = groupIdController.text;
+                          await context.router.pop();
+                          if (!context.mounted) return;
+                          context.router.pop();
+                          context.router.push(Nfc(
+                            textByte: textByte,
+                            groupId: groupid));
+                        },
+                      )
+                    ],
+                  );
+                },
+              );
+            });
+          },
+          onError: (dynamic error) {
+            print('Error during NFC session: $error');
+            return error;
+          },
+        );
+      } else {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Error'),
+              content: const Text(
+                  'NFC is not available for this device or may be temporarily turned off.'),
+              actions: [
+                TextButton(
+                  child: const Text('GOT IT'),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ],
+            );
+          },
+        );
+      }
+    }).catchError((error) {
+      // Handle errors related to checking NFC availability
+      print('Error checking NFC availability: $error');
+    });
   }
 
   getCourseCode() async {
@@ -361,8 +458,8 @@ class _AddClassState extends State<AddClass> {
                                     });
                                   }
                                   try {
-                                    final result =
-                                        await platform.invokeMethod<String>('onReadMyKad');
+                                    final result = await platform
+                                        .invokeMethod<String>('onReadMyKad');
                                     setState(() {
                                       readMyKad = result.toString();
                                     });
@@ -431,9 +528,7 @@ class _AddClassState extends State<AddClass> {
                                   if (formKey.currentState!.validate()) {
                                     EasyLoading.dismiss();
                                     formKey.currentState!.save();
-                                    var groupid = groupIdController.text;
-                                    context.router
-                                        .push(MiFare(groupId: groupid));
+                                    tagRead();
                                   } else {
                                     EasyLoading.dismiss();
                                     if (groupIdController.text.isEmpty) {
@@ -461,7 +556,7 @@ class _AddClassState extends State<AddClass> {
                           SizedBox(
                             height: 50.h,
                           ),
-                          Text('Trainer details: '),
+                          const Text('Trainer details: '),
                           SizedBox(
                             height: 50.h,
                           ),

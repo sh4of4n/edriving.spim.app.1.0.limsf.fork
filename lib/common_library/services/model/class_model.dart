@@ -828,7 +828,7 @@ class CompleteClassList{
 		courseCode = json['course_code'] ?? '';
 		location = json['location'] ?? '';
 		theoryType = json['theory_type'] ?? '';
-		totalTime = json['total_time'] ?? '';
+		totalTime = json['total_time'] ?? '-';
 		kpp02CertNo = json['kpp02_cert_no'] ?? '';
 		kpp02IssueSjDate = json['kpp02_issue_sj_date'] ?? '';
 		kpp02Sjlprndate = json['kpp02_sjlprndate'] ?? '';
@@ -853,11 +853,11 @@ class CompleteClassList{
 		state = json['state'] ?? '';
 		city = json['city'] ?? '';
 		zip = json['zip'] ?? '';
-		emailAddr = json['email_addr'] ?? '';
-		handPhone = json['hand_phone'] ?? '';
-		homePhone = json['home_phone'] ?? '';
-		offPhone = json['off_phone'] ?? '';
-		off2Phone = json['off2_phone'] ?? '';
+		emailAddr = json['email_addr'] ?? '-';
+		handPhone = json['hand_phone'] ?? '-';
+		homePhone = json['home_phone'] ?? '-';
+		offPhone = json['off_phone'] ?? '-';
+		off2Phone = json['off2_phone'] ?? '-';
 		sex = json['sex'] ?? '';
 		race = json['race'] ?? '';
 		birthPl = json['birth_pl'] ?? '';
