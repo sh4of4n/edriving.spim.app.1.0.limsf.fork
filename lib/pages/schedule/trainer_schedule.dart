@@ -105,7 +105,53 @@ class _TrainerScheduleState extends State<TrainerSchedule> {
           });
         }
       }
-      await getSchedule(trnCode);
+      if (!context.mounted) return;
+      var response = await scheduleRepo.getTrainerSchedule(
+          context: context,
+          dateFrom: dateFrom,
+          dateTo: dateTo,
+          startIndex: _startIndex,
+          trnCode: trnCode,
+          noOfRecords: _noOfRecord);
+      if (response.isSuccess) {
+        setState(() {
+          for (var i = 0; i < response.data.length; i++) {
+            if (response.data[i].startDate != null) {
+              startDt = response.data[i].startDate;
+              endDt = response.data[i].endDate;
+            } else {
+              startDt = calendarController.selectedDate.toString();
+              endDt = calendarController.selectedDate.toString();
+            }
+            courseCode = response.data[i].courseCode ?? '-';
+            groupId = response.data[i].groupId ?? '-';
+            // subject = result.data[i].subject ?? 'No Subject';
+            studentIc = response.data[i].icNo ?? '-';
+            add1 = response.data[i].add1 ?? '-';
+            add2 = response.data[i].add2 ?? '';
+            add3 = response.data[i].add3 ?? '';
+            state = response.data[i].state ?? '-';
+            city = response.data[i].city ?? '-';
+            zip = response.data[i].zip ?? '-';
+            phnNo = response.data[i].phnNo ?? '-';
+            address = '$add1, $add2, $add3';
+            vehNo = response.data[i].vehNo ?? '-';
+            name = response.data[i].name ?? '-';
+            getAppointments(startDt, endDt, address, state, city, zip,
+                studentIc, phnNo, vehNo, name);
+          }
+        });
+        return response.data;
+      } else{
+        setState(() {
+          if (result.message == null) {
+            _message = 'No appointments today';
+          } else {
+            _message = result.message!;
+          }
+        });
+      }
+
       return result.data;
     } else {
       setState(() {
@@ -118,55 +164,6 @@ class _TrainerScheduleState extends State<TrainerSchedule> {
       });
       return message;
     }
-  }
-
-  getSchedule(String trnCode) async {
-    var result = await scheduleRepo.getTrainerSchedule(
-        context: context,
-        dateFrom: dateFrom,
-        dateTo: dateTo,
-        startIndex: _startIndex,
-        trnCode: trnCode,
-        noOfRecords: _noOfRecord);
-
-    if (result.isSuccess) {
-      setState(() {
-        for (var i = 0; i < result.data.length; i++) {
-          if (result.data[i].startDate != null) {
-            startDt = result.data[i].startDate;
-            endDt = result.data[i].endDate;
-          } else {
-            startDt = calendarController.selectedDate.toString();
-            endDt = calendarController.selectedDate.toString();
-          }
-          courseCode = result.data[i].courseCode ?? '-';
-          groupId = result.data[i].groupId ?? '-';
-          // subject = result.data[i].subject ?? 'No Subject';
-          studentIc = result.data[i].icNo ?? '-';
-          add1 = result.data[i].add1 ?? '-';
-          add2 = result.data[i].add2 ?? '';
-          add3 = result.data[i].add3 ?? '';
-          state = result.data[i].state ?? '-';
-          city = result.data[i].city ?? '-';
-          zip = result.data[i].zip ?? '-';
-          phnNo = result.data[i].phnNo ?? '-';
-          address = '$add1, $add2, $add3';
-          vehNo = result.data[i].vehNo ?? '-';
-          name = result.data[i].name ?? '-';
-          getAppointments(startDt, endDt, address, state, city, zip, studentIc,
-              phnNo, vehNo, name);
-        }
-      });
-      return result.data;
-    }
-    setState(() {
-      if (result.message == null) {
-        _message = 'No appointments today';
-      } else {
-        _message = result.message!;
-      }
-    });
-    return _message;
   }
 
   _getDTestByCode(String icNo) async {
@@ -212,18 +209,20 @@ class _TrainerScheduleState extends State<TrainerSchedule> {
       });
     }
 
-    if(results.isSuccess){
+    if (results.isSuccess) {
       setState(() {
         for (var i = 0; i < response.data.length; i++) {
           totalPrice = results.data[i].tranTotal;
           paidAmount = results.data[i].payAmount;
           checking = double.parse(totalPrice) - double.parse(paidAmount);
-          if (checking == 0){
+          if (checking == 0) {
             paymentStatus = 'Paid';
           } else if (checking > 0) {
-            paymentStatus = 'Still having ${checking.toStringAsFixed(2)} not paid';
+            paymentStatus =
+                'Still having ${checking.toStringAsFixed(2)} not paid';
           } else if (checking < 0) {
-            paymentStatus = 'User had paid extra ${checking.abs().toStringAsFixed(2)}';
+            paymentStatus =
+                'User had paid extra ${checking.abs().toStringAsFixed(2)}';
           }
         }
       });
@@ -307,8 +306,7 @@ class _TrainerScheduleState extends State<TrainerSchedule> {
   @override
   void initState() {
     super.initState();
-    getTrainerInfo();
-    _getTrainer = getSchedule(trnCode);
+    _getTrainer = getTrainerInfo();
 
     setState(() {
       selectedDateController.text = DateFormat('yyyy-MM-dd').format(
@@ -399,8 +397,7 @@ class _TrainerScheduleState extends State<TrainerSchedule> {
       meetings.clear();
       dateFrom = cupertinoDob;
       dateTo = cupertinoDob;
-      getTrainerInfo();
-      _getTrainer = getSchedule(trnCode);
+      _getTrainer = getTrainerInfo();
     });
   }
 
@@ -562,21 +559,21 @@ class _TrainerScheduleState extends State<TrainerSchedule> {
                                       textAlign: TextAlign.center,
                                     ),
                                   ),
-                                  noData?
-                                  Text(
-                                    message,
-                                    style: const TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  ):Text(
-                                    snapshot.data,
-                                    style: const TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  
+                                  noData
+                                      ? Text(
+                                          message,
+                                          style: const TextStyle(
+                                              fontSize: 20,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
+                                        )
+                                      : Text(
+                                          snapshot.data,
+                                          style: const TextStyle(
+                                              fontSize: 20,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
+                                        ),
                                   SizedBox(
                                     height: 60.h,
                                   ),
@@ -602,7 +599,7 @@ class _TrainerScheduleState extends State<TrainerSchedule> {
                                           calendarController.backward!();
                                           refreshData();
                                         },
-                                        label: const Text('Previous Date'),
+                                        label: const Text('Previous'),
                                       ),
                                       SizedBox(
                                         width: 200.w,
@@ -625,7 +622,7 @@ class _TrainerScheduleState extends State<TrainerSchedule> {
                                           calendarController.forward!();
                                           refreshData();
                                         },
-                                        label: const Text('Next Date'),
+                                        label: const Text('Next'),
                                       ),
                                     ],
                                   ),
@@ -701,7 +698,7 @@ class _TrainerScheduleState extends State<TrainerSchedule> {
                                             calendarController.backward!();
                                             refreshData();
                                           },
-                                          label: const Text('Previous Date'),
+                                          label: const Text('Previous'),
                                         ),
                                         SizedBox(
                                           width: 200.w,
@@ -722,7 +719,7 @@ class _TrainerScheduleState extends State<TrainerSchedule> {
                                             calendarController.forward!();
                                             refreshData();
                                           },
-                                          label: const Text('Next Date'),
+                                          label: const Text('Next'),
                                         ),
                                       ],
                                     ),
@@ -790,7 +787,6 @@ class _TrainerScheduleState extends State<TrainerSchedule> {
                                                     times[0].trim();
                                                 String endTime =
                                                     times[1].trim();
-                                                    
 
                                                 await _getDTestByCode(icNo);
                                                 if (!context.mounted) {
@@ -811,7 +807,8 @@ class _TrainerScheduleState extends State<TrainerSchedule> {
                                                                 FontWeight
                                                                     .bold),
                                                       ),
-                                                      content: SingleChildScrollView(
+                                                      content:
+                                                          SingleChildScrollView(
                                                         child: Column(
                                                             crossAxisAlignment:
                                                                 CrossAxisAlignment
@@ -823,7 +820,7 @@ class _TrainerScheduleState extends State<TrainerSchedule> {
                                                                   'Phone Number: $phoneNumber \n'),
                                                               Text(
                                                                   "Student's Ic: $icNo\n"),
-                                                      
+
                                                               // '${widget.trnInfo.trnName ?? ''}',
                                                               Text(
                                                                   "Trainer's Name:  $trnName \n"),
@@ -841,9 +838,9 @@ class _TrainerScheduleState extends State<TrainerSchedule> {
                                                                   'Start Time: $startTime\n'
                                                                   'End Time: $endTime\n'),
                                                               Text(
-                                                                'Total Price: $totalPrice\n'
-                                                                'Paid Amount: $paidAmount\n'
-                                                                'Payment Status: $paymentStatus\n'),
+                                                                  'Total Price: $totalPrice\n'
+                                                                  'Paid Amount: $paidAmount\n'
+                                                                  'Payment Status: $paymentStatus\n'),
                                                               Text(
                                                                   'Address: \n$address, $state, $city, $zip \n'),
                                                               // Text(
@@ -865,11 +862,9 @@ class _TrainerScheduleState extends State<TrainerSchedule> {
                                                                           context:
                                                                               context,
                                                                           builder:
-                                                                              (BuildContext
-                                                                                  context) {
+                                                                              (BuildContext context) {
                                                                             return AlertDialog(
-                                                                              content:
-                                                                                  const Text('Please require admin to add a phone number to this student'),
+                                                                              content: const Text('Please require admin to add a phone number to this student'),
                                                                               actions: <Widget>[
                                                                                 TextButton(
                                                                                   onPressed: () {
@@ -882,11 +877,10 @@ class _TrainerScheduleState extends State<TrainerSchedule> {
                                                                           },
                                                                         );
                                                                       } else {
-                                                                        var phoneNo =
-                                                                            phoneNumber.replaceAll(
-                                                                                "tel_hp:",
-                                                                                "");
-                                                      
+                                                                        var phoneNo = phoneNumber.replaceAll(
+                                                                            "tel_hp:",
+                                                                            "");
+
                                                                         final Uri
                                                                             telLaunchUri =
                                                                             Uri(
@@ -899,11 +893,9 @@ class _TrainerScheduleState extends State<TrainerSchedule> {
                                                                           context:
                                                                               context,
                                                                           builder:
-                                                                              (BuildContext
-                                                                                  context) {
+                                                                              (BuildContext context) {
                                                                             return AlertDialog(
-                                                                              content:
-                                                                                  const Text('Do you sure you want to call this number?'),
+                                                                              content: const Text('Do you sure you want to call this number?'),
                                                                               actions: <Widget>[
                                                                                 TextButton(
                                                                                   onPressed: () {
@@ -926,9 +918,8 @@ class _TrainerScheduleState extends State<TrainerSchedule> {
                                                                     icon: const Icon(
                                                                         Icons
                                                                             .phone),
-                                                                    label:
-                                                                        const Text(
-                                                                            'Call'),
+                                                                    label: const Text(
+                                                                        'Call'),
                                                                   ),
                                                                   SizedBox(
                                                                     width: 50.w,

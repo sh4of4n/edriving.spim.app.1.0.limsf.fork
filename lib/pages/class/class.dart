@@ -71,13 +71,13 @@ class _ClassState extends State<Class> {
             trnCode = result.data[i].trnCode;
             trnName = result.data[i].trnName;
             icNo = result.data[i].nric;
-            groupId = result.data[i].spimGroupId;
+            groupId = result.data[i].spimGroupId.substring(0, result.data[i].spimGroupId.length - 1);
           });
         }
       }
-      await getTodayClass(groupId, trnCode, icNo);
-      await getCompleteClass(groupId, trnCode, icNo);
-      await getProgressClass(groupId, trnCode, icNo);
+      await getTodayClass(groupId, trnCode);
+      await getCompleteClass(groupId, trnCode);
+      await getProgressClass(groupId, trnCode);
       EasyLoading.dismiss();
       setState(() {
         _isLoading = false;
@@ -98,12 +98,12 @@ class _ClassState extends State<Class> {
     }
   }
 
-  getTodayClass(String groupId, String trnCode, String icNo) async {
+  getTodayClass(String groupId, String trnCode) async {
     var result = await classRepo.getTodayClass(
         context: context,
         groupId: groupId,
         trnCode: trnCode,
-        icNo: icNo,
+        icNo: '',
         startIndex: _startIndex,
         noOfRecords: _noOfRecord);
 
@@ -126,12 +126,12 @@ class _ClassState extends State<Class> {
     return todayMessage;
   }
 
-  getProgressClass(String groupId, String trnCode, String icNo) async {
+  getProgressClass(String groupId, String trnCode) async {
     var result = await classRepo.getProgressClass(
         context: context,
         groupId: groupId,
         trnCode: trnCode,
-        icNo: icNo,
+        icNo: '',
         startIndex: _startIndex,
         noOfRecords: _noOfRecord,
         keywordSearch: '');
@@ -155,12 +155,12 @@ class _ClassState extends State<Class> {
     return progressMessage;
   }
 
-  getCompleteClass(String groupId, String trnCode, String icNo) async {
+  getCompleteClass(String groupId, String trnCode) async {
     var result = await classRepo.getCompleteClass(
       context: context,
       groupId: groupId,
       trnCode: trnCode,
-      icNo: icNo,
+      icNo: '',
       startIndex: _startIndex,
       noOfRecords: _noOfRecord,
       keywordSearch: ''

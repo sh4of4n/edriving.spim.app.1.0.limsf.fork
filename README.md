@@ -1,4 +1,10 @@
 # edriving_spim_app
+2023-12-15 v6.2.8
+ePandu WS v6.2.34
+
+- Fixed trainer schedule click in did not show at the first time
+- Fixed today class, progress class and history class
+
 2023-12-14 v6.2.7
 ePandu WS v6.2.34
 
