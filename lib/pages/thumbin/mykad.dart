@@ -8,7 +8,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 @RoutePage()
 class MyKad extends StatefulWidget {
-  const MyKad({super.key});
+  final groupId;
+  final courseCode;
+  const MyKad({
+    super.key,
+    required this.courseCode,
+    required this.groupId
+    });
 
   @override
   State<MyKad> createState() => _MyKadState();
@@ -19,7 +25,12 @@ class _MyKadState extends State<MyKad> {
   final primaryColor = ColorConstant.primaryColor;
   static const platform = MethodChannel('samples.flutter.dev/mykad');
   String readMyKad = '';
+  List<String> cardDetails = [];
   String fingerPrintVerify = '';
+  String name = '';
+  String icNo = '';
+  String birthDate = '';
+  String address = '';
 
   @override
   Widget build(BuildContext context) {
@@ -78,6 +89,11 @@ class _MyKadState extends State<MyKad> {
                                       } on PlatformException catch (e) {
                                         setState(() {
                                           readMyKad = "'${e.message}'";
+                                          // cardDetails = readMyKad.split(',');
+                                          // name = cardDetails[0].trim();
+                                          // icNo = cardDetails[1].trim();
+                                          // birthDate = cardDetails[2].trim();
+                                          // address = cardDetails[3].trim();
                                         });
                                       }
                                   },
@@ -118,13 +134,16 @@ class _MyKadState extends State<MyKad> {
                                 ElevatedButton(
                                   onPressed: (){
                                     setState(() {
-                                      if(fingerPrintVerify == "Fingerprint matches fingerprint in MyKad"){
+                                      // if(fingerPrintVerify == "Fingerprint matches fingerprint in MyKad"){
                                         context.router.push(AddClass(
-                                          myKadDetails: readMyKad
+                                          myKadDetails: readMyKad,
+                                          groupId: widget.groupId,
+                                          courseCode: widget.courseCode,
+                                          fingerPrnStatus: 'Y',
                                         ));
-                                      } else {
+                                      // } else {
                                         
-                                      }
+                                      // }
                                     });
                                   }, 
                                   child: const Text('Thumb In')

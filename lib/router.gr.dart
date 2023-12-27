@@ -138,6 +138,9 @@ abstract class $RootRouter extends _i89.RootStackRouter {
         child: _i2.AddClass(
           key: args.key,
           myKadDetails: args.myKadDetails,
+          courseCode: args.courseCode,
+          groupId: args.groupId,
+          fingerPrnStatus: args.fingerPrnStatus,
         ),
       );
     },
@@ -585,9 +588,14 @@ abstract class $RootRouter extends _i89.RootStackRouter {
       );
     },
     MyKad.name: (routeData) {
+      final args = routeData.argsAs<MyKadArgs>();
       return _i89.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i50.MyKad(),
+        child: _i50.MyKad(
+          key: args.key,
+          courseCode: args.courseCode,
+          groupId: args.groupId,
+        ),
       );
     },
     Nfc.name: (routeData) {
@@ -598,6 +606,7 @@ abstract class $RootRouter extends _i89.RootStackRouter {
           key: args.key,
           textByte: args.textByte,
           groupId: args.groupId,
+          courseCode: args.courseCode,
         ),
       );
     },
@@ -978,12 +987,18 @@ class AddClass extends _i89.PageRouteInfo<AddClassArgs> {
   AddClass({
     _i90.Key? key,
     required dynamic myKadDetails,
+    required dynamic courseCode,
+    required dynamic groupId,
+    required dynamic fingerPrnStatus,
     List<_i89.PageRouteInfo>? children,
   }) : super(
           AddClass.name,
           args: AddClassArgs(
             key: key,
             myKadDetails: myKadDetails,
+            courseCode: courseCode,
+            groupId: groupId,
+            fingerPrnStatus: fingerPrnStatus,
           ),
           initialChildren: children,
         );
@@ -998,15 +1013,24 @@ class AddClassArgs {
   const AddClassArgs({
     this.key,
     required this.myKadDetails,
+    required this.courseCode,
+    required this.groupId,
+    required this.fingerPrnStatus,
   });
 
   final _i90.Key? key;
 
   final dynamic myKadDetails;
 
+  final dynamic courseCode;
+
+  final dynamic groupId;
+
+  final dynamic fingerPrnStatus;
+
   @override
   String toString() {
-    return 'AddClassArgs{key: $key, myKadDetails: $myKadDetails}';
+    return 'AddClassArgs{key: $key, myKadDetails: $myKadDetails, courseCode: $courseCode, groupId: $groupId, fingerPrnStatus: $fingerPrnStatus}';
   }
 }
 
@@ -2548,16 +2572,44 @@ class MultilevelArgs {
 
 /// generated route for
 /// [_i50.MyKad]
-class MyKad extends _i89.PageRouteInfo<void> {
-  const MyKad({List<_i89.PageRouteInfo>? children})
-      : super(
+class MyKad extends _i89.PageRouteInfo<MyKadArgs> {
+  MyKad({
+    _i90.Key? key,
+    required dynamic courseCode,
+    required dynamic groupId,
+    List<_i89.PageRouteInfo>? children,
+  }) : super(
           MyKad.name,
+          args: MyKadArgs(
+            key: key,
+            courseCode: courseCode,
+            groupId: groupId,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'MyKad';
 
-  static const _i89.PageInfo<void> page = _i89.PageInfo<void>(name);
+  static const _i89.PageInfo<MyKadArgs> page = _i89.PageInfo<MyKadArgs>(name);
+}
+
+class MyKadArgs {
+  const MyKadArgs({
+    this.key,
+    required this.courseCode,
+    required this.groupId,
+  });
+
+  final _i90.Key? key;
+
+  final dynamic courseCode;
+
+  final dynamic groupId;
+
+  @override
+  String toString() {
+    return 'MyKadArgs{key: $key, courseCode: $courseCode, groupId: $groupId}';
+  }
 }
 
 /// generated route for
@@ -2567,6 +2619,7 @@ class Nfc extends _i89.PageRouteInfo<NfcArgs> {
     _i90.Key? key,
     required dynamic textByte,
     required dynamic groupId,
+    required dynamic courseCode,
     List<_i89.PageRouteInfo>? children,
   }) : super(
           Nfc.name,
@@ -2574,6 +2627,7 @@ class Nfc extends _i89.PageRouteInfo<NfcArgs> {
             key: key,
             textByte: textByte,
             groupId: groupId,
+            courseCode: courseCode,
           ),
           initialChildren: children,
         );
@@ -2588,6 +2642,7 @@ class NfcArgs {
     this.key,
     required this.textByte,
     required this.groupId,
+    required this.courseCode,
   });
 
   final _i90.Key? key;
@@ -2596,9 +2651,11 @@ class NfcArgs {
 
   final dynamic groupId;
 
+  final dynamic courseCode;
+
   @override
   String toString() {
-    return 'NfcArgs{key: $key, textByte: $textByte, groupId: $groupId}';
+    return 'NfcArgs{key: $key, textByte: $textByte, groupId: $groupId, courseCode: $courseCode}';
   }
 }
 

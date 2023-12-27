@@ -1039,3 +1039,70 @@ class CompleteClassList{
     return data;
   }
 }
+
+class SaveStuPrac{
+  String? wsCodeCrypt;
+  String? caUid;
+  String? caPwd;
+  String? merchantNo;
+  String? icNo;
+  String? groupId;
+  String? startTime;
+  String? endTime;
+  String? courseCode;
+  String? trandateString;
+  String? trnCode;
+  String? byFingerPrn;
+  String? dsCode;
+
+  SaveStuPrac({
+    this.wsCodeCrypt,
+      this.caUid,
+      this.caPwd,
+      this.merchantNo,
+      this.icNo,
+      this.groupId,
+      this.startTime,
+      this.endTime,
+      this.courseCode,
+      this.trandateString,
+      this.trnCode,
+      this.byFingerPrn,
+      this.dsCode
+  });
+
+  SaveStuPrac.fromJson(Map<String, dynamic> json) {
+    wsCodeCrypt = json['wsCodeCrypt'];
+    caUid = json['caUid'];
+    caPwd = json['caPwd'];
+    merchantNo = json['merchantNo'];
+    icNo = json['icNo'];
+    groupId = json['groupId'];
+    startTime = json['startTime'];
+    endTime = json['endTime'];
+    courseCode = json['courseCode'];
+    trandateString = json['trandateString'];
+    trnCode = json['trnCode'];
+    byFingerPrn = json['byFingerPrn'];
+    dsCode = json['dsCode'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['wsCodeCrypt'] = wsCodeCrypt;
+    data['caUid'] = caUid;
+    data['caPwd'] = caPwd;
+    data['merchantNo'] = merchantNo;
+    data['icNo'] = icNo;
+    data['groupId'] = groupId;
+    data['startTime'] = startTime;
+    data['endTime'] = endTime;
+    data['courseCode'] = courseCode;
+    data['trandateString'] = trandateString;
+    data['trnCode'] = trnCode;
+    data['byFingerPrn'] = byFingerPrn;
+    data['dsCode'] = dsCode;
+    return data;
+  }
+
+}

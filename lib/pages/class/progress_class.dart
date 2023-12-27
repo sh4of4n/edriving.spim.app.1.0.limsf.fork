@@ -33,11 +33,8 @@ class _ProgressClassState extends State<ProgressClass> {
 
   String convertTimeToAMPM(String timeString) {
     try {
-      // Parse the time string to a DateTime object
-      DateTime dateTime = DateTime.parse('2022-01-01 $timeString');
-
-      // Format the DateTime object to display only the time in AM/PM format
-      String formattedTime = DateFormat('h:mm a').format(dateTime);
+      // Format the time string to display only the time in AM/PM format
+      String formattedTime = DateFormat('h:mm a').format(DateFormat('HH:mm:ss').parse(timeString));
 
       return formattedTime;
     } catch (e) {
@@ -96,7 +93,7 @@ class _ProgressClassState extends State<ProgressClass> {
                             height: 50.h,
                           ),
                           ListTile(
-                            title: Text('Trainer IC: ${item.icNo}'),
+                            title: Text('Student IC: ${item.icNo}'),
                             visualDensity: const VisualDensity(vertical: -2),
                           ),
                           SizedBox(

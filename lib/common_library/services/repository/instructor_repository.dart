@@ -14,7 +14,9 @@ class InstructorRepo{
   Future<Response> getTrainerList({
     required context,
     startIndex,
-    noOfRecords
+    noOfRecords,
+    groupId,
+    keywordSearch
     }) async {
     String? caUid = await localStorage.getCaUid();
     String? caPwd = await localStorage.getCaPwd();
@@ -24,7 +26,7 @@ class InstructorRepo{
     String? appId = appConfig.appId;
 
     String path =
-        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&appId=$appId&mLoginId=$mLoginId&deviceId=$deviceId&diCode=$diCode&startIndex=$startIndex&noOfRecords=$noOfRecords';
+        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&appId=$appId&mLoginId=$mLoginId&deviceId=$deviceId&diCode=$diCode&startIndex=$startIndex&noOfRecords=$noOfRecords&groupId=$groupId&keywordSearch=$keywordSearch';
 
     var response = await networking.getData(
       path: 'GetTrainerList?$path',

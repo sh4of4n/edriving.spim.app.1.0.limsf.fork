@@ -13,7 +13,8 @@ import 'package:hive/hive.dart';
 class Nfc extends StatefulWidget {
   final textByte;
   final groupId;
-  const Nfc({super.key, required this.textByte, required this.groupId});
+  final courseCode;
+  const Nfc({super.key, required this.textByte, required this.groupId, required this.courseCode});
 
   @override
   State<Nfc> createState() => _NfcState();
@@ -274,7 +275,12 @@ class _NfcState extends State<Nfc> {
                                         onPressed: () {
                                           setState(() {
                                             context.router.push(
-                                                AddClass(myKadDetails: ''));
+                                                AddClass(
+                                                  fingerPrnStatus: 'N',
+                                                  myKadDetails: '',
+                                                  groupId: widget.groupId,
+                                                  courseCode: widget.courseCode
+                                                  ));
                                           });
                                         },
                                         child: const Text('Proceed')),

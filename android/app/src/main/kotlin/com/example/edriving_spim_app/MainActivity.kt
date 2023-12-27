@@ -39,8 +39,12 @@ class MainActivity: FlutterActivity() {
                     }
                 } else if (call.method == "onReadMyKad") {
                     if (morphoSmart == null) {
-                        val usbManager = this.baseContext
-                            .getSystemService(USB_SERVICE) as UsbManager
+                        val usbManager = if (VERSION.SDK_INT >= VERSION_CODES.HONEYCOMB_MR1) {
+                            this.baseContext
+                                .getSystemService(USB_SERVICE) as UsbManager
+                        } else {
+                            TODO("VERSION.SDK_INT < HONEYCOMB_MR1")
+                        }
                         if (deviceProbe == null) {
                             result.error(
                                 "UNAVAILABLE",
@@ -65,12 +69,13 @@ class MainActivity: FlutterActivity() {
                         mykad = MyKad(morphoSmart)
                         val lStartTime = Date().time
                         var cardHolderInfo = CardHolderInfo()
-                        var showInfo = cardHolderInfo.name + cardHolderInfo.nric + cardHolderInfo.dateOfBirth + cardHolderInfo.placeOfBirth
+                        var showInfo = cardHolderInfo.name +','+ cardHolderInfo.nric +','+ cardHolderInfo.dateOfBirth +','+ cardHolderInfo.placeOfBirth
                         try {
                             mykad!!.powerUp()
                             cardHolderInfo = mykad!!.getCardHolderInfo(false, false)
+                            result.success(cardHolderInfo.nric)
                             mykad!!.powerDown()
-                            result.success(cardHolderInfo.name)
+                            // result.success(cardHolderInfo.name +','+ cardHolderInfo.nric +','+ cardHolderInfo.dateOfBirth +','+ cardHolderInfo.address1 + cardHolderInfo.address2 + cardHolderInfo.address3 + cardHolderInfo.postcode + cardHolderInfo.city + cardHolderInfo.state)
                         } catch (e: Exception) {
                             // TODO Auto-generated catch block
                             throw RuntimeException(e.message)
@@ -80,8 +85,12 @@ class MainActivity: FlutterActivity() {
                     }
                 } else if (call.method == "onFingerprintVerify") {
                     if (morphoSmart == null) {
-                        val usbManager = this.baseContext
-                            .getSystemService(USB_SERVICE) as UsbManager
+                        val usbManager = if (VERSION.SDK_INT >= VERSION_CODES.HONEYCOMB_MR1) {
+                            this.baseContext
+                                .getSystemService(USB_SERVICE) as UsbManager
+                        } else {
+                            TODO("VERSION.SDK_INT < HONEYCOMB_MR1")
+                        }
                         if (deviceProbe == null) {
                             result.error(
                                 "UNAVAILABLE",
@@ -115,6 +124,7 @@ class MainActivity: FlutterActivity() {
                             mykad!!.powerUp()
                             fp = mykad!!.fingerPrint
                             result.success("Please place your thumb on the fingerprint reader...")
+
                         } catch (e: CTException) {
                             throw RuntimeException(e.message)
                         }
@@ -127,6 +137,7 @@ class MainActivity: FlutterActivity() {
                         val morphosmartResult = morphoSmart!!.verifyFingerprint(fp, 10.toShort())
                         if (morphosmartResult.errorCode == ILVErrorCode.ILV_OK) {
                             if (morphosmartResult.resultCode == ILVResultCode.ILVSTS_HIT) {
+                                morphoSmart!!.close()
                                 result.success("Fingerprint matches fingerprint in MyKad")
                             } else {
                                 result.error(
@@ -173,66 +184,72 @@ class MainActivity: FlutterActivity() {
                     } catch (e: Exception) {
                         throw RuntimeException(e.message)
                     }
-                } else if (call.method == "onReadCardVerifyFp") {
-                    if (morphoSmart == null) {
-                        val usbManager = this.baseContext
-                            .getSystemService(USB_SERVICE) as UsbManager
-                        if (deviceProbe == null) {
-                            throw RuntimeException("No fingerprint reader attached to the system")
-                        }
-                        if (deviceProbe!!.usbDevice == null) {
-                            throw RuntimeException("No fingerprint reader attached to the system")
-                        }
-                        morphoSmart = MorphoSmart(
-                            usbManager,
-                            deviceProbe!!.usbDevice, this
-                        )
-                    }
-                    try {
-                        morphoSmart!!.open()
-                        mykad = MyKad(morphoSmart)
-                        if (!morphoSmart!!.isFpReaderReady) {
-                            throw RuntimeException("No fingerprint reader attached to the system")
-                        }
-                        var cardHolderInfo = CardHolderInfo()
-                        try {
-                            mykad!!.powerUp()
-                            cardHolderInfo = mykad!!.getCardHolderInfo(false, true)
-
-//                      if (readPhoto)
-//                      {
-//                        cardHolderInfo.setPhoto(mykad.getPhoto());
-//                      }
-                            mykad!!.powerDown()
-                            val lEndTime = Date().time
-                            val fingerprint = ByteArray(1196)
-                            System.arraycopy(
-                                cardHolderInfo.fingerprint1,
-                                0,
-                                fingerprint,
-                                0,
-                                cardHolderInfo.fingerprint1.size
-                            )
-                            System.arraycopy(
-                                cardHolderInfo.fingerprint2,
-                                0,
-                                fingerprint,
-                                cardHolderInfo.fingerprint1.size,
-                                cardHolderInfo.fingerprint2.size
-                            )
-                            //                      MorphoSmartResult morphosmartResult = morphosmart.verifyFingerprint(fingerprint, (short) verifyFpTimeout);
-                            result.success("")
-                        } catch (e: Exception) {
-                            throw RuntimeException(e.message)
-                        }
-                    } catch (e: DeviceException) {
-                        throw RuntimeException(e.message)
-                    }
-                } else {
+                }  else {
                     result.notImplemented()
                 }
             }
     }
+
+//    else if (call.method == "onReadCardVerifyFp") {
+//        if (morphoSmart == null) {
+//            val usbManager = if (VERSION.SDK_INT >= VERSION_CODES.HONEYCOMB_MR1) {
+//                this.baseContext
+//                    .getSystemService(USB_SERVICE) as UsbManager
+//            } else {
+//                TODO("VERSION.SDK_INT < HONEYCOMB_MR1")
+//            }
+//            if (deviceProbe == null) {
+//                throw RuntimeException("No fingerprint reader attached to the system")
+//            }
+//            if (deviceProbe!!.usbDevice == null) {
+//                throw RuntimeException("No fingerprint reader attached to the system")
+//            }
+//            morphoSmart = MorphoSmart(
+//                usbManager,
+//                deviceProbe!!.usbDevice, this
+//            )
+//        }
+//        try {
+//            morphoSmart!!.open()
+//            mykad = MyKad(morphoSmart)
+//            if (!morphoSmart!!.isFpReaderReady) {
+//                throw RuntimeException("No fingerprint reader attached to the system")
+//            }
+//            var cardHolderInfo = CardHolderInfo()
+//            try {
+//                mykad!!.powerUp()
+//                cardHolderInfo = mykad!!.getCardHolderInfo(false, true)
+//
+////                      if (readPhoto)
+////                      {
+////                        cardHolderInfo.setPhoto(mykad.getPhoto());
+////                      }
+//                mykad!!.powerDown()
+//                val lEndTime = Date().time
+//                val fingerprint = ByteArray(1196)
+//                System.arraycopy(
+//                    cardHolderInfo.fingerprint1,
+//                    0,
+//                    fingerprint,
+//                    0,
+//                    cardHolderInfo.fingerprint1.size
+//                )
+//                System.arraycopy(
+//                    cardHolderInfo.fingerprint2,
+//                    0,
+//                    fingerprint,
+//                    cardHolderInfo.fingerprint1.size,
+//                    cardHolderInfo.fingerprint2.size
+//                )
+//                //                      MorphoSmartResult morphosmartResult = morphosmart.verifyFingerprint(fingerprint, (short) verifyFpTimeout);
+//                result.success("")
+//            } catch (e: Exception) {
+//                throw RuntimeException(e.message)
+//            }
+//        } catch (e: DeviceException) {
+//            throw RuntimeException(e.message)
+//        }
+//    }
 
     // override fun onResume() {
     //     super.onResume()

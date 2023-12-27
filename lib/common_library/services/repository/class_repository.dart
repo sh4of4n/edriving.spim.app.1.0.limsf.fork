@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:edriving_spim_app/common_library/services/model/class_model.dart';
 import 'package:edriving_spim_app/common_library/services/networking.dart';
 import 'package:edriving_spim_app/common_library/services/response.dart';
@@ -188,5 +190,58 @@ class ClassRepo{
     }
 
     return Response(false, message: response.message);
+  }
+
+  Future<Response> saveStuPrac({
+    context,
+    required String? icNo,
+    required String? groupId,
+    required String? startTime,
+    String? endTime,
+    required String courseCode,
+    required String trandateString,
+    required String trnCode,
+    required String byFingerPrn,
+    required String dsCode
+  }) async {
+    final String? caUid = await localStorage.getCaUid();
+    final String? caPwd = await localStorage.getCaPwd();
+    String? merchantNo = await localStorage.getMerchantDbCode();
+
+    SaveStuPrac params = SaveStuPrac(
+      wsCodeCrypt: appConfig.wsCodeCrypt,
+      caUid: caUid,
+      caPwd: caPwd,
+      merchantNo: merchantNo,
+      icNo: icNo,
+      groupId: groupId,
+      startTime: startTime,
+      endTime: endTime ?? 'No Thumbout Yet',
+      courseCode: courseCode,
+      trandateString: trandateString,
+      trnCode: trnCode,
+      byFingerPrn: byFingerPrn,
+      dsCode: dsCode
+    );
+
+    String body = jsonEncode(params);
+    String api = 'SaveStuPrac';
+    Map<String, String> headers = {'Content-Type': 'application/json'};
+
+    var response =
+        await networking.postData(api: api, body: body, headers: headers);
+
+    var message = '';
+
+    //Success
+    if (response.isSuccess && response.data != null) {
+      message = 'Your request will be processed.';
+
+      return Response(true, message: message);
+    }
+    //Fail
+    message = 'Student Prac added failed. Please try again later.';
+
+    return Response(false, message: response.message ?? message);
   }
 }

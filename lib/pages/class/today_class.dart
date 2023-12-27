@@ -230,6 +230,8 @@ class _TodayClassState extends State<TodayClass> {
     return meetings;
   }
 
+  
+
   Future<List<Location>> getLocationFromAddress(String address) async {
     try {
       final locations = await locationFromAddress(address);
@@ -313,7 +315,12 @@ class _TodayClassState extends State<TodayClass> {
           child: FloatingActionButton(
             onPressed: () {
               credentials.put('trncode', widget.trnCode);
-              context.router.push(AddClass(myKadDetails: ''));
+              context.router.push(AddClass(
+                fingerPrnStatus: 'N',
+                myKadDetails: '',
+                courseCode: '',
+                groupId: ''
+              ));
             },
             backgroundColor: const Color.fromARGB(255, 243, 33, 33),
             child: const Icon(Icons.add),
@@ -425,147 +432,149 @@ class _TodayClassState extends State<TodayClass> {
                                               color: Colors.black,
                                               fontWeight: FontWeight.bold),
                                         ),
-                                        content: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              Text('Name: $name \n'),
-                                              Text(
-                                                  'Phone Number: $phoneNumber \n'),
-                                              Text("Student's Ic: $icNo\n"),
-
-                                              // '${widget.trnInfo.trnName ?? ''}',
-                                              Text(
-                                                  "Trainer's Name:  ${widget.trnName} \n"),
-                                              Text('Course Code: $course \n'),
-                                              Text('Test Date: $testDt \n'),
-                                              Text(
-                                                  'License Expiry Date: $licenseExpDt \n'),
-                                              Text('Group Id: $groupid \n'),
-                                              Text(
-                                                  'Vehicle Plate Number: $vehicleNo \n'),
-                                              Text('Start Time: $startTime\n'
-                                                  'End Time: $endTime\n'),
-                                              Text(
-                                                  'Address: \n$address, $state, $city, $zip \n'),
-                                              // Text(
-                                              //   'Start Time: ${details.appointments?[0].startTime}\n'
-                                              //   'End Time: ${details.appointments?[0].endTime}',
-                                              // ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  ElevatedButton.icon(
-                                                    onPressed: () {
-                                                      if (phoneNumber == '-') {
-                                                        showDialog(
-                                                          context: context,
-                                                          builder: (BuildContext
-                                                              context) {
-                                                            return AlertDialog(
-                                                              content: const Text(
-                                                                  'Please require admin to add a phone number to this student'),
-                                                              actions: <Widget>[
-                                                                TextButton(
-                                                                  onPressed:
-                                                                      () {
-                                                                    Navigator.of(
-                                                                            context)
-                                                                        .pop();
-                                                                  },
-                                                                  child:
-                                                                      const Text(
-                                                                          'Ok'),
-                                                                )
-                                                              ],
-                                                            );
-                                                          },
-                                                        );
-                                                      } else {
-                                                        var phoneNo =
-                                                            phoneNumber
-                                                                .replaceAll(
-                                                                    "tel_hp:",
-                                                                    "");
-
-                                                        final Uri telLaunchUri =
-                                                            Uri(
-                                                          scheme: 'tel',
-                                                          path: phoneNo,
-                                                        );
-                                                        showDialog(
-                                                          context: context,
-                                                          builder: (BuildContext
-                                                              context) {
-                                                            return AlertDialog(
-                                                              content: const Text(
-                                                                  'Do you sure you want to call this number?'),
-                                                              actions: <Widget>[
-                                                                TextButton(
-                                                                  onPressed:
-                                                                      () {
-                                                                    launchUrl(
-                                                                        telLaunchUri);
-                                                                  },
-                                                                  child:
-                                                                      const Text(
-                                                                          'Call'),
-                                                                ),
-                                                                TextButton(
-                                                                  onPressed:
-                                                                      () {
-                                                                    Navigator.of(
-                                                                            context)
-                                                                        .pop();
-                                                                  },
-                                                                  child: const Text(
-                                                                      'Cancel'),
-                                                                )
-                                                              ],
-                                                            );
-                                                          },
-                                                        );
-                                                      }
-                                                    },
-                                                    icon:
-                                                        const Icon(Icons.phone),
-                                                    label: const Text('Call'),
-                                                  ),
-                                                  SizedBox(
-                                                    width: 50.w,
-                                                  ),
-                                                  ElevatedButton.icon(
-                                                    icon: const Icon(Icons
-                                                        .navigation_rounded),
-                                                    label:
-                                                        const Text('Navigate'),
-                                                    onPressed: () {
-                                                      _openDestination(context);
-                                                    },
-                                                  ),
-                                                ],
-                                              ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  ElevatedButton.icon(
-                                                    icon: const Icon(
-                                                        Icons.location_on),
-                                                    label: const Text(
-                                                        'Address Location'),
-                                                    onPressed: () {
-                                                      context.router
-                                                          .push(MapScreen(
-                                                        address: totalAdd,
-                                                        studName: name,
-                                                      ));
-                                                    },
-                                                  ),
-                                                ],
-                                              )
-                                            ]),
+                                        content: SingleChildScrollView(
+                                          child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                Text('Name: $name \n'),
+                                                Text(
+                                                    'Phone Number: $phoneNumber \n'),
+                                                Text("Student's Ic: $icNo\n"),
+                                        
+                                                // '${widget.trnInfo.trnName ?? ''}',
+                                                Text(
+                                                    "Trainer's Name:  ${widget.trnName} \n"),
+                                                Text('Course Code: $course \n'),
+                                                Text('Test Date: $testDt \n'),
+                                                Text(
+                                                    'License Expiry Date: $licenseExpDt \n'),
+                                                Text('Group Id: $groupid \n'),
+                                                Text(
+                                                    'Vehicle Plate Number: $vehicleNo \n'),
+                                                Text('Start Time: $startTime\n'
+                                                    'End Time: $endTime\n'),
+                                                Text(
+                                                    'Address: \n$address, $state, $city, $zip \n'),
+                                                // Text(
+                                                //   'Start Time: ${details.appointments?[0].startTime}\n'
+                                                //   'End Time: ${details.appointments?[0].endTime}',
+                                                // ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    ElevatedButton.icon(
+                                                      onPressed: () {
+                                                        if (phoneNumber == '-') {
+                                                          showDialog(
+                                                            context: context,
+                                                            builder: (BuildContext
+                                                                context) {
+                                                              return AlertDialog(
+                                                                content: const Text(
+                                                                    'Please require admin to add a phone number to this student'),
+                                                                actions: <Widget>[
+                                                                  TextButton(
+                                                                    onPressed:
+                                                                        () {
+                                                                      Navigator.of(
+                                                                              context)
+                                                                          .pop();
+                                                                    },
+                                                                    child:
+                                                                        const Text(
+                                                                            'Ok'),
+                                                                  )
+                                                                ],
+                                                              );
+                                                            },
+                                                          );
+                                                        } else {
+                                                          var phoneNo =
+                                                              phoneNumber
+                                                                  .replaceAll(
+                                                                      "tel_hp:",
+                                                                      "");
+                                        
+                                                          final Uri telLaunchUri =
+                                                              Uri(
+                                                            scheme: 'tel',
+                                                            path: phoneNo,
+                                                          );
+                                                          showDialog(
+                                                            context: context,
+                                                            builder: (BuildContext
+                                                                context) {
+                                                              return AlertDialog(
+                                                                content: const Text(
+                                                                    'Do you sure you want to call this number?'),
+                                                                actions: <Widget>[
+                                                                  TextButton(
+                                                                    onPressed:
+                                                                        () {
+                                                                      launchUrl(
+                                                                          telLaunchUri);
+                                                                    },
+                                                                    child:
+                                                                        const Text(
+                                                                            'Call'),
+                                                                  ),
+                                                                  TextButton(
+                                                                    onPressed:
+                                                                        () {
+                                                                      Navigator.of(
+                                                                              context)
+                                                                          .pop();
+                                                                    },
+                                                                    child: const Text(
+                                                                        'Cancel'),
+                                                                  )
+                                                                ],
+                                                              );
+                                                            },
+                                                          );
+                                                        }
+                                                      },
+                                                      icon:
+                                                          const Icon(Icons.phone),
+                                                      label: const Text('Call'),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 50.w,
+                                                    ),
+                                                    ElevatedButton.icon(
+                                                      icon: const Icon(Icons
+                                                          .navigation_rounded),
+                                                      label:
+                                                          const Text('Navigate'),
+                                                      onPressed: () {
+                                                        _openDestination(context);
+                                                      },
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    ElevatedButton.icon(
+                                                      icon: const Icon(
+                                                          Icons.location_on),
+                                                      label: const Text(
+                                                          'Address Location'),
+                                                      onPressed: () {
+                                                        context.router
+                                                            .push(MapScreen(
+                                                          address: totalAdd,
+                                                          studName: name,
+                                                        ));
+                                                      },
+                                                    ),
+                                                  ],
+                                                )
+                                              ]),
+                                        ),
                                         actions: <Widget>[
                                           TextButton(
                                             onPressed: () {

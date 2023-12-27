@@ -219,10 +219,10 @@ class _TrainerScheduleState extends State<TrainerSchedule> {
             paymentStatus = 'Paid';
           } else if (checking > 0) {
             paymentStatus =
-                'Still having ${checking.toStringAsFixed(2)} not paid';
+                'Still having RM${checking.toStringAsFixed(2)} not paid';
           } else if (checking < 0) {
             paymentStatus =
-                'User had paid extra ${checking.abs().toStringAsFixed(2)}';
+                'User had paid extra RM${checking.abs().toStringAsFixed(2)}';
           }
         }
       });
@@ -378,6 +378,8 @@ class _TrainerScheduleState extends State<TrainerSchedule> {
                         title: Text(map.mapName),
                         leading: SvgPicture.asset(
                           map.icon,
+                          width: 50,
+                          height: 50,
                         ),
                       ),
                     ),
@@ -838,8 +840,8 @@ class _TrainerScheduleState extends State<TrainerSchedule> {
                                                                   'Start Time: $startTime\n'
                                                                   'End Time: $endTime\n'),
                                                               Text(
-                                                                  'Total Price: $totalPrice\n'
-                                                                  'Paid Amount: $paidAmount\n'
+                                                                  'Total Price: RM$totalPrice\n'
+                                                                  'Paid Amount: RM$paidAmount\n'
                                                                   'Payment Status: $paymentStatus\n'),
                                                               Text(
                                                                   'Address: \n$address, $state, $city, $zip \n'),

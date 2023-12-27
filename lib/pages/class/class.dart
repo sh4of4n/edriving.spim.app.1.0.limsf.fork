@@ -9,6 +9,7 @@ import 'package:edriving_spim_app/pages/class/history_class.dart' as historypage
 import 'package:edriving_spim_app/pages/class/progress_class.dart' as progresspage;
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 @RoutePage()
 class Class extends StatefulWidget {
@@ -37,6 +38,7 @@ class _ClassState extends State<Class> {
   final int _startIndex = 0;
   final int _noOfRecord = 50;
   bool _isLoading = true;
+  bool _lazyload = true;
   final List<Tab> myTabs = <Tab>[
     const Tab(
       child: Text('Today', style: TextStyle(
@@ -59,9 +61,9 @@ class _ClassState extends State<Class> {
   ];
 
   getTrainerInfo() async {
-    EasyLoading.show(
-      maskType: EasyLoadingMaskType.black,
-    );
+    setState(() {
+      _lazyload = true;
+    });
     var result = await trainerRepo.getTrainerInfo(context: context);
 
     if (result.isSuccess) {
@@ -75,17 +77,17 @@ class _ClassState extends State<Class> {
           });
         }
       }
-      await getTodayClass(groupId, trnCode);
-      await getCompleteClass(groupId, trnCode);
-      await getProgressClass(groupId, trnCode);
-      EasyLoading.dismiss();
+      await getTodayClass(trnCode);
+      await getCompleteClass(trnCode);
+      await getProgressClass(trnCode);
       setState(() {
+        _lazyload = false;
         _isLoading = false;
       });
       return result.data;
     } else {
-      EasyLoading.dismiss();
       setState(() {
+        _lazyload = false;
         _isLoading = true;
         if (result.message == null) {
           _message = 'Trainer not registered';
@@ -98,10 +100,10 @@ class _ClassState extends State<Class> {
     }
   }
 
-  getTodayClass(String groupId, String trnCode) async {
+  getTodayClass(String trnCode) async {
     var result = await classRepo.getTodayClass(
         context: context,
-        groupId: groupId,
+        groupId: '',
         trnCode: trnCode,
         icNo: '',
         startIndex: _startIndex,
@@ -126,10 +128,10 @@ class _ClassState extends State<Class> {
     return todayMessage;
   }
 
-  getProgressClass(String groupId, String trnCode) async {
+  getProgressClass(String trnCode) async {
     var result = await classRepo.getProgressClass(
         context: context,
-        groupId: groupId,
+        groupId: '',
         trnCode: trnCode,
         icNo: '',
         startIndex: _startIndex,
@@ -155,10 +157,10 @@ class _ClassState extends State<Class> {
     return progressMessage;
   }
 
-  getCompleteClass(String groupId, String trnCode) async {
+  getCompleteClass(String trnCode) async {
     var result = await classRepo.getCompleteClass(
       context: context,
-      groupId: groupId,
+      groupId: '',
       trnCode: trnCode,
       icNo: '',
       startIndex: _startIndex,
@@ -191,6 +193,13 @@ class _ClassState extends State<Class> {
     getTrainerInfo();
   }
 
+  void refreshData(){
+    today.clear();
+    progress.clear();
+    history.clear();
+    getTrainerInfo();
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -210,7 +219,14 @@ class _ClassState extends State<Class> {
                 title: Text(AppLocalizations.of(context)!.translate('class_lbl')),
               ),
               backgroundColor: Colors.transparent,
-              body: _isLoading ? Padding(
+              body: _lazyload ? Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: ScreenUtil().setHeight(30)),
+                      child: const Center(
+                        child: SpinKitHourGlass(color: Colors.white),
+                      ),
+                    )
+                : _isLoading ? Padding(
                       padding: EdgeInsets.symmetric(
                           vertical: ScreenUtil().setHeight(600)),
                       child: Center(
@@ -222,8 +238,8 @@ class _ClassState extends State<Class> {
                               fontWeight: FontWeight.bold),
                         ),
                       ),
-                    )
-                :TabBarView(
+                    ) :
+                TabBarView(
                 controller: _tabController,
                 children: <Widget>[
                   todaypage.TodayClass(
@@ -261,6 +277,9 @@ class _ClassState extends State<Class> {
                 padding: const EdgeInsets.only(top: 8.0, bottom: 15.0),
                 child: TabBar(
                   controller: _tabController,
+                  onTap: (index){
+                    refreshData();
+                  },
                   indicatorColor: Colors.transparent,
                   labelColor: primaryColor,
                   unselectedLabelColor: Colors.grey.shade700,
