@@ -1,4 +1,11 @@
 # edriving_spim_app
+2023-12-28 v6.2.9
+ePandu WS v6.2.38
+
+- Added checking of IC number from Trainer or Student
+- Checked whether the Student or Trainer is enrolled or not
+- After Students and Trainers thumbin allowed to create class 
+
 2023-12-15 v6.2.8
 ePandu WS v6.2.34
 

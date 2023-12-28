@@ -135,6 +135,7 @@ class _AddClassState extends State<AddClass> {
       setState(() {
         studcheckResult = 'Student';
         studentIc = widget.myKadDetails;
+        credentials.put('studentIc', studentIc);
       });
       getEnrollByIC(studcheckResult);
       return result.data;
@@ -142,6 +143,7 @@ class _AddClassState extends State<AddClass> {
       setState(() {
         checkResult = 'Trainer';
         trainerIc = widget.myKadDetails;
+        credentials.put('trainerIc', trainerIc);
       });
       getEnrollByIC(checkResult);
       return response.data;
@@ -157,11 +159,14 @@ class _AddClassState extends State<AddClass> {
     EasyLoading.show(
       maskType: EasyLoadingMaskType.black,
     );
-    if (studentIc != '' && trainerIc != '') {
+    String stud = credentials.get('studentIc');
+    String trn = credentials.get('trainerIc');
+    String startTime = credentials.get('thumbinTime');
+    if (stud != 'null' && trn != 'null') {
       var result = await classRepo.saveStuPrac(
-          icNo: studentIc,
+          icNo: stud,
           groupId: groupIdController.text,
-          startTime: thumbinTime,
+          startTime: convertTimeFormat(startTime),
           courseCode: courseCodeController.text,
           trandateString: '$day-$month-$year',
           trnCode: credentials.get('trncode'),
@@ -219,8 +224,10 @@ class _AddClassState extends State<AddClass> {
       
         if (checked == 'Student') {
           thumbinTime = DateFormat('HH:mm a').format(today);
+          credentials.put('thumbinTime', thumbinTime);
         } else if (checked == 'Trainer') {
           trainerThumbinTime = DateFormat('HH:mm a').format(today);
+          credentials.put('trainerThumbinTime', trainerThumbinTime);
         }
       });
       if (!context.mounted) return;
@@ -434,6 +441,10 @@ class _AddClassState extends State<AddClass> {
     });
 
     if (widget.myKadDetails == '') {
+      credentials.delete('studentIc');
+      credentials.delete('trainerIc');
+      credentials.delete('thumbinTime');
+      credentials.delete('trainerThumbinTime');
       getGroupId();
       getCourseCode();
     } else {
@@ -452,6 +463,22 @@ class _AddClassState extends State<AddClass> {
     hour = today.hour;
     minute = today.minute;
     second = today.second;
+  }
+
+  String convertTimeFormat(String inputTime) {
+    try {
+      // Parse the input time string to a DateTime object
+      DateTime dateTime = DateFormat('hh:mm a').parse(inputTime);
+
+      // Format the DateTime object to the desired time format
+      String formattedTime = DateFormat('HH:mm:ss').format(dateTime);
+
+      return formattedTime;
+    } catch (e) {
+      // Handle any parsing errors
+      print('Error parsing time: $e');
+      return 'Invalid Time';
+    }
   }
 
   @override
@@ -810,12 +837,12 @@ class _AddClassState extends State<AddClass> {
                                       height: 50.h,
                                     ),
                                     Text(
-                                        'Student details: $studentIc  $thumbinTime'),
+                                        'Student details: ${credentials.get('studentIc') ?? 'No student thumbed yet'}  ${credentials.get('thumbinTime') ?? ''}'),
                                     SizedBox(
                                       height: 50.h,
                                     ),
                                     Text(
-                                        'Trainer details: $trainerIc  $trainerThumbinTime'),
+                                        'Trainer details: ${credentials.get('trainerIc') ?? 'No trainer thumbed yet'}  ${credentials.get('trainerThumbinTime') ?? ''}'),
                                     SizedBox(
                                       height: 50.h,
                                     ),

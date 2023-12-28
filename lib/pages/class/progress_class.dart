@@ -40,7 +40,7 @@ class _ProgressClassState extends State<ProgressClass> {
     } catch (e) {
       // Handle any parsing errors
       print('Error parsing time: $e');
-      return 'Not Thumb In Yet';
+      return 'Not Thumb Out Yet';
     }
   }
 

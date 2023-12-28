@@ -216,7 +216,7 @@ class ClassRepo{
       icNo: icNo,
       groupId: groupId,
       startTime: startTime,
-      endTime: endTime ?? 'No Thumbout Yet',
+      endTime: endTime ?? '',
       courseCode: courseCode,
       trandateString: trandateString,
       trnCode: trnCode,
