@@ -134,16 +134,16 @@ class _MyKadState extends State<MyKad> {
                                 ElevatedButton(
                                   onPressed: (){
                                     setState(() {
-                                      // if(fingerPrintVerify == "Fingerprint matches fingerprint in MyKad"){
+                                      if(fingerPrintVerify == "Fingerprint matches fingerprint in MyKad"){
                                         context.router.push(AddClass(
                                           myKadDetails: readMyKad,
                                           groupId: widget.groupId,
                                           courseCode: widget.courseCode,
                                           fingerPrnStatus: 'Y',
                                         ));
-                                      // } else {
+                                      } else {
                                         
-                                      // }
+                                      }
                                     });
                                   }, 
                                   child: const Text('Thumb In')
