@@ -168,29 +168,29 @@ class _AddClassState extends State<AddClass> {
           groupId: groupIdController.text,
           startTime: convertTimeFormat(startTime),
           courseCode: courseCodeController.text,
-          trandateString: '$day-$month-$year',
+          trandateString: '$year-$month-$day',
           trnCode: credentials.get('trncode'),
           byFingerPrn: fingerPrnStatus,
           dsCode: dsCode);
-      
-      if(result.isSuccess){
-        if (!context.mounted) return;
+
+      if (result.isSuccess) {
         EasyLoading.dismiss;
+        if (!context.mounted) return;
         customDialog.show(
-              context: context,
-              title: const Center(
-                child: Icon(
-                  Icons.check_circle_outline,
-                  color: Colors.green,
-                  size: 120,
-                ),
+            context: context,
+            title: const Center(
+              child: Icon(
+                Icons.check_circle_outline,
+                color: Colors.green,
+                size: 120,
               ),
-              content: 'Class Successfully Added',
-              barrierDismissable: false,
-              type: DialogType.success,
-              onPressed: () {
-                context.router.pop();
-              });
+            ),
+            content: 'Class Successfully Added',
+            barrierDismissable: false,
+            type: DialogType.success,
+            onPressed: () {
+              context.router.pop();
+            });
       } else {
         if (!context.mounted) return;
         EasyLoading.dismiss();
@@ -203,15 +203,13 @@ class _AddClassState extends State<AddClass> {
       }
     } else {
       EasyLoading.dismiss();
-        customDialog.show(
-          context: context,
-          content: 'Student and Trainer Not Thumbed Yet',
-          onPressed: () => Navigator.pop(context),
-          type: DialogType.error,
-        );
+      customDialog.show(
+        context: context,
+        content: 'Student and Trainer Not Thumbed Yet',
+        onPressed: () => Navigator.pop(context),
+        type: DialogType.error,
+      );
     }
-
-    
   }
 
   getEnrollByIC(String checked) async {
@@ -221,7 +219,7 @@ class _AddClassState extends State<AddClass> {
     if (result.isSuccess) {
       setState(() {
         dsCode = result.data?[0].dsCode ?? '';
-      
+
         if (checked == 'Student') {
           thumbinTime = DateFormat('HH:mm a').format(today);
           credentials.put('thumbinTime', thumbinTime);
@@ -250,11 +248,11 @@ class _AddClassState extends State<AddClass> {
       );
       return result.data;
     } else {
-      if(studentIc != ''){
+      if (studentIc != '') {
         setState(() {
           studentIc = '';
         });
-      } else if (trainerIc != ''){
+      } else if (trainerIc != '') {
         setState(() {
           trainerIc = '';
         });

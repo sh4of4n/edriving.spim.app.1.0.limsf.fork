@@ -1,4 +1,8 @@
 # edriving_spim_app
+2023-12-28 v6.2.10
+ePandu WS v6.2.38
+- Updated fingerprint checking before thumbin
+
 2023-12-28 v6.2.9
 ePandu WS v6.2.38
 
