@@ -35,6 +35,7 @@ class _ClassState extends State<Class> {
   String todayMessage = '';
   String historyMessage = '';
   String progressMessage = '';
+  String progressHaving = '';
   final int _startIndex = 0;
   final int _noOfRecord = 50;
   bool _isLoading = true;
@@ -73,7 +74,7 @@ class _ClassState extends State<Class> {
             trnCode = result.data[i].trnCode;
             trnName = result.data[i].trnName;
             icNo = result.data[i].nric;
-            groupId = result.data[i].spimGroupId.substring(0, result.data[i].spimGroupId.length - 1);
+            groupId = result.data[i].spimGroupId/* .substring(0, result.data[i].spimGroupId.length - 1) */;
           });
         }
       }
@@ -142,6 +143,8 @@ class _ClassState extends State<Class> {
       for (var i = 0; i < result.data.length; i++) {
         setState(() {
           progress.add(result.data[i]);
+          progressHaving = 'Yes';
+          progressMessage = '';
         });
       }
       return result.data;
@@ -149,6 +152,7 @@ class _ClassState extends State<Class> {
       setState(() {
         if (result.message == null) {
           progressMessage = 'No progress class';
+          progressHaving = 'No';
         } else {
           progressMessage = result.message!;
         }
@@ -172,6 +176,7 @@ class _ClassState extends State<Class> {
       for (var i = 0; i < result.data.length; i++) {
         setState(() {
           history.add(result.data[i]);
+          historyMessage = '';
         });
       }
       return result.data;
@@ -247,6 +252,7 @@ class _ClassState extends State<Class> {
                     trnCode: trnCode,
                     todayClassInfo: today,
                     message: todayMessage,
+                    progressMsg: progressHaving,
                   ),
                   progresspage.ProgressClass(
                     progressClassInfo: progress,

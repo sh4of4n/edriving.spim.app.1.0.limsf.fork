@@ -1,14 +1,18 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:edriving_spim_app/common_library/services/repository/class_repository.dart';
+import 'package:edriving_spim_app/router.gr.dart';
 import 'package:edriving_spim_app/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 
 @RoutePage()
 class ProgressClass extends StatefulWidget {
   final progressClassInfo;
-  final message;
-  const ProgressClass(
+  var message;
+  ProgressClass(
       {super.key, required this.progressClassInfo, required this.message});
 
   @override
@@ -17,7 +21,12 @@ class ProgressClass extends StatefulWidget {
 
 class _ProgressClassState extends State<ProgressClass> {
   final myImage = ImagesConstant();
+  final classRepo = ClassRepo();
   List<dynamic> progress = [];
+  bool _lazyload = false;
+  final int _startIndex = 0;
+  final int _noOfRecord = 50;
+  final credentials = Hive.box('credentials');
 
   String convertDateFormat(String dateString) {
     if (dateString != '') {
@@ -54,6 +63,41 @@ class _ProgressClassState extends State<ProgressClass> {
     );
   }
 
+  void refreshData(){
+    setState(() {
+      progress.clear();
+      _lazyload = true;
+      getProgressClass();
+    });
+  }
+
+  getProgressClass() async {
+    var result = await classRepo.getProgressClass(
+        context: context,
+        groupId: '',
+        trnCode: credentials.get('trncode') ?? '',
+        icNo: '',
+        startIndex: _startIndex,
+        noOfRecords: _noOfRecord,
+        keywordSearch: '');
+    
+    if(result.isSuccess){
+      for(var i = 0; i < result.data.length; i++){
+        setState(() {
+          _lazyload = false;
+          progress.add(result.data[i]);
+        });
+      }
+      return result.data;
+    } else {
+      setState(() {
+        _lazyload = false;
+        widget.message = 'No progress class';
+      });
+      return result.message;
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -80,6 +124,25 @@ class _ProgressClassState extends State<ProgressClass> {
                           ListTile(
                             title: Text('${item.classes}'),
                             leading: profileImage(),
+                            trailing: ElevatedButton.icon(
+                                onPressed: () async {
+                                  var refresh = await context.router.push( Thumbout(
+                                    groupId: item.groupId,
+                                    courseCode: item.courseCode,
+                                    startTime: item.actBgTime,
+                                    vehNo: item.vehNo
+                                  ));
+                                  if (refresh == 'refresh'){
+                                    refreshData();
+                                  }
+                                }, 
+                                icon: const Icon(
+                                  Icons.logout,
+                                  size: 20,
+                                  color: Colors.white,
+                                ), 
+                                label: const Text('Thumb Out')
+                                ),
                             visualDensity: const VisualDensity(vertical: -2),
                           ),
                           SizedBox(
@@ -110,7 +173,7 @@ class _ProgressClassState extends State<ProgressClass> {
                           ListTile(
                             title: Text(
                                 'Time: ${convertTimeToAMPM(item.actBgTime)} -> ${convertTimeToAMPM(item.actEndTime)}'),
-                            subtitle: Text('Total Time: ${item.totalTime}', style: const TextStyle(fontSize: 14),),
+                            subtitle: const Text('Total Time: -', style: TextStyle(fontSize: 14),),
                             visualDensity: const VisualDensity(vertical: -2),
                           ),
                           SizedBox(
@@ -139,8 +202,16 @@ class _ProgressClassState extends State<ProgressClass> {
             //       ),
             //     ),
             //   ),
-            if (widget.message.isNotEmpty)
-              Padding(
+            _lazyload
+              ? Padding(
+                  padding: EdgeInsets.symmetric(
+                      vertical: ScreenUtil().setHeight(30)),
+                  child: const Center(
+                    child: SpinKitHourGlass(color: Colors.white),
+                  ),
+                )
+              : widget.message.isNotEmpty
+              ? Padding(
                 padding:
                     EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(600)),
                 child: Center(
@@ -153,6 +224,7 @@ class _ProgressClassState extends State<ProgressClass> {
                   ),
                 ),
               )
+              : Container()
           ],
         ),
       ),

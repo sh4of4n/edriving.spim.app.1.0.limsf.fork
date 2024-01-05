@@ -1,4 +1,13 @@
 # edriving_spim_app
+2024-01-05 v6.2.12
+ePandu WS v6.2.43
+- Checked if progress class exist cannot add class
+- Added thumbout function
+- Added auto calculate session_total_time in WS
+- Added MiFare Card thumbin
+- Added trainer thumbed required to select vehicle
+- Checked if group id is D/DA/DK/A1 let trainer choose vehicle, if group id is B/B2/C/A let student choose vehicle
+
 2023-12-28 v6.2.10
 ePandu WS v6.2.38
 - Updated fingerprint checking before thumbin

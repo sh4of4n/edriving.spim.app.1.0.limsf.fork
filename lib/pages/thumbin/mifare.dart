@@ -50,6 +50,7 @@ class _NfcState extends State<Nfc> {
     if (result.isSuccess) {
       EasyLoading.dismiss();
       setState(() {
+        haveData = false;
         vehicles.clear();
         for (var i = 0; i < result.data.length; i++) {
           if (result.data[i] != null && result.data[i].vehNo != null) {
@@ -260,7 +261,7 @@ class _NfcState extends State<Nfc> {
                                                   },
                                                   validator: (value) {
                                                     if (value!.isEmpty) {
-                                                      return 'Please select group id';
+                                                      return 'Please select vehicle';
                                                     }
                                                     return null;
                                                   },
@@ -273,15 +274,21 @@ class _NfcState extends State<Nfc> {
                                     ),
                                     ElevatedButton(
                                         onPressed: () {
-                                          setState(() {
-                                            context.router.push(
-                                                AddClass(
-                                                  fingerPrnStatus: 'N',
-                                                  myKadDetails: '',
-                                                  groupId: widget.groupId,
-                                                  courseCode: widget.courseCode
-                                                  ));
-                                          });
+                                          if(formKey.currentState!
+                                                .validate()){
+                                            formKey.currentState!.save();
+                                            setState(() {
+                                              Navigator.of(context).pop('refresh');
+                                            });
+                                          } else {
+                                            if (!context.mounted) return;
+                                              EasyLoading.dismiss();
+                                              if (vehicleController
+                                                  .text.isEmpty) {
+                                                FocusScope.of(context)
+                                                    .requestFocus(vehicleFocus);
+                                              }
+                                          }
                                         },
                                         child: const Text('Proceed')),
                                     SizedBox(

@@ -94,7 +94,8 @@ class RootRouter extends $RootRouter {
     AutoRoute(page: AddClass.page),
     AutoRoute(page: MyKad.page),
     AutoRoute(page: Nfc.page),
-    AutoRoute(page: Students.page)
+    AutoRoute(page: Students.page),
+    AutoRoute(page: Thumbout.page)
   ];
 }
 class $AppRouter {}

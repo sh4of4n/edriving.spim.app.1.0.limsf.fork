@@ -40,6 +40,34 @@ class _HistoryClassState extends State<HistoryClass> {
     return formattedDate;
   }
 
+  String formatDuration(String durationString) {
+    // Parse the duration string into a Duration object
+    Duration duration = Duration(
+      hours: int.parse(durationString.split(':')[0]),
+      minutes: int.parse(durationString.split(':')[1]),
+      seconds: int.parse(durationString.split(':')[2]),
+    );
+
+    // Extract individual components
+    int hours = duration.inHours;
+    int minutes = duration.inMinutes.remainder(60);
+    int seconds = duration.inSeconds.remainder(60);
+
+    // Build the formatted string
+    String formattedDuration = '';
+    if (hours > 0) {
+      formattedDuration += '$hours ${hours == 1 ? 'hour' : 'hours'} ';
+    }
+    if (minutes > 0) {
+      formattedDuration += '$minutes ${minutes == 1 ? 'minute' : 'minutes'} ';
+    }
+    if (seconds > 0 || formattedDuration.isEmpty) {
+      formattedDuration += '$seconds ${seconds == 1 ? 'second' : 'seconds'}';
+    }
+
+    return formattedDuration.trim();
+  }
+
   String convertTimeToAMPM(String timeString) {
     try {
       // Parse the time string to a DateTime object
@@ -114,7 +142,7 @@ class _HistoryClassState extends State<HistoryClass> {
                         ),
                         ListTile(
                           title: Text('Time: ${convertTimeToAMPM(item.actBgTime)} -> ${convertTimeToAMPM(item.actEndTime)}'),
-                          subtitle: Text('Total Time: ${item.totalTime}', style: const TextStyle(fontSize: 14),),
+                          subtitle: Text('Total Time: ${formatDuration(item.totalTime)}', style: const TextStyle(fontSize: 14),),
                           visualDensity:
                             const VisualDensity(vertical: -2),
                         ),

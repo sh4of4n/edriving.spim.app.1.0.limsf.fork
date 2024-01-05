@@ -21,13 +21,14 @@ class TodayClass extends StatefulWidget {
   final todayClassInfo;
   final message;
   final trnName;
-  const TodayClass({
-    super.key,
-    required this.trnCode,
-    required this.trnName,
-    required this.todayClassInfo,
-    required this.message,
-  });
+  final progressMsg;
+  const TodayClass(
+      {super.key,
+      required this.trnCode,
+      required this.trnName,
+      required this.todayClassInfo,
+      required this.message,
+      required this.progressMsg});
 
   @override
   State<TodayClass> createState() => _TodayClassState();
@@ -84,9 +85,9 @@ class _TodayClassState extends State<TodayClass> {
 
   String extractTimeFromDateTimeString(DateTime dateTime) {
     String dateString = dateTime.toString();
-    if(dateString != ''){
-    final time = TimeOfDay.fromDateTime(dateTime);
-    return time.format(context);
+    if (dateString != '') {
+      final time = TimeOfDay.fromDateTime(dateTime);
+      return time.format(context);
     } else {
       return '-';
     }
@@ -179,7 +180,7 @@ class _TodayClassState extends State<TodayClass> {
         name = widget.todayClassInfo[i].name ?? '-';
       });
     }
-    if(startDt != '') {
+    if (startDt != '') {
       setState(() {
         startTime = DateTime.parse(parseDateWithoutOffset(startDt));
         year = startTime.year;
@@ -190,10 +191,8 @@ class _TodayClassState extends State<TodayClass> {
         second = startTime.second;
         extractedTime = extractTimeFromDateTimeString(startTime);
       });
-    } else {
-
-    }
-    if(endDt != '') {
+    } else {}
+    if (endDt != '') {
       setState(() {
         endTime = DateTime.parse(parseDateWithoutOffset(endDt));
         endYear = endTime.year;
@@ -208,9 +207,6 @@ class _TodayClassState extends State<TodayClass> {
 
     String formattedString =
         '$courseCode   \n$groupId\n$studentIc\n$extractedTime -> $extractedEndTime\n$name\n$phnNo\n$vehNo';
-
-    
-    
 
     setState(() {
       meetings.add(Appointment(
@@ -229,8 +225,6 @@ class _TodayClassState extends State<TodayClass> {
 
     return meetings;
   }
-
-  
 
   Future<List<Location>> getLocationFromAddress(String address) async {
     try {
@@ -314,13 +308,32 @@ class _TodayClassState extends State<TodayClass> {
             child: FittedBox(
           child: FloatingActionButton(
             onPressed: () {
-              credentials.put('trncode', widget.trnCode);
-              context.router.push(AddClass(
-                fingerPrnStatus: 'N',
-                myKadDetails: '',
-                courseCode: '',
-                groupId: ''
-              ));
+              if (widget.progressMsg == 'No') {
+                credentials.put('trncode', widget.trnCode);
+                context.router.push(AddClass(
+                    fingerPrnStatus: 'N',
+                    myKadDetails: '',
+                    courseCode: '',
+                    groupId: ''));
+              } else {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('Fail to Add Class'),
+                      content: const Text('There is a class in progressing cannot add class.\n Please check progress tab and thumbout to add a new class.'),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text('OK'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              }
             },
             backgroundColor: const Color.fromARGB(255, 243, 33, 33),
             child: const Icon(Icons.add),
@@ -441,7 +454,7 @@ class _TodayClassState extends State<TodayClass> {
                                                 Text(
                                                     'Phone Number: $phoneNumber \n'),
                                                 Text("Student's Ic: $icNo\n"),
-                                        
+
                                                 // '${widget.trnInfo.trnName ?? ''}',
                                                 Text(
                                                     "Trainer's Name:  ${widget.trnName} \n"),
@@ -466,11 +479,13 @@ class _TodayClassState extends State<TodayClass> {
                                                   children: [
                                                     ElevatedButton.icon(
                                                       onPressed: () {
-                                                        if (phoneNumber == '-') {
+                                                        if (phoneNumber ==
+                                                            '-') {
                                                           showDialog(
                                                             context: context,
-                                                            builder: (BuildContext
-                                                                context) {
+                                                            builder:
+                                                                (BuildContext
+                                                                    context) {
                                                               return AlertDialog(
                                                                 content: const Text(
                                                                     'Please require admin to add a phone number to this student'),
@@ -496,16 +511,18 @@ class _TodayClassState extends State<TodayClass> {
                                                                   .replaceAll(
                                                                       "tel_hp:",
                                                                       "");
-                                        
-                                                          final Uri telLaunchUri =
+
+                                                          final Uri
+                                                              telLaunchUri =
                                                               Uri(
                                                             scheme: 'tel',
                                                             path: phoneNo,
                                                           );
                                                           showDialog(
                                                             context: context,
-                                                            builder: (BuildContext
-                                                                context) {
+                                                            builder:
+                                                                (BuildContext
+                                                                    context) {
                                                               return AlertDialog(
                                                                 content: const Text(
                                                                     'Do you sure you want to call this number?'),
@@ -516,9 +533,8 @@ class _TodayClassState extends State<TodayClass> {
                                                                       launchUrl(
                                                                           telLaunchUri);
                                                                     },
-                                                                    child:
-                                                                        const Text(
-                                                                            'Call'),
+                                                                    child: const Text(
+                                                                        'Call'),
                                                                   ),
                                                                   TextButton(
                                                                     onPressed:
@@ -536,8 +552,8 @@ class _TodayClassState extends State<TodayClass> {
                                                           );
                                                         }
                                                       },
-                                                      icon:
-                                                          const Icon(Icons.phone),
+                                                      icon: const Icon(
+                                                          Icons.phone),
                                                       label: const Text('Call'),
                                                     ),
                                                     SizedBox(
@@ -546,10 +562,11 @@ class _TodayClassState extends State<TodayClass> {
                                                     ElevatedButton.icon(
                                                       icon: const Icon(Icons
                                                           .navigation_rounded),
-                                                      label:
-                                                          const Text('Navigate'),
+                                                      label: const Text(
+                                                          'Navigate'),
                                                       onPressed: () {
-                                                        _openDestination(context);
+                                                        _openDestination(
+                                                            context);
                                                       },
                                                     ),
                                                   ],
