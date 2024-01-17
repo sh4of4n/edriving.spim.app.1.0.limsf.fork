@@ -1,5 +1,6 @@
-// import 'dart:io';
-// ignore_for_file: use_build_context_synchronously, depend_on_referenced_packages
+import 'package:edriving_spim_app/router.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+
 import 'firebase_options.dart';
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/model/inbox_model.dart';
@@ -92,6 +93,7 @@ void main() async {
   // _setupLogging();
   await Hive.openBox('ws_url');
   await Hive.openBox('di_list');
+  await Hive.openBox('credentials');
 
   await SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
@@ -130,11 +132,12 @@ void main() async {
 // }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
-  MyAppState createState() => MyAppState();
+  State<MyApp> createState() => MyAppState();
 }
+final _appRouter = RootRouter();
 
 class MyAppState extends State<MyApp> {
   AppLocalizationsDelegate? _newLocaleDelegate;
@@ -145,7 +148,7 @@ class MyAppState extends State<MyApp> {
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
   String _homeScreenText = "Waiting for token...";
   final customDialog = CustomDialog();
-  final _appRouter = AppRouter();
+  
 
   @override
   void initState() {
@@ -165,7 +168,7 @@ class MyAppState extends State<MyApp> {
       _navigateToItemDetail(message);
     });
 
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
     _firebaseMessaging.requestPermission(
       sound: true,
@@ -209,7 +212,7 @@ class MyAppState extends State<MyApp> {
     });
   }
 
-  Future<void> _firebaseMessagingBackgroundHandler(
+  /* Future<void> _firebaseMessagingBackgroundHandler(
       RemoteMessage message) async {
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
@@ -219,13 +222,14 @@ class MyAppState extends State<MyApp> {
     getUnreadNotificationCount();
 
     _navigateToItemDetail(message);
-  }
+  } */
 
   Future<void> getUnreadNotificationCount() async {
     var result = await inboxRepo.getUnreadNotificationCount();
 
     if (result.isSuccess) {
       if (int.tryParse(result.data[0].msgCount)! > 0) {
+        if (!context.mounted) return;
         Provider.of<NotificationCount>(context, listen: false).setShowBadge(
           showBadge: true,
         );
@@ -235,11 +239,13 @@ class MyAppState extends State<MyApp> {
           notificationBadge: int.tryParse(result.data[0].msgCount),
         );
       } else {
+        if (!context.mounted) return;
         Provider.of<NotificationCount>(context, listen: false).setShowBadge(
           showBadge: false,
         );
       }
     } else {
+      if (!context.mounted) return;
       Provider.of<NotificationCount>(context, listen: false).setShowBadge(
         showBadge: false,
       );
@@ -344,8 +350,21 @@ class MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+
     precacheImage(AssetImage(image.logo2), context);
     return MaterialApp.router(
+      routerConfig: _appRouter.config(
+        deepLinkBuilder: (deepLink) {
+          if (deepLink.path.startsWith('/')) {
+            // continute with the platfrom link
+            return deepLink;
+          } else {
+            return DeepLink.defaultPath;
+            // or DeepLink.path('/')
+            // or DeepLink([HomeRoute()])
+          }
+        }
+      ),
       title: 'eDriving SPIM',
       theme: ThemeData(
         primaryColor: ColorConstant.primaryColor,
@@ -364,10 +383,16 @@ class MyAppState extends State<MyApp> {
         GlobalMaterialLocalizations.delegate,
         // Built-in localization for text direction LTR/RTL
         GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
       ],
-      routerDelegate:
-          _appRouter.delegate(initialRoutes: [const Authentication()]),
-      routeInformationParser: _appRouter.defaultRouteParser(),
+
+      builder: EasyLoading.init(),
+      // routerDelegate:
+      //     _appRouter.delegate(
+      //       deepLinkBuilder:(_)=> DeepLink(Authentication as List<PageRouteInfo>)
+      //       /* initialRoutes: [const Authentication()] */
+      //     ),
+      // routeInformationParser: _appRouter.defaultRouteParser(),
       // initialRoute: AUTH,
       // onGenerateRoute: RouteGenerator.generateRoute,
     );

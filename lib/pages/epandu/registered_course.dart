@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/repository/auth_repository.dart';
@@ -14,7 +14,10 @@ import 'package:transparent_image/transparent_image.dart';
 import '/common_library/utils/app_localizations.dart';
 import '../../router.gr.dart';
 
+@RoutePage()
 class RegisteredCourse extends StatefulWidget {
+  const RegisteredCourse({super.key});
+
   @override
   RegisteredCourseState createState() => RegisteredCourseState();
 }

@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/common_library/utils/app_localizations.dart';
@@ -13,12 +13,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../router.gr.dart';
 
+@RoutePage()
 class PurchaseOrderList extends StatefulWidget {
   final String? icNo;
   final String? packageCode;
   final String? diCode;
 
-  const PurchaseOrderList({
+  const PurchaseOrderList({super.key, 
     this.icNo,
     this.packageCode,
     this.diCode,
@@ -71,6 +72,7 @@ class PurchaseOrderListState extends State<PurchaseOrderList> {
     );
 
     if (result.isSuccess) {
+      if (!context.mounted) return;
       context.router.push(
         Webview(url: result.data[0].receiptUrl),
       );

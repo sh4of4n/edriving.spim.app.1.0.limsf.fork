@@ -1,5 +1,3 @@
-// ignore_for_file: use_key_in_widget_constructors
-
 import '/pages/chat/chat_screen.dart';
 import '/common_library/services/model/profile_model.dart';
 import '/common_library/utils/local_storage.dart';
@@ -10,7 +8,7 @@ import 'package:transparent_image/transparent_image.dart';
 class ContactList extends StatelessWidget {
   final UserProfile? contactList;
 
-  ContactList({this.contactList});
+  ContactList({super.key, this.contactList});
 
   final LocalStorage localStorage = LocalStorage();
   final RegExp removeBracket =
@@ -90,7 +88,7 @@ class ContactList extends StatelessWidget {
         ),
         title: Text(
           contactList!.name!,
-          style: Theme.of(context).textTheme.headline5,
+          style: Theme.of(context).textTheme.headlineSmall,
         ), /*
         subtitle: Text("My last message}",
             style: Theme.of(context)

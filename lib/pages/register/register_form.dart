@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'dart:convert';
 import 'dart:io';
@@ -25,10 +25,11 @@ import '../../router.gr.dart';
 
 enum AppState { free, picked, cropped }
 
+@RoutePage()
 class RegisterForm extends StatefulWidget {
   final dynamic data;
 
-  const RegisterForm(this.data);
+  const RegisterForm(this.data, {super.key});
 
   @override
   RegisterFormState createState() => RegisterFormState();
@@ -237,7 +238,7 @@ class RegisterFormState extends State<RegisterForm> with PageBaseClass {
               _getImageGallery();
             }),
       ],
-      type: DialogType.simpledialog,
+      type: DialogType.simpleDialog,
     );
   }
 
@@ -284,13 +285,13 @@ class RegisterFormState extends State<RegisterForm> with PageBaseClass {
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
       if (constraints.maxWidth < 600) {
-        return defaultLayout();
+        return defaultLayout(context);
       }
       return tabLayout();
     });
   }
 
-  defaultLayout() {
+  defaultLayout(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
@@ -576,7 +577,7 @@ class RegisterFormState extends State<RegisterForm> with PageBaseClass {
                               ldlItem = value;
                             });
                           },
-                          items: ldlList
+                          items: (ldlList == null)
                               ? null
                               : ldlList.map<DropdownMenuItem<String>>(
                                   (dynamic value) {
@@ -612,7 +613,7 @@ class RegisterFormState extends State<RegisterForm> with PageBaseClass {
                               cdlItem = value;
                             });
                           },
-                          items: cdlList
+                          items: (cdlList == null)
                               ? null
                               : cdlList.map<DropdownMenuItem<String>>(
                                   (dynamic value) {
@@ -737,7 +738,7 @@ class RegisterFormState extends State<RegisterForm> with PageBaseClass {
                                     )
                                   : ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                        primary: const Color(0xffdd0e0e),
+                                        backgroundColor: const Color(0xffdd0e0e),
                                         textStyle: const TextStyle(
                                             color: Colors.white),
                                         shape: const StadiumBorder(),
@@ -1063,7 +1064,7 @@ class RegisterFormState extends State<RegisterForm> with PageBaseClass {
                               ldlItem = value;
                             });
                           },
-                          items: ldlList
+                          items:(ldlList == null)
                               ? null
                               : ldlList.map<DropdownMenuItem<String>>(
                                   (dynamic value) {
@@ -1099,7 +1100,7 @@ class RegisterFormState extends State<RegisterForm> with PageBaseClass {
                               cdlItem = value;
                             });
                           },
-                          items: cdlList
+                          items: (cdlList == null)
                               ? null
                               : cdlList.map<DropdownMenuItem<String>>(
                                   (dynamic value) {
@@ -1224,7 +1225,7 @@ class RegisterFormState extends State<RegisterForm> with PageBaseClass {
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 11.0),
                                         shape: const StadiumBorder(),
-                                        primary: const Color(0xffdd0e0e),
+                                        backgroundColor: const Color(0xffdd0e0e),
                                         textStyle: const TextStyle(
                                             color: Colors.white),
                                       ),
@@ -1297,6 +1298,7 @@ class RegisterFormState extends State<RegisterForm> with PageBaseClass {
 
         if (mounted) {
           if (result.isSuccess) {
+            localStorage.saveTrnCode(_name);
             customDialog.show(
               context: context,
               title: const Center(
@@ -1362,17 +1364,21 @@ class RegisterFormState extends State<RegisterForm> with PageBaseClass {
     );
 
     if (result.isSuccess) {
+      if (!context.mounted) return;
       var getRegisteredDi =
           await authRepo.getUserRegisteredDI(context: context, type: 'LOGIN');
 
       if (getRegisteredDi.isSuccess) {
+        if (!context.mounted) return;
         localStorage.saveMerchantDbCode(getRegisteredDi.data[0].merchantNo);
 
-        context.router.pushAndPopUntil(const Home(), predicate: (r) => false);
+        context.router.pushAndPopUntil( Home(), predicate: (r) => false);
       } else {
+        if (!context.mounted) return;
         context.router.pushAndPopUntil(const Login(), predicate: (r) => false);
       }
     } else {
+      if (!context.mounted) return;
       context.router.pushAndPopUntil(const Login(), predicate: (r) => false);
     }
 

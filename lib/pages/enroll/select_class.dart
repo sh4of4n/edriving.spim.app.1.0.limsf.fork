@@ -1,5 +1,3 @@
-// ignore_for_file: use_key_in_widget_constructors
-
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/repository/auth_repository.dart';
 import '/utils/constants.dart';
@@ -13,10 +11,11 @@ import 'package:transparent_image/transparent_image.dart';
 import '/common_library/utils/app_localizations.dart';
 import '../../router.gr.dart';
 
+@RoutePage()
 class SelectClass extends StatefulWidget {
   final dynamic data;
 
-  const SelectClass(this.data);
+  const SelectClass(this.data, {super.key});
 
   @override
   SelectClassState createState() => SelectClassState();
@@ -381,8 +380,9 @@ class SelectClassState extends State<SelectClass> {
               onPressed: () async {
                 await authRepo.getUserRegisteredDI(
                     context: context, type: 'UPDATE');
+                    if (!context.mounted) return;
                 context.router
-                    .pushAndPopUntil(const Home(), predicate: (r) => false);
+                    .pushAndPopUntil(Home(), predicate: (r) => false);
               },
             ),
           ],

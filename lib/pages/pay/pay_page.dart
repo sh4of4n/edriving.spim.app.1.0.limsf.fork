@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/repository/fpx_repository.dart';
@@ -16,7 +16,10 @@ import 'package:supercharged/supercharged.dart';
 import '/common_library/utils/app_localizations.dart';
 import '../../router.gr.dart';
 
+@RoutePage()
 class Pay extends StatefulWidget {
+  const Pay({super.key});
+
   @override
   PayState createState() => PayState();
 }
@@ -137,7 +140,7 @@ class PayState extends State<Pay> {
 
   Future<void> getMerchantPaymentGateway() async {
     String? diCode = await localStorage.getMerchantDbCode();
-
+    if (!context.mounted) return;
     var result = await fpxRepo.getMerchantPaymentGateway(
         context: context, diCode: diCode);
 
@@ -163,7 +166,7 @@ class PayState extends State<Pay> {
         });
 
         String? diCode = await localStorage.getMerchantDbCode();
-
+        if (!context.mounted) return;
         var result = await fpxRepo.createOrderWithAmt(
           context: context,
           diCode: diCode,
@@ -171,7 +174,7 @@ class PayState extends State<Pay> {
           packageCode: paymentFor,
           amountString: amountController.text.replaceAll(',', ''),
         );
-
+        if (!context.mounted) return;
         if (result.isSuccess) {
           context.router.push(
             FpxPaymentOption(
@@ -242,7 +245,7 @@ class PayState extends State<Pay> {
           appBar: AppBar(
             title: Text(AppLocalizations.of(context)!.translate('pay_lbl')),
             elevation: 0,
-            backgroundColor: Colors.transparent,
+            backgroundColor: const Color.fromARGB(255, 232, 186, 4),
             actions: [
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 40.w),
@@ -251,6 +254,7 @@ class PayState extends State<Pay> {
                     String? diCode = await localStorage.getMerchantDbCode();
 
                     if (paymentFor!.isNotEmpty) {
+                      if (!context.mounted) return;
                       context.router.push(
                         PurchaseOrderList(
                           icNo: _icNo,
@@ -471,6 +475,7 @@ class PayState extends State<Pay> {
                     String? diCode = await localStorage.getMerchantDbCode();
 
                     if (paymentFor!.isNotEmpty) {
+                      if (!context.mounted) return;
                       context.router.push(
                         PurchaseOrderList(
                           icNo: _icNo,

@@ -1,5 +1,5 @@
-// ignore_for_file: use_key_in_widget_constructors
 import 'package:auto_route/auto_route.dart';
+import 'package:edriving_spim_app/common_library/utils/app_localizations.dart';
 import '/common_library/services/repository/epandu_repository.dart';
 import '/common_library/services/repository/inbox_repository.dart';
 import '/common_library/utils/local_storage.dart';
@@ -17,6 +17,7 @@ class HomeTopMenu extends StatefulWidget {
   final dynamic getActiveFeed;
 
   const HomeTopMenu({
+    super.key,
     this.iconText,
     this.getDiProfile,
     this.getActiveFeed,
@@ -27,6 +28,7 @@ class HomeTopMenu extends StatefulWidget {
 }
 
 class HomeTopMenuState extends State<HomeTopMenu> {
+  bool showBadge = false;
   final epanduRepo = EpanduRepo();
   final myImage = ImagesConstant();
   final customDialog = CustomDialog();
@@ -98,51 +100,69 @@ class HomeTopMenuState extends State<HomeTopMenu> {
     Size size = MediaQuery.of(context).size;
 
     return SizedBox(
-        height: size.height * 0.35,
-        child: Stack(
-          children: <Widget>[
-            Container(
-                height: size.height * 0.35 - 50,
-                decoration: const BoxDecoration(
-                    color: Color.fromARGB(255, 233, 194, 38)),
-                child: Stack(children: <Widget>[
-                  Container(
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 32, vertical: 32),
-                    child: Column(
+      height: size.height * 0.35,
+      child: Stack(
+        children: <Widget>[
+          Container(
+            height: size.height * 0.35 - 150,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color.fromARGB(255, 243, 205, 56),
+                  Colors.white,
+                ],
+                stops: [0.45, 1.9],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+            ),
+            child: Stack(
+              children: <Widget>[
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        Row(children: <Widget>[
-                          Image.asset(
-                            'assets/images/ePandu-logo.png',
-                            height: 90,
-                            width: 180,
-                            alignment: Alignment.center,
-                          ),
-                        ]),
+                        Image.asset(
+                          'assets/images/ePandu-logo.png',
+                          height: 90,
+                          width: 180,
+                          alignment: Alignment.center,
+                        ),
+                        Image.asset(
+                          'assets/images/Axia.png',
+                          height: 90,
+                          width: 160,
+                          alignment: Alignment.center,
+                        ),
                       ],
                     ),
-                  ),
-                ])),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                height: 90,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                          offset: const Offset(0, 10),
-                          blurRadius: 50,
-                          color: kPrimaryColor.withOpacity(0.2))
-                    ]),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.fromLTRB(20, 120, 20, 0),
+            padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+            height: 170,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                    offset: const Offset(0, 10),
+                    blurRadius: 50,
+                    color: kPrimaryColor.withOpacity(0.2))
+              ],
+            ),
+            child: Column(
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     InkWell(
                       onTap: () => context.router.push(const Pay()),
@@ -161,9 +181,9 @@ class HomeTopMenuState extends State<HomeTopMenu> {
                               size: 30,
                             ),
                           ),
-                          const Text(
-                            "Pay",
-                            style: TextStyle(
+                          Text(
+                            AppLocalizations.of(context)!.translate('pay_lbl'),
+                            style: const TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 14,
                                 color: Colors.black),
@@ -172,9 +192,10 @@ class HomeTopMenuState extends State<HomeTopMenu> {
                       ),
                     ),
                     InkWell(
-                        onTap: () => context.router.push(const Invite()),
-                        borderRadius: BorderRadius.circular(10.0),
-                        child: Column(children: <Widget>[
+                      onTap: () => context.router.push(const Invite()),
+                      borderRadius: BorderRadius.circular(10.0),
+                      child: Column(
+                        children: <Widget>[
                           Container(
                             decoration: const BoxDecoration(
                                 color: Colors.white,
@@ -182,56 +203,29 @@ class HomeTopMenuState extends State<HomeTopMenu> {
                                     BorderRadius.all(Radius.circular(18))),
                             padding: const EdgeInsets.all(12),
                             child: const Icon(
-                              MyCustomIcons.invite_icon,
+                              MyCustomIcons.inviteIcon,
                               color: Color.fromARGB(255, 32, 56, 90),
                               size: 30,
                             ),
                           ),
-                          const Text(
-                            "Invite",
-                            style: TextStyle(
+                          Text(
+                            AppLocalizations.of(context)!
+                                .translate('invite_lbl'),
+                            style: const TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 14,
                                 color: Colors.black),
                           ),
-                        ])),
+                        ],
+                      ),
+                    ),
                     InkWell(
-                        onTap: () => context.router
-                            .push(const Inbox())
-                            .then((value) => getUnreadNotificationCount()),
-                        borderRadius: BorderRadius.circular(10.0),
-                        child: Column(
-                          children: <Widget>[
-                            Container(
-                              decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(18))),
-                              padding: const EdgeInsets.all(12),
-                              child: const Icon(
-                                MyCustomIcons.inbox_icon,
-                                color: Color.fromARGB(255, 32, 56, 90),
-                                size: 30,
-                              ),
-                            ),
-                            const Text(
-                              "Notification",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 14,
-                                  color: Colors.black),
-                            ),
-                          ],
-                        )),
-                    InkWell(
-                        onTap: () => context.router.push(
-                              Scan(
-                                getActiveFeed: widget.getActiveFeed,
-                                getDiProfile: widget.getDiProfile,
-                              ),
-                            ),
-                        borderRadius: BorderRadius.circular(10.0),
-                        child: Column(children: <Widget>[
+                      onTap: () => context.router
+                          .push(const Inbox())
+                          .then((value) => getUnreadNotificationCount()),
+                      borderRadius: BorderRadius.circular(10.0),
+                      child: Column(
+                        children: <Widget>[
                           Container(
                             decoration: const BoxDecoration(
                                 color: Colors.white,
@@ -239,25 +233,32 @@ class HomeTopMenuState extends State<HomeTopMenu> {
                                     BorderRadius.all(Radius.circular(18))),
                             padding: const EdgeInsets.all(12),
                             child: const Icon(
-                              MyCustomIcons.scan_icon,
+                              MyCustomIcons.inboxIcon,
                               color: Color.fromARGB(255, 32, 56, 90),
                               size: 30,
                             ),
                           ),
-                          const Text(
-                            "Scan",
-                            style: TextStyle(
+                          Text(
+                            AppLocalizations.of(context)!
+                                .translate('inbox_lbl'),
+                            style: const TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 14,
                                 color: Colors.black),
                           ),
-                        ])),
+                        ],
+                      ),
+                    ),
                     InkWell(
-                        onTap: () => context.router.push(
-                              ProfileTab(positionStream: positionStream),
-                            ),
-                        borderRadius: BorderRadius.circular(10.0),
-                        child: Column(children: <Widget>[
+                      onTap: () => context.router.push(
+                        Scan(
+                          getActiveFeed: widget.getActiveFeed,
+                          getDiProfile: widget.getDiProfile,
+                        ),
+                      ),
+                      borderRadius: BorderRadius.circular(10.0),
+                      child: Column(
+                        children: <Widget>[
                           Container(
                             decoration: const BoxDecoration(
                                 color: Colors.white,
@@ -265,25 +266,147 @@ class HomeTopMenuState extends State<HomeTopMenu> {
                                     BorderRadius.all(Radius.circular(18))),
                             padding: const EdgeInsets.all(12),
                             child: const Icon(
-                              Icons.person_pin,
+                              MyCustomIcons.scanIcon,
                               color: Color.fromARGB(255, 32, 56, 90),
                               size: 30,
                             ),
                           ),
-                          const Text(
-                            "Profile",
-                            style: TextStyle(
+                          Text(
+                            AppLocalizations.of(context)!.translate('scan_lbl'),
+                            style: const TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 14,
                                 color: Colors.black),
                           ),
-                        ])),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
-              ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    //new icon
+                    InkWell(
+                      onTap: () => context.router.push(const Vehicle()),
+                      borderRadius: BorderRadius.circular(10.0),
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(18))),
+                            padding: const EdgeInsets.all(12),
+                            child: const Icon(
+                              Icons.directions_car,
+                              color: Color.fromARGB(255, 32, 56, 90),
+                              size: 30,
+                            ),
+                          ),
+                          Text(
+                            AppLocalizations.of(context)!
+                                .translate('vehicle_lbl'),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 14,
+                                color: Colors.black),
+                          ),
+                        ],
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () => context.router.push(const Class()),
+                      borderRadius: BorderRadius.circular(10.0),
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(18))),
+                            padding: const EdgeInsets.all(12),
+                            child: const Icon(
+                              Icons.alarm,
+                              color: Color.fromARGB(255, 32, 56, 90),
+                              size: 30,
+                            ),
+                          ),
+                          Text(
+                            AppLocalizations.of(context)!
+                                .translate('class_lbl'),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 14,
+                                color: Colors.black),
+                          ),
+                        ],
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () => context.router.push(const TrainerSchedule()),
+                      borderRadius: BorderRadius.circular(10.0),
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(18))),
+                            padding: const EdgeInsets.all(12),
+                            child: const Icon(
+                              Icons.calendar_month,
+                              color: Color.fromARGB(255, 32, 56, 90),
+                              size: 30,
+                            ),
+                          ),
+                          Text(
+                            AppLocalizations.of(context)!.translate('scd_lbl'),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 14,
+                                color: Colors.black),
+                          ),
+                        ],
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () => context.router.push(const Students()),
+                      borderRadius: BorderRadius.circular(10.0),
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(18))),
+                            padding: const EdgeInsets.all(12),
+                            child: const Icon(
+                              Icons.school,
+                              color: Color.fromARGB(255, 32, 56, 90),
+                              size: 30,
+                            ),
+                          ),
+                          Text(
+                            AppLocalizations.of(context)!
+                                .translate('student_lbl'),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 14,
+                                color: Colors.black),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
-          ],
-        ));
+          ),
+        ],
+      ),
+    );
 
     /*return SizedBox(
       height: ScreenUtil().setHeight(350),

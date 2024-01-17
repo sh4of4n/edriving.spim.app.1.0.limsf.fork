@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/model/provider_model.dart';
@@ -14,6 +14,8 @@ import '/common_library/utils/app_localizations.dart';
 import '../../router.gr.dart';
 
 class LoginTabletBottomCard extends StatefulWidget {
+  const LoginTabletBottomCard({super.key});
+
   @override
   LoginTabletBottomCardState createState() => LoginTabletBottomCardState();
 }
@@ -74,8 +76,8 @@ class LoginTabletBottomCardState extends State<LoginTabletBottomCard> {
                 if (count == 4) {
                   customDialog.show(
                     context: context,
-                    title: AppLocalizations.of(context)!
-                        .translate('client_acc_title'),
+                    title: Text(AppLocalizations.of(context)!
+                        .translate('client_acc_title')),
                     content: AppLocalizations.of(context)!
                         .translate('client_acc_desc'),
                     type: DialogType.success,

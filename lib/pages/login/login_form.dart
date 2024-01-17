@@ -1,8 +1,10 @@
-// ignore_for_file: use_key_in_widget_constructors, depend_on_referenced_packages
+
 
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:edriving_spim_app/common_library/services/repository/profile_repository.dart';
+import 'package:hive/hive.dart';
 import '/base/page_base_class.dart';
 import '/common_library/utils/custom_dialog.dart';
 import '/router.gr.dart';
@@ -19,6 +21,8 @@ import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LoginForm extends StatefulWidget {
+  const LoginForm({super.key});
+
   @override
   LoginFormState createState() => LoginFormState();
 }
@@ -31,6 +35,7 @@ class LoginFormState extends State<LoginForm> with PageBaseClass {
   final FocusNode _passwordFocus = FocusNode();
   final primaryColor = ColorConstant.primaryColor;
   final localStorage = LocalStorage();
+  final profileRepo = ProfileRepo();
 
   bool _isLoading = false;
 
@@ -46,6 +51,7 @@ class LoginFormState extends State<LoginForm> with PageBaseClass {
   Location location = Location();
   String latitude = '';
   String longitude = '';
+  final credentials = Hive.box('credentials');
 
   DeviceInfo deviceInfo = DeviceInfo();
   String? _deviceBrand = '';
@@ -76,6 +82,7 @@ class LoginFormState extends State<LoginForm> with PageBaseClass {
               int.tryParse(result.data[0].appMinVersion.split('.')[1])! ||
           int.tryParse(appVersion.split('.')[2])! <
               int.tryParse(result.data[0].appMinVersion.split('.')[2])!) {
+                if (!context.mounted) return;
         customDialog.show(
           context: context,
           content: 'App version is outdated and must be updated.',
@@ -320,7 +327,7 @@ class LoginFormState extends State<LoginForm> with PageBaseClass {
                 padding: const EdgeInsets.symmetric(vertical: 11.0),
                 textStyle: const TextStyle(color: Colors.white),
                 shape: const StadiumBorder(),
-                primary: const Color(0xffdd0e0e),
+                backgroundColor: const Color(0xffdd0e0e),
               ),
               onPressed: _submitLogin, // () => localStorage.reset(),
 
@@ -351,7 +358,7 @@ class LoginFormState extends State<LoginForm> with PageBaseClass {
         password: _password,
       ); */
 
-      var result = await authRepo.login(
+      var result = await authRepo.eDrivingAdminLoginResetPwd(
         context: context,
         phone: _phone,
         password: _password,
@@ -364,14 +371,21 @@ class LoginFormState extends State<LoginForm> with PageBaseClass {
       );
 
       if (result.isSuccess) {
+        credentials.put('phone', _phone);
         if (result.data == 'empty') {
+          if (!context.mounted) return;
           var getRegisteredDi = await authRepo.getUserRegisteredDI(
               context: context, type: 'LOGIN');
+          if (!context.mounted) return;
+          var profileResult = await profileRepo.getUserProfile(context: context);
 
           if (getRegisteredDi.isSuccess) {
+            if (!context.mounted) return;
             localStorage.saveMerchantDbCode(getRegisteredDi.data[0].merchantNo);
-
-            context.router.replace(const Home());
+            localStorage.saveDiCode(getRegisteredDi.data[0].merchantNo);
+            localStorage.saveTrnCode(profileResult.data[0].name);
+            credentials.put('merchantNo', getRegisteredDi.data[0].merchantNo);
+            context.router.replace(Home());
           } else {
             setState(() {
               _isLoading = false;
@@ -382,14 +396,15 @@ class LoginFormState extends State<LoginForm> with PageBaseClass {
           // Navigate to DI selection page
           // Temporary navigate to home
           // Navigator.replace(context, HOME);
-
+          if (!context.mounted) return;
           context.router.replace(
             SelectDrivingInstitute(diList: result.data),
           );
         } else {
           localStorage.saveMerchantDbCode(result.data[0].merchantNo);
-
-          context.router.replace(const Home());
+          localStorage.saveDiCode(result.data[0].merchantNo);
+          if (!context.mounted) return;
+          context.router.replace(Home());
         }
       } else {
         setState(() {

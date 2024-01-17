@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/model/provider_model.dart';
@@ -19,7 +19,7 @@ import '../../router.gr.dart';
 class Settings extends StatefulWidget {
   final dynamic data;
 
-  const Settings(this.data);
+  const Settings(this.data, {super.key});
 
   @override
   SettingsState createState() => SettingsState();
@@ -257,6 +257,7 @@ class SettingsState extends State<Settings> {
 
               context.router.pop();
               await authRepo.logout(context: context, type: 'CLEAR');
+              if (!context.mounted) return;
               context.router
                   .pushAndPopUntil(const Login(), predicate: (r) => false);
 
@@ -283,7 +284,7 @@ class SettingsState extends State<Settings> {
     });
 
     var result = await authRepo.deleteAppMemberAccount(context: context);
-
+    if (!context.mounted) return;
     if (result.isSuccess) {
       context.router.pushAndPopUntil(const Login(), predicate: (r) => false);
     } else {

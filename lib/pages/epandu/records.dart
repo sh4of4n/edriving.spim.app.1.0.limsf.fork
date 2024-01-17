@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/utils/constants.dart';
@@ -9,12 +9,15 @@ import 'package:transparent_image/transparent_image.dart';
 import '/common_library/utils/app_localizations.dart';
 import '../../router.gr.dart';
 
+@RoutePage()
 class Records extends StatelessWidget {
   final iconText = TextStyle(
     fontSize: ScreenUtil().setSp(60),
     color: Colors.black,
   );
   final myImage = ImagesConstant();
+
+  Records({super.key});
 
   @override
   Widget build(BuildContext context) {

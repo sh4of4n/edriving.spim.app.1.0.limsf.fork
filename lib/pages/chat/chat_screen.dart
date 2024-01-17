@@ -1,5 +1,3 @@
-// ignore_for_file: use_key_in_widget_constructors
-
 import 'dart:async';
 import 'dart:convert';
 
@@ -28,7 +26,7 @@ class ChatScreen extends StatefulWidget {
   final String? picturePath;
   final String? name;
 
-  const ChatScreen({this.targetId, this.picturePath, this.name});
+  const ChatScreen({super.key, this.targetId, this.picturePath, this.name});
 
   @override
   ChatScreenState createState() => ChatScreenState();
@@ -228,7 +226,7 @@ class ChatScreenState extends State<ChatScreen> {
                 children: <Widget>[
                   Text(
                     widget.name!,
-                    style: Theme.of(context).textTheme.bodyText2,
+                    style: Theme.of(context).textTheme.bodyMedium,
                     overflow: TextOverflow.clip,
                   ),
                 ],

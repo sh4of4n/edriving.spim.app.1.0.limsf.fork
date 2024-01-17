@@ -1,4 +1,6 @@
-// ignore_for_file: use_key_in_widget_constructors
+
+
+import 'package:auto_route/auto_route.dart';
 
 import '/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +9,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'form.dart';
 import 'tablet_form.dart';
 
+@RoutePage()
 class ForgotPassword extends StatelessWidget {
   final primaryColor = ColorConstant.primaryColor;
+
+  const ForgotPassword({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +75,7 @@ class ForgotPassword extends StatelessWidget {
                         SizedBox(
                           height: 510.h,
                         ),
-                        ForgotPasswordForm(),
+                        const ForgotPasswordForm(),
                       ],
                     ),
                   ),
@@ -120,7 +125,7 @@ class ForgotPassword extends StatelessWidget {
                     SizedBox(
                       height: 100.h,
                     ),
-                    ForgotPasswordTabletForm(),
+                    const ForgotPasswordTabletForm(),
                   ],
                 ),
               ),

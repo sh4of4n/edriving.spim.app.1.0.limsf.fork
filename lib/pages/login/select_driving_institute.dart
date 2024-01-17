@@ -1,6 +1,6 @@
 // import 'dart:convert';
 
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/model/auth_model.dart';
@@ -13,10 +13,11 @@ import 'package:hive/hive.dart';
 
 import '../../router.gr.dart';
 
+@RoutePage()
 class SelectDrivingInstitute extends StatefulWidget {
   final dynamic diList;
 
-  const SelectDrivingInstitute(this.diList);
+  const SelectDrivingInstitute(this.diList, {super.key});
 
   @override
   SelectDrivingInstituteState createState() => SelectDrivingInstituteState();
@@ -150,7 +151,7 @@ class SelectDrivingInstituteState extends State<SelectDrivingInstitute> {
                         localStorage.saveMerchantDbCode(
                             widget.diList[index].merchantNo);
 
-                        context.router.replace(const Home());
+                        context.router.replace( Home());
                       },
                       title: loadImage(widget.diList[index]),
                     ),

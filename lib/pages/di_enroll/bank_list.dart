@@ -11,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '/common_library/utils/app_localizations.dart';
 import '../../router.gr.dart';
 
+@RoutePage()
 class BankList extends StatefulWidget {
   final String? icNo;
   final String? docDoc;
@@ -81,6 +82,7 @@ class BankListState extends State<BankList> {
     );
 
     if (result.isSuccess) {
+      if (!context.mounted) return;
       context.router.push(
         Webview(
             url: result.data[0].responseData,
@@ -92,6 +94,7 @@ class BankListState extends State<BankList> {
         forceWebView: true,
       ); */
     } else {
+      if (!context.mounted) return;
       context.router.push(
         PaymentStatus(icNo: widget.icNo),
       );

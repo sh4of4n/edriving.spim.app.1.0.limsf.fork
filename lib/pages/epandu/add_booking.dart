@@ -1,5 +1,3 @@
-// ignore_for_file: use_key_in_widget_constructors
-
 import 'package:auto_route/auto_route.dart';
 import '/router.gr.dart';
 import '/common_library/services/repository/epandu_repository.dart';
@@ -14,7 +12,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '/common_library/utils/app_localizations.dart';
 
+@RoutePage()
 class AddBooking extends StatefulWidget {
+  const AddBooking({super.key});
+
   @override
   AddBookingState createState() => AddBookingState();
 }
@@ -415,7 +416,7 @@ class AddBookingState extends State<AddBooking> {
                 minimumSize: Size(420.w, 45.h),
                 padding: const EdgeInsets.symmetric(vertical: 11.0),
                 shape: const StadiumBorder(),
-                primary: const Color(0xffdd0e0e),
+                backgroundColor: const Color(0xffdd0e0e),
                 textStyle: const TextStyle(color: Colors.white),
               ),
               onPressed: _submit,
@@ -441,7 +442,7 @@ class AddBookingState extends State<AddBooking> {
         _isLoading = true;
         // _message = '';
       });
-
+      if (!context.mounted) return;
       var result = await ePanduRepo.saveBookingTest(
         context: context,
         groupId: groupId,
@@ -469,7 +470,7 @@ class AddBookingState extends State<AddBooking> {
               TextButton(
                 child: Text(AppLocalizations.of(context)!.translate('ok_btn')),
                 onPressed: () => context.router
-                    .pushAndPopUntil(const Home(), predicate: (r) => false),
+                    .pushAndPopUntil(Home(), predicate: (r) => false),
               ),
             ],
           );

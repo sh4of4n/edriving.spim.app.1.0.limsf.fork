@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 
 import '../../router.gr.dart';
 
+@RoutePage()
 class DiEnrollment extends StatefulWidget {
   final String? packageCodeJson;
 
@@ -36,7 +37,7 @@ class DiEnrollmentState extends State<DiEnrollment> {
 
   getPackageListByPackageCodeList() async {
     var diCode = await localStorage.getMerchantDbCode();
-
+    if (!context.mounted) return;
     var result = await authRepo.getPackageListByPackageCodeList(
       context: context,
       diCode: diCode,

@@ -15,19 +15,22 @@ class EpanduRepo {
   final unescape = HtmlUnescape();
   final customDialog = CustomDialog();
 
-  Future<Response> getEnrollByCode({groupId}) async {
+  Future<Response<List<Enroll>?>> getEnrollByCode({
+    context,
+    groupId,
+    icNo
+    }) async {
     String? caUid = await localStorage.getCaUid();
     String? caPwd = await localStorage.getCaPwdEncode();
 
     String? diCode = await localStorage.getMerchantDbCode();
     // String diCode = await localStorage.getMerchantDbCode();
     // String groupId = '';
-    String? icNo = await localStorage.getStudentIc();
 
     String path =
         'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=$diCode&icNo=$icNo&groupId=${groupId ?? ''}';
 
-    var response = await networking.getData(
+    Response response = await networking.getData(
       path: 'GetEnrollByCode?$path',
     );
 
@@ -118,7 +121,10 @@ class EpanduRepo {
     );
   }
 
-  Future<Response> getDTestByCode({required context}) async {
+  Future<Response> getDTestByCode({
+    required context,
+    icNo
+  }) async {
     assert(context != null);
 
     String? caUid = await localStorage.getCaUid();
@@ -127,7 +133,7 @@ class EpanduRepo {
     String? diCode = await localStorage.getMerchantDbCode();
     // String diCode = await localStorage.getMerchantDbCode();
     // String groupId = await localStorage.getEnrolledGroupId();
-    String? icNo = await localStorage.getStudentIc();
+    // String? icNo = await localStorage.getStudentIc();
 
     String path =
         'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=$diCode&icNo=$icNo&groupId=';

@@ -37,6 +37,7 @@ class LocalStorage {
   static const String kMsgRef = 'MSG_REF';
   static const String kCdl = 'CDL';
   static const String kLdl = 'LDL';
+  static const String kTrainerCode = 'TRAINER_CODE';
 
   Future<bool> saveNickName(String nickName) {
     return Preference.setString(kNickName, nickName);
@@ -270,6 +271,14 @@ class LocalStorage {
     return Preference.setString(kMerchantDbCode, dbCode);
   }
 
+  Future<String?> getTrnCode() async {
+    return Preference.getString(kTrainerCode, def: '');
+  }
+
+  Future<bool> saveTrnCode(String trnCode) async {
+    return Preference.setString(kTrainerCode, trnCode);
+  }
+
   Future<String?> getMerchantName() async {
     return Preference.getString(kMerchantName, def: '');
   }
@@ -363,5 +372,6 @@ class LocalStorage {
     await Preference.remove(kMsgRef);
     await Preference.remove(kCdl);
     await Preference.remove(kLdl);
+    await Preference.remove(kTrainerCode);
   }
 }

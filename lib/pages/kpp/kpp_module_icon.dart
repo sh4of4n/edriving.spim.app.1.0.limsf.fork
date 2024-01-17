@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +13,7 @@ class KppModuleIcon extends StatelessWidget {
   final dynamic iconColor;
   final String? label;
 
-  const KppModuleIcon({
+  const KppModuleIcon({super.key, 
     this.snapshot,
     this.index,
     this.icon,

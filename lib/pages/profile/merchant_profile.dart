@@ -1,5 +1,14 @@
-// ignore_for_file: use_key_in_widget_constructors
 
+
+import 'package:auto_route/auto_route.dart';
+import 'package:edriving_spim_app/common_library/services/repository/auth_repository.dart';
+import 'package:edriving_spim_app/common_library/utils/app_localizations.dart';
+import 'package:edriving_spim_app/common_library/utils/custom_button.dart';
+import 'package:edriving_spim_app/common_library/utils/custom_dialog.dart';
+import 'package:edriving_spim_app/common_library/utils/device_info.dart';
+import 'package:edriving_spim_app/utils/app_config.dart';
+import 'package:hive/hive.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '/common_library/services/repository/vclub_repository.dart';
 import '/common_library/services/response.dart';
 import '/common_library/utils/local_storage.dart';
@@ -8,17 +17,36 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+@RoutePage()
 class MerchantProfile extends StatefulWidget {
+  const MerchantProfile({super.key});
+
   @override
-  MerchantProfileState createState() => MerchantProfileState();
+  State<MerchantProfile> createState() => MerchantProfileState();
 }
 
 class MerchantProfileState extends State<MerchantProfile> {
+  final authRepo = AuthRepo();
   final vClubRepo = VclubRepo();
   final localStorage = LocalStorage();
   final myImage = ImagesConstant();
   final primaryColor = ColorConstant.primaryColor;
+  final customDialog = CustomDialog();
   Future? getMerchant;
+  String? _getCityName;
+  String? _getBusinessHour;
+  String? _getBusinessDay;
+  String? bOfficeLoginId;
+
+  DeviceInfo deviceInfo = DeviceInfo();
+  String _deviceBrand = '';
+  String _deviceModel = '';
+  String _deviceVersion = '';
+  String _deviceId = '';
+  String _deviceOs = '';
+
+
+  final credentials = Hive.box('credentials');
 
   final RegExp removeBracket =
       RegExp("\\[(.*?)\\]", multiLine: true, caseSensitive: true);
@@ -29,16 +57,19 @@ class MerchantProfileState extends State<MerchantProfile> {
     color: Colors.grey.shade700,
   );
 
+  TextEditingController bOfficeLoginIdController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
-
+    _getDeviceInfo();
     getMerchant = getMerchantApi();
   }
 
   Future<dynamic> getMerchantApi() async {
     String? dbCode = await localStorage.getMerchantDbCode();
-
+    bOfficeLoginId = await credentials.get('boUserId');
+    if (!context.mounted) return;
     Response result = await vClubRepo.getMerchant(
       context: context,
       keywordSearch: dbCode,
@@ -51,6 +82,10 @@ class MerchantProfileState extends State<MerchantProfile> {
     );
 
     if (result.isSuccess) {
+      if (bOfficeLoginId != null) {
+        bOfficeLoginIdController.text = bOfficeLoginId!;
+      }
+      
       return result.data;
     }
     return result.message;
@@ -81,21 +116,125 @@ class MerchantProfileState extends State<MerchantProfile> {
       physics: const NeverScrollableScrollPhysics(),
       children: [
         ListTile(
-            title: const Text('Name'),
+            title: Text(AppLocalizations.of(context)!
+                                  .translate('merchant_name')),
             subtitle: Text(data.name ?? '-', style: subtitleStyle)),
         ListTile(
-            title: const Text('Description'),
+            title: Text(AppLocalizations.of(context)!
+                                  .translate('description')),
             subtitle: Text(data.merchantDesc ?? '-')),
         ListTile(
-            title: const Text('City'),
-            subtitle: Text(data.cityName ?? '-', style: subtitleStyle)),
+            title: Text(AppLocalizations.of(context)!
+                                  .translate('city_lbl')),
+            subtitle: Text(_getCityName ?? '-', style: subtitleStyle)),
         ListTile(
-            title: const Text('Business Hours'),
-            subtitle: Text(data.businessHour ?? '-', style: subtitleStyle)),
+            title: Text(AppLocalizations.of(context)!
+                                  .translate('business_hours')),
+            subtitle: Text(_getBusinessHour ?? '-', style: subtitleStyle)),
         ListTile(
-            title: const Text('Business Day'),
-            subtitle: Text(data.businessDay ?? '-', style: subtitleStyle)),
+            title: Text(AppLocalizations.of(context)!
+                                  .translate('business_day')),
+            subtitle: Text(_getBusinessDay ?? '-', style: subtitleStyle)),
+        backOfficeLoginIdField(),
       ],
+    );
+  }
+
+  _requestApproval() async {
+    EasyLoading.show(
+      maskType: EasyLoadingMaskType.black,
+    );
+    // String? merchantDbCode = await localStorage.getMerchantDbCode();
+    String? merchantDbCode = await credentials.get('boUserId');
+
+    if (merchantDbCode != AppConfig().diCode) {
+      if (bOfficeLoginIdController.text.isNotEmpty) {
+        await credentials.put('boUserId', bOfficeLoginIdController.text);
+
+        var result = await authRepo.requestDeviceActivation(
+          boUserId: bOfficeLoginIdController.text,
+          deviceId: _deviceId,
+          deviceBrand: _deviceBrand,
+          deviceModel: _deviceModel,
+          deviceVersion: '$_deviceOs $_deviceVersion',
+        );
+
+        if (result.isSuccess) {
+          if (!context.mounted) return;
+          EasyLoading.dismiss();
+          // Provider.of<FeedsLoadingModel>(context, listen: false).loadingStatus(false);
+          customDialog.show(
+              context: context,
+              title: const Center(
+                child: Icon(
+                  Icons.check_circle_outline,
+                  color: Colors.green,
+                  size: 120,
+                ),
+              ),
+              content: 'Successfully informed',
+              barrierDismissable: false,
+              type: DialogType.success,
+              onPressed: () async {
+                await context.router.pop();
+                if (!context.mounted) return;
+                context.router.pop();
+              });
+        } else {
+          if (!context.mounted) return;
+          EasyLoading.dismiss();
+          customDialog.show(
+            context: context,
+            content: 'Fail to send request',
+            onPressed: () => Navigator.pop(context),
+            type: DialogType.error,
+          );
+        }
+
+      } else {
+        if (!context.mounted) return;
+        EasyLoading.dismiss();
+        customDialog.show(
+          context: context,
+          content: 'Back Office Login ID is required',
+          type: DialogType.warning,
+        );
+      }
+    } else {
+      if (!context.mounted) return;
+      EasyLoading.dismiss();
+      customDialog.show(
+        context: context,
+        content: 'Please register to a valid merchant before proceeding.',
+        type: DialogType.warning,
+      );
+    }
+  }
+
+  _getDeviceInfo() async {
+    await deviceInfo.getDeviceInfo();
+
+    _deviceBrand = deviceInfo.manufacturer ?? '';
+    _deviceModel = deviceInfo.model ?? '';
+    _deviceVersion = deviceInfo.version ?? '';
+    _deviceId = deviceInfo.id ?? '';
+    _deviceOs = deviceInfo.os ?? '';
+  }
+
+  backOfficeLoginIdField() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 50.w),
+      child: TextFormField(
+        controller: bOfficeLoginIdController,
+        autofocus: true,
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.symmetric(vertical: -10.h),
+          hintText: AppLocalizations.of(context)!.translate('backOfficeId'),
+          hintStyle: TextStyle(
+            color: Colors.grey[800],
+          ),
+        ),
+      ),
     );
   }
 
@@ -152,6 +291,15 @@ class MerchantProfileState extends State<MerchantProfile> {
                             SizedBox(height: ScreenUtil().setHeight(40)),
                             _profileImage(snapshot.data[0]),
                             _merchantInfo(snapshot.data[0]),
+                            CustomButton(
+                              onPressed: (){
+                                _requestApproval();
+                              },
+                              buttonColor: primaryColor,
+                              title: AppLocalizations.of(context)!
+                                  .translate('requestApproval'),
+                            ),
+                            SizedBox(height: 50.h),
                           ],
                         ),
                       ),

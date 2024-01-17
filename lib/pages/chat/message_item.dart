@@ -1,5 +1,3 @@
-// ignore_for_file: use_key_in_widget_constructors
-
 import '/common_library/utils/local_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -15,7 +13,7 @@ class MessageItem extends StatelessWidget {
   final String? userId;
 
   MessageItem(
-      {this.message,
+      {super.key, this.message,
       this.previousItemDate,
       this.userId,
       this.scrollController});

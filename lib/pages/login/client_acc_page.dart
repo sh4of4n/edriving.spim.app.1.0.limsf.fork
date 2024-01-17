@@ -1,4 +1,6 @@
-// ignore_for_file: use_key_in_widget_constructors
+
+
+import 'package:auto_route/auto_route.dart';
 
 import '/pages/login/client_acc_tablet_form.dart';
 import '/utils/constants.dart';
@@ -7,10 +9,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'client_acc_form.dart';
 
+@RoutePage()
 class ClientAccount extends StatefulWidget {
   final dynamic data;
 
-  const ClientAccount({this.data});
+  const ClientAccount({super.key, this.data});
 
   @override
   ClientAccountState createState() => ClientAccountState();

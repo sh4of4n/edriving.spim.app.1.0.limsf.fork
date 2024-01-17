@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors, depend_on_referenced_packages
+
 
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/repository/auth_repository.dart';
@@ -11,10 +11,11 @@ import 'package:quiver/async.dart';
 import '/common_library/utils/app_localizations.dart';
 import '../../router.gr.dart';
 
+@RoutePage()
 class RegisterVerification extends StatefulWidget {
   final dynamic data;
 
-  const RegisterVerification(this.data);
+  const RegisterVerification(this.data, {super.key});
 
   @override
   RegisterVerificationState createState() => RegisterVerificationState();
@@ -226,7 +227,7 @@ class RegisterVerificationState extends State<RegisterVerification> {
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 11.0),
                                       shape: const StadiumBorder(),
-                                      primary: const Color(0xffdd0e0e),
+                                      backgroundColor: const Color(0xffdd0e0e),
                                       textStyle:
                                           const TextStyle(color: Colors.white),
                                     ),
@@ -369,7 +370,7 @@ class RegisterVerificationState extends State<RegisterVerification> {
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 11.0),
                                       shape: const StadiumBorder(),
-                                      primary: const Color(0xffdd0e0e),
+                                      backgroundColor: const Color(0xffdd0e0e),
                                       textStyle:
                                           const TextStyle(color: Colors.white),
                                     ),

@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 //import 'package:auto_route/auto_route.dart';
 import '/common_library/services/location.dart';
@@ -15,6 +15,8 @@ import 'home_module.dart';
 import 'home_top_menu.dart';
 
 class Home extends StatefulWidget {
+  const Home({super.key});
+
   @override
   HomeState createState() => HomeState();
 }

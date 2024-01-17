@@ -1,5 +1,6 @@
-// ignore_for_file: use_key_in_widget_constructors
 
+
+import 'package:auto_route/auto_route.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import '/common_library/utils/app_localizations.dart';
 import '/base/page_base_class.dart';
@@ -11,7 +12,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:transparent_image/transparent_image.dart';
 
+@RoutePage()
 class Invite extends StatefulWidget with PageBaseClass {
+  const Invite({super.key});
+
   @override
   InviteState createState() => InviteState();
 }
@@ -196,7 +200,7 @@ class InviteState extends State<Invite> with PageBaseClass {
                                   minimumSize: Size(420.w, 45.h),
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 11.0),
-                                  primary: const Color(0xffdd0e0e),
+                                  backgroundColor: const Color(0xffdd0e0e),
                                   textStyle:
                                       const TextStyle(color: Colors.white),
                                 ),
@@ -398,7 +402,7 @@ class InviteState extends State<Invite> with PageBaseClass {
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 11.0),
                                   shape: const StadiumBorder(),
-                                  primary: const Color(0xffdd0e0e),
+                                  backgroundColor: const Color(0xffdd0e0e),
                                   textStyle:
                                       const TextStyle(color: Colors.white),
                                 ),
@@ -435,7 +439,7 @@ class InviteState extends State<Invite> with PageBaseClass {
         _isLoading = true;
         _message = '';
       });
-
+      if (!context.mounted) return;
       var result = await authRepo.getUserByUserPhone(
         context: context,
         countryCode: _countryCode,

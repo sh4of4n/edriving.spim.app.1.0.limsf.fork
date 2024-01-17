@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/base/page_base_class.dart';
@@ -11,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 
+@RoutePage()
 class CartItemEdit extends StatefulWidget {
   final String? stkCode;
   final String? stkDesc1;
@@ -24,7 +25,7 @@ class CartItemEdit extends StatefulWidget {
   final String? batchNo;
   final String? slsKey;
 
-  const CartItemEdit({
+  const CartItemEdit({super.key, 
     this.stkCode,
     this.stkDesc1,
     this.stkDesc2,
@@ -244,7 +245,7 @@ class CartItemEditState extends State<CartItemEdit> with PageBaseClass {
                 minimumSize: Size(420.w, 45.h),
                 padding: const EdgeInsets.symmetric(vertical: 11.0),
                 shape: const StadiumBorder(),
-                primary: const Color(0xffdd0e0e),
+                backgroundColor: const Color(0xffdd0e0e),
                 textStyle: const TextStyle(color: Colors.white),
               ),
               onPressed: _submit,
@@ -308,6 +309,7 @@ class CartItemEditState extends State<CartItemEdit> with PageBaseClass {
               dbcode: dbcode,
             ),
           ); */
+          if (!context.mounted) return;
           context.router.pop();
         } else {
           setState(() {

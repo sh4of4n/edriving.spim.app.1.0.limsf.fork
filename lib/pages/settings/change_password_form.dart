@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/common_library/utils/app_localizations.dart';
@@ -12,6 +12,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class ChangePasswordForm extends StatefulWidget {
+  const ChangePasswordForm({super.key});
+
   @override
   ChangePasswordFormState createState() => ChangePasswordFormState();
 }
@@ -251,7 +253,7 @@ class ChangePasswordFormState extends State<ChangePasswordForm>
           : ElevatedButton(
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 11.0),
-                primary: const Color(0xffdd0e0e),
+                backgroundColor: const Color(0xffdd0e0e),
                 minimumSize: Size(420.w, 45.h),
                 shape: const StadiumBorder(),
                 textStyle: const TextStyle(color: Colors.white),

@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import '/common_library/utils/app_localizations.dart';
 import '/utils/constants.dart';
@@ -15,7 +15,7 @@ class MerchantCard extends StatelessWidget {
   final String? businessHours;
   final String? businessDay;
 
-  MerchantCard({
+  MerchantCard({super.key, 
     this.name,
     this.desc,
     this.imageLink,
@@ -80,7 +80,7 @@ class MerchantCard extends StatelessWidget {
                   children: <Widget>[
                     RatingBar.builder(
                       initialRating: 4,
-                      // ignore: avoid_print
+                      
                       onRatingUpdate: (rating) => print(rating),
                       direction: Axis.horizontal,
                       allowHalfRating: false,

@@ -1,4 +1,6 @@
-// ignore_for_file: use_key_in_widget_constructors
+
+
+import 'package:auto_route/auto_route.dart';
 
 import '/common_library/services/repository/epandu_repository.dart';
 import '/common_library/utils/custom_dialog.dart';
@@ -9,10 +11,11 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+@RoutePage()
 class QueueNumber extends StatefulWidget {
   final dynamic data;
 
-  const QueueNumber({required this.data});
+  const QueueNumber({super.key, required this.data});
 
   @override
   QueueNumberState createState() => QueueNumberState();
@@ -56,6 +59,7 @@ class QueueNumberState extends State<QueueNumber> {
     if (result.isSuccess) {
       checkInData = result.data;
     } else {
+      if (!context.mounted) return;
       customDialog.show(
         context: context,
         content: result.message!,
@@ -70,10 +74,10 @@ class QueueNumberState extends State<QueueNumber> {
 
   renderQr() {
     if (!isLoading && checkInData != null) {
-      return QrImage(
+      return QrImageView(
         embeddedImage: AssetImage(image.ePanduIcon),
-        embeddedImageStyle: QrEmbeddedImageStyle(
-          size: const Size(40, 40),
+        embeddedImageStyle: const QrEmbeddedImageStyle(
+          size: Size(40, 40),
         ),
         data:
             '{"Table1":[{"group_id": "${checkInData[0].groupId}", "test_code": "${checkInData[0].testCode}", "nric_no": "${checkInData[0].nricNo}"}]}',
