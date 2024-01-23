@@ -15,6 +15,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:transparent_image/transparent_image.dart';
 
+@RoutePage(name: 'SelectInstitute')
 class SelectInstitute extends StatefulWidget {
   final dynamic data;
 

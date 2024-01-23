@@ -1,6 +1,8 @@
 // ignore_for_file: use_key_in_widget_constructors, depend_on_referenced_packages
 
 import 'dart:typed_data';
+import 'package:auto_route/auto_route.dart';
+
 import '/common_library/utils/custom_dialog.dart';
 import '/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +14,7 @@ import 'package:share/share.dart';
 import 'package:printing/printing.dart';
 import 'package:native_pdf_view/native_pdf_view.dart';
 
+@RoutePage(name: 'ViewPdf')
 class ViewPdf extends StatefulWidget {
   final String? title;
   final String? pdfLink;

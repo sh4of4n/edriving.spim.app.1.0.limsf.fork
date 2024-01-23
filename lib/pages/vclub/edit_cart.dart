@@ -11,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 
+@RoutePage(name: 'CartItemEdit')
 class CartItemEdit extends StatefulWidget {
   final String? stkCode;
   final String? stkDesc1;

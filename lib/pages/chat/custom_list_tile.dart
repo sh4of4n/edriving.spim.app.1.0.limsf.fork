@@ -28,7 +28,7 @@ class CustomListTile extends StatelessWidget {
         padding: contentPadding,
         child: Row(
           children: [
-            if (leading != null) leading,
+            leading,
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(left: 16.0),
@@ -36,14 +36,14 @@ class CustomListTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '$title',
-                      style: TextStyle(
+                      title,
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
-                      '$subtitle',
-                      style: TextStyle(
+                      subtitle,
+                      style: const TextStyle(
                         color: Colors.grey,
                       ),
                     ),
@@ -52,12 +52,12 @@ class CustomListTile extends StatelessWidget {
               ),
             ),
             Text(
-              '$time',
-              style: TextStyle(
+              time,
+              style: const TextStyle(
                 color: Colors.grey,
               ),
             ),
-            if (trailing != null) trailing,
+            trailing,
           ],
         ),
       ),

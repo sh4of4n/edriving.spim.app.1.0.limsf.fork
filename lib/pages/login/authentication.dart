@@ -17,6 +17,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
+@RoutePage(name: 'Authentication')
 class Authentication extends StatefulWidget {
   @override
   AuthenticationState createState() => AuthenticationState();
@@ -85,14 +86,18 @@ class AuthenticationState extends State<Authentication> {
     String? diCode = await localStorage.getMerchantDbCode();
 
     if (userId != null && userId.isNotEmpty && diCode!.isNotEmpty) {
+      if (!mounted) return;
       context.read<SocketClientHelper>().loginUserRoom();
       context.router.replace(const Home());
     } else if (userId != null && userId.isNotEmpty && diCode!.isEmpty) {
-      context.read<SocketClientHelper>().logoutUserRoom();
-      await authRepo.logout(context: context, type: '');
+      if (!mounted) return;
+      context.read<SocketClientHelper>().disconnectSocket();
 
+      await authRepo.logout(context: context, type: '');
+      if (!mounted) return;
       context.router.replace(const Login());
     } else {
+      if (!mounted) return;
       context.router.replace(const Login());
     }
   }

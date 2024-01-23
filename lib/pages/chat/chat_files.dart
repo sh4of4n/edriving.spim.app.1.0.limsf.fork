@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sound/public/flutter_sound_player.dart';
@@ -7,19 +8,20 @@ import 'package:open_file/open_file.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
+import 'full_image.dart';
+
 class ChatFiles extends StatelessWidget {
   const ChatFiles({Key? key, required this.roomId}) : super(key: key);
   final String roomId;
   @override
   Widget build(BuildContext context) {
     String storagePath =
-        '/storage/emulated/0/Android/data/com.example.epandu_admin/files/';
-    return Container(
-        child: DefaultTabController(
+        '/storage/emulated/0/Android/data/my.com.tbs.carser.admin.app/files/';
+    return DefaultTabController(
       length: 4,
       child: Scaffold(
         appBar: AppBar(
-          bottom: TabBar(
+          bottom: const TabBar(
             tabs: [
               Tab(icon: Icon(Icons.camera_alt)),
               Tab(icon: Icon(Icons.video_collection_rounded)),
@@ -27,7 +29,7 @@ class ChatFiles extends StatelessWidget {
               Tab(icon: Icon(Icons.insert_drive_file)),
             ],
           ),
-          title: Text('Media and Files'),
+          title: const Text('Media and Files'),
           backgroundColor: Colors.blueAccent,
         ),
         body: TabBarView(
@@ -41,7 +43,7 @@ class ChatFiles extends StatelessWidget {
           ],
         ),
       ),
-    ));
+    );
   }
 }
 
@@ -65,7 +67,7 @@ class _GalleryItemsState extends State<GalleryItems> {
   @override
   void initState() {
     super.initState();
-    String path = widget.storagePath + widget.roomId + '/' + widget.type;
+    String path = '${widget.storagePath}${widget.roomId}/${widget.type}';
     isDirectoryExists(path);
   }
 
@@ -90,32 +92,46 @@ class _GalleryItemsState extends State<GalleryItems> {
         return GridView.builder(
           itemCount: imageList.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: widget.type == 'Images' ? 3 : 2,
+            crossAxisCount: widget.type == 'Images' ? 2 : 2,
             // crossAxisCount: _getCrossAxisCount(context),
             crossAxisSpacing: 1.0,
-            childAspectRatio: 16 / 9,
+            // childAspectRatio: 16 / 9,
             mainAxisSpacing: 1.0,
           ),
           itemBuilder: (context, index) {
-            return Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              child: widget.type == 'Images'
-                  ? FullScreenWidget(
-                      child: Center(
-                      child: Hero(
-                        tag: UniqueKey(),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          child: Image.file(
-                            File(imageList[index]),
-                            fit: BoxFit.cover,
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => FullScreenImagePage(
+                      imageUrl: imageList[index],
+                      heroTag: imageList[index].split('/').last,
+                    ),
+                  ),
+                );
+              },
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16.0),
+                ),
+                child: widget.type == 'Images'
+                    ? Center(
+                        child: Hero(
+                          tag: UniqueKey(),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(16.0),
+                            child: Image.file(
+                              File(imageList[index]),
+                              fit: BoxFit.cover,
+                              height: 300,
+                              width: 250,
+                            ),
                           ),
                         ),
-                      ),
-                    ))
-                  : VideoItems(filePath: imageList[index]),
+                      )
+                    : VideoItems(filePath: imageList[index]),
+              ),
             );
           },
         );
@@ -286,7 +302,7 @@ class _AudioItemsState extends State<AudioItems> {
       ),
       onTap: () {
         if (!_mPlayerIsInited) {
-          return null;
+          return;
         }
         if (_mPlayer!.isStopped) {
           play(widget.filePath);
@@ -297,11 +313,14 @@ class _AudioItemsState extends State<AudioItems> {
     ));
   }
 
-  void play(String audioFilPath) {
+  Future<void> play(String audioFilPath) async {
     assert(_mPlayerIsInited && _mPlayer!.isStopped);
+    File file = File(audioFilPath);
+    Uint8List uint8list = await file.readAsBytes();
     _mPlayer!
         .startPlayer(
-            fromURI: audioFilPath,
+            // fromURI: audioFilPath,
+            fromDataBuffer: uint8list,
             whenFinished: () {
               if (mounted) {
                 setState(() {});

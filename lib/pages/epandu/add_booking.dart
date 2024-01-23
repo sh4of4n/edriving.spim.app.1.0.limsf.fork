@@ -14,6 +14,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '/common_library/utils/app_localizations.dart';
 
+@RoutePage(name: 'AddBooking')
 class AddBooking extends StatefulWidget {
   @override
   AddBookingState createState() => AddBookingState();

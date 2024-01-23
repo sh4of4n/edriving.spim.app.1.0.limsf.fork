@@ -15,6 +15,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
+@RoutePage(name: 'Cart')
 class Cart extends StatefulWidget {
   final String? itemName;
   final String? dbcode;

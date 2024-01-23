@@ -13,6 +13,7 @@ import 'package:transparent_image/transparent_image.dart';
 import '/common_library/utils/app_localizations.dart';
 import '../../router.gr.dart';
 
+@RoutePage(name: 'SelectClass')
 class SelectClass extends StatefulWidget {
   final dynamic data;
 

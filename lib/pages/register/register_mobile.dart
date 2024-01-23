@@ -12,6 +12,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../router.gr.dart';
 
+@RoutePage(name: 'RegisterMobile')
 class RegisterMobile extends StatefulWidget {
   @override
   RegisterMobileState createState() => RegisterMobileState();

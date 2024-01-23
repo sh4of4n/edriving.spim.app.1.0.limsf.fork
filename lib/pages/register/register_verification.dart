@@ -6,11 +6,11 @@ import '/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:quiver/async.dart';
-
 import '/common_library/utils/app_localizations.dart';
 import '../../router.gr.dart';
+import 'package:quiver/async.dart';
 
+@RoutePage(name: 'RegisterVerification')
 class RegisterVerification extends StatefulWidget {
   final dynamic data;
 

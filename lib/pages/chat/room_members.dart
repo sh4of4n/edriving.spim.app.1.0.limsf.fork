@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:full_screen_image_null_safe/full_screen_image_null_safe.dart';
 import 'package:provider/provider.dart';
-import '../../common_library/services/database/DatabaseHelper.dart';
+import '../../common_library/services/database/database_helper.dart';
 import '../../common_library/services/model/checkonline_model.dart';
 import '../../common_library/services/model/m_roommember_model.dart';
 import '../../common_library/services/repository/auth_repository.dart';
 import '../../common_library/services/repository/chatroom_repository.dart';
 import '../../common_library/utils/local_storage.dart';
-import 'chat_home.dart';
+import '../../utils/capitalize_firstletter.dart';
+import 'chat_room.dart';
 import 'online_users.dart';
 
 class RoomMembersList extends StatefulWidget {
@@ -19,6 +20,7 @@ class RoomMembersList extends StatefulWidget {
     required this.picturePath,
     required this.roomName,
     required this.roomDesc,
+    required this.isMessagesExist,
     // required this.roomMembers
   }) : super(key: key);
   final String roomId;
@@ -26,9 +28,10 @@ class RoomMembersList extends StatefulWidget {
   final String picturePath;
   final String roomName;
   final String roomDesc;
+  final bool isMessagesExist;
   // final String roomMembers;
   @override
-  _RoomMembersListState createState() => _RoomMembersListState();
+  State<RoomMembersList> createState() => _RoomMembersListState();
 }
 
 class _RoomMembersListState extends State<RoomMembersList> {
@@ -63,7 +66,7 @@ class _RoomMembersListState extends State<RoomMembersList> {
   }
 
   void statusCallback(EasyLoadingStatus status) {
-    print('Test EasyLoading Status $status');
+    //print('Test EasyLoading Status $status');
   }
 
   @override
@@ -76,21 +79,55 @@ class _RoomMembersListState extends State<RoomMembersList> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: getAppbar(context),
-        body: Container(
-          child: Column(
-            children: [
-              Expanded(child: _populateListView()),
-            ],
-          ),
+        body: Column(
+          children: [
+            // if (widget.roomDesc.toUpperCase().contains("GROUP"))
+            //   Padding(
+            //     padding: const EdgeInsets.all(8.0),
+            //     child: TextField(
+            //       onChanged: (value) {
+            //         _updateListview();
+            //       },
+            //       controller: editingController,
+            //       decoration: InputDecoration(
+            //           labelText: "Search",
+            //           hintText: "Search",
+            //           prefixIcon: Icon(Icons.search),
+            //           suffixIcon: editingController.text.length > 0
+            //               ? IconButton(
+            //                   // Icon to
+            //                   icon: Icon(Icons.clear), // clear text
+            //                   onPressed: () {
+            //                     editingController.text = '';
+            //                     _updateListview();
+            //                   },
+            //                 )
+            //               : null,
+            //           border: OutlineInputBorder(
+            //               borderRadius:
+            //                   BorderRadius.all(Radius.circular(25.0)))),
+            //     ),
+            //   ),
+            Expanded(child: _populateListView()),
+          ],
         ));
   }
 
   _updateListview() async {
-    await EasyLoading.show();
+    await EasyLoading.show(
+      maskType: EasyLoadingMaskType.black,
+    );
     roomMembers = await dbHelper.getRoomMembersList(widget.roomId);
     if (!widget.roomDesc.toUpperCase().contains("GROUP")) {
-      roomMembers.removeWhere((element) => element.user_id == widget.userId);
+      roomMembers.removeWhere((element) => element.userId == widget.userId);
     }
+    //else {
+    //   for (var member in roomMembers) {
+    //     if (member.userId == widget.userId) {
+    //       member.nickName = 'You';
+    //     }
+    //   }
+    // }
     setState(() {
       roomMembers = roomMembers;
     });
@@ -98,26 +135,28 @@ class _RoomMembersListState extends State<RoomMembersList> {
   }
 
   _owncircleImage() {
-    if (profilePicUrl != null && profilePicUrl!.isNotEmpty)
+    if (profilePicUrl != null && profilePicUrl!.isNotEmpty) {
       return Image.network(
           profilePicUrl!.replaceAll(removeBracket, '').split('\r\n')[0]);
-    return Icon(Icons.account_circle);
+    }
+    return const Icon(Icons.account_circle);
   }
 
   _othersCircleImage(String picturePath) {
-    if (picturePath.isNotEmpty)
+    if (picturePath.isNotEmpty) {
       return Image.network(
           picturePath.replaceAll(removeBracket, '').split('\r\n')[0]);
-    return Icon(Icons.account_circle);
+    }
+    return const Icon(Icons.account_circle);
   }
 
   getAppbar(BuildContext context) {
     if (!_isRoomMemberSearching) {
       return AppBar(
-        iconTheme: IconThemeData(color: Colors.black54),
+        iconTheme: const IconThemeData(color: Colors.black54),
         actions: [
           IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.search,
                 color: Colors.white,
               ),
@@ -145,7 +184,7 @@ class _RoomMembersListState extends State<RoomMembersList> {
                   boxShadow: [
                     BoxShadow(
                         color: Colors.grey.withOpacity(.3),
-                        offset: Offset(0, 2),
+                        offset: const Offset(0, 2),
                         blurRadius: 5)
                   ],
                 ),
@@ -157,7 +196,7 @@ class _RoomMembersListState extends State<RoomMembersList> {
                           ? Image.network(widget.picturePath
                               .replaceAll(removeBracket, '')
                               .split('\r\n')[0])
-                          : Icon(Icons.account_circle),
+                          : const Icon(Icons.account_circle),
                     ),
                   ),
                 ),
@@ -171,11 +210,11 @@ class _RoomMembersListState extends State<RoomMembersList> {
                   SizedBox(
                     width: 200.0,
                     child: Text(
-                      widget.roomName + ' - ' + 'Members List',
+                      '${widget.roomName} - Members List',
                       maxLines: 1,
                       softWrap: false,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 18.5,
                         fontWeight: FontWeight.bold,
                       ),
@@ -190,7 +229,7 @@ class _RoomMembersListState extends State<RoomMembersList> {
     } else {
       return AppBar(
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             size: 24,
           ),
@@ -208,8 +247,8 @@ class _RoomMembersListState extends State<RoomMembersList> {
           onChanged: (value) {
             _updateListview();
           },
-          style: TextStyle(color: Colors.white),
-          decoration: InputDecoration(
+          style: const TextStyle(color: Colors.white),
+          decoration: const InputDecoration(
               hintText: "Search RoomMember",
               hintStyle: TextStyle(color: Colors.white)),
         ),
@@ -237,7 +276,7 @@ class _RoomMembersListState extends State<RoomMembersList> {
                   boxShadow: [
                     BoxShadow(
                         color: Colors.grey.withOpacity(.3),
-                        offset: Offset(0, 2),
+                        offset: const Offset(0, 2),
                         blurRadius: 5)
                   ],
                 ),
@@ -245,9 +284,9 @@ class _RoomMembersListState extends State<RoomMembersList> {
                   child: Center(
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8.0),
-                      child: roomMembers.user_id == widget.userId
+                      child: roomMembers.userId == widget.userId
                           ? _owncircleImage()
-                          : _othersCircleImage(roomMembers.picture_path ?? ''),
+                          : _othersCircleImage(roomMembers.picturePath ?? ''),
                     ),
                   ),
                 ),
@@ -256,13 +295,13 @@ class _RoomMembersListState extends State<RoomMembersList> {
                 crossAxisAlignment: WrapCrossAlignment.center,
                 children: [
                   onlineUsersList.any(
-                          (element) => element.userId == roomMembers.user_id)
-                      ? Icon(
+                          (element) => element.userId == roomMembers.userId)
+                      ? const Icon(
                           Icons.circle,
                           color: Colors.green,
                           size: 15,
                         )
-                      : Icon(
+                      : const Icon(
                           Icons.circle,
                           color: Colors.grey,
                           size: 15,
@@ -272,28 +311,34 @@ class _RoomMembersListState extends State<RoomMembersList> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ChatHome2(
-                            roomId: widget.roomId,
-                            picturePath: widget.picturePath,
-                            roomName: widget.roomName,
-                            roomDesc: widget.roomDesc,
-                            // roomMembers: widget.roomMembers,
-                          ),
+                          builder: (context) => ChatRoom(
+                              roomId: widget.roomId,
+                              picturePath: widget.picturePath,
+                              roomName: widget.roomName,
+                              roomDesc: widget.roomDesc,
+                              isMessagesExist: widget.isMessagesExist),
                         ),
                       );
                     },
-                    child: Text(roomMembers.nick_name!,
-                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    child: Text(
+                        (roomMembers.nickName != '' &&
+                                roomMembers.nickName != 'null' &&
+                                roomMembers.nickName != null)
+                            ? CapitalizeFirstLetter().capitalizeFirstLetter(
+                                roomMembers.nickName!.trim())
+                            : '',
+                        style: const TextStyle(fontWeight: FontWeight.bold)),
                   )
                 ],
               ),
-              subtitle: Text(roomMembers.login_id!),
+              subtitle: Text(roomMembers.loginId!),
             ),
           );
-        } else if (roomMembers.nick_name
-                ?.toLowerCase()
-                .contains(editingController.text) ==
-            true) {
+        } else if (roomMembers.nickName != '' &&
+            roomMembers.nickName
+                    ?.toLowerCase()
+                    .contains(editingController.text) ==
+                true) {
           return Card(
             child: ListTile(
               leading: Container(
@@ -308,7 +353,7 @@ class _RoomMembersListState extends State<RoomMembersList> {
                   boxShadow: [
                     BoxShadow(
                         color: Colors.grey.withOpacity(.3),
-                        offset: Offset(0, 2),
+                        offset: const Offset(0, 2),
                         blurRadius: 5)
                   ],
                 ),
@@ -316,9 +361,9 @@ class _RoomMembersListState extends State<RoomMembersList> {
                   child: Center(
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8.0),
-                      child: roomMembers.user_id == widget.userId
+                      child: roomMembers.userId == widget.userId
                           ? _owncircleImage()
-                          : _othersCircleImage(roomMembers.picture_path ?? ''),
+                          : _othersCircleImage(roomMembers.picturePath ?? ''),
                     ),
                   ),
                 ),
@@ -327,13 +372,13 @@ class _RoomMembersListState extends State<RoomMembersList> {
                 crossAxisAlignment: WrapCrossAlignment.center,
                 children: [
                   onlineUsersList.any(
-                          (element) => element.userId == roomMembers.user_id)
-                      ? Icon(
+                          (element) => element.userId == roomMembers.userId)
+                      ? const Icon(
                           Icons.circle,
                           color: Colors.green,
                           size: 15,
                         )
-                      : Icon(
+                      : const Icon(
                           Icons.circle,
                           color: Colors.grey,
                           size: 15,
@@ -343,22 +388,27 @@ class _RoomMembersListState extends State<RoomMembersList> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ChatHome2(
-                            roomId: widget.roomId,
-                            picturePath: widget.picturePath,
-                            roomName: widget.roomName,
-                            roomDesc: widget.roomDesc,
-                            // roomMembers: widget.roomMembers,
-                          ),
+                          builder: (context) => ChatRoom(
+                              roomId: widget.roomId,
+                              picturePath: widget.picturePath,
+                              roomName: widget.roomName,
+                              roomDesc: widget.roomDesc,
+                              isMessagesExist: widget.isMessagesExist),
                         ),
                       );
                     },
-                    child: Text(roomMembers.nick_name!,
-                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    child: Text(
+                        (roomMembers.nickName != '' &&
+                                roomMembers.nickName != 'null' &&
+                                roomMembers.nickName != null)
+                            ? CapitalizeFirstLetter().capitalizeFirstLetter(
+                                roomMembers.nickName!.trim())
+                            : '',
+                        style: const TextStyle(fontWeight: FontWeight.bold)),
                   )
                 ],
               ),
-              subtitle: Text(roomMembers.login_id!),
+              subtitle: Text(roomMembers.loginId!),
             ),
           );
         } else {

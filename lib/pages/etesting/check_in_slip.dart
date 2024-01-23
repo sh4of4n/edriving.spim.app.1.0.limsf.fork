@@ -11,6 +11,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+@RoutePage(name: 'CheckInSlip')
 class CheckInSlip extends StatefulWidget {
   @override
   CheckInSlipState createState() => CheckInSlipState();
@@ -60,7 +61,7 @@ class CheckInSlipState extends State<CheckInSlip> {
 
   renderQr() {
     if (!isLoading && checkInData != null) {
-      return QrImage(
+      return QrImageView(
         embeddedImage: AssetImage(image.ePanduIcon),
         embeddedImageStyle: QrEmbeddedImageStyle(
           size: const Size(40, 40),

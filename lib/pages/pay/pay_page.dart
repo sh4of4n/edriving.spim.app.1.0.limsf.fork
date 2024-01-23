@@ -16,6 +16,7 @@ import 'package:supercharged/supercharged.dart';
 import '/common_library/utils/app_localizations.dart';
 import '../../router.gr.dart';
 
+@RoutePage(name: 'Pay')
 class Pay extends StatefulWidget {
   @override
   PayState createState() => PayState();

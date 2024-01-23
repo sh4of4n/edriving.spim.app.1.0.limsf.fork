@@ -19,6 +19,7 @@ import 'package:provider/provider.dart';
 import '../../router.gr.dart' as route;
 import '/common_library/services/repository/products_repository.dart';
 
+@RoutePage(name: 'Product')
 class Product extends StatefulWidget {
   final String? stkCode;
   final String? stkDesc1;

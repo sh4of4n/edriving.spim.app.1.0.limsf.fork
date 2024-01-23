@@ -13,6 +13,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../router.gr.dart';
 
+@RoutePage(name: 'OrderList')
 class OrderList extends StatefulWidget {
   final String? icNo;
   final String? packageCode;

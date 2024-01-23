@@ -12,6 +12,7 @@ import 'package:geolocator/geolocator.dart';
 
 import '../../router.gr.dart';
 
+@RoutePage(name: 'DirectoryList')
 class DirectoryList extends StatefulWidget {
   final dynamic directoryType;
 

@@ -16,6 +16,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../router.gr.dart';
 
+@RoutePage(name: 'Inbox')
 class Inbox extends StatefulWidget {
   @override
   InboxState createState() => InboxState();

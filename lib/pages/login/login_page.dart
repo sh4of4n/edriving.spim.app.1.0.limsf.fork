@@ -1,5 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors
 
+import 'package:auto_route/auto_route.dart';
+
 import '/utils/constants.dart';
 import '/common_library/utils/custom_dialog.dart';
 import '/common_library/utils/local_storage.dart';
@@ -9,7 +11,9 @@ import 'login_bottom_card.dart';
 import 'login_form.dart';
 import 'login_tablet_bottom_card.dart';
 import 'login_tablet_form.dart';
+import '../../router.gr.dart';
 
+@RoutePage(name: 'Login')
 class Login extends StatefulWidget {
   @override
   LoginState createState() => LoginState();

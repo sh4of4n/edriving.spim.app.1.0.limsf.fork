@@ -17,6 +17,7 @@ import 'package:hive/hive.dart';
 import 'home_module.dart';
 import 'home_top_menu.dart';
 
+@RoutePage(name: 'Home')
 class Home extends StatefulWidget {
   @override
   HomeState createState() => HomeState();

@@ -5,12 +5,14 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   connectivity_plus
   emoji_picker_flutter
+  file_selector_windows
   firebase_core
   geolocator_windows
   pdfx
   permission_handler_windows
   printing
   record_windows
+  sentry_flutter
   url_launcher_windows
 )
 

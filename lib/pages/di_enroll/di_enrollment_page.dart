@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 
 import '../../router.gr.dart';
 
+@RoutePage(name: 'DiEnrollment')
 class DiEnrollment extends StatefulWidget {
   final String? packageCodeJson;
 

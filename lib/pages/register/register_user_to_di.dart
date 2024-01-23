@@ -23,6 +23,7 @@ import 'package:package_info/package_info.dart';
 
 import '/common_library/utils/app_localizations.dart';
 
+@RoutePage(name: 'RegisterUserToDi')
 class RegisterUserToDi extends StatefulWidget {
   final dynamic barcode;
 

@@ -15,6 +15,7 @@ import 'package:hive/hive.dart';
 
 import '../../router.gr.dart';
 
+@RoutePage(name: 'SelectDrivingInstitute')
 class SelectDrivingInstitute extends StatefulWidget {
   final dynamic diList;
 

@@ -1,13 +1,15 @@
 import 'dart:async';
+import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_sound/public/flutter_sound_player.dart';
 import 'package:flutter_sound/public/util/flutter_sound_helper.dart';
-import 'package:jumping_dot/jumping_dot.dart';
 import '../../common_library/services/model/replymessage_model.dart';
 import '../../utils/capitalize_firstletter.dart';
-import 'chat_home.dart';
+import 'chat_room.dart';
 import 'chat_theme.dart';
 import 'date_formater.dart';
+import 'message_status.dart';
 import 'reply_message_widget.dart';
 
 typedef Fn = void Function();
@@ -47,19 +49,21 @@ class AudioCard extends StatefulWidget {
 
 class _AudioCardState extends State<AudioCard> {
   bool isPlaying = false;
-  Duration duration = new Duration();
+  Duration duration = const Duration();
   final FlutterSoundPlayer _mPlayer = FlutterSoundPlayer();
   final FlutterSoundHelper flutterSoundHelper = FlutterSoundHelper();
   bool _mPlayerIsInited = false;
   StreamSubscription? _mPlayerSubscription;
-  Duration pos = new Duration();
+  Duration pos = const Duration();
   @override
   void initState() {
     super.initState();
     init().then((value) {
-      setState(() {
-        _mPlayerIsInited = true;
-      });
+      if (mounted) {
+        setState(() {
+          _mPlayerIsInited = true;
+        });
+      }
     });
   }
 
@@ -68,8 +72,8 @@ class _AudioCardState extends State<AudioCard> {
     duration=d;*/
     //print(widget.file_path + '_' + duration.toString());
     await _mPlayer.openPlayer();
-    await _mPlayer.setSubscriptionDuration(Duration(milliseconds: 10));
-    _mPlayerSubscription = _mPlayer.onProgress!.listen((e) {
+    await _mPlayer.setSubscriptionDuration(const Duration(milliseconds: 10));
+    _mPlayerSubscription = _mPlayer.onProgress?.listen((e) {
       duration = e.duration;
       setPos(e.position);
       setState(() {});
@@ -94,9 +98,9 @@ class _AudioCardState extends State<AudioCard> {
       // asymmetric padding
       padding: EdgeInsets.fromLTRB(
         widget.localUser == widget.user ? 64.0 : 16.0,
-        4,
+        3,
         widget.localUser == widget.user ? 16.0 : 64.0,
-        4,
+        3,
       ),
       child: Align(
         // align the child within the container
@@ -105,21 +109,21 @@ class _AudioCardState extends State<AudioCard> {
             : Alignment.centerLeft,
         child: Container(
           decoration: BoxDecoration(
-            border: widget.localUser != widget.user
-                ? Border.all(color: Colors.blueAccent)
-                : Border.all(color: Colors.grey[300]!),
+            // border: widget.localUser != widget.user
+            //     ? Border.all(color: Colors.blueAccent)
+            //     : Border.all(color: Colors.grey[300]!),
             borderRadius: BorderRadius.circular(17),
           ),
           child: DecoratedBox(
             // chat bubble decoration
             decoration: BoxDecoration(
               color: widget.localUser == widget.user
-                  ? Colors.blueAccent
-                  : Colors.grey[200],
+                  ? Colors.blueAccent.withOpacity(0.3)
+                  : Colors.grey[300],
               borderRadius: BorderRadius.circular(16),
             ),
             child: Padding(
-                padding: const EdgeInsets.all(12),
+                padding: const EdgeInsets.all(5),
                 child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -132,16 +136,16 @@ class _AudioCardState extends State<AudioCard> {
                             style: MyTheme.heading2.copyWith(fontSize: 13),
                           ),
                       widget.filePath != ''
-                          ? widget.replyMessageDetails.reply_to_id == 0
+                          ? widget.replyMessageDetails.replyToId == 0
                               ? Container(
                                   height: 50,
                                   alignment: Alignment.centerLeft,
                                   child: Container(
                                     width:
                                         MediaQuery.of(context).size.width * 0.8,
-                                    padding: EdgeInsets.all(8),
+                                    padding: const EdgeInsets.all(8),
                                     decoration: BoxDecoration(
-                                      color: Colors.grey[300],
+                                      color: Colors.grey[400],
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     child: Row(
@@ -172,17 +176,17 @@ class _AudioCardState extends State<AudioCard> {
                                                             pos
                                                                 .toString()
                                                                 .split('.')[0],
-                                                            style: TextStyle(
+                                                            style: const TextStyle(
                                                                 color: Colors
                                                                     .black45)),
-                                                        SizedBox(
+                                                        const SizedBox(
                                                           width: 50,
                                                         ),
                                                         Text(
                                                             (pos - duration)
                                                                 .toString()
                                                                 .split('.')[0],
-                                                            style: TextStyle(
+                                                            style: const TextStyle(
                                                                 color: Colors
                                                                     .black45)),
                                                       ],
@@ -211,7 +215,7 @@ class _AudioCardState extends State<AudioCard> {
                                   children: [
                                     buildReplyMessage(
                                         widget.replyMessageDetails),
-                                    Divider(
+                                    const Divider(
                                       color: Colors.white,
                                       height: 20,
                                       thickness: 2,
@@ -230,7 +234,7 @@ class _AudioCardState extends State<AudioCard> {
                                                     .size
                                                     .width *
                                                 0.8,
-                                            padding: EdgeInsets.all(8),
+                                            padding: const EdgeInsets.all(8),
                                             decoration: BoxDecoration(
                                               color: Colors.grey[300],
                                               borderRadius:
@@ -246,7 +250,7 @@ class _AudioCardState extends State<AudioCard> {
                                                 GestureDetector(
                                                   onTap:
                                                       getPlaybackFn(_mPlayer),
-                                                  child: Icon(
+                                                  child: const Icon(
                                                     Icons.play_arrow,
                                                     size: 30,
                                                   ),
@@ -275,55 +279,61 @@ class _AudioCardState extends State<AudioCard> {
                                     )
                                   ],
                                 )
-                          : Container(
-                              child: Center(
-                                child: Text('No Audio From Server',
-                                    style: MyTheme.bodyText1),
+                          : Center(
+                              child: Text('No Audio From Server',
+                                  style: MyTheme.bodyText1),
+                            ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 10, right: 10, bottom: 5, top: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                // widget.text,
+                                '',
+                                style: MyTheme.bodyText1.copyWith(
+                                    color: widget.localUser == widget.user
+                                        ? Colors.white
+                                        : Colors.black87),
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Expanded(
-                            child: Text(
-                              // widget.text,
-                              '',
-                              style: MyTheme.bodyText1.copyWith(
-                                  color: widget.localUser == widget.user
-                                      ? Colors.white
-                                      : Colors.black87),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                          widget.localUser == widget.user
-                              ? Row(
-                                  children: [
-                                    Text(
-                                      DateFormatter()
-                                          .getVerboseDateTimeRepresentation(
-                                              DateTime.parse(widget.time)),
-                                      //DateFormat('hh:mm:ss').format(DateTime.parse(widget.time)),
-                                      style: MyTheme.isMebodyTextTime,
-                                    ),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    getStatusIcon(widget.msgStatus)
-                                  ],
-                                )
-                              : Row(
-                                  children: [
-                                    Text(
-                                      DateFormatter()
-                                          .getVerboseDateTimeRepresentation(
-                                              DateTime.parse(widget.time)),
-                                      //DateFormat('hh:mm:ss').format(DateTime.parse(widget.time)),
-                                      style: MyTheme.bodyTextTime,
-                                    ),
-                                  ],
-                                ),
-                        ],
+                            widget.localUser == widget.user
+                                ? Row(
+                                    children: [
+                                      Text(
+                                        DateFormatter()
+                                            .getVerboseDateTimeRepresentation(
+                                                DateTime.parse(widget.time)),
+                                        //DateFormat('hh:mm:ss').format(DateTime.parse(widget.time)),
+                                        style: MyTheme.isMebodyTextTime,
+                                      ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      StatusIcon(
+                                        status: widget.msgStatus,
+                                        sentTime: widget.time,
+                                        messageType: 'audio',
+                                      ),
+                                    ],
+                                  )
+                                : Row(
+                                    children: [
+                                      Text(
+                                        DateFormatter()
+                                            .getVerboseDateTimeRepresentation(
+                                                DateTime.parse(widget.time)),
+                                        //DateFormat('hh:mm:ss').format(DateTime.parse(widget.time)),
+                                        style: MyTheme.bodyTextTime,
+                                      ),
+                                    ],
+                                  ),
+                          ],
+                        ),
                       ),
                     ])),
           ),
@@ -333,59 +343,28 @@ class _AudioCardState extends State<AudioCard> {
   }
 
   Widget buildReplyMessage(ReplyMessageDetails replyMessageDetails) {
-    if (replyMessageDetails.reply_to_id == 0) {
+    if (replyMessageDetails.replyToId == 0) {
       return Container();
     } else {
       return Container(
-        padding: EdgeInsets.all(8),
-        decoration: BoxDecoration(
+        padding: const EdgeInsets.all(8),
+        decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(12),
             bottomLeft: Radius.circular(12),
           ),
         ),
-        margin: EdgeInsets.only(bottom: 8),
+        margin: const EdgeInsets.only(bottom: 8),
         child: InkWell(
           onTap: () {
-            widget.callback(replyMessageDetails.reply_to_id!);
+            widget.callback(replyMessageDetails.replyToId!);
           },
           child: ReplyMessageWidget(
               messageDetails: replyMessageDetails,
               onCancelReply: widget.onCancelReply,
               type: "MESSAGE"),
         ),
-      );
-    }
-  }
-
-  Widget getStatusIcon(String status) {
-    int timeInMinutes =
-        DateTime.now().difference(DateTime.parse(widget.time)).inMinutes;
-    if (timeInMinutes == 1 && status == "SENDING") {
-      return Icon(
-        Icons.sms_failed_outlined,
-        size: 20,
-        semanticLabel: "Failed",
-      );
-    }
-    if (status == "SENDING") {
-      return JumpingDots(
-        color: Colors.yellow,
-        radius: 10,
-        numberOfDots: 3,
-        animationDuration: Duration(milliseconds: 200),
-      );
-    } else if (status == "SENT") {
-      return Icon(
-        Icons.done,
-        size: 20,
-      );
-    } else {
-      return Icon(
-        Icons.done_all,
-        color: Colors.black,
-        size: 20,
       );
     }
   }
@@ -410,8 +389,11 @@ class _AudioCardState extends State<AudioCard> {
   }
 
   void play(FlutterSoundPlayer? player) async {
+    File file = File(widget.filePath);
+    Uint8List uint8list = await file.readAsBytes();
     await player!.startPlayer(
-        fromURI: widget.filePath,
+        // fromURI: widget.filePath,
+        fromDataBuffer: uint8list,
         whenFinished: () {
           setState(() {
             isPlaying = false;

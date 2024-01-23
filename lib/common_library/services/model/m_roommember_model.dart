@@ -1,79 +1,79 @@
 class RoomMembers {
-  String? ID;
-  String? room_id;
-  String? app_code;
-  String? user_id;
-  String? login_id;
-  String? user_type;
-  String? create_user;
-  String? create_date;
-  String? edit_user;
-  String? edit_date;
-  String? row_key;
+  String? id;
+  String? roomId;
+  String? appCode;
+  String? userId;
+  String? loginId;
+  String? userType;
+  String? createUser;
+  String? createDate;
+  String? editUser;
+  String? editDate;
+  String? rowKey;
   String? transtamp;
   String? deleted;
-  String? merchant_no;
-  String? nick_name;
-  String? room_name;
-  String? picture_path;
+  String? merchantNo;
+  String? nickName;
+  String? roomName;
+  String? picturePath;
   RoomMembers(
-      {this.ID,
-      this.room_id,
-      this.app_code,
-      this.user_id,
-      this.login_id,
-      this.user_type,
-      this.create_user,
-      this.create_date,
-      this.edit_user,
-      this.edit_date,
-      this.row_key,
+      {this.id,
+      this.roomId,
+      this.appCode,
+      this.userId,
+      this.loginId,
+      this.userType,
+      this.createUser,
+      this.createDate,
+      this.editUser,
+      this.editDate,
+      this.rowKey,
       this.transtamp,
       this.deleted,
-      this.merchant_no,
-      this.nick_name,
-      this.room_name,
-      this.picture_path});
+      this.merchantNo,
+      this.nickName,
+      this.roomName,
+      this.picturePath});
 
   RoomMembers.fromJson(Map<String, dynamic> json) {
-    ID = json['ID'];
-    room_id = json['room_id'];
-    app_code = json['app_code'];
-    user_id = json['user_id'];
-    login_id = json['login_id'];
-    user_type = json['user_type'];
-    create_user = json['create_user'];
-    create_date = json['create_date'];
-    edit_user = json['edit_user'];
-    edit_date = json['edit_date'];
-    row_key = json['row_key'];
-    transtamp = json['transtamp'];
-    deleted = json['deleted'];
-    merchant_no = json['merchant_no'];
-    nick_name = json['nick_name'];
-    room_name = json['room_name'];
-    picture_path = json['picture_path'];
+    id = json['ID'] ?? '';
+    roomId = json['room_id'] ?? '';
+    appCode = json['app_code'] ?? '';
+    userId = json['user_id'] ?? '';
+    loginId = json['login_id'] ?? '';
+    userType = json['user_type'] ?? '';
+    createUser = json['create_user'] ?? '';
+    createDate = json['create_date'] ?? '';
+    editUser = json['edit_user'] ?? '';
+    editDate = json['edit_date'] ?? '';
+    rowKey = json['row_key'] ?? '';
+    transtamp = json['transtamp'] ?? '';
+    deleted = json['deleted'] ?? '';
+    merchantNo = json['merchant_no'] ?? '';
+    nickName = json['nick_name'] ?? '';
+    roomName = json['room_name'] ?? '';
+    picturePath = json['picture_path'] ?? '';
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['ID'] = this.ID;
-    data['room_id'] = this.room_id;
-    data['app_code'] = this.app_code;
-    data['user_id'] = this.user_id;
-    data['login_id'] = this.login_id;
-    data['user_type'] = this.user_type;
-    data['create_user'] = this.create_user;
-    data['create_date'] = this.create_date;
-    data['edit_user'] = this.edit_user;
-    data['edit_date'] = this.edit_date;
-    data['row_key'] = this.row_key;
-    data['transtamp'] = this.transtamp;
-    data['deleted'] = this.deleted;
-    data['merchant_no'] = this.merchant_no;
-    data['nick_name'] = this.nick_name;
-    data['room_name'] = this.room_name;
-    data['picture_path'] = this.picture_path;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['ID'] = id;
+    data['room_id'] = roomId;
+    data['app_code'] = appCode;
+    data['user_id'] = userId;
+    data['login_id'] = loginId;
+    data['user_type'] = userType;
+    data['create_user'] = createUser;
+    data['create_date'] = createDate;
+    data['edit_user'] = editUser;
+    data['edit_date'] = editDate;
+    data['row_key'] = rowKey;
+    data['transtamp'] = transtamp;
+    data['deleted'] = deleted;
+    data['merchant_no'] = merchantNo;
+    data['nick_name'] = nickName;
+    data['room_name'] = roomName;
+    data['picture_path'] = picturePath;
     return data;
   }
 }
@@ -85,18 +85,17 @@ class GetRoomMemberListResponse {
 
   GetRoomMemberListResponse.fromJson(Map<String, dynamic> json) {
     if (json['RoomMember'] != null) {
-      roomMemberslist = new List<RoomMembers>.empty(growable: true);
+      roomMemberslist = List<RoomMembers>.empty(growable: true);
       json['RoomMember'].forEach((v) {
-        roomMemberslist!.add(new RoomMembers.fromJson(v));
+        roomMemberslist!.add(RoomMembers.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.roomMemberslist != null) {
-      data['RoomMember'] =
-          this.roomMemberslist!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (roomMemberslist != null) {
+      data['RoomMember'] = roomMemberslist!.map((v) => v.toJson()).toList();
     }
     return data;
   }

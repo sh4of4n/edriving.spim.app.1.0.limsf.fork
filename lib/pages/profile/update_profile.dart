@@ -7,7 +7,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:camera/camera.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:provider/provider.dart';
-import '../../common_library/services/database/DatabaseHelper.dart';
+import '../../common_library/services/database/database_helper.dart';
 import '../../common_library/services/model/m_roommember_model.dart';
 import '/base/page_base_class.dart';
 import '/pages/enroll/enroll.dart';
@@ -34,6 +34,7 @@ import '../chat/socketclient_helper.dart';
 
 enum AppState { free, picked, cropped }
 
+@RoutePage(name: 'UpdateProfile')
 class UpdateProfile extends StatefulWidget {
   @override
   UpdateProfileState createState() => UpdateProfileState();
@@ -1162,28 +1163,32 @@ class UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
           _message = result.message;
           _messageStyle = const TextStyle(color: Colors.green);
         });
-
+        if (!mounted) return;
         await authRepo.getUserRegisteredDI(context: context, type: 'UPDATE');
-        String? userId = await localStorage.getUserId();
-        await dbHelper.updateRoomMemberName(_nickName, userId!);
+        if (_nickName.isNotEmpty && _nickName != _getNickName) {
+          String? userId = await localStorage.getUserId();
+          await dbHelper.updateRoomMemberName(_nickName, userId!);
 
-        List<RoomMembers> roomMembers =
-            await dbHelper.getDistinctRoomMembersList();
+          List<RoomMembers> roomMembers =
+              await dbHelper.getDistinctRoomMembersList(userId);
 
-        roomMembers.forEach((roomMember) {
-          if (userId != roomMember.user_id) {
-            var groupJson = {
-              "notifiedRoomId": '',
-              "notifiedUserId": roomMember.user_id,
-              "title": '$userId just changed the name',
-              "description": '${_nickName}_just changed the name'
-            };
-            socket.emitWithAck('sendNotification', groupJson,
-                ack: (data) async {
-              print(data);
-            });
+          for (var roomMember in roomMembers) {
+            if (userId != roomMember.userId) {
+              var groupJson = {
+                "notifiedRoomId": '',
+                "notifiedUserId": roomMember.userId,
+                "title": '$userId just changed the name',
+                "description":
+                    '${_nickName}_just changed the name_${roomMember.roomId}'
+              };
+              socket.emitWithAck('sendNotification', groupJson,
+                  ack: (data) async {
+                print(data);
+              });
+            }
           }
-        });
+        }
+        if (!mounted) return;
         context.router.pop(true);
       } else {
         setState(() {

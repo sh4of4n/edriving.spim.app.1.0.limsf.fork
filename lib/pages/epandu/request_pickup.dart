@@ -14,6 +14,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../router.gr.dart';
 
+@RoutePage(name: 'RequestPickup')
 class RequestPickup extends StatefulWidget {
   @override
   RequestPickupState createState() => RequestPickupState();

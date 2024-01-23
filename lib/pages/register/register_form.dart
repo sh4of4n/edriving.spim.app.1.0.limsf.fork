@@ -25,6 +25,7 @@ import '../../router.gr.dart';
 
 enum AppState { free, picked, cropped }
 
+@RoutePage(name: 'RegisterForm')
 class RegisterForm extends StatefulWidget {
   final dynamic data;
 

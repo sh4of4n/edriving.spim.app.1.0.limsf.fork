@@ -8,7 +8,7 @@ import 'camer_view.dart';
 import 'video_view.dart';
 
 class CameraScreen extends StatefulWidget {
-  CameraScreen({
+  const CameraScreen({
     Key? key,
     required this.onImageSend,
     required this.cameras,
@@ -16,7 +16,7 @@ class CameraScreen extends StatefulWidget {
   final Function onImageSend;
   final List<CameraDescription> cameras;
   @override
-  _CameraScreenState createState() => _CameraScreenState();
+  State<CameraScreen> createState() => _CameraScreenState();
 }
 
 class _CameraScreenState extends State<CameraScreen> {
@@ -31,7 +31,7 @@ class _CameraScreenState extends State<CameraScreen> {
   void initState() {
     super.initState();
     _cameraController =
-        CameraController(widget.cameras[0], ResolutionPreset.max);
+        CameraController(widget.cameras[0], ResolutionPreset.medium);
     cameraValue = _cameraController.initialize().then((_) {
       if (!mounted) {
         return;
@@ -71,21 +71,32 @@ class _CameraScreenState extends State<CameraScreen> {
               future: cameraValue,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
-                  return Container(
+                  return SizedBox(
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height,
                       child: CameraPreview(_cameraController));
                 } else {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 }
               }),
           Positioned(
+            top: 25.0,
+            left: 25.0,
+            child: IconButton(
+              icon: const Icon(Icons.close, color: Colors.white, size: 28.0),
+              onPressed: () {
+                Navigator.of(context)
+                    .pop(); // Close the screen and navigate back
+              },
+            ),
+          ),
+          Positioned(
             bottom: 0.0,
             child: Container(
               color: Colors.black,
-              padding: EdgeInsets.only(top: 5, bottom: 5),
+              padding: const EdgeInsets.only(top: 5, bottom: 5),
               width: MediaQuery.of(context).size.width,
               child: Column(
                 children: [
@@ -131,12 +142,12 @@ class _CameraScreenState extends State<CameraScreen> {
                           if (!isRecoring) takePhoto(context);
                         },
                         child: isRecoring
-                            ? Icon(
+                            ? const Icon(
                                 Icons.radio_button_on,
                                 color: Colors.red,
                                 size: 80,
                               )
-                            : Icon(
+                            : const Icon(
                                 Icons.panorama_fish_eye,
                                 color: Colors.white,
                                 size: 70,
@@ -145,7 +156,7 @@ class _CameraScreenState extends State<CameraScreen> {
                       IconButton(
                           icon: Transform.rotate(
                             angle: transform,
-                            child: Icon(
+                            child: const Icon(
                               Icons.flip_camera_ios,
                               color: Colors.white,
                               size: 28,
@@ -164,10 +175,10 @@ class _CameraScreenState extends State<CameraScreen> {
                           }),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 4,
                   ),
-                  Text(
+                  const Text(
                     /* "Hold for Video, tap for photo",*/
                     "Tap for photo",
                     style: TextStyle(
@@ -186,6 +197,7 @@ class _CameraScreenState extends State<CameraScreen> {
 
   void takePhoto(BuildContext context) async {
     XFile file = await _cameraController.takePicture();
+    if (!mounted) return;
     Navigator.push(
         context,
         MaterialPageRoute(
@@ -200,6 +212,7 @@ class _CameraScreenState extends State<CameraScreen> {
     setState(() {
       isRecoring = false;
     });
+    if (!mounted) return;
     Navigator.push(
         context,
         MaterialPageRoute(
@@ -210,12 +223,10 @@ class _CameraScreenState extends State<CameraScreen> {
   }
 
   Future<String> createFolder(String folder) async {
-    final dir = Directory((Platform.isAndroid
-                ? await getExternalStorageDirectory() //FOR ANDROID
+    final dir = Directory(
+        '${(Platform.isAndroid ? await getExternalStorageDirectory() //FOR ANDROID
                 : await getApplicationSupportDirectory() //FOR IOS
-            )!
-            .path +
-        '/$folder');
+            )!.path}/$folder');
     var status = await Permission.storage.status;
     if (!status.isGranted) {
       await Permission.storage.request();

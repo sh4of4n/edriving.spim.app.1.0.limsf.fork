@@ -1,5 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors
 
+import 'package:auto_route/auto_route.dart';
+
 import '/common_library/services/repository/auth_repository.dart';
 import '/pages/home/feeds.dart';
 import '/utils/constants.dart';
@@ -7,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 
+@RoutePage(name: 'Multilevel')
 class Multilevel extends StatefulWidget {
   final dynamic feed;
   final String? appVersion;

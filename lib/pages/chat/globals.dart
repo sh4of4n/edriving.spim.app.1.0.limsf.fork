@@ -5,7 +5,7 @@ class Globals {
   Globals._();
 
   static init() async {
-    documentPath = (await getApplicationDocumentsDirectory()).path + "/";
+    documentPath = "${(await getApplicationDocumentsDirectory()).path}/";
   }
 
   static const double borderRadius = 27;

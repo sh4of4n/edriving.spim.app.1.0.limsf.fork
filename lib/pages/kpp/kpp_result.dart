@@ -5,6 +5,7 @@ import '/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+@RoutePage(name: 'KppResult')
 class KppResult extends StatelessWidget {
   final primaryColor = ColorConstant.primaryColor;
   final dynamic data;

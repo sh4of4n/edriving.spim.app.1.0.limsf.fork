@@ -14,6 +14,7 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:auto_route/auto_route.dart';
 import '../../router.gr.dart';
 
+@RoutePage(name: 'Scan')
 class Scan extends StatefulWidget {
   final dynamic getDiProfile;
   final dynamic getActiveFeed;

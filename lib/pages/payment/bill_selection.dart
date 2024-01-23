@@ -12,6 +12,7 @@ import 'package:hive/hive.dart';
 
 import '../../router.gr.dart';
 
+@RoutePage(name: 'BillSelection')
 class BillSelection extends StatelessWidget {
   final primaryColor = ColorConstant.primaryColor;
   final billRepo = BillRepo();

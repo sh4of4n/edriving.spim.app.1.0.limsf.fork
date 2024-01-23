@@ -19,6 +19,7 @@ import '/common_library/utils/app_localizations.dart';
 import '../../router.gr.dart';
 import 'directory_card.dart';
 
+@RoutePage(name: 'EmergencyDirectory')
 class EmergencyDirectory extends StatefulWidget {
   @override
   EmergencyDirectoryState createState() => EmergencyDirectoryState();

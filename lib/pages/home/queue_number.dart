@@ -1,5 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors
 
+import 'package:auto_route/auto_route.dart';
+
 import '/common_library/services/repository/epandu_repository.dart';
 import '/common_library/utils/custom_dialog.dart';
 import '/utils/constants.dart';
@@ -8,7 +10,9 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../router.gr.dart';
 
+@RoutePage(name: 'QueueNumber')
 class QueueNumber extends StatefulWidget {
   final dynamic data;
 
@@ -70,7 +74,7 @@ class QueueNumberState extends State<QueueNumber> {
 
   renderQr() {
     if (!isLoading && checkInData != null) {
-      return QrImage(
+      return QrImageView(
         embeddedImage: AssetImage(image.ePanduIcon),
         embeddedImageStyle: QrEmbeddedImageStyle(
           size: const Size(40, 40),

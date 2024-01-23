@@ -1,886 +1,982 @@
-// **************************************************************************
-// AutoRouteGenerator
-// **************************************************************************
-
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
-// AutoRouteGenerator
+// AutoRouterGenerator
 // **************************************************************************
-//
+
 // ignore_for_file: type=lint
+// coverage:ignore-file
 
-import 'package:auto_route/auto_route.dart' as _i30;
-import 'package:camera/camera.dart' as _i32;
-import 'package:flutter/material.dart' as _i31;
-import 'pages/chat/room_list.dart' as _i33;
-import 'coming_soon/coming_soon.dart' as _i28;
-import 'common_library/utils/image_viewer.dart' as _i26;
-import 'pages/di_enroll/di_enrollment.dart' as _i7;
-import 'pages/emergency/emergency.dart' as _i12;
-import 'pages/enroll/enroll.dart' as _i6;
-import 'pages/epandu/add_booking.dart' as _i14;
-import 'pages/epandu/epandu.dart' as _i10;
-import 'pages/etesting/etesting.dart' as _i29;
-import 'pages/etesting/etesting_category.dart' as _i11;
-import 'pages/forgot_password/forgot_password.dart' as _i2;
-import 'pages/home/home.dart' as _i5;
-import 'pages/inbox/inbox.dart' as _i17;
-import 'pages/invite/invite.dart' as _i18;
-import 'pages/kpp/kpp.dart' as _i8;
-import 'pages/login/login.dart' as _i1;
-import 'pages/pay/pay.dart' as _i15;
-import 'pages/payment/airtime_bill_detail.dart' as _i20;
-import 'pages/payment/airtime_selection.dart' as _i21;
-import 'pages/payment/airtime_transaction.dart' as _i19;
-import 'pages/payment/bill_detail.dart' as _i23;
-import 'pages/payment/bill_selection.dart' as _i24;
-import 'pages/payment/bill_transaction.dart' as _i22;
-import 'pages/pdf/view_pdf.dart' as _i27;
-import 'pages/profile/profile.dart' as _i13;
-import 'pages/promotions/promotions.dart' as _i16;
-import 'pages/register/register.dart' as _i4;
-import 'pages/settings/settings.dart' as _i3;
-import 'pages/vclub/value_club.dart' as _i9;
+// ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:auto_route/auto_route.dart' as _i81;
+import 'package:camera/camera.dart' as _i83;
+import 'package:edriving_spim_app/coming_soon/coming_soon.dart' as _i20;
+import 'package:edriving_spim_app/common_library/utils/image_viewer.dart'
+    as _i36;
+import 'package:edriving_spim_app/pages/chat/chat_room.dart' as _i16;
+import 'package:edriving_spim_app/pages/chat/create_group.dart' as _i21;
+import 'package:edriving_spim_app/pages/chat/invite_friend.dart' as _i39;
+import 'package:edriving_spim_app/pages/chat/room_list.dart' as _i70;
+import 'package:edriving_spim_app/pages/di_enroll/bank_list.dart' as _i8;
+import 'package:edriving_spim_app/pages/di_enroll/di_enrollment_page.dart'
+    as _i22;
+import 'package:edriving_spim_app/pages/di_enroll/enroll_confirmation.dart'
+    as _i26;
+import 'package:edriving_spim_app/pages/di_enroll/order_list.dart' as _i48;
+import 'package:edriving_spim_app/pages/di_enroll/payment_status.dart' as _i52;
+import 'package:edriving_spim_app/pages/di_enroll/read_more.dart' as _i61;
+import 'package:edriving_spim_app/pages/di_enroll/terms_and_condition.dart'
+    as _i76;
+import 'package:edriving_spim_app/pages/emergency/directory_detail.dart'
+    as _i23;
+import 'package:edriving_spim_app/pages/emergency/directory_list.dart' as _i24;
+import 'package:edriving_spim_app/pages/emergency/emergency_directory.dart'
+    as _i25;
+import 'package:edriving_spim_app/pages/enroll/enrollment.dart' as _i27;
+import 'package:edriving_spim_app/pages/enroll/select_class.dart' as _i72;
+import 'package:edriving_spim_app/pages/enroll/select_institute.dart' as _i74;
+import 'package:edriving_spim_app/pages/epandu/add_booking.dart' as _i1;
+import 'package:edriving_spim_app/pages/epandu/attendance_record.dart' as _i5;
+import 'package:edriving_spim_app/pages/epandu/attendance_tab.dart' as _i6;
+import 'package:edriving_spim_app/pages/epandu/booking.dart' as _i12;
+import 'package:edriving_spim_app/pages/epandu/epandu_category.dart' as _i30;
+import 'package:edriving_spim_app/pages/epandu/payment_history.dart' as _i50;
+import 'package:edriving_spim_app/pages/epandu/payment_history_detail.dart'
+    as _i51;
+import 'package:edriving_spim_app/pages/epandu/records.dart' as _i62;
+import 'package:edriving_spim_app/pages/epandu/registered_course.dart' as _i67;
+import 'package:edriving_spim_app/pages/epandu/registered_course_detail.dart'
+    as _i68;
+import 'package:edriving_spim_app/pages/epandu/request_pickup.dart' as _i69;
+import 'package:edriving_spim_app/pages/etesting/check_in_slip.dart' as _i17;
+import 'package:edriving_spim_app/pages/etesting/etesting_category.dart'
+    as _i31;
+import 'package:edriving_spim_app/pages/forgot_password/forgot_password_page.dart'
+    as _i32;
+import 'package:edriving_spim_app/pages/home/homme.dart' as _i34;
+import 'package:edriving_spim_app/pages/home/queue_number.dart' as _i60;
+import 'package:edriving_spim_app/pages/home/scan.dart' as _i71;
+import 'package:edriving_spim_app/pages/home/webview.dart' as _i80;
+import 'package:edriving_spim_app/pages/inbox/inbox_page.dart' as _i37;
+import 'package:edriving_spim_app/pages/invite/invite.dart' as _i38;
+import 'package:edriving_spim_app/pages/kpp/kpp_category.dart' as _i40;
+import 'package:edriving_spim_app/pages/kpp/kpp_exam.dart' as _i41;
+import 'package:edriving_spim_app/pages/kpp/kpp_module.dart' as _i42;
+import 'package:edriving_spim_app/pages/kpp/kpp_result.dart' as _i43;
+import 'package:edriving_spim_app/pages/kpp/pin_activation.dart' as _i53;
+import 'package:edriving_spim_app/pages/login/authentication.dart' as _i7;
+import 'package:edriving_spim_app/pages/login/client_acc_page.dart' as _i19;
+import 'package:edriving_spim_app/pages/login/login_page.dart' as _i44;
+import 'package:edriving_spim_app/pages/login/select_driving_institute.dart'
+    as _i73;
+import 'package:edriving_spim_app/pages/pay/fpx_payment_option.dart' as _i33;
+import 'package:edriving_spim_app/pages/pay/pay_page.dart' as _i49;
+import 'package:edriving_spim_app/pages/pay/purchase_order_list.dart' as _i59;
+import 'package:edriving_spim_app/pages/payment/airtime_bill_detail.dart'
+    as _i2;
+import 'package:edriving_spim_app/pages/payment/airtime_selection.dart' as _i3;
+import 'package:edriving_spim_app/pages/payment/airtime_transaction.dart'
+    as _i4;
+import 'package:edriving_spim_app/pages/payment/bill_detail.dart' as _i9;
+import 'package:edriving_spim_app/pages/payment/bill_selection.dart' as _i10;
+import 'package:edriving_spim_app/pages/payment/bill_transaction.dart' as _i11;
+import 'package:edriving_spim_app/pages/pdf/view_pdf.dart' as _i79;
+import 'package:edriving_spim_app/pages/profile/enrolment_info.dart' as _i28;
+import 'package:edriving_spim_app/pages/profile/enrolment_info_detail.dart'
+    as _i29;
+import 'package:edriving_spim_app/pages/profile/identity_barcode.dart' as _i35;
+import 'package:edriving_spim_app/pages/profile/merchant_profile.dart' as _i46;
+import 'package:edriving_spim_app/pages/profile/profile_page.dart' as _i56;
+import 'package:edriving_spim_app/pages/profile/profile_tab.dart' as _i57;
+import 'package:edriving_spim_app/pages/profile/take_profile_picture.dart'
+    as _i75;
+import 'package:edriving_spim_app/pages/profile/update_profile.dart' as _i77;
+import 'package:edriving_spim_app/pages/promotions/multilevel_page.dart'
+    as _i47;
+import 'package:edriving_spim_app/pages/promotions/promotions_page.dart'
+    as _i58;
+import 'package:edriving_spim_app/pages/register/register_form.dart' as _i63;
+import 'package:edriving_spim_app/pages/register/register_mobile.dart' as _i64;
+import 'package:edriving_spim_app/pages/register/register_user_to_di.dart'
+    as _i65;
+import 'package:edriving_spim_app/pages/register/register_verification.dart'
+    as _i66;
+import 'package:edriving_spim_app/pages/settings/change_password.dart' as _i15;
+import 'package:edriving_spim_app/pages/vclub/cart.dart' as _i13;
+import 'package:edriving_spim_app/pages/vclub/checkout.dart' as _i18;
+import 'package:edriving_spim_app/pages/vclub/edit_cart.dart' as _i14;
+import 'package:edriving_spim_app/pages/vclub/merchant_list.dart' as _i45;
+import 'package:edriving_spim_app/pages/vclub/product.dart' as _i54;
+import 'package:edriving_spim_app/pages/vclub/product_list.dart' as _i55;
+import 'package:edriving_spim_app/pages/vclub/value_club_page.dart' as _i78;
+import 'package:flutter/material.dart' as _i82;
 
-class AppRouter extends _i30.RootStackRouter {
-  AppRouter([_i31.GlobalKey<_i31.NavigatorState>? navigatorKey])
-      : super(navigatorKey);
+abstract class $AppRouter extends _i81.RootStackRouter {
+  $AppRouter({super.navigatorKey});
 
   @override
-  final Map<String, _i30.PageFactory> pagesMap = {
+  final Map<String, _i81.PageFactory> pagesMap = {
+    AddBooking.name: (routeData) {
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i1.AddBooking(),
+      );
+    },
+    AirtimeBillDetail.name: (routeData) {
+      final args = routeData.argsAs<AirtimeBillDetailArgs>();
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i2.AirtimeBillDetail(args.data),
+      );
+    },
+    AirtimeSelection.name: (routeData) {
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i3.AirtimeSelection(),
+      );
+    },
+    AirtimeTransaction.name: (routeData) {
+      final args = routeData.argsAs<AirtimeTransactionArgs>();
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i4.AirtimeTransaction(args.data),
+      );
+    },
+    AttendanceRecord.name: (routeData) {
+      final args = routeData.argsAs<AttendanceRecordArgs>();
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i5.AttendanceRecord(
+          attendanceData: args.attendanceData,
+          isLoading: args.isLoading,
+        ),
+      );
+    },
+    AttendanceTab.name: (routeData) {
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i6.AttendanceTab(),
+      );
+    },
     Authentication.name: (routeData) {
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i1.Authentication());
-    },
-    ClientAccount.name: (routeData) {
-      final args = routeData.argsAs<ClientAccountArgs>(
-          orElse: () => const ClientAccountArgs());
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i1.ClientAccount(data: args.data));
-    },
-    Login.name: (routeData) {
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i1.Login());
-    },
-    ForgotPassword.name: (routeData) {
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i2.ForgotPassword());
-    },
-    ChangePassword.name: (routeData) {
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i3.ChangePassword());
-    },
-    RegisterMobile.name: (routeData) {
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i4.RegisterMobile());
-    },
-    RegisterVerification.name: (routeData) {
-      final args = routeData.argsAs<RegisterVerificationArgs>();
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i4.RegisterVerification(args.data));
-    },
-    RegisterForm.name: (routeData) {
-      final args = routeData.argsAs<RegisterFormArgs>();
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i4.RegisterForm(args.data));
-    },
-    Home.name: (routeData) {
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i5.Home());
-    },
-    QueueNumber.name: (routeData) {
-      final args = routeData.argsAs<QueueNumberArgs>();
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i5.QueueNumber(data: args.data));
-    },
-    Enrollment.name: (routeData) {
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i6.Enrollment());
-    },
-    DiEnrollment.name: (routeData) {
-      final args = routeData.argsAs<DiEnrollmentArgs>(
-          orElse: () => const DiEnrollmentArgs());
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: _i7.DiEnrollment(packageCodeJson: args.packageCodeJson));
-    },
-    EnrollConfirmation.name: (routeData) {
-      final args = routeData.argsAs<EnrollConfirmationArgs>(
-          orElse: () => const EnrollConfirmationArgs());
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: _i7.EnrollConfirmation(
-              banner: args.banner,
-              packageName: args.packageName,
-              packageCode: args.packageCode,
-              packageDesc: args.packageDesc,
-              diCode: args.diCode,
-              termsAndCondition: args.termsAndCondition,
-              groupIdGrouping: args.groupIdGrouping,
-              amount: args.amount));
-    },
-    OrderList.name: (routeData) {
-      final args =
-          routeData.argsAs<OrderListArgs>(orElse: () => const OrderListArgs());
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: _i7.OrderList(
-              icNo: args.icNo,
-              packageCode: args.packageCode,
-              diCode: args.diCode));
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i7.Authentication(),
+      );
     },
     BankList.name: (routeData) {
       final args =
           routeData.argsAs<BankListArgs>(orElse: () => const BankListArgs());
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: _i7.BankList(
-              icNo: args.icNo,
-              docDoc: args.docDoc,
-              docRef: args.docRef,
-              packageCode: args.packageCode,
-              diCode: args.diCode,
-              amountString: args.amountString));
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i8.BankList(
+          key: args.key,
+          icNo: args.icNo,
+          docDoc: args.docDoc,
+          docRef: args.docRef,
+          packageCode: args.packageCode,
+          diCode: args.diCode,
+          amountString: args.amountString,
+        ),
+      );
     },
-    PaymentStatus.name: (routeData) {
-      final args = routeData.argsAs<PaymentStatusArgs>(
-          orElse: () => const PaymentStatusArgs());
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i7.PaymentStatus(icNo: args.icNo));
+    BillDetail.name: (routeData) {
+      final args = routeData.argsAs<BillDetailArgs>();
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i9.BillDetail(args.data),
+      );
     },
-    KppCategory.name: (routeData) {
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i8.KppCategory());
+    BillSelection.name: (routeData) {
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i10.BillSelection(),
+      );
     },
-    KppResult.name: (routeData) {
-      final args = routeData.argsAs<KppResultArgs>();
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i8.KppResult(args.data));
+    BillTransaction.name: (routeData) {
+      final args = routeData.argsAs<BillTransactionArgs>();
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i11.BillTransaction(args.data),
+      );
     },
-    KppExam.name: (routeData) {
-      final args = routeData.argsAs<KppExamArgs>();
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: _i8.KppExam(groupId: args.groupId, paperNo: args.paperNo));
-    },
-    KppModule.name: (routeData) {
-      final args = routeData.argsAs<KppModuleArgs>();
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i8.KppModule(args.data));
-    },
-    PinActivation.name: (routeData) {
-      final args = routeData.argsAs<PinActivationArgs>();
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i8.PinActivation(args.data));
-    },
-    ValueClub.name: (routeData) {
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i9.ValueClub());
-    },
-    Product.name: (routeData) {
-      final args =
-          routeData.argsAs<ProductArgs>(orElse: () => const ProductArgs());
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: _i9.Product(
-              stkCode: args.stkCode,
-              stkDesc1: args.stkDesc1,
-              stkDesc2: args.stkDesc2,
-              qty: args.qty,
-              price: args.price,
-              image: args.image,
-              uom: args.uom,
-              products: args.products));
-    },
-    ProductList.name: (routeData) {
-      final args = routeData.argsAs<ProductListArgs>(
-          orElse: () => const ProductListArgs());
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: _i9.ProductList(
-              stkCat: args.stkCat, keywordSearch: args.keywordSearch));
+    Booking.name: (routeData) {
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i12.Booking(),
+      );
     },
     Cart.name: (routeData) {
       final args = routeData.argsAs<CartArgs>(orElse: () => const CartArgs());
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: _i9.Cart(itemName: args.itemName, dbcode: args.dbcode));
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i13.Cart(
+          itemName: args.itemName,
+          dbcode: args.dbcode,
+        ),
+      );
     },
     CartItemEdit.name: (routeData) {
       final args = routeData.argsAs<CartItemEditArgs>(
           orElse: () => const CartItemEditArgs());
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: _i9.CartItemEdit(
-              stkCode: args.stkCode,
-              stkDesc1: args.stkDesc1,
-              stkDesc2: args.stkDesc2,
-              qty: args.qty,
-              price: args.price,
-              discRate: args.discRate,
-              isOfferedItem: args.isOfferedItem,
-              scheduledDeliveryDate: args.scheduledDeliveryDate,
-              uom: args.uom,
-              batchNo: args.batchNo,
-              slsKey: args.slsKey));
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i14.CartItemEdit(
+          stkCode: args.stkCode,
+          stkDesc1: args.stkDesc1,
+          stkDesc2: args.stkDesc2,
+          qty: args.qty,
+          price: args.price,
+          discRate: args.discRate,
+          isOfferedItem: args.isOfferedItem,
+          scheduledDeliveryDate: args.scheduledDeliveryDate,
+          uom: args.uom,
+          batchNo: args.batchNo,
+          slsKey: args.slsKey,
+        ),
+      );
+    },
+    ChangePassword.name: (routeData) {
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i15.ChangePassword(),
+      );
+    },
+    ChatRoom.name: (routeData) {
+      final args = routeData.argsAs<ChatRoomArgs>();
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i16.ChatRoom(
+          key: args.key,
+          roomId: args.roomId,
+          picturePath: args.picturePath,
+          roomName: args.roomName,
+          roomDesc: args.roomDesc,
+          isMessagesExist: args.isMessagesExist,
+        ),
+      );
+    },
+    CheckInSlip.name: (routeData) {
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i17.CheckInSlip(),
+      );
     },
     Checkout.name: (routeData) {
       final args =
           routeData.argsAs<CheckoutArgs>(orElse: () => const CheckoutArgs());
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: _i9.Checkout(
-              slsDetailData: args.slsDetailData,
-              itemName: args.itemName,
-              dbcode: args.dbcode,
-              date: args.date,
-              docDoc: args.docDoc,
-              docRef: args.docRef,
-              qty: args.qty,
-              totalAmount: args.totalAmount));
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i18.Checkout(
+          slsDetailData: args.slsDetailData,
+          itemName: args.itemName,
+          dbcode: args.dbcode,
+          date: args.date,
+          docDoc: args.docDoc,
+          docRef: args.docRef,
+          qty: args.qty,
+          totalAmount: args.totalAmount,
+        ),
+      );
     },
-    EpanduCategory.name: (routeData) {
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i10.EpanduCategory());
+    ClientAccount.name: (routeData) {
+      final args = routeData.argsAs<ClientAccountArgs>(
+          orElse: () => const ClientAccountArgs());
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i19.ClientAccount(data: args.data),
+      );
     },
-    EtestingCategory.name: (routeData) {
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i11.EtestingCategory());
+    ComingSoon.name: (routeData) {
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i20.ComingSoon(),
+      );
     },
-    EmergencyDirectory.name: (routeData) {
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i12.EmergencyDirectory());
+    CreateGroup.name: (routeData) {
+      final args = routeData.argsAs<CreateGroupArgs>();
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i21.CreateGroup(
+          key: args.key,
+          roomId: args.roomId,
+        ),
+      );
     },
-    DirectoryList.name: (routeData) {
-      final args = routeData.argsAs<DirectoryListArgs>();
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i12.DirectoryList(args.directoryType));
+    DiEnrollment.name: (routeData) {
+      final args = routeData.argsAs<DiEnrollmentArgs>(
+          orElse: () => const DiEnrollmentArgs());
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i22.DiEnrollment(
+          key: args.key,
+          packageCodeJson: args.packageCodeJson,
+        ),
+      );
     },
     DirectoryDetail.name: (routeData) {
       final args = routeData.argsAs<DirectoryDetailArgs>();
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i12.DirectoryDetail(args.snapshot));
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i23.DirectoryDetail(args.snapshot),
+      );
     },
-    SelectInstitute.name: (routeData) {
-      final args = routeData.argsAs<SelectInstituteArgs>();
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i6.SelectInstitute(args.data));
+    DirectoryList.name: (routeData) {
+      final args = routeData.argsAs<DirectoryListArgs>();
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i24.DirectoryList(args.directoryType),
+      );
     },
-    SelectClass.name: (routeData) {
-      final args = routeData.argsAs<SelectClassArgs>();
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i6.SelectClass(args.data));
+    EmergencyDirectory.name: (routeData) {
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i25.EmergencyDirectory(),
+      );
     },
-    SelectDrivingInstitute.name: (routeData) {
-      final args = routeData.argsAs<SelectDrivingInstituteArgs>();
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i1.SelectDrivingInstitute(args.diList));
+    EnrollConfirmation.name: (routeData) {
+      final args = routeData.argsAs<EnrollConfirmationArgs>(
+          orElse: () => const EnrollConfirmationArgs());
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i26.EnrollConfirmation(
+          key: args.key,
+          banner: args.banner,
+          packageName: args.packageName,
+          packageCode: args.packageCode,
+          packageDesc: args.packageDesc,
+          diCode: args.diCode,
+          termsAndCondition: args.termsAndCondition,
+          groupIdGrouping: args.groupIdGrouping,
+          amount: args.amount,
+        ),
+      );
     },
-    TakeProfilePicture.name: (routeData) {
-      final args = routeData.argsAs<TakeProfilePictureArgs>();
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i13.TakeProfilePicture(args.camera));
-    },
-    Booking.name: (routeData) {
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i10.Booking());
-    },
-    AddBooking.name: (routeData) {
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i14.AddBooking());
-    },
-    Records.name: (routeData) {
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i10.Records());
-    },
-    Pay.name: (routeData) {
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i15.Pay());
-    },
-    PurchaseOrderList.name: (routeData) {
-      final args = routeData.argsAs<PurchaseOrderListArgs>(
-          orElse: () => const PurchaseOrderListArgs());
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: _i15.PurchaseOrderList(
-              icNo: args.icNo,
-              packageCode: args.packageCode,
-              diCode: args.diCode));
-    },
-    PaymentHistory.name: (routeData) {
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i10.PaymentHistory());
-    },
-    PaymentHistoryDetail.name: (routeData) {
-      final args = routeData.argsAs<PaymentHistoryDetailArgs>();
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i10.PaymentHistoryDetail(args.recpNo));
-    },
-    RequestPickup.name: (routeData) {
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i10.RequestPickup());
-    },
-    RegisteredCourse.name: (routeData) {
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i10.RegisteredCourse());
-    },
-    RegisteredCourseDetail.name: (routeData) {
-      final args = routeData.argsAs<RegisteredCourseDetailArgs>();
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: _i10.RegisteredCourseDetail(args.groupId));
-    },
-    AttendanceRecord.name: (routeData) {
-      final args = routeData.argsAs<AttendanceRecordArgs>();
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: _i10.AttendanceRecord(
-              attendanceData: args.attendanceData, isLoading: args.isLoading));
-    },
-    AttendanceTab.name: (routeData) {
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i10.AttendanceTab());
-    },
-    Promotions.name: (routeData) {
-      final args = routeData.argsAs<PromotionsArgs>(
-          orElse: () => const PromotionsArgs());
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i16.Promotions(feed: args.feed));
-    },
-    Profile.name: (routeData) {
-      final args =
-          routeData.argsAs<ProfileArgs>(orElse: () => const ProfileArgs());
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: _i13.Profile(
-            userProfile: args.userProfile,
-            enrollData: args.enrollData, /*isLoading: args.isLoading*/
-          ));
-    },
-    ProfileTab.name: (routeData) {
-      final args = routeData.argsAs<ProfileTabArgs>();
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i13.ProfileTab(args.positionStream));
-    },
-    UpdateProfile.name: (routeData) {
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i13.UpdateProfile());
-    },
-    RegisterUserToDi.name: (routeData) {
-      final args = routeData.argsAs<RegisterUserToDiArgs>();
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i4.RegisterUserToDi(args.barcode));
-    },
-    IdentityBarcode.name: (routeData) {
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i13.IdentityBarcode());
+    Enrollment.name: (routeData) {
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i27.Enrollment(),
+      );
     },
     EnrolmentInfo.name: (routeData) {
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i13.EnrolmentInfo());
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i28.EnrolmentInfo(),
+      );
     },
     EnrolmentInfoDetail.name: (routeData) {
       final args = routeData.argsAs<EnrolmentInfoDetailArgs>();
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i13.EnrolmentInfoDetail(args.groupId));
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i29.EnrolmentInfoDetail(args.groupId),
+      );
     },
-    Inbox.name: (routeData) {
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i17.Inbox());
+    EpanduCategory.name: (routeData) {
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i30.EpanduCategory(),
+      );
     },
-    RoomList.name: (routeData) {
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i33.RoomList());
+    EtestingCategory.name: (routeData) {
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i31.EtestingCategory(),
+      );
     },
-    Invite.name: (routeData) {
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i18.Invite());
-    },
-    AirtimeTransaction.name: (routeData) {
-      final args = routeData.argsAs<AirtimeTransactionArgs>();
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i19.AirtimeTransaction(args.data));
-    },
-    AirtimeBillDetail.name: (routeData) {
-      final args = routeData.argsAs<AirtimeBillDetailArgs>();
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i20.AirtimeBillDetail(args.data));
-    },
-    AirtimeSelection.name: (routeData) {
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i21.AirtimeSelection());
-    },
-    BillTransaction.name: (routeData) {
-      final args = routeData.argsAs<BillTransactionArgs>();
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i22.BillTransaction(args.data));
-    },
-    BillDetail.name: (routeData) {
-      final args = routeData.argsAs<BillDetailArgs>();
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i23.BillDetail(args.data));
-    },
-    BillSelection.name: (routeData) {
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i24.BillSelection());
-    },
-    MerchantList.name: (routeData) {
-      final args = routeData.argsAs<MerchantListArgs>();
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i9.MerchantList(args.merchantType));
-    },
-    TermsAndCondition.name: (routeData) {
-      final args = routeData.argsAs<TermsAndConditionArgs>(
-          orElse: () => const TermsAndConditionArgs());
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData,
-          child:
-              _i7.TermsAndCondition(termsAndCondition: args.termsAndCondition));
+    ForgotPassword.name: (routeData) {
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i32.ForgotPassword(),
+      );
     },
     FpxPaymentOption.name: (routeData) {
       final args = routeData.argsAs<FpxPaymentOptionArgs>(
           orElse: () => const FpxPaymentOptionArgs());
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: _i15.FpxPaymentOption(
-              icNo: args.icNo,
-              docDoc: args.docDoc,
-              docRef: args.docRef,
-              merchant: args.merchant,
-              packageCode: args.packageCode,
-              packageDesc: args.packageDesc,
-              diCode: args.diCode,
-              totalAmount: args.totalAmount,
-              amountString: args.amountString));
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i33.FpxPaymentOption(
+          icNo: args.icNo,
+          docDoc: args.docDoc,
+          docRef: args.docRef,
+          merchant: args.merchant,
+          packageCode: args.packageCode,
+          packageDesc: args.packageDesc,
+          diCode: args.diCode,
+          totalAmount: args.totalAmount,
+          amountString: args.amountString,
+        ),
+      );
+    },
+    Home.name: (routeData) {
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i34.Home(),
+      );
+    },
+    IdentityBarcode.name: (routeData) {
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i35.IdentityBarcode(),
+      );
     },
     ImageViewer.name: (routeData) {
       final args = routeData.argsAs<ImageViewerArgs>(
           orElse: () => const ImageViewerArgs());
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: _i26.ImageViewer(title: args.title, image: args.image));
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i36.ImageViewer(
+          key: args.key,
+          title: args.title,
+          image: args.image,
+        ),
+      );
     },
-    Webview.name: (routeData) {
-      final args = routeData.argsAs<WebviewArgs>();
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: _i5.Webview(url: args.url, backType: args.backType));
+    Inbox.name: (routeData) {
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i37.Inbox(),
+      );
     },
-    Scan.name: (routeData) {
-      final args = routeData.argsAs<ScanArgs>(orElse: () => const ScanArgs());
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: _i5.Scan(
-              getActiveFeed: args.getActiveFeed,
-              getDiProfile: args.getDiProfile,
-              key: args.key));
+    Invite.name: (routeData) {
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i38.Invite(),
+      );
     },
-    ReadMore.name: (routeData) {
-      final args =
-          routeData.argsAs<ReadMoreArgs>(orElse: () => const ReadMoreArgs());
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: _i7.ReadMore(packageDesc: args.packageDesc));
+    InviteFriend.name: (routeData) {
+      final args = routeData.argsAs<InviteFriendArgs>();
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i39.InviteFriend(
+          key: args.key,
+          roomId: args.roomId,
+        ),
+      );
     },
-    ViewPdf.name: (routeData) {
-      final args = routeData.argsAs<ViewPdfArgs>();
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: _i27.ViewPdf(title: args.title, pdfLink: args.pdfLink));
+    KppCategory.name: (routeData) {
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i40.KppCategory(),
+      );
     },
-    ComingSoon.name: (routeData) {
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i28.ComingSoon());
+    KppExam.name: (routeData) {
+      final args = routeData.argsAs<KppExamArgs>();
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i41.KppExam(
+          groupId: args.groupId,
+          paperNo: args.paperNo,
+        ),
+      );
     },
-    CheckInSlip.name: (routeData) {
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i29.CheckInSlip());
+    KppModule.name: (routeData) {
+      final args = routeData.argsAs<KppModuleArgs>();
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i42.KppModule(args.data),
+      );
+    },
+    KppResult.name: (routeData) {
+      final args = routeData.argsAs<KppResultArgs>();
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i43.KppResult(args.data),
+      );
+    },
+    Login.name: (routeData) {
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i44.Login(),
+      );
+    },
+    MerchantList.name: (routeData) {
+      final args = routeData.argsAs<MerchantListArgs>();
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i45.MerchantList(args.merchantType),
+      );
+    },
+    MerchantProfile.name: (routeData) {
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i46.MerchantProfile(),
+      );
     },
     Multilevel.name: (routeData) {
       final args = routeData.argsAs<MultilevelArgs>(
           orElse: () => const MultilevelArgs());
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: _i16.Multilevel(feed: args.feed, appVersion: args.appVersion));
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i47.Multilevel(
+          feed: args.feed,
+          appVersion: args.appVersion,
+        ),
+      );
     },
-    MerchantProfile.name: (routeData) {
-      return _i30.MaterialPageX<dynamic>(
-          routeData: routeData, child: _i13.MerchantProfile());
-    }
+    OrderList.name: (routeData) {
+      final args =
+          routeData.argsAs<OrderListArgs>(orElse: () => const OrderListArgs());
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i48.OrderList(
+          icNo: args.icNo,
+          packageCode: args.packageCode,
+          diCode: args.diCode,
+        ),
+      );
+    },
+    Pay.name: (routeData) {
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i49.Pay(),
+      );
+    },
+    PaymentHistory.name: (routeData) {
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i50.PaymentHistory(),
+      );
+    },
+    PaymentHistoryDetail.name: (routeData) {
+      final args = routeData.argsAs<PaymentHistoryDetailArgs>();
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i51.PaymentHistoryDetail(args.recpNo),
+      );
+    },
+    PaymentStatus.name: (routeData) {
+      final args = routeData.argsAs<PaymentStatusArgs>(
+          orElse: () => const PaymentStatusArgs());
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i52.PaymentStatus(icNo: args.icNo),
+      );
+    },
+    PinActivation.name: (routeData) {
+      final args = routeData.argsAs<PinActivationArgs>();
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i53.PinActivation(args.data),
+      );
+    },
+    Product.name: (routeData) {
+      final args =
+          routeData.argsAs<ProductArgs>(orElse: () => const ProductArgs());
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i54.Product(
+          stkCode: args.stkCode,
+          stkDesc1: args.stkDesc1,
+          stkDesc2: args.stkDesc2,
+          qty: args.qty,
+          price: args.price,
+          image: args.image,
+          uom: args.uom,
+          products: args.products,
+        ),
+      );
+    },
+    ProductList.name: (routeData) {
+      final args = routeData.argsAs<ProductListArgs>(
+          orElse: () => const ProductListArgs());
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i55.ProductList(
+          stkCat: args.stkCat,
+          keywordSearch: args.keywordSearch,
+        ),
+      );
+    },
+    Profile.name: (routeData) {
+      final args =
+          routeData.argsAs<ProfileArgs>(orElse: () => const ProfileArgs());
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i56.Profile(
+          userProfile: args.userProfile,
+          enrollData: args.enrollData,
+        ),
+      );
+    },
+    ProfileTab.name: (routeData) {
+      final args = routeData.argsAs<ProfileTabArgs>();
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i57.ProfileTab(args.positionStream),
+      );
+    },
+    Promotions.name: (routeData) {
+      final args = routeData.argsAs<PromotionsArgs>(
+          orElse: () => const PromotionsArgs());
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i58.Promotions(feed: args.feed),
+      );
+    },
+    PurchaseOrderList.name: (routeData) {
+      final args = routeData.argsAs<PurchaseOrderListArgs>(
+          orElse: () => const PurchaseOrderListArgs());
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i59.PurchaseOrderList(
+          icNo: args.icNo,
+          packageCode: args.packageCode,
+          diCode: args.diCode,
+        ),
+      );
+    },
+    QueueNumber.name: (routeData) {
+      final args = routeData.argsAs<QueueNumberArgs>();
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i60.QueueNumber(data: args.data),
+      );
+    },
+    ReadMore.name: (routeData) {
+      final args =
+          routeData.argsAs<ReadMoreArgs>(orElse: () => const ReadMoreArgs());
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i61.ReadMore(packageDesc: args.packageDesc),
+      );
+    },
+    Records.name: (routeData) {
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i62.Records(),
+      );
+    },
+    RegisterForm.name: (routeData) {
+      final args = routeData.argsAs<RegisterFormArgs>();
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i63.RegisterForm(args.data),
+      );
+    },
+    RegisterMobile.name: (routeData) {
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i64.RegisterMobile(),
+      );
+    },
+    RegisterUserToDi.name: (routeData) {
+      final args = routeData.argsAs<RegisterUserToDiArgs>();
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i65.RegisterUserToDi(args.barcode),
+      );
+    },
+    RegisterVerification.name: (routeData) {
+      final args = routeData.argsAs<RegisterVerificationArgs>();
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i66.RegisterVerification(args.data),
+      );
+    },
+    RegisteredCourse.name: (routeData) {
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i67.RegisteredCourse(),
+      );
+    },
+    RegisteredCourseDetail.name: (routeData) {
+      final args = routeData.argsAs<RegisteredCourseDetailArgs>();
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i68.RegisteredCourseDetail(args.groupId),
+      );
+    },
+    RequestPickup.name: (routeData) {
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i69.RequestPickup(),
+      );
+    },
+    RoomList.name: (routeData) {
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i70.RoomList(),
+      );
+    },
+    Scan.name: (routeData) {
+      final args = routeData.argsAs<ScanArgs>(orElse: () => const ScanArgs());
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i71.Scan(
+          getActiveFeed: args.getActiveFeed,
+          getDiProfile: args.getDiProfile,
+          key: args.key,
+        ),
+      );
+    },
+    SelectClass.name: (routeData) {
+      final args = routeData.argsAs<SelectClassArgs>();
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i72.SelectClass(args.data),
+      );
+    },
+    SelectDrivingInstitute.name: (routeData) {
+      final args = routeData.argsAs<SelectDrivingInstituteArgs>();
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i73.SelectDrivingInstitute(args.diList),
+      );
+    },
+    SelectInstitute.name: (routeData) {
+      final args = routeData.argsAs<SelectInstituteArgs>();
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i74.SelectInstitute(args.data),
+      );
+    },
+    TakeProfilePicture.name: (routeData) {
+      final args = routeData.argsAs<TakeProfilePictureArgs>();
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i75.TakeProfilePicture(args.camera),
+      );
+    },
+    TermsAndCondition.name: (routeData) {
+      final args = routeData.argsAs<TermsAndConditionArgs>(
+          orElse: () => const TermsAndConditionArgs());
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child:
+            _i76.TermsAndCondition(termsAndCondition: args.termsAndCondition),
+      );
+    },
+    UpdateProfile.name: (routeData) {
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i77.UpdateProfile(),
+      );
+    },
+    ValueClub.name: (routeData) {
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i78.ValueClub(),
+      );
+    },
+    ViewPdf.name: (routeData) {
+      final args = routeData.argsAs<ViewPdfArgs>();
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i79.ViewPdf(
+          title: args.title,
+          pdfLink: args.pdfLink,
+        ),
+      );
+    },
+    Webview.name: (routeData) {
+      final args = routeData.argsAs<WebviewArgs>();
+      return _i81.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i80.Webview(
+          url: args.url,
+          backType: args.backType,
+        ),
+      );
+    },
   };
-
-  @override
-  List<_i30.RouteConfig> get routes => [
-        _i30.RouteConfig('/#redirect',
-            path: '/', redirectTo: '/authentication', fullMatch: true),
-        _i30.RouteConfig(Authentication.name, path: '/authentication'),
-        _i30.RouteConfig(ClientAccount.name, path: '/clientAccount'),
-        _i30.RouteConfig(Login.name, path: '/login'),
-        _i30.RouteConfig(ForgotPassword.name, path: '/forgotPassword'),
-        _i30.RouteConfig(ChangePassword.name, path: '/changePassword'),
-        _i30.RouteConfig(RegisterMobile.name, path: '/registerMobile'),
-        _i30.RouteConfig(RegisterVerification.name,
-            path: '/registerVerification'),
-        _i30.RouteConfig(RegisterForm.name, path: '/registerForm'),
-        _i30.RouteConfig(Home.name, path: '/home'),
-        _i30.RouteConfig(QueueNumber.name, path: '/queueNumber'),
-        _i30.RouteConfig(Enrollment.name, path: '/enrollment'),
-        _i30.RouteConfig(DiEnrollment.name, path: '/diEnrollment'),
-        _i30.RouteConfig(EnrollConfirmation.name, path: '/enrollConfirmation'),
-        _i30.RouteConfig(OrderList.name, path: '/orderList'),
-        _i30.RouteConfig(BankList.name, path: '/bankList'),
-        _i30.RouteConfig(PaymentStatus.name, path: '/paymentStatus'),
-        _i30.RouteConfig(KppCategory.name, path: '/kppCategory'),
-        _i30.RouteConfig(KppResult.name, path: '/kppResult'),
-        _i30.RouteConfig(KppExam.name, path: '/kppExam'),
-        _i30.RouteConfig(KppModule.name, path: '/kppModule'),
-        _i30.RouteConfig(PinActivation.name, path: '/pinActivation'),
-        _i30.RouteConfig(ValueClub.name, path: '/valueClub'),
-        _i30.RouteConfig(Product.name, path: '/product'),
-        _i30.RouteConfig(ProductList.name, path: '/productList'),
-        _i30.RouteConfig(Cart.name, path: '/cart'),
-        _i30.RouteConfig(CartItemEdit.name, path: '/cartItemEdit'),
-        _i30.RouteConfig(Checkout.name, path: '/checkout'),
-        _i30.RouteConfig(EpanduCategory.name, path: '/epanduCategory'),
-        _i30.RouteConfig(EtestingCategory.name, path: '/epanduCategory'),
-        _i30.RouteConfig(EmergencyDirectory.name, path: '/emergencyDirectory'),
-        _i30.RouteConfig(DirectoryList.name, path: '/directoryList'),
-        _i30.RouteConfig(DirectoryDetail.name, path: '/directoryDetail'),
-        _i30.RouteConfig(SelectInstitute.name, path: '/selectInstitute'),
-        _i30.RouteConfig(SelectClass.name, path: '/selectClass'),
-        _i30.RouteConfig(SelectDrivingInstitute.name,
-            path: '/selectDrivingInstitute'),
-        _i30.RouteConfig(TakeProfilePicture.name, path: '/takeProfilePicture'),
-        _i30.RouteConfig(Booking.name, path: '/booking'),
-        _i30.RouteConfig(AddBooking.name, path: '/addBooking'),
-        _i30.RouteConfig(Records.name, path: '/records'),
-        _i30.RouteConfig(Pay.name, path: '/pay'),
-        _i30.RouteConfig(PurchaseOrderList.name, path: '/purchaseOrderList'),
-        _i30.RouteConfig(PaymentHistory.name, path: '/paymentHistory'),
-        _i30.RouteConfig(PaymentHistoryDetail.name,
-            path: '/paymentHistoryDetail'),
-        _i30.RouteConfig(RequestPickup.name, path: '/requestPickup'),
-        _i30.RouteConfig(RegisteredCourse.name, path: '/registeredCourse'),
-        _i30.RouteConfig(RegisteredCourseDetail.name,
-            path: '/registeredCourseDetail'),
-        _i30.RouteConfig(AttendanceRecord.name, path: '/attendanceRecord'),
-        _i30.RouteConfig(AttendanceTab.name, path: '/attendanceTab'),
-        _i30.RouteConfig(Promotions.name, path: '/promotions'),
-        _i30.RouteConfig(Profile.name, path: '/profile'),
-        _i30.RouteConfig(ProfileTab.name, path: '/profileTab'),
-        _i30.RouteConfig(UpdateProfile.name, path: '/updateProfile'),
-        _i30.RouteConfig(RegisterUserToDi.name, path: 'registerUserToDi'),
-        _i30.RouteConfig(IdentityBarcode.name, path: '/identityBarcode'),
-        _i30.RouteConfig(EnrolmentInfo.name, path: '/enrolmentInfo'),
-        _i30.RouteConfig(EnrolmentInfoDetail.name,
-            path: '/enrolmentInfoDetail'),
-        _i30.RouteConfig(Inbox.name, path: '/inbox'),
-        _i30.RouteConfig(Invite.name, path: '/invite'),
-        _i30.RouteConfig(RoomList.name, path: '/RoomList'),
-        _i30.RouteConfig(AirtimeTransaction.name, path: '/airtimeTransaction'),
-        _i30.RouteConfig(AirtimeBillDetail.name, path: '/airtimeBillDetail'),
-        _i30.RouteConfig(AirtimeSelection.name, path: '/airtimeSelection'),
-        _i30.RouteConfig(BillTransaction.name, path: '/billTransaction'),
-        _i30.RouteConfig(BillDetail.name, path: '/billDetail'),
-        _i30.RouteConfig(BillSelection.name, path: '/billSelection'),
-        _i30.RouteConfig(MerchantList.name, path: '/merchantList'),
-        _i30.RouteConfig(TermsAndCondition.name, path: '/termsAndCondition'),
-        _i30.RouteConfig(FpxPaymentOption.name, path: '/fpxPaymentOption'),
-        _i30.RouteConfig(ImageViewer.name, path: '/imageViewer'),
-        _i30.RouteConfig(Webview.name, path: '/webview'),
-        _i30.RouteConfig(Scan.name, path: '/scan'),
-        _i30.RouteConfig(ReadMore.name, path: '/readMore'),
-        _i30.RouteConfig(ViewPdf.name, path: '/viewPdf'),
-        _i30.RouteConfig(ComingSoon.name, path: '/comingSoon'),
-        _i30.RouteConfig(CheckInSlip.name, path: '/checkInSlip'),
-        _i30.RouteConfig(Multilevel.name, path: '/multilevel'),
-        _i30.RouteConfig(MerchantProfile.name, path: '/merchantProfile')
-      ];
 }
 
 /// generated route for
-/// [_i1.Authentication]
-class Authentication extends _i30.PageRouteInfo<void> {
-  const Authentication() : super(Authentication.name, path: '/authentication');
+/// [_i1.AddBooking]
+class AddBooking extends _i81.PageRouteInfo<void> {
+  const AddBooking({List<_i81.PageRouteInfo>? children})
+      : super(
+          AddBooking.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'AddBooking';
+
+  static const _i81.PageInfo<void> page = _i81.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i2.AirtimeBillDetail]
+class AirtimeBillDetail extends _i81.PageRouteInfo<AirtimeBillDetailArgs> {
+  AirtimeBillDetail({
+    required dynamic data,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          AirtimeBillDetail.name,
+          args: AirtimeBillDetailArgs(data: data),
+          initialChildren: children,
+        );
+
+  static const String name = 'AirtimeBillDetail';
+
+  static const _i81.PageInfo<AirtimeBillDetailArgs> page =
+      _i81.PageInfo<AirtimeBillDetailArgs>(name);
+}
+
+class AirtimeBillDetailArgs {
+  const AirtimeBillDetailArgs({required this.data});
+
+  final dynamic data;
+
+  @override
+  String toString() {
+    return 'AirtimeBillDetailArgs{data: $data}';
+  }
+}
+
+/// generated route for
+/// [_i3.AirtimeSelection]
+class AirtimeSelection extends _i81.PageRouteInfo<void> {
+  const AirtimeSelection({List<_i81.PageRouteInfo>? children})
+      : super(
+          AirtimeSelection.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'AirtimeSelection';
+
+  static const _i81.PageInfo<void> page = _i81.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i4.AirtimeTransaction]
+class AirtimeTransaction extends _i81.PageRouteInfo<AirtimeTransactionArgs> {
+  AirtimeTransaction({
+    required dynamic data,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          AirtimeTransaction.name,
+          args: AirtimeTransactionArgs(data: data),
+          initialChildren: children,
+        );
+
+  static const String name = 'AirtimeTransaction';
+
+  static const _i81.PageInfo<AirtimeTransactionArgs> page =
+      _i81.PageInfo<AirtimeTransactionArgs>(name);
+}
+
+class AirtimeTransactionArgs {
+  const AirtimeTransactionArgs({required this.data});
+
+  final dynamic data;
+
+  @override
+  String toString() {
+    return 'AirtimeTransactionArgs{data: $data}';
+  }
+}
+
+/// generated route for
+/// [_i5.AttendanceRecord]
+class AttendanceRecord extends _i81.PageRouteInfo<AttendanceRecordArgs> {
+  AttendanceRecord({
+    required dynamic attendanceData,
+    required bool? isLoading,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          AttendanceRecord.name,
+          args: AttendanceRecordArgs(
+            attendanceData: attendanceData,
+            isLoading: isLoading,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'AttendanceRecord';
+
+  static const _i81.PageInfo<AttendanceRecordArgs> page =
+      _i81.PageInfo<AttendanceRecordArgs>(name);
+}
+
+class AttendanceRecordArgs {
+  const AttendanceRecordArgs({
+    required this.attendanceData,
+    required this.isLoading,
+  });
+
+  final dynamic attendanceData;
+
+  final bool? isLoading;
+
+  @override
+  String toString() {
+    return 'AttendanceRecordArgs{attendanceData: $attendanceData, isLoading: $isLoading}';
+  }
+}
+
+/// generated route for
+/// [_i6.AttendanceTab]
+class AttendanceTab extends _i81.PageRouteInfo<void> {
+  const AttendanceTab({List<_i81.PageRouteInfo>? children})
+      : super(
+          AttendanceTab.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'AttendanceTab';
+
+  static const _i81.PageInfo<void> page = _i81.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i7.Authentication]
+class Authentication extends _i81.PageRouteInfo<void> {
+  const Authentication({List<_i81.PageRouteInfo>? children})
+      : super(
+          Authentication.name,
+          initialChildren: children,
+        );
 
   static const String name = 'Authentication';
+
+  static const _i81.PageInfo<void> page = _i81.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i1.ClientAccount]
-class ClientAccount extends _i30.PageRouteInfo<ClientAccountArgs> {
-  ClientAccount({dynamic data})
-      : super(ClientAccount.name,
-            path: '/clientAccount', args: ClientAccountArgs(data: data));
-
-  static const String name = 'ClientAccount';
-}
-
-class ClientAccountArgs {
-  const ClientAccountArgs({this.data});
-
-  final dynamic data;
-
-  @override
-  String toString() {
-    return 'ClientAccountArgs{data: $data}';
-  }
-}
-
-/// generated route for
-/// [_i1.Login]
-class Login extends _i30.PageRouteInfo<void> {
-  const Login() : super(Login.name, path: '/login');
-
-  static const String name = 'Login';
-}
-
-/// generated route for
-/// [_i2.ForgotPassword]
-class ForgotPassword extends _i30.PageRouteInfo<void> {
-  const ForgotPassword() : super(ForgotPassword.name, path: '/forgotPassword');
-
-  static const String name = 'ForgotPassword';
-}
-
-/// generated route for
-/// [_i3.ChangePassword]
-class ChangePassword extends _i30.PageRouteInfo<void> {
-  const ChangePassword() : super(ChangePassword.name, path: '/changePassword');
-
-  static const String name = 'ChangePassword';
-}
-
-/// generated route for
-/// [_i4.RegisterMobile]
-class RegisterMobile extends _i30.PageRouteInfo<void> {
-  const RegisterMobile() : super(RegisterMobile.name, path: '/registerMobile');
-
-  static const String name = 'RegisterMobile';
-}
-
-/// generated route for
-/// [_i4.RegisterVerification]
-class RegisterVerification
-    extends _i30.PageRouteInfo<RegisterVerificationArgs> {
-  RegisterVerification({required dynamic data})
-      : super(RegisterVerification.name,
-            path: '/registerVerification',
-            args: RegisterVerificationArgs(data: data));
-
-  static const String name = 'RegisterVerification';
-}
-
-class RegisterVerificationArgs {
-  const RegisterVerificationArgs({required this.data});
-
-  final dynamic data;
-
-  @override
-  String toString() {
-    return 'RegisterVerificationArgs{data: $data}';
-  }
-}
-
-/// generated route for
-/// [_i4.RegisterForm]
-class RegisterForm extends _i30.PageRouteInfo<RegisterFormArgs> {
-  RegisterForm({required dynamic data})
-      : super(RegisterForm.name,
-            path: '/registerForm', args: RegisterFormArgs(data: data));
-
-  static const String name = 'RegisterForm';
-}
-
-class RegisterFormArgs {
-  const RegisterFormArgs({required this.data});
-
-  final dynamic data;
-
-  @override
-  String toString() {
-    return 'RegisterFormArgs{data: $data}';
-  }
-}
-
-/// generated route for
-/// [_i5.Home]
-class Home extends _i30.PageRouteInfo<void> {
-  const Home() : super(Home.name, path: '/home');
-
-  static const String name = 'Home';
-}
-
-/// generated route for
-/// [_i5.QueueNumber]
-class QueueNumber extends _i30.PageRouteInfo<QueueNumberArgs> {
-  QueueNumber({required dynamic data})
-      : super(QueueNumber.name,
-            path: '/queueNumber', args: QueueNumberArgs(data: data));
-
-  static const String name = 'QueueNumber';
-}
-
-class QueueNumberArgs {
-  const QueueNumberArgs({required this.data});
-
-  final dynamic data;
-
-  @override
-  String toString() {
-    return 'QueueNumberArgs{data: $data}';
-  }
-}
-
-/// generated route for
-/// [_i6.Enrollment]
-class Enrollment extends _i30.PageRouteInfo<void> {
-  const Enrollment() : super(Enrollment.name, path: '/enrollment');
-
-  static const String name = 'Enrollment';
-}
-
-/// generated route for
-/// [_i7.DiEnrollment]
-class DiEnrollment extends _i30.PageRouteInfo<DiEnrollmentArgs> {
-  DiEnrollment({String? packageCodeJson})
-      : super(DiEnrollment.name,
-            path: '/diEnrollment',
-            args: DiEnrollmentArgs(packageCodeJson: packageCodeJson));
-
-  static const String name = 'DiEnrollment';
-}
-
-class DiEnrollmentArgs {
-  const DiEnrollmentArgs({this.packageCodeJson});
-
-  final String? packageCodeJson;
-
-  @override
-  String toString() {
-    return 'DiEnrollmentArgs{packageCodeJson: $packageCodeJson}';
-  }
-}
-
-/// generated route for
-/// [_i7.EnrollConfirmation]
-class EnrollConfirmation extends _i30.PageRouteInfo<EnrollConfirmationArgs> {
-  EnrollConfirmation(
-      {String? banner,
-      String? packageName,
-      String? packageCode,
-      String? packageDesc,
-      String? diCode,
-      String? termsAndCondition,
-      String? groupIdGrouping,
-      String? amount})
-      : super(EnrollConfirmation.name,
-            path: '/enrollConfirmation',
-            args: EnrollConfirmationArgs(
-                banner: banner,
-                packageName: packageName,
-                packageCode: packageCode,
-                packageDesc: packageDesc,
-                diCode: diCode,
-                termsAndCondition: termsAndCondition,
-                groupIdGrouping: groupIdGrouping,
-                amount: amount));
-
-  static const String name = 'EnrollConfirmation';
-}
-
-class EnrollConfirmationArgs {
-  const EnrollConfirmationArgs(
-      {this.banner,
-      this.packageName,
-      this.packageCode,
-      this.packageDesc,
-      this.diCode,
-      this.termsAndCondition,
-      this.groupIdGrouping,
-      this.amount});
-
-  final String? banner;
-
-  final String? packageName;
-
-  final String? packageCode;
-
-  final String? packageDesc;
-
-  final String? diCode;
-
-  final String? termsAndCondition;
-
-  final String? groupIdGrouping;
-
-  final String? amount;
-
-  @override
-  String toString() {
-    return 'EnrollConfirmationArgs{banner: $banner, packageName: $packageName, packageCode: $packageCode, packageDesc: $packageDesc, diCode: $diCode, termsAndCondition: $termsAndCondition, groupIdGrouping: $groupIdGrouping, amount: $amount}';
-  }
-}
-
-/// generated route for
-/// [_i7.OrderList]
-class OrderList extends _i30.PageRouteInfo<OrderListArgs> {
-  OrderList({String? icNo, String? packageCode, String? diCode})
-      : super(OrderList.name,
-            path: '/orderList',
-            args: OrderListArgs(
-                icNo: icNo, packageCode: packageCode, diCode: diCode));
-
-  static const String name = 'OrderList';
-}
-
-class OrderListArgs {
-  const OrderListArgs({this.icNo, this.packageCode, this.diCode});
-
-  final String? icNo;
-
-  final String? packageCode;
-
-  final String? diCode;
-
-  @override
-  String toString() {
-    return 'OrderListArgs{icNo: $icNo, packageCode: $packageCode, diCode: $diCode}';
-  }
-}
-
-/// generated route for
-/// [_i7.BankList]
-class BankList extends _i30.PageRouteInfo<BankListArgs> {
-  BankList(
-      {String? icNo,
-      String? docDoc,
-      String? docRef,
-      String? packageCode,
-      String? diCode,
-      String? amountString})
-      : super(BankList.name,
-            path: '/bankList',
-            args: BankListArgs(
-                icNo: icNo,
-                docDoc: docDoc,
-                docRef: docRef,
-                packageCode: packageCode,
-                diCode: diCode,
-                amountString: amountString));
+/// [_i8.BankList]
+class BankList extends _i81.PageRouteInfo<BankListArgs> {
+  BankList({
+    _i82.Key? key,
+    String? icNo,
+    String? docDoc,
+    String? docRef,
+    String? packageCode,
+    String? diCode,
+    String? amountString,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          BankList.name,
+          args: BankListArgs(
+            key: key,
+            icNo: icNo,
+            docDoc: docDoc,
+            docRef: docRef,
+            packageCode: packageCode,
+            diCode: diCode,
+            amountString: amountString,
+          ),
+          initialChildren: children,
+        );
 
   static const String name = 'BankList';
+
+  static const _i81.PageInfo<BankListArgs> page =
+      _i81.PageInfo<BankListArgs>(name);
 }
 
 class BankListArgs {
-  const BankListArgs(
-      {this.icNo,
-      this.docDoc,
-      this.docRef,
-      this.packageCode,
-      this.diCode,
-      this.amountString});
+  const BankListArgs({
+    this.key,
+    this.icNo,
+    this.docDoc,
+    this.docRef,
+    this.packageCode,
+    this.diCode,
+    this.amountString,
+  });
+
+  final _i82.Key? key;
 
   final String? icNo;
 
@@ -896,231 +992,122 @@ class BankListArgs {
 
   @override
   String toString() {
-    return 'BankListArgs{icNo: $icNo, docDoc: $docDoc, docRef: $docRef, packageCode: $packageCode, diCode: $diCode, amountString: $amountString}';
+    return 'BankListArgs{key: $key, icNo: $icNo, docDoc: $docDoc, docRef: $docRef, packageCode: $packageCode, diCode: $diCode, amountString: $amountString}';
   }
 }
 
 /// generated route for
-/// [_i7.PaymentStatus]
-class PaymentStatus extends _i30.PageRouteInfo<PaymentStatusArgs> {
-  PaymentStatus({String? icNo})
-      : super(PaymentStatus.name,
-            path: '/paymentStatus', args: PaymentStatusArgs(icNo: icNo));
+/// [_i9.BillDetail]
+class BillDetail extends _i81.PageRouteInfo<BillDetailArgs> {
+  BillDetail({
+    required dynamic data,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          BillDetail.name,
+          args: BillDetailArgs(data: data),
+          initialChildren: children,
+        );
 
-  static const String name = 'PaymentStatus';
+  static const String name = 'BillDetail';
+
+  static const _i81.PageInfo<BillDetailArgs> page =
+      _i81.PageInfo<BillDetailArgs>(name);
 }
 
-class PaymentStatusArgs {
-  const PaymentStatusArgs({this.icNo});
-
-  final String? icNo;
-
-  @override
-  String toString() {
-    return 'PaymentStatusArgs{icNo: $icNo}';
-  }
-}
-
-/// generated route for
-/// [_i8.KppCategory]
-class KppCategory extends _i30.PageRouteInfo<void> {
-  const KppCategory() : super(KppCategory.name, path: '/kppCategory');
-
-  static const String name = 'KppCategory';
-}
-
-/// generated route for
-/// [_i8.KppResult]
-class KppResult extends _i30.PageRouteInfo<KppResultArgs> {
-  KppResult({required dynamic data})
-      : super(KppResult.name,
-            path: '/kppResult', args: KppResultArgs(data: data));
-
-  static const String name = 'KppResult';
-}
-
-class KppResultArgs {
-  const KppResultArgs({required this.data});
+class BillDetailArgs {
+  const BillDetailArgs({required this.data});
 
   final dynamic data;
 
   @override
   String toString() {
-    return 'KppResultArgs{data: $data}';
+    return 'BillDetailArgs{data: $data}';
   }
 }
 
 /// generated route for
-/// [_i8.KppExam]
-class KppExam extends _i30.PageRouteInfo<KppExamArgs> {
-  KppExam({required String? groupId, required String? paperNo})
-      : super(KppExam.name,
-            path: '/kppExam',
-            args: KppExamArgs(groupId: groupId, paperNo: paperNo));
+/// [_i10.BillSelection]
+class BillSelection extends _i81.PageRouteInfo<void> {
+  const BillSelection({List<_i81.PageRouteInfo>? children})
+      : super(
+          BillSelection.name,
+          initialChildren: children,
+        );
 
-  static const String name = 'KppExam';
-}
+  static const String name = 'BillSelection';
 
-class KppExamArgs {
-  const KppExamArgs({required this.groupId, required this.paperNo});
-
-  final String? groupId;
-
-  final String? paperNo;
-
-  @override
-  String toString() {
-    return 'KppExamArgs{groupId: $groupId, paperNo: $paperNo}';
-  }
+  static const _i81.PageInfo<void> page = _i81.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i8.KppModule]
-class KppModule extends _i30.PageRouteInfo<KppModuleArgs> {
-  KppModule({required dynamic data})
-      : super(KppModule.name,
-            path: '/kppModule', args: KppModuleArgs(data: data));
+/// [_i11.BillTransaction]
+class BillTransaction extends _i81.PageRouteInfo<BillTransactionArgs> {
+  BillTransaction({
+    required dynamic data,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          BillTransaction.name,
+          args: BillTransactionArgs(data: data),
+          initialChildren: children,
+        );
 
-  static const String name = 'KppModule';
+  static const String name = 'BillTransaction';
+
+  static const _i81.PageInfo<BillTransactionArgs> page =
+      _i81.PageInfo<BillTransactionArgs>(name);
 }
 
-class KppModuleArgs {
-  const KppModuleArgs({required this.data});
+class BillTransactionArgs {
+  const BillTransactionArgs({required this.data});
 
   final dynamic data;
 
   @override
   String toString() {
-    return 'KppModuleArgs{data: $data}';
+    return 'BillTransactionArgs{data: $data}';
   }
 }
 
 /// generated route for
-/// [_i8.PinActivation]
-class PinActivation extends _i30.PageRouteInfo<PinActivationArgs> {
-  PinActivation({required String data})
-      : super(PinActivation.name,
-            path: '/pinActivation', args: PinActivationArgs(data: data));
+/// [_i12.Booking]
+class Booking extends _i81.PageRouteInfo<void> {
+  const Booking({List<_i81.PageRouteInfo>? children})
+      : super(
+          Booking.name,
+          initialChildren: children,
+        );
 
-  static const String name = 'PinActivation';
-}
+  static const String name = 'Booking';
 
-class PinActivationArgs {
-  const PinActivationArgs({required this.data});
-
-  final String data;
-
-  @override
-  String toString() {
-    return 'PinActivationArgs{data: $data}';
-  }
+  static const _i81.PageInfo<void> page = _i81.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i9.ValueClub]
-class ValueClub extends _i30.PageRouteInfo<void> {
-  const ValueClub() : super(ValueClub.name, path: '/valueClub');
-
-  static const String name = 'ValueClub';
-}
-
-/// generated route for
-/// [_i9.Product]
-class Product extends _i30.PageRouteInfo<ProductArgs> {
-  Product(
-      {String? stkCode,
-      String? stkDesc1,
-      String? stkDesc2,
-      String? qty,
-      String? price,
-      String? image,
-      String? uom,
-      dynamic products})
-      : super(Product.name,
-            path: '/product',
-            args: ProductArgs(
-                stkCode: stkCode,
-                stkDesc1: stkDesc1,
-                stkDesc2: stkDesc2,
-                qty: qty,
-                price: price,
-                image: image,
-                uom: uom,
-                products: products));
-
-  static const String name = 'Product';
-}
-
-class ProductArgs {
-  const ProductArgs(
-      {this.stkCode,
-      this.stkDesc1,
-      this.stkDesc2,
-      this.qty,
-      this.price,
-      this.image,
-      this.uom,
-      this.products});
-
-  final String? stkCode;
-
-  final String? stkDesc1;
-
-  final String? stkDesc2;
-
-  final String? qty;
-
-  final String? price;
-
-  final String? image;
-
-  final String? uom;
-
-  final dynamic products;
-
-  @override
-  String toString() {
-    return 'ProductArgs{stkCode: $stkCode, stkDesc1: $stkDesc1, stkDesc2: $stkDesc2, qty: $qty, price: $price, image: $image, uom: $uom, products: $products}';
-  }
-}
-
-/// generated route for
-/// [_i9.ProductList]
-class ProductList extends _i30.PageRouteInfo<ProductListArgs> {
-  ProductList({String? stkCat, String? keywordSearch})
-      : super(ProductList.name,
-            path: '/productList',
-            args:
-                ProductListArgs(stkCat: stkCat, keywordSearch: keywordSearch));
-
-  static const String name = 'ProductList';
-}
-
-class ProductListArgs {
-  const ProductListArgs({this.stkCat, this.keywordSearch});
-
-  final String? stkCat;
-
-  final String? keywordSearch;
-
-  @override
-  String toString() {
-    return 'ProductListArgs{stkCat: $stkCat, keywordSearch: $keywordSearch}';
-  }
-}
-
-/// generated route for
-/// [_i9.Cart]
-class Cart extends _i30.PageRouteInfo<CartArgs> {
-  Cart({String? itemName, String? dbcode})
-      : super(Cart.name,
-            path: '/cart', args: CartArgs(itemName: itemName, dbcode: dbcode));
+/// [_i13.Cart]
+class Cart extends _i81.PageRouteInfo<CartArgs> {
+  Cart({
+    String? itemName,
+    String? dbcode,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          Cart.name,
+          args: CartArgs(
+            itemName: itemName,
+            dbcode: dbcode,
+          ),
+          initialChildren: children,
+        );
 
   static const String name = 'Cart';
+
+  static const _i81.PageInfo<CartArgs> page = _i81.PageInfo<CartArgs>(name);
 }
 
 class CartArgs {
-  const CartArgs({this.itemName, this.dbcode});
+  const CartArgs({
+    this.itemName,
+    this.dbcode,
+  });
 
   final String? itemName;
 
@@ -1133,51 +1120,59 @@ class CartArgs {
 }
 
 /// generated route for
-/// [_i9.CartItemEdit]
-class CartItemEdit extends _i30.PageRouteInfo<CartItemEditArgs> {
-  CartItemEdit(
-      {String? stkCode,
-      String? stkDesc1,
-      String? stkDesc2,
-      String? qty,
-      String? price,
-      String? discRate,
-      String? isOfferedItem,
-      String? scheduledDeliveryDate,
-      String? uom,
-      String? batchNo,
-      String? slsKey})
-      : super(CartItemEdit.name,
-            path: '/cartItemEdit',
-            args: CartItemEditArgs(
-                stkCode: stkCode,
-                stkDesc1: stkDesc1,
-                stkDesc2: stkDesc2,
-                qty: qty,
-                price: price,
-                discRate: discRate,
-                isOfferedItem: isOfferedItem,
-                scheduledDeliveryDate: scheduledDeliveryDate,
-                uom: uom,
-                batchNo: batchNo,
-                slsKey: slsKey));
+/// [_i14.CartItemEdit]
+class CartItemEdit extends _i81.PageRouteInfo<CartItemEditArgs> {
+  CartItemEdit({
+    String? stkCode,
+    String? stkDesc1,
+    String? stkDesc2,
+    String? qty,
+    String? price,
+    String? discRate,
+    String? isOfferedItem,
+    String? scheduledDeliveryDate,
+    String? uom,
+    String? batchNo,
+    String? slsKey,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          CartItemEdit.name,
+          args: CartItemEditArgs(
+            stkCode: stkCode,
+            stkDesc1: stkDesc1,
+            stkDesc2: stkDesc2,
+            qty: qty,
+            price: price,
+            discRate: discRate,
+            isOfferedItem: isOfferedItem,
+            scheduledDeliveryDate: scheduledDeliveryDate,
+            uom: uom,
+            batchNo: batchNo,
+            slsKey: slsKey,
+          ),
+          initialChildren: children,
+        );
 
   static const String name = 'CartItemEdit';
+
+  static const _i81.PageInfo<CartItemEditArgs> page =
+      _i81.PageInfo<CartItemEditArgs>(name);
 }
 
 class CartItemEditArgs {
-  const CartItemEditArgs(
-      {this.stkCode,
-      this.stkDesc1,
-      this.stkDesc2,
-      this.qty,
-      this.price,
-      this.discRate,
-      this.isOfferedItem,
-      this.scheduledDeliveryDate,
-      this.uom,
-      this.batchNo,
-      this.slsKey});
+  const CartItemEditArgs({
+    this.stkCode,
+    this.stkDesc1,
+    this.stkDesc2,
+    this.qty,
+    this.price,
+    this.discRate,
+    this.isOfferedItem,
+    this.scheduledDeliveryDate,
+    this.uom,
+    this.batchNo,
+    this.slsKey,
+  });
 
   final String? stkCode;
 
@@ -1208,42 +1203,136 @@ class CartItemEditArgs {
 }
 
 /// generated route for
-/// [_i9.Checkout]
-class Checkout extends _i30.PageRouteInfo<CheckoutArgs> {
-  Checkout(
-      {dynamic slsDetailData,
-      String? itemName,
-      String? dbcode,
-      String? date,
-      String? docDoc,
-      String? docRef,
-      String? qty,
-      String? totalAmount})
-      : super(Checkout.name,
-            path: '/checkout',
-            args: CheckoutArgs(
-                slsDetailData: slsDetailData,
-                itemName: itemName,
-                dbcode: dbcode,
-                date: date,
-                docDoc: docDoc,
-                docRef: docRef,
-                qty: qty,
-                totalAmount: totalAmount));
+/// [_i15.ChangePassword]
+class ChangePassword extends _i81.PageRouteInfo<void> {
+  const ChangePassword({List<_i81.PageRouteInfo>? children})
+      : super(
+          ChangePassword.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ChangePassword';
+
+  static const _i81.PageInfo<void> page = _i81.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i16.ChatRoom]
+class ChatRoom extends _i81.PageRouteInfo<ChatRoomArgs> {
+  ChatRoom({
+    _i82.Key? key,
+    required String roomId,
+    required String picturePath,
+    required String roomName,
+    required String roomDesc,
+    required bool isMessagesExist,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          ChatRoom.name,
+          args: ChatRoomArgs(
+            key: key,
+            roomId: roomId,
+            picturePath: picturePath,
+            roomName: roomName,
+            roomDesc: roomDesc,
+            isMessagesExist: isMessagesExist,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'ChatRoom';
+
+  static const _i81.PageInfo<ChatRoomArgs> page =
+      _i81.PageInfo<ChatRoomArgs>(name);
+}
+
+class ChatRoomArgs {
+  const ChatRoomArgs({
+    this.key,
+    required this.roomId,
+    required this.picturePath,
+    required this.roomName,
+    required this.roomDesc,
+    required this.isMessagesExist,
+  });
+
+  final _i82.Key? key;
+
+  final String roomId;
+
+  final String picturePath;
+
+  final String roomName;
+
+  final String roomDesc;
+
+  final bool isMessagesExist;
+
+  @override
+  String toString() {
+    return 'ChatRoomArgs{key: $key, roomId: $roomId, picturePath: $picturePath, roomName: $roomName, roomDesc: $roomDesc, isMessagesExist: $isMessagesExist}';
+  }
+}
+
+/// generated route for
+/// [_i17.CheckInSlip]
+class CheckInSlip extends _i81.PageRouteInfo<void> {
+  const CheckInSlip({List<_i81.PageRouteInfo>? children})
+      : super(
+          CheckInSlip.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'CheckInSlip';
+
+  static const _i81.PageInfo<void> page = _i81.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i18.Checkout]
+class Checkout extends _i81.PageRouteInfo<CheckoutArgs> {
+  Checkout({
+    dynamic slsDetailData,
+    String? itemName,
+    String? dbcode,
+    String? date,
+    String? docDoc,
+    String? docRef,
+    String? qty,
+    String? totalAmount,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          Checkout.name,
+          args: CheckoutArgs(
+            slsDetailData: slsDetailData,
+            itemName: itemName,
+            dbcode: dbcode,
+            date: date,
+            docDoc: docDoc,
+            docRef: docRef,
+            qty: qty,
+            totalAmount: totalAmount,
+          ),
+          initialChildren: children,
+        );
 
   static const String name = 'Checkout';
+
+  static const _i81.PageInfo<CheckoutArgs> page =
+      _i81.PageInfo<CheckoutArgs>(name);
 }
 
 class CheckoutArgs {
-  const CheckoutArgs(
-      {this.slsDetailData,
-      this.itemName,
-      this.dbcode,
-      this.date,
-      this.docDoc,
-      this.docRef,
-      this.qty,
-      this.totalAmount});
+  const CheckoutArgs({
+    this.slsDetailData,
+    this.itemName,
+    this.dbcode,
+    this.date,
+    this.docDoc,
+    this.docRef,
+    this.qty,
+    this.totalAmount,
+  });
 
   final dynamic slsDetailData;
 
@@ -1268,62 +1357,140 @@ class CheckoutArgs {
 }
 
 /// generated route for
-/// [_i10.EpanduCategory]
-class EpanduCategory extends _i30.PageRouteInfo<void> {
-  const EpanduCategory() : super(EpanduCategory.name, path: '/epanduCategory');
+/// [_i19.ClientAccount]
+class ClientAccount extends _i81.PageRouteInfo<ClientAccountArgs> {
+  ClientAccount({
+    dynamic data,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          ClientAccount.name,
+          args: ClientAccountArgs(data: data),
+          initialChildren: children,
+        );
 
-  static const String name = 'EpanduCategory';
+  static const String name = 'ClientAccount';
+
+  static const _i81.PageInfo<ClientAccountArgs> page =
+      _i81.PageInfo<ClientAccountArgs>(name);
 }
 
-/// generated route for
-/// [_i11.EtestingCategory]
-class EtestingCategory extends _i30.PageRouteInfo<void> {
-  const EtestingCategory()
-      : super(EtestingCategory.name, path: '/epanduCategory');
+class ClientAccountArgs {
+  const ClientAccountArgs({this.data});
 
-  static const String name = 'EtestingCategory';
-}
-
-/// generated route for
-/// [_i12.EmergencyDirectory]
-class EmergencyDirectory extends _i30.PageRouteInfo<void> {
-  const EmergencyDirectory()
-      : super(EmergencyDirectory.name, path: '/emergencyDirectory');
-
-  static const String name = 'EmergencyDirectory';
-}
-
-/// generated route for
-/// [_i12.DirectoryList]
-class DirectoryList extends _i30.PageRouteInfo<DirectoryListArgs> {
-  DirectoryList({required dynamic directoryType})
-      : super(DirectoryList.name,
-            path: '/directoryList',
-            args: DirectoryListArgs(directoryType: directoryType));
-
-  static const String name = 'DirectoryList';
-}
-
-class DirectoryListArgs {
-  const DirectoryListArgs({required this.directoryType});
-
-  final dynamic directoryType;
+  final dynamic data;
 
   @override
   String toString() {
-    return 'DirectoryListArgs{directoryType: $directoryType}';
+    return 'ClientAccountArgs{data: $data}';
   }
 }
 
 /// generated route for
-/// [_i12.DirectoryDetail]
-class DirectoryDetail extends _i30.PageRouteInfo<DirectoryDetailArgs> {
-  DirectoryDetail({required dynamic snapshot})
-      : super(DirectoryDetail.name,
-            path: '/directoryDetail',
-            args: DirectoryDetailArgs(snapshot: snapshot));
+/// [_i20.ComingSoon]
+class ComingSoon extends _i81.PageRouteInfo<void> {
+  const ComingSoon({List<_i81.PageRouteInfo>? children})
+      : super(
+          ComingSoon.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ComingSoon';
+
+  static const _i81.PageInfo<void> page = _i81.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i21.CreateGroup]
+class CreateGroup extends _i81.PageRouteInfo<CreateGroupArgs> {
+  CreateGroup({
+    _i82.Key? key,
+    required String roomId,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          CreateGroup.name,
+          args: CreateGroupArgs(
+            key: key,
+            roomId: roomId,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'CreateGroup';
+
+  static const _i81.PageInfo<CreateGroupArgs> page =
+      _i81.PageInfo<CreateGroupArgs>(name);
+}
+
+class CreateGroupArgs {
+  const CreateGroupArgs({
+    this.key,
+    required this.roomId,
+  });
+
+  final _i82.Key? key;
+
+  final String roomId;
+
+  @override
+  String toString() {
+    return 'CreateGroupArgs{key: $key, roomId: $roomId}';
+  }
+}
+
+/// generated route for
+/// [_i22.DiEnrollment]
+class DiEnrollment extends _i81.PageRouteInfo<DiEnrollmentArgs> {
+  DiEnrollment({
+    _i82.Key? key,
+    String? packageCodeJson,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          DiEnrollment.name,
+          args: DiEnrollmentArgs(
+            key: key,
+            packageCodeJson: packageCodeJson,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'DiEnrollment';
+
+  static const _i81.PageInfo<DiEnrollmentArgs> page =
+      _i81.PageInfo<DiEnrollmentArgs>(name);
+}
+
+class DiEnrollmentArgs {
+  const DiEnrollmentArgs({
+    this.key,
+    this.packageCodeJson,
+  });
+
+  final _i82.Key? key;
+
+  final String? packageCodeJson;
+
+  @override
+  String toString() {
+    return 'DiEnrollmentArgs{key: $key, packageCodeJson: $packageCodeJson}';
+  }
+}
+
+/// generated route for
+/// [_i23.DirectoryDetail]
+class DirectoryDetail extends _i81.PageRouteInfo<DirectoryDetailArgs> {
+  DirectoryDetail({
+    required dynamic snapshot,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          DirectoryDetail.name,
+          args: DirectoryDetailArgs(snapshot: snapshot),
+          initialChildren: children,
+        );
 
   static const String name = 'DirectoryDetail';
+
+  static const _i81.PageInfo<DirectoryDetailArgs> page =
+      _i81.PageInfo<DirectoryDetailArgs>(name);
 }
 
 class DirectoryDetailArgs {
@@ -1338,384 +1505,165 @@ class DirectoryDetailArgs {
 }
 
 /// generated route for
-/// [_i6.SelectInstitute]
-class SelectInstitute extends _i30.PageRouteInfo<SelectInstituteArgs> {
-  SelectInstitute({required dynamic data})
-      : super(SelectInstitute.name,
-            path: '/selectInstitute', args: SelectInstituteArgs(data: data));
+/// [_i24.DirectoryList]
+class DirectoryList extends _i81.PageRouteInfo<DirectoryListArgs> {
+  DirectoryList({
+    required dynamic directoryType,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          DirectoryList.name,
+          args: DirectoryListArgs(directoryType: directoryType),
+          initialChildren: children,
+        );
 
-  static const String name = 'SelectInstitute';
+  static const String name = 'DirectoryList';
+
+  static const _i81.PageInfo<DirectoryListArgs> page =
+      _i81.PageInfo<DirectoryListArgs>(name);
 }
 
-class SelectInstituteArgs {
-  const SelectInstituteArgs({required this.data});
+class DirectoryListArgs {
+  const DirectoryListArgs({required this.directoryType});
 
-  final dynamic data;
+  final dynamic directoryType;
 
   @override
   String toString() {
-    return 'SelectInstituteArgs{data: $data}';
+    return 'DirectoryListArgs{directoryType: $directoryType}';
   }
 }
 
 /// generated route for
-/// [_i6.SelectClass]
-class SelectClass extends _i30.PageRouteInfo<SelectClassArgs> {
-  SelectClass({required dynamic data})
-      : super(SelectClass.name,
-            path: '/selectClass', args: SelectClassArgs(data: data));
+/// [_i25.EmergencyDirectory]
+class EmergencyDirectory extends _i81.PageRouteInfo<void> {
+  const EmergencyDirectory({List<_i81.PageRouteInfo>? children})
+      : super(
+          EmergencyDirectory.name,
+          initialChildren: children,
+        );
 
-  static const String name = 'SelectClass';
-}
+  static const String name = 'EmergencyDirectory';
 
-class SelectClassArgs {
-  const SelectClassArgs({required this.data});
-
-  final dynamic data;
-
-  @override
-  String toString() {
-    return 'SelectClassArgs{data: $data}';
-  }
+  static const _i81.PageInfo<void> page = _i81.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i1.SelectDrivingInstitute]
-class SelectDrivingInstitute
-    extends _i30.PageRouteInfo<SelectDrivingInstituteArgs> {
-  SelectDrivingInstitute({required dynamic diList})
-      : super(SelectDrivingInstitute.name,
-            path: '/selectDrivingInstitute',
-            args: SelectDrivingInstituteArgs(diList: diList));
+/// [_i26.EnrollConfirmation]
+class EnrollConfirmation extends _i81.PageRouteInfo<EnrollConfirmationArgs> {
+  EnrollConfirmation({
+    _i82.Key? key,
+    String? banner,
+    String? packageName,
+    String? packageCode,
+    String? packageDesc,
+    String? diCode,
+    String? termsAndCondition,
+    String? groupIdGrouping,
+    String? amount,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          EnrollConfirmation.name,
+          args: EnrollConfirmationArgs(
+            key: key,
+            banner: banner,
+            packageName: packageName,
+            packageCode: packageCode,
+            packageDesc: packageDesc,
+            diCode: diCode,
+            termsAndCondition: termsAndCondition,
+            groupIdGrouping: groupIdGrouping,
+            amount: amount,
+          ),
+          initialChildren: children,
+        );
 
-  static const String name = 'SelectDrivingInstitute';
+  static const String name = 'EnrollConfirmation';
+
+  static const _i81.PageInfo<EnrollConfirmationArgs> page =
+      _i81.PageInfo<EnrollConfirmationArgs>(name);
 }
 
-class SelectDrivingInstituteArgs {
-  const SelectDrivingInstituteArgs({required this.diList});
+class EnrollConfirmationArgs {
+  const EnrollConfirmationArgs({
+    this.key,
+    this.banner,
+    this.packageName,
+    this.packageCode,
+    this.packageDesc,
+    this.diCode,
+    this.termsAndCondition,
+    this.groupIdGrouping,
+    this.amount,
+  });
 
-  final dynamic diList;
+  final _i82.Key? key;
 
-  @override
-  String toString() {
-    return 'SelectDrivingInstituteArgs{diList: $diList}';
-  }
-}
+  final String? banner;
 
-/// generated route for
-/// [_i13.TakeProfilePicture]
-class TakeProfilePicture extends _i30.PageRouteInfo<TakeProfilePictureArgs> {
-  TakeProfilePicture({required List<_i32.CameraDescription>? camera})
-      : super(TakeProfilePicture.name,
-            path: '/takeProfilePicture',
-            args: TakeProfilePictureArgs(camera: camera));
-
-  static const String name = 'TakeProfilePicture';
-}
-
-class TakeProfilePictureArgs {
-  const TakeProfilePictureArgs({required this.camera});
-
-  final List<_i32.CameraDescription>? camera;
-
-  @override
-  String toString() {
-    return 'TakeProfilePictureArgs{camera: $camera}';
-  }
-}
-
-/// generated route for
-/// [_i10.Booking]
-class Booking extends _i30.PageRouteInfo<void> {
-  const Booking() : super(Booking.name, path: '/booking');
-
-  static const String name = 'Booking';
-}
-
-/// generated route for
-/// [_i14.AddBooking]
-class AddBooking extends _i30.PageRouteInfo<void> {
-  const AddBooking() : super(AddBooking.name, path: '/addBooking');
-
-  static const String name = 'AddBooking';
-}
-
-/// generated route for
-/// [_i10.Records]
-class Records extends _i30.PageRouteInfo<void> {
-  const Records() : super(Records.name, path: '/records');
-
-  static const String name = 'Records';
-}
-
-/// generated route for
-/// [_i15.Pay]
-class Pay extends _i30.PageRouteInfo<void> {
-  const Pay() : super(Pay.name, path: '/pay');
-
-  static const String name = 'Pay';
-}
-
-/// generated route for
-/// [_i15.PurchaseOrderList]
-class PurchaseOrderList extends _i30.PageRouteInfo<PurchaseOrderListArgs> {
-  PurchaseOrderList({String? icNo, String? packageCode, String? diCode})
-      : super(PurchaseOrderList.name,
-            path: '/purchaseOrderList',
-            args: PurchaseOrderListArgs(
-                icNo: icNo, packageCode: packageCode, diCode: diCode));
-
-  static const String name = 'PurchaseOrderList';
-}
-
-class PurchaseOrderListArgs {
-  const PurchaseOrderListArgs({this.icNo, this.packageCode, this.diCode});
-
-  final String? icNo;
+  final String? packageName;
 
   final String? packageCode;
 
+  final String? packageDesc;
+
   final String? diCode;
 
+  final String? termsAndCondition;
+
+  final String? groupIdGrouping;
+
+  final String? amount;
+
   @override
   String toString() {
-    return 'PurchaseOrderListArgs{icNo: $icNo, packageCode: $packageCode, diCode: $diCode}';
+    return 'EnrollConfirmationArgs{key: $key, banner: $banner, packageName: $packageName, packageCode: $packageCode, packageDesc: $packageDesc, diCode: $diCode, termsAndCondition: $termsAndCondition, groupIdGrouping: $groupIdGrouping, amount: $amount}';
   }
 }
 
 /// generated route for
-/// [_i10.PaymentHistory]
-class PaymentHistory extends _i30.PageRouteInfo<void> {
-  const PaymentHistory() : super(PaymentHistory.name, path: '/paymentHistory');
+/// [_i27.Enrollment]
+class Enrollment extends _i81.PageRouteInfo<void> {
+  const Enrollment({List<_i81.PageRouteInfo>? children})
+      : super(
+          Enrollment.name,
+          initialChildren: children,
+        );
 
-  static const String name = 'PaymentHistory';
+  static const String name = 'Enrollment';
+
+  static const _i81.PageInfo<void> page = _i81.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i10.PaymentHistoryDetail]
-class PaymentHistoryDetail
-    extends _i30.PageRouteInfo<PaymentHistoryDetailArgs> {
-  PaymentHistoryDetail({required dynamic recpNo})
-      : super(PaymentHistoryDetail.name,
-            path: '/paymentHistoryDetail',
-            args: PaymentHistoryDetailArgs(recpNo: recpNo));
-
-  static const String name = 'PaymentHistoryDetail';
-}
-
-class PaymentHistoryDetailArgs {
-  const PaymentHistoryDetailArgs({required this.recpNo});
-
-  final dynamic recpNo;
-
-  @override
-  String toString() {
-    return 'PaymentHistoryDetailArgs{recpNo: $recpNo}';
-  }
-}
-
-/// generated route for
-/// [_i10.RequestPickup]
-class RequestPickup extends _i30.PageRouteInfo<void> {
-  const RequestPickup() : super(RequestPickup.name, path: '/requestPickup');
-
-  static const String name = 'RequestPickup';
-}
-
-/// generated route for
-/// [_i10.RegisteredCourse]
-class RegisteredCourse extends _i30.PageRouteInfo<void> {
-  const RegisteredCourse()
-      : super(RegisteredCourse.name, path: '/registeredCourse');
-
-  static const String name = 'RegisteredCourse';
-}
-
-/// generated route for
-/// [_i10.RegisteredCourseDetail]
-class RegisteredCourseDetail
-    extends _i30.PageRouteInfo<RegisteredCourseDetailArgs> {
-  RegisteredCourseDetail({required dynamic groupId})
-      : super(RegisteredCourseDetail.name,
-            path: '/registeredCourseDetail',
-            args: RegisteredCourseDetailArgs(groupId: groupId));
-
-  static const String name = 'RegisteredCourseDetail';
-}
-
-class RegisteredCourseDetailArgs {
-  const RegisteredCourseDetailArgs({required this.groupId});
-
-  final dynamic groupId;
-
-  @override
-  String toString() {
-    return 'RegisteredCourseDetailArgs{groupId: $groupId}';
-  }
-}
-
-/// generated route for
-/// [_i10.AttendanceRecord]
-class AttendanceRecord extends _i30.PageRouteInfo<AttendanceRecordArgs> {
-  AttendanceRecord({required dynamic attendanceData, required bool? isLoading})
-      : super(AttendanceRecord.name,
-            path: '/attendanceRecord',
-            args: AttendanceRecordArgs(
-                attendanceData: attendanceData, isLoading: isLoading));
-
-  static const String name = 'AttendanceRecord';
-}
-
-class AttendanceRecordArgs {
-  const AttendanceRecordArgs(
-      {required this.attendanceData, required this.isLoading});
-
-  final dynamic attendanceData;
-
-  final bool? isLoading;
-
-  @override
-  String toString() {
-    return 'AttendanceRecordArgs{attendanceData: $attendanceData, isLoading: $isLoading}';
-  }
-}
-
-/// generated route for
-/// [_i10.AttendanceTab]
-class AttendanceTab extends _i30.PageRouteInfo<void> {
-  const AttendanceTab() : super(AttendanceTab.name, path: '/attendanceTab');
-
-  static const String name = 'AttendanceTab';
-}
-
-/// generated route for
-/// [_i16.Promotions]
-class Promotions extends _i30.PageRouteInfo<PromotionsArgs> {
-  Promotions({dynamic feed})
-      : super(Promotions.name,
-            path: '/promotions', args: PromotionsArgs(feed: feed));
-
-  static const String name = 'Promotions';
-}
-
-class PromotionsArgs {
-  const PromotionsArgs({this.feed});
-
-  final dynamic feed;
-
-  @override
-  String toString() {
-    return 'PromotionsArgs{feed: $feed}';
-  }
-}
-
-/// generated route for
-/// [_i13.Profile]
-class Profile extends _i30.PageRouteInfo<ProfileArgs> {
-  Profile({dynamic userProfile, dynamic enrollData, dynamic isLoading})
-      : super(Profile.name,
-            path: '/profile',
-            args: ProfileArgs(
-                userProfile: userProfile,
-                enrollData: enrollData,
-                isLoading: isLoading));
-
-  static const String name = 'Profile';
-}
-
-class ProfileArgs {
-  const ProfileArgs({this.userProfile, this.enrollData, this.isLoading});
-
-  final dynamic userProfile;
-
-  final dynamic enrollData;
-
-  final dynamic isLoading;
-
-  @override
-  String toString() {
-    return 'ProfileArgs{userProfile: $userProfile, enrollData: $enrollData, isLoading: $isLoading}';
-  }
-}
-
-/// generated route for
-/// [_i13.ProfileTab]
-class ProfileTab extends _i30.PageRouteInfo<ProfileTabArgs> {
-  ProfileTab({required dynamic positionStream})
-      : super(ProfileTab.name,
-            path: '/profileTab',
-            args: ProfileTabArgs(positionStream: positionStream));
-
-  static const String name = 'ProfileTab';
-}
-
-class ProfileTabArgs {
-  const ProfileTabArgs({required this.positionStream});
-
-  final dynamic positionStream;
-
-  @override
-  String toString() {
-    return 'ProfileTabArgs{positionStream: $positionStream}';
-  }
-}
-
-/// generated route for
-/// [_i13.UpdateProfile]
-class UpdateProfile extends _i30.PageRouteInfo<void> {
-  const UpdateProfile() : super(UpdateProfile.name, path: '/updateProfile');
-
-  static const String name = 'UpdateProfile';
-}
-
-/// generated route for
-/// [_i4.RegisterUserToDi]
-class RegisterUserToDi extends _i30.PageRouteInfo<RegisterUserToDiArgs> {
-  RegisterUserToDi({required dynamic barcode})
-      : super(RegisterUserToDi.name,
-            path: 'registerUserToDi',
-            args: RegisterUserToDiArgs(barcode: barcode));
-
-  static const String name = 'RegisterUserToDi';
-}
-
-class RegisterUserToDiArgs {
-  const RegisterUserToDiArgs({required this.barcode});
-
-  final dynamic barcode;
-
-  @override
-  String toString() {
-    return 'RegisterUserToDiArgs{barcode: $barcode}';
-  }
-}
-
-/// generated route for
-/// [_i13.IdentityBarcode]
-class IdentityBarcode extends _i30.PageRouteInfo<void> {
-  const IdentityBarcode()
-      : super(IdentityBarcode.name, path: '/identityBarcode');
-
-  static const String name = 'IdentityBarcode';
-}
-
-/// generated route for
-/// [_i13.EnrolmentInfo]
-class EnrolmentInfo extends _i30.PageRouteInfo<void> {
-  const EnrolmentInfo() : super(EnrolmentInfo.name, path: '/enrolmentInfo');
+/// [_i28.EnrolmentInfo]
+class EnrolmentInfo extends _i81.PageRouteInfo<void> {
+  const EnrolmentInfo({List<_i81.PageRouteInfo>? children})
+      : super(
+          EnrolmentInfo.name,
+          initialChildren: children,
+        );
 
   static const String name = 'EnrolmentInfo';
+
+  static const _i81.PageInfo<void> page = _i81.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i13.EnrolmentInfoDetail]
-class EnrolmentInfoDetail extends _i30.PageRouteInfo<EnrolmentInfoDetailArgs> {
-  EnrolmentInfoDetail({required dynamic groupId})
-      : super(EnrolmentInfoDetail.name,
-            path: '/enrolmentInfoDetail',
-            args: EnrolmentInfoDetailArgs(groupId: groupId));
+/// [_i29.EnrolmentInfoDetail]
+class EnrolmentInfoDetail extends _i81.PageRouteInfo<EnrolmentInfoDetailArgs> {
+  EnrolmentInfoDetail({
+    required dynamic groupId,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          EnrolmentInfoDetail.name,
+          args: EnrolmentInfoDetailArgs(groupId: groupId),
+          initialChildren: children,
+        );
 
   static const String name = 'EnrolmentInfoDetail';
+
+  static const _i81.PageInfo<EnrolmentInfoDetailArgs> page =
+      _i81.PageInfo<EnrolmentInfoDetailArgs>(name);
 }
 
 class EnrolmentInfoDetailArgs {
@@ -1730,216 +1678,95 @@ class EnrolmentInfoDetailArgs {
 }
 
 /// generated route for
-/// [_i17.Inbox]
-class Inbox extends _i30.PageRouteInfo<void> {
-  const Inbox() : super(Inbox.name, path: '/inbox');
+/// [_i30.EpanduCategory]
+class EpanduCategory extends _i81.PageRouteInfo<void> {
+  const EpanduCategory({List<_i81.PageRouteInfo>? children})
+      : super(
+          EpanduCategory.name,
+          initialChildren: children,
+        );
 
-  static const String name = 'Inbox';
+  static const String name = 'EpanduCategory';
+
+  static const _i81.PageInfo<void> page = _i81.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i33.RoomList]
-class RoomList extends _i30.PageRouteInfo<void> {
-  const RoomList() : super(RoomList.name, path: '/RoomList');
+/// [_i31.EtestingCategory]
+class EtestingCategory extends _i81.PageRouteInfo<void> {
+  const EtestingCategory({List<_i81.PageRouteInfo>? children})
+      : super(
+          EtestingCategory.name,
+          initialChildren: children,
+        );
 
-  static const String name = 'RoomList';
+  static const String name = 'EtestingCategory';
+
+  static const _i81.PageInfo<void> page = _i81.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i18.Invite]
-class Invite extends _i30.PageRouteInfo<void> {
-  const Invite() : super(Invite.name, path: '/invite');
+/// [_i32.ForgotPassword]
+class ForgotPassword extends _i81.PageRouteInfo<void> {
+  const ForgotPassword({List<_i81.PageRouteInfo>? children})
+      : super(
+          ForgotPassword.name,
+          initialChildren: children,
+        );
 
-  static const String name = 'Invite';
+  static const String name = 'ForgotPassword';
+
+  static const _i81.PageInfo<void> page = _i81.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i19.AirtimeTransaction]
-class AirtimeTransaction extends _i30.PageRouteInfo<AirtimeTransactionArgs> {
-  AirtimeTransaction({required dynamic data})
-      : super(AirtimeTransaction.name,
-            path: '/airtimeTransaction',
-            args: AirtimeTransactionArgs(data: data));
-
-  static const String name = 'AirtimeTransaction';
-}
-
-class AirtimeTransactionArgs {
-  const AirtimeTransactionArgs({required this.data});
-
-  final dynamic data;
-
-  @override
-  String toString() {
-    return 'AirtimeTransactionArgs{data: $data}';
-  }
-}
-
-/// generated route for
-/// [_i20.AirtimeBillDetail]
-class AirtimeBillDetail extends _i30.PageRouteInfo<AirtimeBillDetailArgs> {
-  AirtimeBillDetail({required dynamic data})
-      : super(AirtimeBillDetail.name,
-            path: '/airtimeBillDetail',
-            args: AirtimeBillDetailArgs(data: data));
-
-  static const String name = 'AirtimeBillDetail';
-}
-
-class AirtimeBillDetailArgs {
-  const AirtimeBillDetailArgs({required this.data});
-
-  final dynamic data;
-
-  @override
-  String toString() {
-    return 'AirtimeBillDetailArgs{data: $data}';
-  }
-}
-
-/// generated route for
-/// [_i21.AirtimeSelection]
-class AirtimeSelection extends _i30.PageRouteInfo<void> {
-  const AirtimeSelection()
-      : super(AirtimeSelection.name, path: '/airtimeSelection');
-
-  static const String name = 'AirtimeSelection';
-}
-
-/// generated route for
-/// [_i22.BillTransaction]
-class BillTransaction extends _i30.PageRouteInfo<BillTransactionArgs> {
-  BillTransaction({required dynamic data})
-      : super(BillTransaction.name,
-            path: '/billTransaction', args: BillTransactionArgs(data: data));
-
-  static const String name = 'BillTransaction';
-}
-
-class BillTransactionArgs {
-  const BillTransactionArgs({required this.data});
-
-  final dynamic data;
-
-  @override
-  String toString() {
-    return 'BillTransactionArgs{data: $data}';
-  }
-}
-
-/// generated route for
-/// [_i23.BillDetail]
-class BillDetail extends _i30.PageRouteInfo<BillDetailArgs> {
-  BillDetail({required dynamic data})
-      : super(BillDetail.name,
-            path: '/billDetail', args: BillDetailArgs(data: data));
-
-  static const String name = 'BillDetail';
-}
-
-class BillDetailArgs {
-  const BillDetailArgs({required this.data});
-
-  final dynamic data;
-
-  @override
-  String toString() {
-    return 'BillDetailArgs{data: $data}';
-  }
-}
-
-/// generated route for
-/// [_i24.BillSelection]
-class BillSelection extends _i30.PageRouteInfo<void> {
-  const BillSelection() : super(BillSelection.name, path: '/billSelection');
-
-  static const String name = 'BillSelection';
-}
-
-/// generated route for
-/// [_i9.MerchantList]
-class MerchantList extends _i30.PageRouteInfo<MerchantListArgs> {
-  MerchantList({required dynamic merchantType})
-      : super(MerchantList.name,
-            path: '/merchantList',
-            args: MerchantListArgs(merchantType: merchantType));
-
-  static const String name = 'MerchantList';
-}
-
-class MerchantListArgs {
-  const MerchantListArgs({required this.merchantType});
-
-  final dynamic merchantType;
-
-  @override
-  String toString() {
-    return 'MerchantListArgs{merchantType: $merchantType}';
-  }
-}
-
-/// generated route for
-/// [_i7.TermsAndCondition]
-class TermsAndCondition extends _i30.PageRouteInfo<TermsAndConditionArgs> {
-  TermsAndCondition({String? termsAndCondition})
-      : super(TermsAndCondition.name,
-            path: '/termsAndCondition',
-            args: TermsAndConditionArgs(termsAndCondition: termsAndCondition));
-
-  static const String name = 'TermsAndCondition';
-}
-
-class TermsAndConditionArgs {
-  const TermsAndConditionArgs({this.termsAndCondition});
-
-  final String? termsAndCondition;
-
-  @override
-  String toString() {
-    return 'TermsAndConditionArgs{termsAndCondition: $termsAndCondition}';
-  }
-}
-
-/// generated route for
-/// [_i15.FpxPaymentOption]
-class FpxPaymentOption extends _i30.PageRouteInfo<FpxPaymentOptionArgs> {
-  FpxPaymentOption(
-      {String? icNo,
-      String? docDoc,
-      String? docRef,
-      String? merchant,
-      String? packageCode,
-      String? packageDesc,
-      String? diCode,
-      String? totalAmount,
-      String? amountString})
-      : super(FpxPaymentOption.name,
-            path: '/fpxPaymentOption',
-            args: FpxPaymentOptionArgs(
-                icNo: icNo,
-                docDoc: docDoc,
-                docRef: docRef,
-                merchant: merchant,
-                packageCode: packageCode,
-                packageDesc: packageDesc,
-                diCode: diCode,
-                totalAmount: totalAmount,
-                amountString: amountString));
+/// [_i33.FpxPaymentOption]
+class FpxPaymentOption extends _i81.PageRouteInfo<FpxPaymentOptionArgs> {
+  FpxPaymentOption({
+    String? icNo,
+    String? docDoc,
+    String? docRef,
+    String? merchant,
+    String? packageCode,
+    String? packageDesc,
+    String? diCode,
+    String? totalAmount,
+    String? amountString,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          FpxPaymentOption.name,
+          args: FpxPaymentOptionArgs(
+            icNo: icNo,
+            docDoc: docDoc,
+            docRef: docRef,
+            merchant: merchant,
+            packageCode: packageCode,
+            packageDesc: packageDesc,
+            diCode: diCode,
+            totalAmount: totalAmount,
+            amountString: amountString,
+          ),
+          initialChildren: children,
+        );
 
   static const String name = 'FpxPaymentOption';
+
+  static const _i81.PageInfo<FpxPaymentOptionArgs> page =
+      _i81.PageInfo<FpxPaymentOptionArgs>(name);
 }
 
 class FpxPaymentOptionArgs {
-  const FpxPaymentOptionArgs(
-      {this.icNo,
-      this.docDoc,
-      this.docRef,
-      this.merchant,
-      this.packageCode,
-      this.packageDesc,
-      this.diCode,
-      this.totalAmount,
-      this.amountString});
+  const FpxPaymentOptionArgs({
+    this.icNo,
+    this.docDoc,
+    this.docRef,
+    this.merchant,
+    this.packageCode,
+    this.packageDesc,
+    this.diCode,
+    this.totalAmount,
+    this.amountString,
+  });
 
   final String? icNo;
 
@@ -1966,89 +1793,796 @@ class FpxPaymentOptionArgs {
 }
 
 /// generated route for
-/// [_i26.ImageViewer]
-class ImageViewer extends _i30.PageRouteInfo<ImageViewerArgs> {
-  ImageViewer({String? title, _i31.NetworkImage? image})
-      : super(ImageViewer.name,
-            path: '/imageViewer',
-            args: ImageViewerArgs(title: title, image: image));
+/// [_i34.Home]
+class Home extends _i81.PageRouteInfo<void> {
+  const Home({List<_i81.PageRouteInfo>? children})
+      : super(
+          Home.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'Home';
+
+  static const _i81.PageInfo<void> page = _i81.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i35.IdentityBarcode]
+class IdentityBarcode extends _i81.PageRouteInfo<void> {
+  const IdentityBarcode({List<_i81.PageRouteInfo>? children})
+      : super(
+          IdentityBarcode.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'IdentityBarcode';
+
+  static const _i81.PageInfo<void> page = _i81.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i36.ImageViewer]
+class ImageViewer extends _i81.PageRouteInfo<ImageViewerArgs> {
+  ImageViewer({
+    _i82.Key? key,
+    String? title,
+    _i82.NetworkImage? image,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          ImageViewer.name,
+          args: ImageViewerArgs(
+            key: key,
+            title: title,
+            image: image,
+          ),
+          initialChildren: children,
+        );
 
   static const String name = 'ImageViewer';
+
+  static const _i81.PageInfo<ImageViewerArgs> page =
+      _i81.PageInfo<ImageViewerArgs>(name);
 }
 
 class ImageViewerArgs {
-  const ImageViewerArgs({this.title, this.image});
+  const ImageViewerArgs({
+    this.key,
+    this.title,
+    this.image,
+  });
+
+  final _i82.Key? key;
 
   final String? title;
 
-  final _i31.NetworkImage? image;
+  final _i82.NetworkImage? image;
 
   @override
   String toString() {
-    return 'ImageViewerArgs{title: $title, image: $image}';
+    return 'ImageViewerArgs{key: $key, title: $title, image: $image}';
   }
 }
 
 /// generated route for
-/// [_i5.Webview]
-class Webview extends _i30.PageRouteInfo<WebviewArgs> {
-  Webview({required String? url, String? backType})
-      : super(Webview.name,
-            path: '/webview', args: WebviewArgs(url: url, backType: backType));
+/// [_i37.Inbox]
+class Inbox extends _i81.PageRouteInfo<void> {
+  const Inbox({List<_i81.PageRouteInfo>? children})
+      : super(
+          Inbox.name,
+          initialChildren: children,
+        );
 
-  static const String name = 'Webview';
+  static const String name = 'Inbox';
+
+  static const _i81.PageInfo<void> page = _i81.PageInfo<void>(name);
 }
 
-class WebviewArgs {
-  const WebviewArgs({required this.url, this.backType});
+/// generated route for
+/// [_i38.Invite]
+class Invite extends _i81.PageRouteInfo<void> {
+  const Invite({List<_i81.PageRouteInfo>? children})
+      : super(
+          Invite.name,
+          initialChildren: children,
+        );
 
-  final String? url;
+  static const String name = 'Invite';
 
-  final String? backType;
+  static const _i81.PageInfo<void> page = _i81.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i39.InviteFriend]
+class InviteFriend extends _i81.PageRouteInfo<InviteFriendArgs> {
+  InviteFriend({
+    _i82.Key? key,
+    required String roomId,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          InviteFriend.name,
+          args: InviteFriendArgs(
+            key: key,
+            roomId: roomId,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'InviteFriend';
+
+  static const _i81.PageInfo<InviteFriendArgs> page =
+      _i81.PageInfo<InviteFriendArgs>(name);
+}
+
+class InviteFriendArgs {
+  const InviteFriendArgs({
+    this.key,
+    required this.roomId,
+  });
+
+  final _i82.Key? key;
+
+  final String roomId;
 
   @override
   String toString() {
-    return 'WebviewArgs{url: $url, backType: $backType}';
+    return 'InviteFriendArgs{key: $key, roomId: $roomId}';
   }
 }
 
 /// generated route for
-/// [_i5.Scan]
-class Scan extends _i30.PageRouteInfo<ScanArgs> {
-  Scan({dynamic getActiveFeed, dynamic getDiProfile, _i31.Key? key})
-      : super(Scan.name,
-            path: '/scan',
-            args: ScanArgs(
-                getActiveFeed: getActiveFeed,
-                getDiProfile: getDiProfile,
-                key: key));
+/// [_i40.KppCategory]
+class KppCategory extends _i81.PageRouteInfo<void> {
+  const KppCategory({List<_i81.PageRouteInfo>? children})
+      : super(
+          KppCategory.name,
+          initialChildren: children,
+        );
 
-  static const String name = 'Scan';
+  static const String name = 'KppCategory';
+
+  static const _i81.PageInfo<void> page = _i81.PageInfo<void>(name);
 }
 
-class ScanArgs {
-  const ScanArgs({this.getActiveFeed, this.getDiProfile, this.key});
+/// generated route for
+/// [_i41.KppExam]
+class KppExam extends _i81.PageRouteInfo<KppExamArgs> {
+  KppExam({
+    required String? groupId,
+    required String? paperNo,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          KppExam.name,
+          args: KppExamArgs(
+            groupId: groupId,
+            paperNo: paperNo,
+          ),
+          initialChildren: children,
+        );
 
-  final dynamic getActiveFeed;
+  static const String name = 'KppExam';
 
-  final dynamic getDiProfile;
+  static const _i81.PageInfo<KppExamArgs> page =
+      _i81.PageInfo<KppExamArgs>(name);
+}
 
-  final _i31.Key? key;
+class KppExamArgs {
+  const KppExamArgs({
+    required this.groupId,
+    required this.paperNo,
+  });
+
+  final String? groupId;
+
+  final String? paperNo;
 
   @override
   String toString() {
-    return 'ScanArgs{getActiveFeed: $getActiveFeed, getDiProfile: $getDiProfile, key: $key}';
+    return 'KppExamArgs{groupId: $groupId, paperNo: $paperNo}';
   }
 }
 
 /// generated route for
-/// [_i7.ReadMore]
-class ReadMore extends _i30.PageRouteInfo<ReadMoreArgs> {
-  ReadMore({String? packageDesc})
-      : super(ReadMore.name,
-            path: '/readMore', args: ReadMoreArgs(packageDesc: packageDesc));
+/// [_i42.KppModule]
+class KppModule extends _i81.PageRouteInfo<KppModuleArgs> {
+  KppModule({
+    required dynamic data,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          KppModule.name,
+          args: KppModuleArgs(data: data),
+          initialChildren: children,
+        );
+
+  static const String name = 'KppModule';
+
+  static const _i81.PageInfo<KppModuleArgs> page =
+      _i81.PageInfo<KppModuleArgs>(name);
+}
+
+class KppModuleArgs {
+  const KppModuleArgs({required this.data});
+
+  final dynamic data;
+
+  @override
+  String toString() {
+    return 'KppModuleArgs{data: $data}';
+  }
+}
+
+/// generated route for
+/// [_i43.KppResult]
+class KppResult extends _i81.PageRouteInfo<KppResultArgs> {
+  KppResult({
+    required dynamic data,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          KppResult.name,
+          args: KppResultArgs(data: data),
+          initialChildren: children,
+        );
+
+  static const String name = 'KppResult';
+
+  static const _i81.PageInfo<KppResultArgs> page =
+      _i81.PageInfo<KppResultArgs>(name);
+}
+
+class KppResultArgs {
+  const KppResultArgs({required this.data});
+
+  final dynamic data;
+
+  @override
+  String toString() {
+    return 'KppResultArgs{data: $data}';
+  }
+}
+
+/// generated route for
+/// [_i44.Login]
+class Login extends _i81.PageRouteInfo<void> {
+  const Login({List<_i81.PageRouteInfo>? children})
+      : super(
+          Login.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'Login';
+
+  static const _i81.PageInfo<void> page = _i81.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i45.MerchantList]
+class MerchantList extends _i81.PageRouteInfo<MerchantListArgs> {
+  MerchantList({
+    required dynamic merchantType,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          MerchantList.name,
+          args: MerchantListArgs(merchantType: merchantType),
+          initialChildren: children,
+        );
+
+  static const String name = 'MerchantList';
+
+  static const _i81.PageInfo<MerchantListArgs> page =
+      _i81.PageInfo<MerchantListArgs>(name);
+}
+
+class MerchantListArgs {
+  const MerchantListArgs({required this.merchantType});
+
+  final dynamic merchantType;
+
+  @override
+  String toString() {
+    return 'MerchantListArgs{merchantType: $merchantType}';
+  }
+}
+
+/// generated route for
+/// [_i46.MerchantProfile]
+class MerchantProfile extends _i81.PageRouteInfo<void> {
+  const MerchantProfile({List<_i81.PageRouteInfo>? children})
+      : super(
+          MerchantProfile.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'MerchantProfile';
+
+  static const _i81.PageInfo<void> page = _i81.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i47.Multilevel]
+class Multilevel extends _i81.PageRouteInfo<MultilevelArgs> {
+  Multilevel({
+    dynamic feed,
+    String? appVersion,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          Multilevel.name,
+          args: MultilevelArgs(
+            feed: feed,
+            appVersion: appVersion,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'Multilevel';
+
+  static const _i81.PageInfo<MultilevelArgs> page =
+      _i81.PageInfo<MultilevelArgs>(name);
+}
+
+class MultilevelArgs {
+  const MultilevelArgs({
+    this.feed,
+    this.appVersion,
+  });
+
+  final dynamic feed;
+
+  final String? appVersion;
+
+  @override
+  String toString() {
+    return 'MultilevelArgs{feed: $feed, appVersion: $appVersion}';
+  }
+}
+
+/// generated route for
+/// [_i48.OrderList]
+class OrderList extends _i81.PageRouteInfo<OrderListArgs> {
+  OrderList({
+    String? icNo,
+    String? packageCode,
+    String? diCode,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          OrderList.name,
+          args: OrderListArgs(
+            icNo: icNo,
+            packageCode: packageCode,
+            diCode: diCode,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'OrderList';
+
+  static const _i81.PageInfo<OrderListArgs> page =
+      _i81.PageInfo<OrderListArgs>(name);
+}
+
+class OrderListArgs {
+  const OrderListArgs({
+    this.icNo,
+    this.packageCode,
+    this.diCode,
+  });
+
+  final String? icNo;
+
+  final String? packageCode;
+
+  final String? diCode;
+
+  @override
+  String toString() {
+    return 'OrderListArgs{icNo: $icNo, packageCode: $packageCode, diCode: $diCode}';
+  }
+}
+
+/// generated route for
+/// [_i49.Pay]
+class Pay extends _i81.PageRouteInfo<void> {
+  const Pay({List<_i81.PageRouteInfo>? children})
+      : super(
+          Pay.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'Pay';
+
+  static const _i81.PageInfo<void> page = _i81.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i50.PaymentHistory]
+class PaymentHistory extends _i81.PageRouteInfo<void> {
+  const PaymentHistory({List<_i81.PageRouteInfo>? children})
+      : super(
+          PaymentHistory.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'PaymentHistory';
+
+  static const _i81.PageInfo<void> page = _i81.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i51.PaymentHistoryDetail]
+class PaymentHistoryDetail
+    extends _i81.PageRouteInfo<PaymentHistoryDetailArgs> {
+  PaymentHistoryDetail({
+    required dynamic recpNo,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          PaymentHistoryDetail.name,
+          args: PaymentHistoryDetailArgs(recpNo: recpNo),
+          initialChildren: children,
+        );
+
+  static const String name = 'PaymentHistoryDetail';
+
+  static const _i81.PageInfo<PaymentHistoryDetailArgs> page =
+      _i81.PageInfo<PaymentHistoryDetailArgs>(name);
+}
+
+class PaymentHistoryDetailArgs {
+  const PaymentHistoryDetailArgs({required this.recpNo});
+
+  final dynamic recpNo;
+
+  @override
+  String toString() {
+    return 'PaymentHistoryDetailArgs{recpNo: $recpNo}';
+  }
+}
+
+/// generated route for
+/// [_i52.PaymentStatus]
+class PaymentStatus extends _i81.PageRouteInfo<PaymentStatusArgs> {
+  PaymentStatus({
+    String? icNo,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          PaymentStatus.name,
+          args: PaymentStatusArgs(icNo: icNo),
+          initialChildren: children,
+        );
+
+  static const String name = 'PaymentStatus';
+
+  static const _i81.PageInfo<PaymentStatusArgs> page =
+      _i81.PageInfo<PaymentStatusArgs>(name);
+}
+
+class PaymentStatusArgs {
+  const PaymentStatusArgs({this.icNo});
+
+  final String? icNo;
+
+  @override
+  String toString() {
+    return 'PaymentStatusArgs{icNo: $icNo}';
+  }
+}
+
+/// generated route for
+/// [_i53.PinActivation]
+class PinActivation extends _i81.PageRouteInfo<PinActivationArgs> {
+  PinActivation({
+    required String data,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          PinActivation.name,
+          args: PinActivationArgs(data: data),
+          initialChildren: children,
+        );
+
+  static const String name = 'PinActivation';
+
+  static const _i81.PageInfo<PinActivationArgs> page =
+      _i81.PageInfo<PinActivationArgs>(name);
+}
+
+class PinActivationArgs {
+  const PinActivationArgs({required this.data});
+
+  final String data;
+
+  @override
+  String toString() {
+    return 'PinActivationArgs{data: $data}';
+  }
+}
+
+/// generated route for
+/// [_i54.Product]
+class Product extends _i81.PageRouteInfo<ProductArgs> {
+  Product({
+    String? stkCode,
+    String? stkDesc1,
+    String? stkDesc2,
+    String? qty,
+    String? price,
+    String? image,
+    String? uom,
+    dynamic products,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          Product.name,
+          args: ProductArgs(
+            stkCode: stkCode,
+            stkDesc1: stkDesc1,
+            stkDesc2: stkDesc2,
+            qty: qty,
+            price: price,
+            image: image,
+            uom: uom,
+            products: products,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'Product';
+
+  static const _i81.PageInfo<ProductArgs> page =
+      _i81.PageInfo<ProductArgs>(name);
+}
+
+class ProductArgs {
+  const ProductArgs({
+    this.stkCode,
+    this.stkDesc1,
+    this.stkDesc2,
+    this.qty,
+    this.price,
+    this.image,
+    this.uom,
+    this.products,
+  });
+
+  final String? stkCode;
+
+  final String? stkDesc1;
+
+  final String? stkDesc2;
+
+  final String? qty;
+
+  final String? price;
+
+  final String? image;
+
+  final String? uom;
+
+  final dynamic products;
+
+  @override
+  String toString() {
+    return 'ProductArgs{stkCode: $stkCode, stkDesc1: $stkDesc1, stkDesc2: $stkDesc2, qty: $qty, price: $price, image: $image, uom: $uom, products: $products}';
+  }
+}
+
+/// generated route for
+/// [_i55.ProductList]
+class ProductList extends _i81.PageRouteInfo<ProductListArgs> {
+  ProductList({
+    String? stkCat,
+    String? keywordSearch,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          ProductList.name,
+          args: ProductListArgs(
+            stkCat: stkCat,
+            keywordSearch: keywordSearch,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'ProductList';
+
+  static const _i81.PageInfo<ProductListArgs> page =
+      _i81.PageInfo<ProductListArgs>(name);
+}
+
+class ProductListArgs {
+  const ProductListArgs({
+    this.stkCat,
+    this.keywordSearch,
+  });
+
+  final String? stkCat;
+
+  final String? keywordSearch;
+
+  @override
+  String toString() {
+    return 'ProductListArgs{stkCat: $stkCat, keywordSearch: $keywordSearch}';
+  }
+}
+
+/// generated route for
+/// [_i56.Profile]
+class Profile extends _i81.PageRouteInfo<ProfileArgs> {
+  Profile({
+    dynamic userProfile,
+    dynamic enrollData,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          Profile.name,
+          args: ProfileArgs(
+            userProfile: userProfile,
+            enrollData: enrollData,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'Profile';
+
+  static const _i81.PageInfo<ProfileArgs> page =
+      _i81.PageInfo<ProfileArgs>(name);
+}
+
+class ProfileArgs {
+  const ProfileArgs({
+    this.userProfile,
+    this.enrollData,
+  });
+
+  final dynamic userProfile;
+
+  final dynamic enrollData;
+
+  @override
+  String toString() {
+    return 'ProfileArgs{userProfile: $userProfile, enrollData: $enrollData}';
+  }
+}
+
+/// generated route for
+/// [_i57.ProfileTab]
+class ProfileTab extends _i81.PageRouteInfo<ProfileTabArgs> {
+  ProfileTab({
+    required dynamic positionStream,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          ProfileTab.name,
+          args: ProfileTabArgs(positionStream: positionStream),
+          initialChildren: children,
+        );
+
+  static const String name = 'ProfileTab';
+
+  static const _i81.PageInfo<ProfileTabArgs> page =
+      _i81.PageInfo<ProfileTabArgs>(name);
+}
+
+class ProfileTabArgs {
+  const ProfileTabArgs({required this.positionStream});
+
+  final dynamic positionStream;
+
+  @override
+  String toString() {
+    return 'ProfileTabArgs{positionStream: $positionStream}';
+  }
+}
+
+/// generated route for
+/// [_i58.Promotions]
+class Promotions extends _i81.PageRouteInfo<PromotionsArgs> {
+  Promotions({
+    dynamic feed,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          Promotions.name,
+          args: PromotionsArgs(feed: feed),
+          initialChildren: children,
+        );
+
+  static const String name = 'Promotions';
+
+  static const _i81.PageInfo<PromotionsArgs> page =
+      _i81.PageInfo<PromotionsArgs>(name);
+}
+
+class PromotionsArgs {
+  const PromotionsArgs({this.feed});
+
+  final dynamic feed;
+
+  @override
+  String toString() {
+    return 'PromotionsArgs{feed: $feed}';
+  }
+}
+
+/// generated route for
+/// [_i59.PurchaseOrderList]
+class PurchaseOrderList extends _i81.PageRouteInfo<PurchaseOrderListArgs> {
+  PurchaseOrderList({
+    String? icNo,
+    String? packageCode,
+    String? diCode,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          PurchaseOrderList.name,
+          args: PurchaseOrderListArgs(
+            icNo: icNo,
+            packageCode: packageCode,
+            diCode: diCode,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'PurchaseOrderList';
+
+  static const _i81.PageInfo<PurchaseOrderListArgs> page =
+      _i81.PageInfo<PurchaseOrderListArgs>(name);
+}
+
+class PurchaseOrderListArgs {
+  const PurchaseOrderListArgs({
+    this.icNo,
+    this.packageCode,
+    this.diCode,
+  });
+
+  final String? icNo;
+
+  final String? packageCode;
+
+  final String? diCode;
+
+  @override
+  String toString() {
+    return 'PurchaseOrderListArgs{icNo: $icNo, packageCode: $packageCode, diCode: $diCode}';
+  }
+}
+
+/// generated route for
+/// [_i60.QueueNumber]
+class QueueNumber extends _i81.PageRouteInfo<QueueNumberArgs> {
+  QueueNumber({
+    required dynamic data,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          QueueNumber.name,
+          args: QueueNumberArgs(data: data),
+          initialChildren: children,
+        );
+
+  static const String name = 'QueueNumber';
+
+  static const _i81.PageInfo<QueueNumberArgs> page =
+      _i81.PageInfo<QueueNumberArgs>(name);
+}
+
+class QueueNumberArgs {
+  const QueueNumberArgs({required this.data});
+
+  final dynamic data;
+
+  @override
+  String toString() {
+    return 'QueueNumberArgs{data: $data}';
+  }
+}
+
+/// generated route for
+/// [_i61.ReadMore]
+class ReadMore extends _i81.PageRouteInfo<ReadMoreArgs> {
+  ReadMore({
+    String? packageDesc,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          ReadMore.name,
+          args: ReadMoreArgs(packageDesc: packageDesc),
+          initialChildren: children,
+        );
 
   static const String name = 'ReadMore';
+
+  static const _i81.PageInfo<ReadMoreArgs> page =
+      _i81.PageInfo<ReadMoreArgs>(name);
 }
 
 class ReadMoreArgs {
@@ -2063,18 +2597,436 @@ class ReadMoreArgs {
 }
 
 /// generated route for
-/// [_i27.ViewPdf]
-class ViewPdf extends _i30.PageRouteInfo<ViewPdfArgs> {
-  ViewPdf({required String? title, required String? pdfLink})
-      : super(ViewPdf.name,
-            path: '/viewPdf',
-            args: ViewPdfArgs(title: title, pdfLink: pdfLink));
+/// [_i62.Records]
+class Records extends _i81.PageRouteInfo<void> {
+  const Records({List<_i81.PageRouteInfo>? children})
+      : super(
+          Records.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'Records';
+
+  static const _i81.PageInfo<void> page = _i81.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i63.RegisterForm]
+class RegisterForm extends _i81.PageRouteInfo<RegisterFormArgs> {
+  RegisterForm({
+    required dynamic data,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          RegisterForm.name,
+          args: RegisterFormArgs(data: data),
+          initialChildren: children,
+        );
+
+  static const String name = 'RegisterForm';
+
+  static const _i81.PageInfo<RegisterFormArgs> page =
+      _i81.PageInfo<RegisterFormArgs>(name);
+}
+
+class RegisterFormArgs {
+  const RegisterFormArgs({required this.data});
+
+  final dynamic data;
+
+  @override
+  String toString() {
+    return 'RegisterFormArgs{data: $data}';
+  }
+}
+
+/// generated route for
+/// [_i64.RegisterMobile]
+class RegisterMobile extends _i81.PageRouteInfo<void> {
+  const RegisterMobile({List<_i81.PageRouteInfo>? children})
+      : super(
+          RegisterMobile.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'RegisterMobile';
+
+  static const _i81.PageInfo<void> page = _i81.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i65.RegisterUserToDi]
+class RegisterUserToDi extends _i81.PageRouteInfo<RegisterUserToDiArgs> {
+  RegisterUserToDi({
+    required dynamic barcode,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          RegisterUserToDi.name,
+          args: RegisterUserToDiArgs(barcode: barcode),
+          initialChildren: children,
+        );
+
+  static const String name = 'RegisterUserToDi';
+
+  static const _i81.PageInfo<RegisterUserToDiArgs> page =
+      _i81.PageInfo<RegisterUserToDiArgs>(name);
+}
+
+class RegisterUserToDiArgs {
+  const RegisterUserToDiArgs({required this.barcode});
+
+  final dynamic barcode;
+
+  @override
+  String toString() {
+    return 'RegisterUserToDiArgs{barcode: $barcode}';
+  }
+}
+
+/// generated route for
+/// [_i66.RegisterVerification]
+class RegisterVerification
+    extends _i81.PageRouteInfo<RegisterVerificationArgs> {
+  RegisterVerification({
+    required dynamic data,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          RegisterVerification.name,
+          args: RegisterVerificationArgs(data: data),
+          initialChildren: children,
+        );
+
+  static const String name = 'RegisterVerification';
+
+  static const _i81.PageInfo<RegisterVerificationArgs> page =
+      _i81.PageInfo<RegisterVerificationArgs>(name);
+}
+
+class RegisterVerificationArgs {
+  const RegisterVerificationArgs({required this.data});
+
+  final dynamic data;
+
+  @override
+  String toString() {
+    return 'RegisterVerificationArgs{data: $data}';
+  }
+}
+
+/// generated route for
+/// [_i67.RegisteredCourse]
+class RegisteredCourse extends _i81.PageRouteInfo<void> {
+  const RegisteredCourse({List<_i81.PageRouteInfo>? children})
+      : super(
+          RegisteredCourse.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'RegisteredCourse';
+
+  static const _i81.PageInfo<void> page = _i81.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i68.RegisteredCourseDetail]
+class RegisteredCourseDetail
+    extends _i81.PageRouteInfo<RegisteredCourseDetailArgs> {
+  RegisteredCourseDetail({
+    required dynamic groupId,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          RegisteredCourseDetail.name,
+          args: RegisteredCourseDetailArgs(groupId: groupId),
+          initialChildren: children,
+        );
+
+  static const String name = 'RegisteredCourseDetail';
+
+  static const _i81.PageInfo<RegisteredCourseDetailArgs> page =
+      _i81.PageInfo<RegisteredCourseDetailArgs>(name);
+}
+
+class RegisteredCourseDetailArgs {
+  const RegisteredCourseDetailArgs({required this.groupId});
+
+  final dynamic groupId;
+
+  @override
+  String toString() {
+    return 'RegisteredCourseDetailArgs{groupId: $groupId}';
+  }
+}
+
+/// generated route for
+/// [_i69.RequestPickup]
+class RequestPickup extends _i81.PageRouteInfo<void> {
+  const RequestPickup({List<_i81.PageRouteInfo>? children})
+      : super(
+          RequestPickup.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'RequestPickup';
+
+  static const _i81.PageInfo<void> page = _i81.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i70.RoomList]
+class RoomList extends _i81.PageRouteInfo<void> {
+  const RoomList({List<_i81.PageRouteInfo>? children})
+      : super(
+          RoomList.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'RoomList';
+
+  static const _i81.PageInfo<void> page = _i81.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i71.Scan]
+class Scan extends _i81.PageRouteInfo<ScanArgs> {
+  Scan({
+    dynamic getActiveFeed,
+    dynamic getDiProfile,
+    _i82.Key? key,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          Scan.name,
+          args: ScanArgs(
+            getActiveFeed: getActiveFeed,
+            getDiProfile: getDiProfile,
+            key: key,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'Scan';
+
+  static const _i81.PageInfo<ScanArgs> page = _i81.PageInfo<ScanArgs>(name);
+}
+
+class ScanArgs {
+  const ScanArgs({
+    this.getActiveFeed,
+    this.getDiProfile,
+    this.key,
+  });
+
+  final dynamic getActiveFeed;
+
+  final dynamic getDiProfile;
+
+  final _i82.Key? key;
+
+  @override
+  String toString() {
+    return 'ScanArgs{getActiveFeed: $getActiveFeed, getDiProfile: $getDiProfile, key: $key}';
+  }
+}
+
+/// generated route for
+/// [_i72.SelectClass]
+class SelectClass extends _i81.PageRouteInfo<SelectClassArgs> {
+  SelectClass({
+    required dynamic data,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          SelectClass.name,
+          args: SelectClassArgs(data: data),
+          initialChildren: children,
+        );
+
+  static const String name = 'SelectClass';
+
+  static const _i81.PageInfo<SelectClassArgs> page =
+      _i81.PageInfo<SelectClassArgs>(name);
+}
+
+class SelectClassArgs {
+  const SelectClassArgs({required this.data});
+
+  final dynamic data;
+
+  @override
+  String toString() {
+    return 'SelectClassArgs{data: $data}';
+  }
+}
+
+/// generated route for
+/// [_i73.SelectDrivingInstitute]
+class SelectDrivingInstitute
+    extends _i81.PageRouteInfo<SelectDrivingInstituteArgs> {
+  SelectDrivingInstitute({
+    required dynamic diList,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          SelectDrivingInstitute.name,
+          args: SelectDrivingInstituteArgs(diList: diList),
+          initialChildren: children,
+        );
+
+  static const String name = 'SelectDrivingInstitute';
+
+  static const _i81.PageInfo<SelectDrivingInstituteArgs> page =
+      _i81.PageInfo<SelectDrivingInstituteArgs>(name);
+}
+
+class SelectDrivingInstituteArgs {
+  const SelectDrivingInstituteArgs({required this.diList});
+
+  final dynamic diList;
+
+  @override
+  String toString() {
+    return 'SelectDrivingInstituteArgs{diList: $diList}';
+  }
+}
+
+/// generated route for
+/// [_i74.SelectInstitute]
+class SelectInstitute extends _i81.PageRouteInfo<SelectInstituteArgs> {
+  SelectInstitute({
+    required dynamic data,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          SelectInstitute.name,
+          args: SelectInstituteArgs(data: data),
+          initialChildren: children,
+        );
+
+  static const String name = 'SelectInstitute';
+
+  static const _i81.PageInfo<SelectInstituteArgs> page =
+      _i81.PageInfo<SelectInstituteArgs>(name);
+}
+
+class SelectInstituteArgs {
+  const SelectInstituteArgs({required this.data});
+
+  final dynamic data;
+
+  @override
+  String toString() {
+    return 'SelectInstituteArgs{data: $data}';
+  }
+}
+
+/// generated route for
+/// [_i75.TakeProfilePicture]
+class TakeProfilePicture extends _i81.PageRouteInfo<TakeProfilePictureArgs> {
+  TakeProfilePicture({
+    required List<_i83.CameraDescription>? camera,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          TakeProfilePicture.name,
+          args: TakeProfilePictureArgs(camera: camera),
+          initialChildren: children,
+        );
+
+  static const String name = 'TakeProfilePicture';
+
+  static const _i81.PageInfo<TakeProfilePictureArgs> page =
+      _i81.PageInfo<TakeProfilePictureArgs>(name);
+}
+
+class TakeProfilePictureArgs {
+  const TakeProfilePictureArgs({required this.camera});
+
+  final List<_i83.CameraDescription>? camera;
+
+  @override
+  String toString() {
+    return 'TakeProfilePictureArgs{camera: $camera}';
+  }
+}
+
+/// generated route for
+/// [_i76.TermsAndCondition]
+class TermsAndCondition extends _i81.PageRouteInfo<TermsAndConditionArgs> {
+  TermsAndCondition({
+    String? termsAndCondition,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          TermsAndCondition.name,
+          args: TermsAndConditionArgs(termsAndCondition: termsAndCondition),
+          initialChildren: children,
+        );
+
+  static const String name = 'TermsAndCondition';
+
+  static const _i81.PageInfo<TermsAndConditionArgs> page =
+      _i81.PageInfo<TermsAndConditionArgs>(name);
+}
+
+class TermsAndConditionArgs {
+  const TermsAndConditionArgs({this.termsAndCondition});
+
+  final String? termsAndCondition;
+
+  @override
+  String toString() {
+    return 'TermsAndConditionArgs{termsAndCondition: $termsAndCondition}';
+  }
+}
+
+/// generated route for
+/// [_i77.UpdateProfile]
+class UpdateProfile extends _i81.PageRouteInfo<void> {
+  const UpdateProfile({List<_i81.PageRouteInfo>? children})
+      : super(
+          UpdateProfile.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'UpdateProfile';
+
+  static const _i81.PageInfo<void> page = _i81.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i78.ValueClub]
+class ValueClub extends _i81.PageRouteInfo<void> {
+  const ValueClub({List<_i81.PageRouteInfo>? children})
+      : super(
+          ValueClub.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ValueClub';
+
+  static const _i81.PageInfo<void> page = _i81.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i79.ViewPdf]
+class ViewPdf extends _i81.PageRouteInfo<ViewPdfArgs> {
+  ViewPdf({
+    required String? title,
+    required String? pdfLink,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          ViewPdf.name,
+          args: ViewPdfArgs(
+            title: title,
+            pdfLink: pdfLink,
+          ),
+          initialChildren: children,
+        );
 
   static const String name = 'ViewPdf';
+
+  static const _i81.PageInfo<ViewPdfArgs> page =
+      _i81.PageInfo<ViewPdfArgs>(name);
 }
 
 class ViewPdfArgs {
-  const ViewPdfArgs({required this.title, required this.pdfLink});
+  const ViewPdfArgs({
+    required this.title,
+    required this.pdfLink,
+  });
 
   final String? title;
 
@@ -2087,50 +3039,39 @@ class ViewPdfArgs {
 }
 
 /// generated route for
-/// [_i28.ComingSoon]
-class ComingSoon extends _i30.PageRouteInfo<void> {
-  const ComingSoon() : super(ComingSoon.name, path: '/comingSoon');
+/// [_i80.Webview]
+class Webview extends _i81.PageRouteInfo<WebviewArgs> {
+  Webview({
+    required String? url,
+    String? backType,
+    List<_i81.PageRouteInfo>? children,
+  }) : super(
+          Webview.name,
+          args: WebviewArgs(
+            url: url,
+            backType: backType,
+          ),
+          initialChildren: children,
+        );
 
-  static const String name = 'ComingSoon';
+  static const String name = 'Webview';
+
+  static const _i81.PageInfo<WebviewArgs> page =
+      _i81.PageInfo<WebviewArgs>(name);
 }
 
-/// generated route for
-/// [_i29.CheckInSlip]
-class CheckInSlip extends _i30.PageRouteInfo<void> {
-  const CheckInSlip() : super(CheckInSlip.name, path: '/checkInSlip');
+class WebviewArgs {
+  const WebviewArgs({
+    required this.url,
+    this.backType,
+  });
 
-  static const String name = 'CheckInSlip';
-}
+  final String? url;
 
-/// generated route for
-/// [_i16.Multilevel]
-class Multilevel extends _i30.PageRouteInfo<MultilevelArgs> {
-  Multilevel({dynamic feed, String? appVersion})
-      : super(Multilevel.name,
-            path: '/multilevel',
-            args: MultilevelArgs(feed: feed, appVersion: appVersion));
-
-  static const String name = 'Multilevel';
-}
-
-class MultilevelArgs {
-  const MultilevelArgs({this.feed, this.appVersion});
-
-  final dynamic feed;
-
-  final String? appVersion;
+  final String? backType;
 
   @override
   String toString() {
-    return 'MultilevelArgs{feed: $feed, appVersion: $appVersion}';
+    return 'WebviewArgs{url: $url, backType: $backType}';
   }
-}
-
-/// generated route for
-/// [_i13.MerchantProfile]
-class MerchantProfile extends _i30.PageRouteInfo<void> {
-  const MerchantProfile()
-      : super(MerchantProfile.name, path: '/merchantProfile');
-
-  static const String name = 'MerchantProfile';
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../common_library/services/database/DatabaseHelper.dart';
+import '../../common_library/services/database/database_helper.dart';
 import '../../common_library/services/model/roomhistory_model.dart';
 import '../../common_library/utils/local_storage.dart';
 
@@ -12,7 +12,7 @@ class RoomHistory extends ChangeNotifier {
 
   void addRoom({required RoomHistoryModel room}) {
     int index = getRoomDetailsList
-        .indexWhere((element) => element.room_id == room.room_id);
+        .indexWhere((element) => element.roomId == room.roomId);
     if (index == -1) {
       getRoomList.add(room);
       notifyListeners();
@@ -21,25 +21,34 @@ class RoomHistory extends ChangeNotifier {
 
   void updateRoom({required String roomId, required String roomName}) {
     int index =
-        getRoomDetailsList.indexWhere((element) => element.room_id == roomId);
+        getRoomDetailsList.indexWhere((element) => element.roomId == roomId);
     if (index > -1) {
-      getRoomList[index].room_name = roomName;
+      getRoomList[index].roomName = roomName;
+      notifyListeners();
+    }
+  }
+
+  void updateRoomStatus({required String roomId}) {
+    int index =
+        getRoomDetailsList.indexWhere((element) => element.roomId == roomId);
+    if (index > -1) {
+      getRoomList[index].deleted = 'false';
       notifyListeners();
     }
   }
 
   void updateRoomMessage({required String roomId, required String message}) {
     int index =
-        getRoomDetailsList.indexWhere((element) => element.room_id == roomId);
+        getRoomDetailsList.indexWhere((element) => element.roomId == roomId);
     if (index > -1) {
-      getRoomList[index].msg_body = message;
+      getRoomList[index].msgBody = message;
       notifyListeners();
     }
   }
 
   void deleteRoom({required String roomId}) {
     int index =
-        getRoomDetailsList.indexWhere((element) => element.room_id == roomId);
+        getRoomDetailsList.indexWhere((element) => element.roomId == roomId);
     if (index > -1) {
       getRoomList.removeAt(index);
       notifyListeners();
@@ -52,10 +61,10 @@ class RoomHistory extends ChangeNotifier {
     getRoomList = await dbHelper.getRoomListWithMessage(userId!);
     notifyListeners();
 
-    if (getRoomList.indexWhere((element) => element.merchant_no == "TBSCSV") >
+    if (getRoomList.indexWhere((element) => element.merchantNo == "TBSCSV") >
         0) {
       RoomHistoryModel roomHistoryModel =
-          getRoomList.firstWhere((element) => element.merchant_no == "TBSCSV");
+          getRoomList.firstWhere((element) => element.merchantNo == "TBSCSV");
 
       getRoomList.remove(roomHistoryModel);
       getRoomList.insert(0, roomHistoryModel);

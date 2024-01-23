@@ -3,9 +3,10 @@ import 'package:jumping_dot/jumping_dot.dart';
 import 'package:open_file/open_file.dart';
 import '../../common_library/services/model/replymessage_model.dart';
 import '../../utils/capitalize_firstletter.dart';
-import 'chat_home.dart';
+import 'chat_room.dart';
 import 'chat_theme.dart';
 import 'date_formater.dart';
+import 'message_status.dart';
 import 'reply_message_widget.dart';
 
 class FileCard extends StatelessWidget {
@@ -47,9 +48,9 @@ class FileCard extends StatelessWidget {
       // asymmetric padding
       padding: EdgeInsets.fromLTRB(
         localUser == user ? 64.0 : 16.0,
-        4,
+        3,
         localUser == user ? 16.0 : 64.0,
-        4,
+        3,
       ),
       child: Align(
         // align the child within the container
@@ -57,19 +58,21 @@ class FileCard extends StatelessWidget {
             localUser == user ? Alignment.centerRight : Alignment.centerLeft,
         child: Container(
           decoration: BoxDecoration(
-            border: localUser != user
-                ? Border.all(color: Colors.blueAccent)
-                : Border.all(color: Colors.grey[300]!),
+            // border: localUser != user
+            //     ? Border.all(color: Colors.blueAccent)
+            //     : Border.all(color: Colors.grey[300]!),
             borderRadius: BorderRadius.circular(17),
           ),
           child: DecoratedBox(
             // chat bubble decoration
             decoration: BoxDecoration(
-              color: localUser == user ? Colors.blueAccent : Colors.grey[200],
+              color: localUser == user
+                  ? Colors.blueAccent.withOpacity(0.3)
+                  : Colors.grey[300],
               borderRadius: BorderRadius.circular(16),
             ),
             child: Padding(
-                padding: const EdgeInsets.all(12),
+                padding: const EdgeInsets.all(5),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -81,7 +84,7 @@ class FileCard extends StatelessWidget {
                                 .capitalizeFirstLetter(nickName),
                             style: MyTheme.heading2.copyWith(fontSize: 13)),
                     filePath != ''
-                        ? replyMessageDetails.reply_to_id == 0
+                        ? replyMessageDetails.replyToId == 0
                             ? Container(
                                 alignment: Alignment.centerLeft,
                                 child: GestureDetector(
@@ -92,9 +95,9 @@ class FileCard extends StatelessWidget {
                                     height: 50,
                                     width:
                                         MediaQuery.of(context).size.width * 0.7,
-                                    padding: EdgeInsets.all(8),
+                                    padding: const EdgeInsets.all(8),
                                     decoration: BoxDecoration(
-                                      color: Colors.grey[300],
+                                      color: Colors.grey[400],
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     child: Row(
@@ -102,16 +105,14 @@ class FileCard extends StatelessWidget {
                                           MainAxisAlignment.start,
                                       //crossAxisAlignment: CrossAxisAlignment.end,
                                       children: [
-                                        Icon(Icons.file_copy),
-                                        SizedBox(
+                                        const Icon(Icons.file_copy),
+                                        const SizedBox(
                                           width: 10,
                                         ),
                                         Expanded(
                                           child: text.length > 20
                                               ? Text(
-                                                  text.substring(0, 20) +
-                                                      '.' +
-                                                      text.split('.').last,
+                                                  '${text.substring(0, 20)}.${text.split('.').last}',
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                   style: MyTheme.bodyText1,
@@ -123,10 +124,10 @@ class FileCard extends StatelessWidget {
                                                   style: MyTheme.bodyText1,
                                                 ),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 20,
                                         ),
-                                        Icon(Icons.download),
+                                        const Icon(Icons.download),
                                       ],
                                     ),
                                   ),
@@ -136,7 +137,7 @@ class FileCard extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   buildReplyMessage(replyMessageDetails),
-                                  Divider(
+                                  const Divider(
                                     color: Colors.white,
                                     height: 20,
                                     thickness: 2,
@@ -152,7 +153,7 @@ class FileCard extends StatelessWidget {
                                         width:
                                             MediaQuery.of(context).size.width *
                                                 0.7,
-                                        padding: EdgeInsets.all(8),
+                                        padding: const EdgeInsets.all(8),
                                         decoration: BoxDecoration(
                                           color: Colors.grey[300],
                                           borderRadius:
@@ -163,16 +164,14 @@ class FileCard extends StatelessWidget {
                                               MainAxisAlignment.start,
                                           //crossAxisAlignment: CrossAxisAlignment.end,
                                           children: [
-                                            Icon(Icons.file_copy),
-                                            SizedBox(
+                                            const Icon(Icons.file_copy),
+                                            const SizedBox(
                                               width: 10,
                                             ),
                                             Expanded(
                                               child: text.length > 20
                                                   ? Text(
-                                                      text.substring(0, 20) +
-                                                          '.' +
-                                                          text.split('.').last,
+                                                      '${text.substring(0, 20)}.${text.split('.').last}',
                                                       overflow:
                                                           TextOverflow.ellipsis,
                                                       style: MyTheme.bodyText1,
@@ -184,10 +183,10 @@ class FileCard extends StatelessWidget {
                                                       style: MyTheme.bodyText1,
                                                     ),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 20,
                                             ),
-                                            Icon(Icons.download),
+                                            const Icon(Icons.download),
                                           ],
                                         ),
                                       ),
@@ -195,52 +194,58 @@ class FileCard extends StatelessWidget {
                                   )
                                 ],
                               )
-                        : Container(
-                            child: Center(
-                                child: Text(
-                              'No File From Server',
-                              style: MyTheme.bodyText1,
-                            )),
-                          ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            "." + text.split('.').last,
+                        : Center(
+                            child: Text(
+                            'No File From Server',
                             style: MyTheme.bodyText1,
-                            overflow: TextOverflow.ellipsis,
+                          )),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 10, right: 10, bottom: 5, top: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              ".${text.split('.').last}",
+                              style: MyTheme.bodyText1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
-                        ),
-                        localUser == user
-                            ? Row(
-                                children: [
-                                  Text(
-                                    DateFormatter()
-                                        .getVerboseDateTimeRepresentation(
-                                            DateTime.parse(time)),
-                                    //DateFormat('hh:mm:ss').format(DateTime.parse(time)),
-                                    style: MyTheme.isMebodyTextTime,
-                                  ),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  getStatusIcon(msgStatus)
-                                ],
-                              )
-                            : Row(
-                                children: [
-                                  Text(
-                                    DateFormatter()
-                                        .getVerboseDateTimeRepresentation(
-                                            DateTime.parse(time)),
-                                    //DateFormat('hh:mm:ss').format(DateTime.parse(time)),
-                                    style: MyTheme.bodyTextTime,
-                                  )
-                                ],
-                              ),
-                      ],
+                          localUser == user
+                              ? Row(
+                                  children: [
+                                    Text(
+                                      DateFormatter()
+                                          .getVerboseDateTimeRepresentation(
+                                              DateTime.parse(time)),
+                                      //DateFormat('hh:mm:ss').format(DateTime.parse(time)),
+                                      style: MyTheme.isMebodyTextTime,
+                                    ),
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                    StatusIcon(
+                                      status: msgStatus,
+                                      sentTime: time,
+                                      messageType: 'file',
+                                    ),
+                                  ],
+                                )
+                              : Row(
+                                  children: [
+                                    Text(
+                                      DateFormatter()
+                                          .getVerboseDateTimeRepresentation(
+                                              DateTime.parse(time)),
+                                      //DateFormat('hh:mm:ss').format(DateTime.parse(time)),
+                                      style: MyTheme.bodyTextTime,
+                                    )
+                                  ],
+                                ),
+                        ],
+                      ),
                     ),
                   ],
                 )),
@@ -251,59 +256,28 @@ class FileCard extends StatelessWidget {
   }
 
   Widget buildReplyMessage(ReplyMessageDetails replyMessageDetails) {
-    if (replyMessageDetails.reply_to_id == 0) {
+    if (replyMessageDetails.replyToId == 0) {
       return Container();
     } else {
       return Container(
-        padding: EdgeInsets.all(8),
-        decoration: BoxDecoration(
+        padding: const EdgeInsets.all(8),
+        decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(12),
             bottomLeft: Radius.circular(12),
           ),
         ),
-        margin: EdgeInsets.only(bottom: 8),
+        margin: const EdgeInsets.only(bottom: 8),
         child: InkWell(
           onTap: () {
-            callback(replyMessageDetails.reply_to_id!);
+            callback(replyMessageDetails.replyToId!);
           },
           child: ReplyMessageWidget(
               messageDetails: replyMessageDetails,
               onCancelReply: onCancelReply,
               type: "MESSAGE"),
         ),
-      );
-    }
-  }
-
-  Widget getStatusIcon(String status) {
-    int timeInMinutes =
-        DateTime.now().difference(DateTime.parse(time)).inMinutes;
-    if (timeInMinutes == 1 && status == "SENDING") {
-      return Icon(
-        Icons.sms_failed_outlined,
-        size: 20,
-        semanticLabel: "Failed",
-      );
-    }
-    if (status == "SENDING") {
-      return JumpingDots(
-        color: Colors.yellow,
-        radius: 10,
-        numberOfDots: 3,
-        animationDuration: Duration(milliseconds: 200),
-      );
-    } else if (status == "SENT") {
-      return Icon(
-        Icons.done,
-        size: 20,
-      );
-    } else {
-      return Icon(
-        Icons.done_all,
-        color: Colors.black,
-        size: 20,
       );
     }
   }

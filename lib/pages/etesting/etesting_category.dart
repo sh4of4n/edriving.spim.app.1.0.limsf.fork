@@ -11,7 +11,7 @@ import 'package:transparent_image/transparent_image.dart';
 import '../../router.gr.dart';
 
 // import 'bottom_menu.dart';
-
+@RoutePage(name: 'EtestingCategory')
 class EtestingCategory extends StatelessWidget {
   final authRepo = AuthRepo();
   final image = ImagesConstant();

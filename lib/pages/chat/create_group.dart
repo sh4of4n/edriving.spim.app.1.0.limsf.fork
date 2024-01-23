@@ -1,12 +1,14 @@
 import 'dart:math';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:full_screen_image_null_safe/full_screen_image_null_safe.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:socket_io_client/socket_io_client.dart' as IO;
-import '../../common_library/services/database/DatabaseHelper.dart';
+import 'package:socket_io_client/socket_io_client.dart' as io;
+import '../../common_library/services/database/database_helper.dart';
 import '../../common_library/services/model/chat_mesagelist.dart';
+import '../../common_library/services/model/chatsendack_model.dart';
 import '../../common_library/services/model/invitefriend_model.dart';
 import '../../common_library/services/model/inviteroom_response.dart';
 import '../../common_library/services/model/m_room_model.dart';
@@ -16,12 +18,14 @@ import '../../common_library/services/repository/auth_repository.dart';
 import '../../common_library/services/repository/chatroom_repository.dart';
 import '../../common_library/utils/custom_dialog.dart';
 import '../../common_library/utils/local_storage.dart';
+import '../../router.gr.dart';
 import '../../utils/app_config.dart';
 import 'chat_history.dart';
-import 'chat_home.dart';
+import 'chatnotification_count.dart';
 import 'rooms_provider.dart';
 import 'socketclient_helper.dart';
 
+@RoutePage(name: 'CreateGroup')
 class CreateGroup extends StatefulWidget {
   const CreateGroup({
     Key? key,
@@ -30,14 +34,14 @@ class CreateGroup extends StatefulWidget {
   final String roomId;
 
   @override
-  _CreateGroupState createState() => _CreateGroupState();
+  State<CreateGroup> createState() => _CreateGroupState();
 }
 
 class _CreateGroupState extends State<CreateGroup> {
   final appConfig = AppConfig();
-  late IO.Socket socket;
+  late io.Socket socket;
   bool isMultiSelectionEnabled = true;
-  TextEditingController _textFieldController = TextEditingController();
+  final TextEditingController _textFieldController = TextEditingController();
   String codeDialog = "";
   String valueText = "";
   final dbHelper = DatabaseHelper.instance;
@@ -83,7 +87,7 @@ class _CreateGroupState extends State<CreateGroup> {
   AppBar getAppBar(BuildContext context) {
     return AppBar(
       leading: IconButton(
-        icon: Icon(
+        icon: const Icon(
           Icons.arrow_back,
           size: 24,
         ),
@@ -92,7 +96,7 @@ class _CreateGroupState extends State<CreateGroup> {
         },
       ),
       title: widget.roomId == ''
-          ? Row(
+          ? const Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Icon(
@@ -100,19 +104,19 @@ class _CreateGroupState extends State<CreateGroup> {
                   color: Colors.white,
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.0),
                   child: Text('Create Group'),
                 ),
               ],
             )
-          : Row(
+          : const Row(
               children: [
                 Icon(
                   Icons.group_add_rounded,
                   color: Colors.white,
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.0),
                   child: Text('Add Member To Group'),
                 ),
               ],
@@ -163,54 +167,54 @@ class _CreateGroupState extends State<CreateGroup> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: getAppBar(context),
-      body: Container(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(6.0),
-              child: TextField(
-                keyboardType: TextInputType.number,
-                onChanged: (value) {
-                  if (value.length > 9) {
-                    getFriendData();
-                  } else {
-                    getFriendData();
-                  }
-                },
-                controller: editingController,
-                decoration: InputDecoration(
-                    labelText: "Search Friend By Mobile No.",
-                    hintText: "Search Friend By Mobile No.",
-                    prefixIcon: Icon(
-                      Icons.search,
-                    ),
-                    suffixIcon: editingController.text.length > 0
-                        ? IconButton(
-                            icon: Icon(
-                              Icons.clear,
-                            ),
-                            onPressed: () async {
-                              editingController.text = '';
-                              getFriendData();
-                              await EasyLoading.dismiss();
-                            },
-                          )
-                        : null,
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)))),
-              ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(6.0),
+            child: TextField(
+              keyboardType: TextInputType.number,
+              onChanged: (value) {
+                if (value.length > 9) {
+                  getFriendData();
+                } else {
+                  getFriendData();
+                }
+              },
+              controller: editingController,
+              decoration: InputDecoration(
+                  labelText: "Search Friend By Mobile No.",
+                  hintText: "Search Friend By Mobile No.",
+                  prefixIcon: const Icon(
+                    Icons.search,
+                  ),
+                  suffixIcon: editingController.text.isNotEmpty
+                      ? IconButton(
+                          icon: const Icon(
+                            Icons.clear,
+                          ),
+                          onPressed: () async {
+                            editingController.text = '';
+                            getFriendData();
+                            await EasyLoading.dismiss();
+                          },
+                        )
+                      : null,
+                  border: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)))),
             ),
-            Expanded(child: _populateListView()),
-          ],
-        ),
+          ),
+          Expanded(child: _populateListView()),
+        ],
       ),
-      floatingActionButton: _selected.length > 0
+      floatingActionButton: _selected.isNotEmpty
           ? FloatingActionButton(
               onPressed: () async {
                 if (widget.roomId == '') {
                   _displayTextInputDialog(context);
                 } else {
-                  await EasyLoading.show();
+                  await EasyLoading.show(
+                    maskType: EasyLoadingMaskType.black,
+                  );
                   var inviteResult =
                       await chatRoomRepo.addMemberToGroupByMerchant(
                           editingController.text, widget.roomId);
@@ -219,7 +223,7 @@ class _CreateGroupState extends State<CreateGroup> {
                       inviteResult.data.length > 0) {
                     InviteRoomResponse inviteRoomResponse =
                         inviteResult.data[0];
-
+                    if (!context.mounted) return;
                     await context.read<SocketClientHelper>().loginUserRoom();
                     String? userId = await localStorage.getUserId();
                     String? userName = await localStorage.getNickName();
@@ -230,15 +234,15 @@ class _CreateGroupState extends State<CreateGroup> {
                     // });
                     List<RoomMembers> roomMembers =
                         await dbHelper.getRoomMembersList(widget.roomId);
-                    _selected.forEach((memberByPhoneResponse) async {
+                    for (var memberByPhoneResponse in _selected) {
                       await dbHelper.updateRoomMemberStatus(
                           memberByPhoneResponse.userId, "false", widget.roomId);
 
-                      roomMembers.forEach((roomMember) {
-                        if (userId != roomMember.user_id) {
+                      for (var roomMember in roomMembers) {
+                        if (userId != roomMember.userId) {
                           var groupJson = {
                             "notifiedRoomId": widget.roomId,
-                            "notifiedUserId": roomMember.user_id,
+                            "notifiedUserId": roomMember.userId,
                             "title":
                                 '${userName!} added ${memberByPhoneResponse.name!}',
                             "description":
@@ -250,48 +254,48 @@ class _CreateGroupState extends State<CreateGroup> {
                             //print(data);
                           });
                         }
-                      });
+                      }
 
-                      String clientMessageId = generateRandomString(15);
+                      String clientMessageId = generateRandomString();
                       String caUid = await localStorage.getCaUid() ?? '';
                       String deviceId =
                           await localStorage.getLoginDeviceId() ?? '';
                       MessageDetails messageDetails = MessageDetails(
-                          room_id: widget.roomId,
-                          user_id: userId,
-                          app_id: appConfig.appId,
-                          ca_uid: caUid,
-                          device_id: deviceId,
-                          msg_body: userName! +
-                              ' added ' +
-                              memberByPhoneResponse.name!,
-                          msg_binary: '',
-                          msg_binaryType: 'userJoined',
-                          reply_to_id: -1,
-                          message_id: 0,
-                          read_by: '',
+                          roomId: widget.roomId,
+                          userId: userId,
+                          appId: appConfig.appId,
+                          cauId: caUid,
+                          deviceId: deviceId,
+                          msgBody:
+                              '${userName!} added ${memberByPhoneResponse.name!}',
+                          msgBinary: '',
+                          msgBinaryType: 'userJoined',
+                          replyToId: -1,
+                          messageId: 0,
+                          readBy: '',
                           status: '',
-                          status_msg: '',
+                          statusMsg: '',
                           deleted: 0,
-                          send_datetime: DateFormat("yyyy-MM-dd HH:mm:ss")
+                          sendDateTime: DateFormat("yyyy-MM-dd HH:mm:ss")
                               .format(DateTime.now().toLocal())
                               .toString(),
-                          edit_datetime: '',
-                          delete_datetime: '',
+                          editDateTime: '',
+                          deleteDateTime: '',
                           transtamp: '',
-                          nick_name: userName,
+                          nickName: userName,
                           filePath: '',
-                          owner_id: userId,
+                          ownerId: userId,
                           msgStatus: 'SENT',
-                          client_message_id: clientMessageId,
+                          clientMessageId: clientMessageId,
                           roomName: '');
                       await dbHelper.saveMsgDetailTable(messageDetails);
+                      if (!context.mounted) return;
                       context
                           .read<ChatHistory>()
                           .addChatHistory(messageDetail: messageDetails);
                       context.read<RoomHistory>().updateRoomMessage(
-                          roomId: messageDetails.room_id!,
-                          message: messageDetails.msg_body!);
+                          roomId: messageDetails.roomId!,
+                          message: messageDetails.msgBody!);
 
                       var messageJson = {
                         "roomId": widget.roomId,
@@ -300,38 +304,69 @@ class _CreateGroupState extends State<CreateGroup> {
                         "msgBinaryType": 'userJoined',
                         "replyToId": -1,
                         "clientMessageId": clientMessageId,
-                        "misc": "[FCM_Notification=title:" +
-                            inviteRoomResponse.roomName! +
-                            ' - ' +
-                            userName +
-                            "]"
+                        "misc":
+                            "[FCM_Notification=title: ${inviteRoomResponse.roomName!} - $userName]"
                       };
 
                       socket.emitWithAck('sendMessage', messageJson,
                           ack: (data) async {
-                        if (data != null) {
+                        if (data != null && !data.containsKey("error")) {
+                          SendAcknowledge sendAcknowledge =
+                              SendAcknowledge.fromJson(data);
+                          context.read<ChatHistory>().updateChatItemStatus(
+                              clientMessageId,
+                              "SENT",
+                              sendAcknowledge.messageId,
+                              widget.roomId,
+                              DateFormat("yyyy-MM-dd HH:mm:ss")
+                                  .format(DateTime.parse(
+                                          sendAcknowledge.sendDateTime ?? '')
+                                      .toLocal())
+                                  .toString());
+                          await dbHelper.updateMsgDetailTable(
+                              clientMessageId,
+                              "SENT",
+                              sendAcknowledge.messageId,
+                              DateFormat("yyyy-MM-dd HH:mm:ss")
+                                  .format(DateTime.parse(
+                                          sendAcknowledge.sendDateTime ?? '')
+                                      .toLocal())
+                                  .toString());
                           //print('sendMessage from server $data');
                         } else {
                           //print("Null from sendMessage");
                         }
                       });
-                    });
+                    }
 
                     await EasyLoading.dismiss();
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => ChatHome2(
-                                  roomId: inviteRoomResponse.roomId!,
-                                  picturePath: '',
-                                  roomName: inviteRoomResponse.roomName!,
-                                  roomDesc: 'Group Chat',
-                                  // roomMembers: members,
-                                ))).then((_) {});
+                    if (!context.mounted) return;
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (_) => newChatRoom(
+                    //               roomId: inviteRoomResponse.roomId!,
+                    //               picturePath: '',
+                    //               roomName: inviteRoomResponse.roomName!,
+                    //               roomDesc: 'Group Chat',
+                    //               // roomMembers: members,
+                    //             ))).then((_) {});
+
+                    if (!context.mounted) return;
+
+                    context.router.replace(ChatRoom(
+                        roomId: inviteRoomResponse.roomId!,
+                        picturePath: '',
+                        roomName: inviteRoomResponse.roomName!,
+                        roomDesc: 'Group Chat',
+                        isMessagesExist: true
+                        // roomMembers: members,
+                        ));
                   } else {
                     await EasyLoading.dismiss();
                     final customDialog = CustomDialog();
-                    return customDialog.show(
+                    if (!context.mounted) return;
+                    customDialog.show(
                       context: context,
                       type: DialogType.error,
                       content: inviteResult.message!,
@@ -347,13 +382,18 @@ class _CreateGroupState extends State<CreateGroup> {
     );
   }
 
-  String generateRandomString(int length) {
-    final random = Random();
-    const availableChars = '1234567890';
-    // 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
-    final randomString = List.generate(length,
-            (index) => availableChars[random.nextInt(availableChars.length)])
-        .join();
+  // String generateRandomString(int length) {
+  //   final random = Random();
+  //   const availableChars = '123456789';
+  //   final randomString = List.generate(length,
+  //           (index) => availableChars[random.nextInt(availableChars.length)])
+  //       .join();
+  //   return randomString;
+  // }
+  String generateRandomString() {
+    DateTime currentDateTime = DateTime.now();
+    String randomString =
+        DateFormat('yyyyMMddHHmmssSSS').format(currentDateTime);
 
     return randomString;
   }
@@ -379,11 +419,9 @@ class _CreateGroupState extends State<CreateGroup> {
       if (result.data != null && result.data.length > 0) {
         MemberByPhoneResponse inviteFriendResponse = result.data[0];
         if (memberByPhoneResponseList
-                .where(
-                    (element) => element.userId == inviteFriendResponse.userId)
-                .toList()
-                .length ==
-            0) {
+            .where((element) => element.userId == inviteFriendResponse.userId)
+            .toList()
+            .isEmpty) {
           memberByPhoneResponseList.add(result.data[0]);
         }
         setState(() {
@@ -397,7 +435,7 @@ class _CreateGroupState extends State<CreateGroup> {
   }
 
   Widget _populateListView() {
-    return memberByPhoneResponseList.length > 0
+    return memberByPhoneResponseList.isNotEmpty
         ? ListView.builder(
             itemCount: memberByPhoneResponseList.length,
             itemBuilder: (context, int index) {
@@ -425,7 +463,8 @@ class _CreateGroupState extends State<CreateGroup> {
                       child: Center(
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
-                          child: inviteFriendResponse.picturePath != null
+                          child: inviteFriendResponse.picturePath != null &&
+                                  inviteFriendResponse.picturePath != ''
                               ? Image.network(inviteFriendResponse.picturePath!
                                   .replaceAll(removeBracket, '')
                                   .split('\r\n')[0])
@@ -497,7 +536,9 @@ class _CreateGroupState extends State<CreateGroup> {
                     backgroundColor: Colors.green),
                 child: const Text('OK'),
                 onPressed: () async {
-                  await EasyLoading.show();
+                  await EasyLoading.show(
+                    maskType: EasyLoadingMaskType.black,
+                  );
                   String usersList = "";
                   if (_selected.length > 1) {
                     usersList =
@@ -513,44 +554,47 @@ class _CreateGroupState extends State<CreateGroup> {
                     InviteRoomResponse inviteRoomResponse =
                         inviteResult.data[0];
                     Room room = Room(
-                        ID: inviteRoomResponse.iD,
-                        room_id: inviteRoomResponse.roomId,
-                        merchant_user_id: inviteRoomResponse.merchantUserId,
-                        merchant_login_id: inviteRoomResponse.merchantLoginId,
-                        merchant_nick_name: inviteRoomResponse.merchantNickName,
-                        user_id: inviteRoomResponse.userId,
-                        login_id: inviteRoomResponse.loginId,
-                        member_nick_name: inviteRoomResponse.memberNickName,
-                        room_desc: inviteRoomResponse.roomDesc,
-                        room_name: inviteRoomResponse.roomName,
-                        create_user: inviteRoomResponse.createUser,
-                        create_date: inviteRoomResponse.createDate,
-                        edit_user: inviteRoomResponse.editUser,
-                        edit_date: inviteRoomResponse.editDate,
-                        row_key: inviteRoomResponse.rowKey,
+                        id: inviteRoomResponse.iD,
+                        roomId: inviteRoomResponse.roomId,
+                        merchantUserId: inviteRoomResponse.merchantUserId,
+                        merchantLoginId: inviteRoomResponse.merchantLoginId,
+                        merchantNickName: inviteRoomResponse.merchantNickName,
+                        userId: inviteRoomResponse.userId,
+                        loginId: inviteRoomResponse.loginId,
+                        memberNickName: inviteRoomResponse.memberNickName,
+                        roomDesc: inviteRoomResponse.roomDesc,
+                        roomName: inviteRoomResponse.roomName,
+                        createUser: inviteRoomResponse.createUser,
+                        createDate: inviteRoomResponse.createDate,
+                        editUser: inviteRoomResponse.editUser,
+                        editDate: inviteRoomResponse.editDate,
+                        rowKey: inviteRoomResponse.rowKey,
                         transtamp: inviteRoomResponse.transtamp,
                         deleted: inviteRoomResponse.deleted,
-                        photo_filename: '',
-                        profile_photo: '',
-                        merchant_no: inviteRoomResponse.merchantNo,
-                        picture_path: inviteRoomResponse.picturePath);
+                        photoFilename: '',
+                        profilePhoto: '',
+                        merchantNo: inviteRoomResponse.merchantNo,
+                        picturePath: inviteRoomResponse.picturePath);
                     await dbHelper.saveRoomTable(room);
                     RoomHistoryModel roomHistoryModel = RoomHistoryModel(
-                        room_id: inviteRoomResponse.roomId ?? '',
-                        room_name: inviteRoomResponse.roomName ?? '',
-                        room_desc: inviteRoomResponse.roomDesc ?? '',
-                        picture_path: inviteRoomResponse.picturePath ?? '');
+                        roomId: inviteRoomResponse.roomId ?? '',
+                        roomName: inviteRoomResponse.roomName ?? '',
+                        roomDesc: inviteRoomResponse.roomDesc ?? '',
+                        picturePath: inviteRoomResponse.picturePath ?? '',
+                        deleted: inviteRoomResponse.deleted ?? 'false');
+                    if (!context.mounted) return;
                     context.read<RoomHistory>().addRoom(room: roomHistoryModel);
+                    context.read<ChatNotificationCount>().addNotificationBadge(
+                        notificationBadge: 0,
+                        roomId: inviteRoomResponse.roomId!);
                     //print('Room Insert value ' + val.toString());
                     var resultMembers = await chatRoomRepo
                         .getRoomMembersList(inviteRoomResponse.roomId!);
                     //print('roomMembers' + resultMembers.data.length.toString());
                     if (resultMembers.data != null &&
                         resultMembers.data.length > 0) {
+                      await dbHelper.batchInsertMembers(resultMembers.data);
                       for (int i = 0; i < resultMembers.data.length; i += 1) {
-                        await dbHelper
-                            .saveRoomMembersTable(resultMembers.data[i]);
-
                         if (i == resultMembers.data.length - 1) {
                           String? userId = await localStorage.getUserId();
                           String? caUid = await localStorage.getCaUid();
@@ -567,7 +611,7 @@ class _CreateGroupState extends State<CreateGroup> {
                           };
                           //print('login: $messageJson');
                           socket.emitWithAck('login', messageJson, ack: (data) {
-                            if (data != null) {
+                            if (data != null && !data.containsKey("error")) {
                               //print('login user from server $data');
                             } else {
                               //print("Null from login user");
@@ -577,44 +621,54 @@ class _CreateGroupState extends State<CreateGroup> {
                           //await context.read<SocketClientHelper>().loginUserRoom();
                           List<RoomMembers> roomMembers = await dbHelper
                               .getRoomMembersList(inviteRoomResponse.roomId!);
-                          roomMembers.forEach((roomMember) {
-                            if (userId != roomMember.user_id) {
+                          for (var roomMember in roomMembers) {
+                            if (userId != roomMember.userId) {
                               var inviteUserToRoomJson = {
                                 "invitedRoomId": inviteRoomResponse.roomId!,
-                                "invitedUserId": roomMember.user_id
+                                "invitedUserId": roomMember.userId
                               };
                               socket.emitWithAck(
                                   'inviteUserToRoom', inviteUserToRoomJson,
                                   ack: (data) async {
                                 //print('inviteUserToRoom ack $data');
-                                if (data != null) {
+                                if (data != null &&
+                                    !data.containsKey("error")) {
                                   //print('inviteUserToRoom from server $data');
                                 } else {
                                   //print("Null from inviteUserToRoom");
                                 }
                               });
                             }
-                          });
+                          }
                           await EasyLoading.dismiss();
                           setState(() {
                             Navigator.of(context).pop();
                           });
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) => ChatHome2(
-                                        roomId: inviteRoomResponse.roomId!,
-                                        picturePath: '',
-                                        roomName: inviteRoomResponse.roomName!,
-                                        roomDesc: 'Group Chat',
-                                      ))).then((_) {});
+                          if (!context.mounted) return;
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (_) => ChatRoom(
+                          //               roomId: inviteRoomResponse.roomId!,
+                          //               picturePath: '',
+                          //               roomName: inviteRoomResponse.roomName!,
+                          //               roomDesc: 'Group Chat',
+                          //             ))).then((_) {});
+
+                          context.router.replace(ChatRoom(
+                              roomId: inviteRoomResponse.roomId!,
+                              picturePath: '',
+                              roomName: inviteRoomResponse.roomName!,
+                              roomDesc: 'Group Chat',
+                              isMessagesExist: false));
                         }
                       }
                     }
                   } else {
                     await EasyLoading.dismiss();
                     final customDialog = CustomDialog();
-                    return customDialog.show(
+                    if (!context.mounted) return;
+                    customDialog.show(
                       context: context,
                       type: DialogType.error,
                       content: inviteResult.message!,

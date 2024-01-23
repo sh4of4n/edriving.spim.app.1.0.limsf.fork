@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 
 import '/common_library/utils/app_localizations.dart';
 
+@RoutePage(name: 'EnrolmentInfoDetail')
 class EnrolmentInfoDetail extends StatefulWidget {
   final dynamic groupId;
 

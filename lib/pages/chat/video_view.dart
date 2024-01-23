@@ -9,12 +9,13 @@ class VideoViewPage extends StatefulWidget {
   final Function onImageSend;
 
   @override
-  _VideoViewPageState createState() => _VideoViewPageState();
+  State<VideoViewPage> createState() => _VideoViewPageState();
 }
 
 class _VideoViewPageState extends State<VideoViewPage> {
   late VideoPlayerController _controller;
-  static TextEditingController _editingController = TextEditingController();
+  static final TextEditingController _editingController =
+      TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -30,7 +31,7 @@ class _VideoViewPageState extends State<VideoViewPage> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: Center(
+        title: const Center(
           child: Text(
             'Video View',
             maxLines: 1,
@@ -70,12 +71,12 @@ class _VideoViewPageState extends State<VideoViewPage> {
         //       onPressed: () {}),
         // ],
       ),
-      body: Container(
+      body: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: Stack(
           children: [
-            Container(
+            SizedBox(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height - 150,
               child: _controller.value.isInitialized
@@ -90,10 +91,10 @@ class _VideoViewPageState extends State<VideoViewPage> {
               child: Container(
                 color: Colors.black38,
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
+                padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
                 child: TextFormField(
                   controller: _editingController,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 17,
                   ),
@@ -102,12 +103,12 @@ class _VideoViewPageState extends State<VideoViewPage> {
                   decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: "Add Caption....",
-                      prefixIcon: Icon(
+                      prefixIcon: const Icon(
                         Icons.add_photo_alternate,
                         color: Colors.white,
                         size: 27,
                       ),
-                      hintStyle: TextStyle(
+                      hintStyle: const TextStyle(
                         color: Colors.white,
                         fontSize: 17,
                       ),
@@ -119,7 +120,7 @@ class _VideoViewPageState extends State<VideoViewPage> {
                         child: CircleAvatar(
                           radius: 27,
                           backgroundColor: Colors.tealAccent[700],
-                          child: Icon(
+                          child: const Icon(
                             Icons.check,
                             color: Colors.white,
                             size: 27,

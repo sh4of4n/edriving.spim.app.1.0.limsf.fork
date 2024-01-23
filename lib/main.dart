@@ -1,5 +1,6 @@
 // import 'dart:io';
 // ignore_for_file: use_build_context_synchronously, depend_on_referenced_packages
+import 'package:edriving_spim_app/router.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
@@ -26,14 +27,14 @@ import '/common_library/services/model/kpp_model.dart';
 import '/common_library/utils/custom_dialog.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart';
-
-import 'pages/chat/CustomAnimation.dart';
 import 'pages/chat/chat_history.dart';
 import 'pages/chat/chatnotification_count.dart';
+import 'pages/chat/custom_animation.dart';
 import 'pages/chat/online_users.dart';
 import 'pages/chat/rooms_provider.dart';
 import 'pages/chat/socketclient_helper.dart';
 import 'services/provider/cart_status.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 // import 'package:logging/logging.dart';
 
 /* final Map<String, Item> _items = <String, Item>{};
@@ -134,6 +135,7 @@ void main() async {
 
   await Firebase.initializeApp();
 
+  // setupSentry(() =>
   runApp(
     MultiProvider(
       providers: [
@@ -164,8 +166,27 @@ void main() async {
       child: const MyApp(),
     ),
   );
+  //);
   configLoading();
 }
+
+// Future<void> setupSentry(AppRunner appRunner) async {
+//   await SentryFlutter.init((options) {
+//     options.dsn = kDebugMode
+//         ? ''
+//         : 'https://d536e0a55a884055b2fa352bcbab7b4b@o354605.ingest.sentry.io/6717561';
+//     options.tracesSampleRate = 1.0;
+//     options.attachThreads = true;
+//     options.enableWindowMetricBreadcrumbs = true;
+//     options.sendDefaultPii = true;
+//     options.reportSilentFlutterErrors = true;
+//     options.attachScreenshot = true;
+//     options.screenshotQuality = SentryScreenshotQuality.low;
+//     options.attachViewHierarchy = true;
+//     options.maxRequestBodySize = MaxRequestBodySize.always;
+//     options.maxResponseBodySize = MaxResponseBodySize.always;
+//   }, appRunner: appRunner);
+// }
 
 void configLoading() {
   EasyLoading.instance

@@ -14,6 +14,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../router.gr.dart';
 
+@RoutePage(name: 'FpxPaymentOption')
 class FpxPaymentOption extends StatefulWidget {
   final String? icNo;
   final String? docDoc;

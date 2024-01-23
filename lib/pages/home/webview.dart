@@ -21,6 +21,7 @@ import 'package:webview_flutter_android/webview_flutter_android.dart';
 // Import for iOS features.
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 
+@RoutePage(name: 'Webview')
 class Webview extends StatefulWidget {
   final String? url;
   final String? backType;

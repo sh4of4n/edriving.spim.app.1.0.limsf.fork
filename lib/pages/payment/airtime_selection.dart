@@ -12,6 +12,7 @@ import 'package:hive/hive.dart';
 import '/common_library/utils/app_localizations.dart';
 import '../../router.gr.dart';
 
+@RoutePage(name: 'AirtimeSelection')
 class AirtimeSelection extends StatelessWidget {
   final primaryColor = ColorConstant.primaryColor;
 

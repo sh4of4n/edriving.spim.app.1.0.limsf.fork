@@ -12,6 +12,7 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../router.gr.dart';
 
+@RoutePage(name: 'ProductList')
 class ProductList extends StatefulWidget {
   final String? stkCat;
   final String? keywordSearch;

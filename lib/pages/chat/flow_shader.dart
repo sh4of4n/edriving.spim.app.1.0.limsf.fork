@@ -16,7 +16,7 @@ class FlowShader extends StatefulWidget {
   final List<Color> flowColors;
 
   @override
-  _FlowShaderState createState() => _FlowShaderState();
+  State<FlowShader> createState() => _FlowShaderState();
 }
 
 class _FlowShaderState extends State<FlowShader>

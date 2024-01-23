@@ -11,6 +11,7 @@ import 'package:shimmer/shimmer.dart';
 import '/common_library/utils/app_localizations.dart';
 import '../../router.gr.dart';
 
+@RoutePage(name: 'PaymentHistory')
 class PaymentHistory extends StatefulWidget {
   @override
   PaymentHistoryState createState() => PaymentHistoryState();

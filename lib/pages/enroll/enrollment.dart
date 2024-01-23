@@ -31,6 +31,7 @@ enum Gender { male, female }
 
 enum AppState { free, picked, cropped }
 
+@RoutePage(name: 'Enrollment')
 class Enrollment extends StatefulWidget {
   @override
   EnrollmentState createState() => EnrollmentState();

@@ -1,5 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors
 
+import 'package:auto_route/auto_route.dart';
+
 import '/common_library/services/repository/epandu_repository.dart';
 import '/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +11,7 @@ import 'package:intl/intl.dart';
 
 import '/common_library/utils/app_localizations.dart';
 
+@RoutePage(name: 'PaymentHistoryDetail')
 class PaymentHistoryDetail extends StatefulWidget {
   final dynamic recpNo;
 

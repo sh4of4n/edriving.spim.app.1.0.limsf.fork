@@ -1,5 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors
 
+import 'package:auto_route/auto_route.dart';
+
 import '/common_library/utils/app_localizations.dart';
 import '/utils/app_config.dart';
 import '/utils/constants.dart';
@@ -10,6 +12,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:package_info/package_info.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
+@RoutePage(name: 'IdentityBarcode')
 class IdentityBarcode extends StatefulWidget {
   @override
   IdentityBarcodeState createState() => IdentityBarcodeState();
@@ -68,7 +71,7 @@ class IdentityBarcodeState extends State<IdentityBarcode> {
 
   _loadQr() {
     if (id.isNotEmpty) {
-      return QrImage(
+      return QrImageView(
         embeddedImage: AssetImage(image.ePanduIcon),
         embeddedImageStyle: QrEmbeddedImageStyle(
           size: const Size(40, 40),

@@ -1,8 +1,8 @@
 import 'dart:convert';
-import '../model/GetLeaveRoomResponse.dart';
 import '../model/changegroupname_model.dart';
 import '../model/createroom_model.dart';
 import '../model/createroom_response.dart';
+import '../model/get_leave_room_response.dart';
 import '../model/invitefriend_model.dart';
 import '../model/inviteroom_model.dart';
 import '../model/inviteroom_response.dart';
@@ -25,8 +25,6 @@ class ChatRoomRepo {
     String? merchantNo = await localStorage.getMerchantDbCode();
     String? mLoginId = await localStorage.getUserPhone();
     String? deviceId = await localStorage.getLoginDeviceId();
-    // String? userId = await localStorage.getUserId();
-    // String? nickName = await localStorage.getNickName();
 
     CreateRoom params = CreateRoom(
         wsCodeCrypt: appConfig.wsCodeCrypt,
@@ -60,11 +58,8 @@ class ChatRoomRepo {
       String merchantNo) async {
     String? caUid = await localStorage.getCaUid();
     String? caPwd = await localStorage.getCaPwd();
-
     String? mLoginId = await localStorage.getUserPhone();
     String? deviceId = await localStorage.getLoginDeviceId();
-    // String? userId = await localStorage.getUserId();
-    // String? nickName = await localStorage.getNickName();
 
     CreateRoom params = CreateRoom(
         wsCodeCrypt: appConfig.wsCodeCrypt,
@@ -103,15 +98,8 @@ class ChatRoomRepo {
     String? deviceId = await localStorage.getLoginDeviceId();
     String? appCode = appConfig.appCode;
 
-    String path = 'wsCodeCrypt=${appConfig.wsCodeCrypt}' +
-        '&caUid=$caUid' +
-        '&caPwd=$caPwd' +
-        '&merchantNo=$merchantNo' +
-        '&mLoginId=$mLoginId' +
-        '&appId=$appId' +
-        '&deviceId=$deviceId' +
-        '&roomId=$roomId' +
-        '&appCode=$appCode';
+    String path =
+        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&merchantNo=$merchantNo&mLoginId=$mLoginId&appId=$appId&deviceId=$deviceId&roomId=$roomId&appCode=$appCode';
 
     var response = await networking.getData(
       path: 'GetRoomByMerchant?$path',
@@ -133,18 +121,10 @@ class ChatRoomRepo {
     String? merchantNo = await localStorage.getMerchantDbCode();
     String? mLoginId = await localStorage.getUserPhone();
     String? appId = appConfig.appId;
-    //String? deviceId = await localStorage.getLoginDeviceId();
     String? appCode = appConfig.appCode;
 
-    String path = 'wsCodeCrypt=${appConfig.wsCodeCrypt}' +
-        '&caUid=$caUid' +
-        '&caPwd=$caPwd' +
-        '&merchantNo=$merchantNo' +
-        '&mLoginId=$mLoginId' +
-        '&appId=$appId' +
-        // '&deviceId=$deviceId' +
-        '&appCode=$appCode' +
-        '&roomId=$roomId';
+    String path =
+        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&merchantNo=$merchantNo&mLoginId=$mLoginId&appId=$appId&appCode=$appCode&roomId=$roomId';
     var response = await networking.getData(
       path: 'GetMemberByRoom?$path',
     );
@@ -169,15 +149,8 @@ class ChatRoomRepo {
     String? deviceId = await localStorage.getLoginDeviceId();
     String? appCode = appConfig.appCode;
 
-    String path = 'wsCodeCrypt=${appConfig.wsCodeCrypt}' +
-        '&caUid=$caUid' +
-        '&caPwd=$caPwd' +
-        '&merchantNo=$merchantNo' +
-        '&mLoginId=$mLoginId' +
-        '&appId=$appId' +
-        '&deviceId=$deviceId' +
-        '&appCode=$appCode' +
-        '&phoneNumber=$phoneNumber';
+    String path =
+        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&merchantNo=$merchantNo&mLoginId=$mLoginId&appId=$appId&deviceId=$deviceId&appCode=$appCode&phoneNumber=$phoneNumber';
     var response = await networking.getData(
       path: 'GetMemberByPhoneNumber?$path',
     );
@@ -231,16 +204,16 @@ class ChatRoomRepo {
     String? caUid = await localStorage.getCaUid();
     String? caPwd = await localStorage.getCaPwd();
     String? merchantNo = await localStorage.getMerchantDbCode();
-    //String? mLoginId = await localStorage.getUserPhone();
-
+    String? mLoginId = await localStorage.getUserPhone();
     InviteRoom params = InviteRoom(
         wsCodeCrypt: appConfig.wsCodeCrypt,
         caUid: caUid,
         caPwd: caPwd,
         merchantNo: merchantNo,
-        mLoginId: phoneNumber,
+        mLoginId: mLoginId,
         appId: appConfig.appId,
-        appCode: appConfig.appCode);
+        appCode: appConfig.appCode,
+        mLoginIdMember: phoneNumber);
 
     String body = jsonEncode(params);
     String api = 'CreateChatSupportByMerchant';
@@ -257,7 +230,7 @@ class ChatRoomRepo {
     }
 
     return Response(false,
-        message: 'Failed to invite friend. Please try again later');
+        message: 'Failed to invite member. Please try again later');
   }
 
   Future<Response> createNewGroupByMerchant(
@@ -295,7 +268,7 @@ class ChatRoomRepo {
     }
 
     return Response(false,
-        message: 'Failed to invite friend. Please try again later');
+        message: 'Failed to create group. Please try again later');
   }
 
   Future<Response> addMemberToGroupByMerchant(
@@ -333,7 +306,7 @@ class ChatRoomRepo {
     }
 
     return Response(false,
-        message: 'Failed to invite friend. Please try again later');
+        message: 'Failed to add member. Please try again later');
   }
 
   Future<Response> changeGroupName(String roomId, String groupName) async {
@@ -370,7 +343,7 @@ class ChatRoomRepo {
     }
 
     return Response(false,
-        message: 'Failed to invite friend. Please try again later');
+        message: 'Failed to change group name. Please try again later');
   }
 
   Future<Response> leaveRoom(String roomId) async {
@@ -379,8 +352,6 @@ class ChatRoomRepo {
     String? merchantNo = await localStorage.getMerchantDbCode();
     String? mLoginId = await localStorage.getUserPhone();
     String? deviceId = await localStorage.getLoginDeviceId();
-    // String? userId = await localStorage.getUserId();
-    // String? nickName = await localStorage.getNickName();
 
     LeaveRoom params = LeaveRoom(
         wsCodeCrypt: appConfig.wsCodeCrypt,

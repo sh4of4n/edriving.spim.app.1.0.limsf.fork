@@ -12,6 +12,7 @@ import 'package:transparent_image/transparent_image.dart';
 
 import '../../router.gr.dart';
 
+@RoutePage(name: 'Profile')
 class Profile extends StatefulWidget {
   final dynamic userProfile;
   final dynamic enrollData;

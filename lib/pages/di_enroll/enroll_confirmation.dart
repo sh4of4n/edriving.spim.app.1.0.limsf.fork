@@ -17,6 +17,7 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 // import 'package:readmore/readmore.dart';
 import '../../router.gr.dart';
 
+@RoutePage(name: 'EnrollConfirmation')
 class EnrollConfirmation extends StatefulWidget {
   final String? banner;
   final String? packageName;

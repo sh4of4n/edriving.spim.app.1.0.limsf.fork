@@ -1,9 +1,8 @@
 import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:socket_io_client/socket_io_client.dart' as IO;
-
-import '../../common_library/services/database/DatabaseHelper.dart';
+import 'package:socket_io_client/socket_io_client.dart' as io;
+import '../../common_library/services/database/database_helper.dart';
 import '../../common_library/services/model/createroom_response.dart';
 import '../../common_library/services/model/m_roommember_model.dart';
 import '../../common_library/services/repository/chatroom_repository.dart';
@@ -11,9 +10,7 @@ import '../../common_library/utils/local_storage.dart';
 import 'socketclient_helper.dart';
 
 class TestWebview extends StatefulWidget {
-  const TestWebview({
-    Key? key,
-  });
+  const TestWebview({super.key});
 
   @override
   State<TestWebview> createState() => _TestWebviewState();
@@ -21,7 +18,7 @@ class TestWebview extends StatefulWidget {
 
 class _TestWebviewState extends State<TestWebview> {
   late final WebViewController _controller;
-  late IO.Socket socket;
+  late io.Socket socket;
   final chatRoomRepo = ChatRoomRepo();
   final localStorage = LocalStorage();
   final dbHelper = DatabaseHelper.instance;
@@ -61,6 +58,7 @@ class _TestWebviewState extends State<TestWebview> {
               .createChatSupportByMemberFromWebView(message.message.toString());
           if (createChatSupportResult.data != null &&
               createChatSupportResult.data.length > 0) {
+            if (!mounted) return;
             await context.read<SocketClientHelper>().loginUserRoom();
             String userid = await localStorage.getUserId() ?? '';
             CreateRoomResponse getCreateRoomResponse =
@@ -68,11 +66,11 @@ class _TestWebviewState extends State<TestWebview> {
 
             List<RoomMembers> roomMembers = await dbHelper
                 .getRoomMembersList(getCreateRoomResponse.roomId!);
-            roomMembers.forEach((roomMember) {
-              if (userid != roomMember.user_id) {
+            for (var roomMember in roomMembers) {
+              if (userid != roomMember.userId) {
                 var inviteUserToRoomJson = {
                   "invitedRoomId": getCreateRoomResponse.roomId!,
-                  "invitedUserId": roomMember.user_id
+                  "invitedUserId": roomMember.userId
                 };
                 socket.emitWithAck('inviteUserToRoom', inviteUserToRoomJson,
                     ack: (data) {
@@ -83,7 +81,7 @@ class _TestWebviewState extends State<TestWebview> {
                   }
                 });
               }
-            });
+            }
           }
           print(message.message.toString());
           //context.router.push(RoomList());

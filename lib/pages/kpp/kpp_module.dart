@@ -14,6 +14,7 @@ import 'package:random_color/random_color.dart';
 import '../../router.gr.dart';
 import 'kpp_module_icon.dart';
 
+@RoutePage(name: 'KppModule')
 class KppModule extends StatefulWidget {
   final dynamic data;
 

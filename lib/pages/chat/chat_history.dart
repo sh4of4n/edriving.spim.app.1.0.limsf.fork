@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
-import '../../common_library/services/database/DatabaseHelper.dart';
+import '../../common_library/services/database/database_helper.dart';
 import '../../common_library/services/model/chat_mesagelist.dart';
 
 class ChatHistory extends ChangeNotifier {
@@ -12,25 +11,31 @@ class ChatHistory extends ChangeNotifier {
   List<MessageDetails> get messageDetailsList => getMessageDetailsList;
 
   void addChatHistory({required MessageDetails messageDetail}) {
-    int index = getMessageDetailsList.indexWhere((element) =>
-        element.client_message_id == messageDetail.client_message_id);
+    int index = getMessageDetailsList.indexWhere(
+        (element) => element.clientMessageId == messageDetail.clientMessageId);
     if (index == -1) {
-      getMessageDetailsList.add(messageDetail);
+      //getMessageDetailsList.add(messageDetail);
+      getMessageDetailsList.insert(0, messageDetail);
       notifyListeners();
     }
   }
 
-  void updateChatItemStatus(
-      String clientMessageId, String msgStatus, int messageId, String roomId) {
+  void updateChatItemStatus(String clientMessageId, String msgStatus,
+      int messageId, String roomId, String sendDateTime) {
     if (clientMessageId != '') {
       int index = getMessageDetailsList.indexWhere((element) =>
-          element.client_message_id == clientMessageId &&
-          element.room_id == roomId);
-      getMessageDetailsList[index].msgStatus = msgStatus;
-      getMessageDetailsList[index].message_id = messageId;
+          element.clientMessageId == clientMessageId &&
+          element.roomId == roomId);
+      if (index != -1) {
+        getMessageDetailsList[index].msgStatus = msgStatus;
+        getMessageDetailsList[index].messageId = messageId;
+        if (sendDateTime != '') {
+          getMessageDetailsList[index].sendDateTime = sendDateTime;
+        }
+      }
     } else {
       int index = getMessageDetailsList
-          .indexWhere((element) => element.message_id == messageId);
+          .indexWhere((element) => element.messageId == messageId);
       if (index != -1) {
         getMessageDetailsList[index].msgStatus = msgStatus;
       }
@@ -40,8 +45,8 @@ class ChatHistory extends ChangeNotifier {
 
   void updateChatItemFilepath(String clientMessageId, String filePath) {
     if (clientMessageId != '') {
-      int index = getMessageDetailsList.indexWhere(
-          (element) => element.client_message_id == clientMessageId);
+      int index = getMessageDetailsList
+          .indexWhere((element) => element.clientMessageId == clientMessageId);
       getMessageDetailsList[index].filePath = filePath;
     }
     notifyListeners();
@@ -50,17 +55,19 @@ class ChatHistory extends ChangeNotifier {
   void updateChatItemMessage(
       String msgBody, int messageId, String editDatetime, String roomId) {
     int index = getMessageDetailsList.indexWhere((element) =>
-        element.message_id == messageId && element.room_id == roomId);
-    getMessageDetailsList[index].msg_body = msgBody;
-    getMessageDetailsList[index].edit_datetime =
-        DateFormat("yyyy-MM-dd HH:mm:ss")
-            .format(DateTime.parse(editDatetime).toLocal())
-            .toString();
+        element.messageId == messageId && element.roomId == roomId);
+    if (index != -1) {
+      getMessageDetailsList[index].msgBody = msgBody;
+      getMessageDetailsList[index].editDateTime =
+          DateFormat("yyyy-MM-dd HH:mm:ss")
+              .format(DateTime.parse(editDatetime).toLocal())
+              .toString();
+    }
     notifyListeners();
   }
 
   void deleteChats(String roomId) {
-    getMessageDetailsList.removeWhere((message) => message.room_id == roomId);
+    getMessageDetailsList.removeWhere((message) => message.roomId == roomId);
     notifyListeners();
   }
 
@@ -69,20 +76,32 @@ class ChatHistory extends ChangeNotifier {
     notifyListeners();
   }
 
-  void deleteChatItem(int messageId, String roomId) {
+  void updateDataNotExist() {
+    isDataExist = true;
+    notifyListeners();
+  }
+
+  Future<void> deleteChatItem(int messageId, String roomId) async {
     int index = getMessageDetailsList.indexWhere((element) =>
-        element.message_id == messageId && element.room_id == roomId);
+        element.messageId == messageId && element.roomId == roomId);
     if (index != -1) {
       getMessageDetailsList.removeAt(index);
-      print(
-          'messageId_ ' + messageId.toString() + ' Index_' + index.toString());
+      print('messageId_ $messageId Index_$index');
+      if (getMessageDetailsList.isEmpty) {
+        await dbHelper.deleteLogicallyRoomById(
+            roomId,
+            'false',
+            DateFormat("yyyy-MM-dd HH:mm:ss")
+                .format(DateTime.now())
+                .toString());
+      }
       notifyListeners();
     }
   }
 
   void deleteChatItemByClientMessageId(String clientMessageId) {
     int index = getMessageDetailsList
-        .indexWhere((element) => element.client_message_id == clientMessageId);
+        .indexWhere((element) => element.clientMessageId == clientMessageId);
     getMessageDetailsList.removeAt(index);
     notifyListeners();
   }
@@ -97,30 +116,44 @@ class ChatHistory extends ChangeNotifier {
   Future<List<MessageDetails>> getLazyLoadChatHistory(
       String roomId, int offset, int batchSize) async {
     List<MessageDetails> pastMessageDetailsList = getMessageDetailsList;
+    List<MessageDetails> failedMessagesList = [];
     getMessageDetailsList = [];
     getMessageDetailsList =
         await dbHelper.getLazyLoadMsgDetailList(roomId, batchSize, offset);
-
-    if (getMessageDetailsList.length > 0) {
-      //pastMessageDetailsList.addAll(getMessageDetailsList);
-      // pastMessageDetailsList.addAll(getMessageDetailsList.where((message) {
-      //   // Check if the value already exists in the list
-      //   return !pastMessageDetailsList.contains(message);
-      // }));
+    failedMessagesList = await dbHelper.getFailedMsgList(roomId);
+    if (getMessageDetailsList.isNotEmpty) {
       pastMessageDetailsList.addAll(getMessageDetailsList.where((newMessage) {
         // Check if the message_id already exists in the list
         return !pastMessageDetailsList.any((existingMessage) =>
-            existingMessage.message_id == newMessage.message_id);
+            existingMessage.clientMessageId == newMessage.clientMessageId);
       }));
 
       getMessageDetailsList = pastMessageDetailsList;
     } else {
       isDataExist = false;
+
       getMessageDetailsList = pastMessageDetailsList;
     }
-    getMessageDetailsList
-        .sort((a, b) => a.message_id!.compareTo(b.message_id!));
-
+    // getMessageDetailsList
+    //     .sort((a, b) => a.sendDateTime!.compareTo(b.sendDateTime!));
+    // getMessageDetailsList.sort((a, b) => a.messageId!.compareTo(b.messageId!));
+    getMessageDetailsList.sort((a, b) => b.messageId!.compareTo(a.messageId!));
+    if (failedMessagesList.isNotEmpty) {
+      for (var newFailedMessage in failedMessagesList) {
+        if (!getMessageDetailsList.any((existingMessage) =>
+            existingMessage.clientMessageId ==
+            newFailedMessage.clientMessageId)) {
+          //getMessageDetailsList.add(newFailedMessage);
+          getMessageDetailsList.insert(0, newFailedMessage);
+        } else {
+          int index = getMessageDetailsList.indexWhere((element) =>
+              element.clientMessageId == newFailedMessage.clientMessageId);
+          getMessageDetailsList.removeAt(index);
+          //getMessageDetailsList.add(newFailedMessage);
+          getMessageDetailsList.insert(0, newFailedMessage);
+        }
+      }
+    }
     notifyListeners();
 
     return getMessageDetailsList;

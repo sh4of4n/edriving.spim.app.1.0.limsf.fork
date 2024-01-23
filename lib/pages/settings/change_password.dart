@@ -1,12 +1,15 @@
 // ignore_for_file: use_key_in_widget_constructors
 
+import 'package:auto_route/auto_route.dart';
+
 import '/common_library/utils/app_localizations.dart';
 import '/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'change_password_form.dart';
+import '../../router.gr.dart';
 
+@RoutePage(name: 'ChangePassword')
 class ChangePassword extends StatelessWidget {
   final primaryColor = ColorConstant.primaryColor;
 

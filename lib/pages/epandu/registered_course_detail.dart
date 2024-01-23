@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 
 import '/common_library/utils/app_localizations.dart';
 
+@RoutePage(name: 'RegisteredCourseDetail')
 class RegisteredCourseDetail extends StatefulWidget {
   final dynamic groupId;
 

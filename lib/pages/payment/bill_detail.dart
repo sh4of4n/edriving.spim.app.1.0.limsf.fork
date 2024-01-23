@@ -13,6 +13,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../router.gr.dart';
 
+@RoutePage(name: 'BillDetail')
 class BillDetail extends StatefulWidget {
   final dynamic data;
 

@@ -18,6 +18,7 @@ import 'package:transparent_image/transparent_image.dart';
 
 import '../../router.gr.dart';
 
+@RoutePage(name: 'ValueClub')
 class ValueClub extends StatefulWidget {
   @override
   ValueClubState createState() => ValueClubState();

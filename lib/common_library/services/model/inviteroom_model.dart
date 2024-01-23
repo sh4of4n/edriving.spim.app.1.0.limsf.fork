@@ -10,6 +10,7 @@ class InviteRoom {
   String? otherMLoginId;
   String? roomId;
   String? roomName;
+  String? mLoginIdMember;
   InviteRoom(
       {this.wsCodeCrypt,
       this.caUid,
@@ -21,7 +22,8 @@ class InviteRoom {
       this.appCode,
       this.otherMLoginId,
       this.roomId,
-      this.roomName});
+      this.roomName,
+      this.mLoginIdMember});
 
   InviteRoom.fromJson(Map<String, dynamic> json) {
     wsCodeCrypt = json['wsCodeCrypt'];
@@ -35,21 +37,23 @@ class InviteRoom {
     otherMLoginId = json['otherMLoginId'];
     roomId = json['roomId'];
     roomName = json['roomName'];
+    mLoginIdMember = json['mLoginIdMember'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['wsCodeCrypt'] = this.wsCodeCrypt;
-    data['caUid'] = this.caUid;
-    data['caPwd'] = this.caPwd;
-    data['merchantNo'] = this.merchantNo;
-    data['mLoginId'] = this.mLoginId;
-    data['appId'] = this.appId;
-    data['deviceId'] = this.deviceId;
-    data['appCode'] = this.appCode;
-    data['otherMLoginId'] = this.otherMLoginId;
-    data['roomId'] = this.roomId;
-    data['roomName'] = this.roomName;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['wsCodeCrypt'] = wsCodeCrypt;
+    data['caUid'] = caUid;
+    data['caPwd'] = caPwd;
+    data['merchantNo'] = merchantNo;
+    data['mLoginId'] = mLoginId;
+    data['appId'] = appId;
+    data['deviceId'] = deviceId;
+    data['appCode'] = appCode;
+    data['otherMLoginId'] = otherMLoginId;
+    data['roomId'] = roomId;
+    data['roomName'] = roomName;
+    data['mLoginIdMember'] = mLoginIdMember;
     return data;
   }
 }

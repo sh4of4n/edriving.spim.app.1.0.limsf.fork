@@ -41,14 +41,14 @@ class _ReplyMessageWidgetState extends State<ReplyMessageWidget> {
               Expanded(
                 child: Text(
                   CapitalizeFirstLetter()
-                      .capitalizeFirstLetter(widget.messageDetails.nick_name!),
+                      .capitalizeFirstLetter(widget.messageDetails.nickName!),
                   style: MyTheme.heading2.copyWith(fontSize: 13),
                 ),
               ),
               if (widget.type != "MESSAGE")
                 GestureDetector(
-                  child: Icon(Icons.close, size: 16),
                   onTap: widget.onCancelReply,
+                  child: const Icon(Icons.close, size: 16),
                 )
             ],
           ),
@@ -62,7 +62,7 @@ class _ReplyMessageWidgetState extends State<ReplyMessageWidget> {
     if (replyMessageDetails.filePath == '') {
       return Expanded(
         child: Text(
-          '${widget.messageDetails.msg_body!}',
+          widget.messageDetails.msgBody!,
           style: MyTheme.bodyText1,
           overflow: TextOverflow.ellipsis,
         ),
@@ -87,7 +87,7 @@ class _ReplyMessageWidgetState extends State<ReplyMessageWidget> {
       return Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Icon(
+          const Icon(
             Icons.mic,
             size: 30,
           ),
@@ -99,7 +99,7 @@ class _ReplyMessageWidgetState extends State<ReplyMessageWidget> {
       return Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Icon(
+          const Icon(
             Icons.videocam_sharp,
             size: 30,
           ),
@@ -114,7 +114,7 @@ class _ReplyMessageWidgetState extends State<ReplyMessageWidget> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Icon(
+          const Icon(
             Icons.file_copy,
             size: 30,
           ),

@@ -13,6 +13,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hive/hive.dart';
 
+@RoutePage(name: 'KppExam')
 class KppExam extends StatefulWidget {
   final String? groupId;
   final String? paperNo;
