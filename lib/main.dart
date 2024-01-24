@@ -4,8 +4,8 @@ import 'package:edriving_spim_app/router.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
-import 'firebase_options.dart';
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/model/inbox_model.dart';
 import '/common_library/services/model/provider_model.dart';
@@ -138,58 +138,50 @@ void main() async {
 
   await Firebase.initializeApp();
 
-  // setupSentry(() =>
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => LanguageModel(),
+  await setupSentry(
+    () => runApp(
+      SentryScreenshotWidget(
+        child: SentryUserInteractionWidget(
+          child: DefaultAssetBundle(
+            bundle: SentryAssetBundle(),
+            child: MultiProvider(
+              providers: [
+                ChangeNotifierProvider(
+                  create: (context) => LanguageModel(),
+                ),
+                ChangeNotifierProvider(
+                  create: (context) => CallStatusModel(),
+                ),
+                ChangeNotifierProvider(
+                  create: (context) => HomeLoadingModel(),
+                ),
+                ChangeNotifierProvider(
+                  create: (context) => CartStatus(),
+                ),
+                ChangeNotifierProvider(
+                  create: (context) => NotificationCount(),
+                ),
+                ChangeNotifierProvider(
+                  create: (context) => ChatNotificationCount(),
+                ),
+                ChangeNotifierProvider(
+                    create: (context) => OnlineUsers(context)),
+                ChangeNotifierProvider(create: (context) => ChatHistory()),
+                ChangeNotifierProvider(create: (context) => RoomHistory()),
+                ChangeNotifierProvider(
+                    create: (context) => SocketClientHelper(context)),
+              ],
+              child: const MyApp(),
+            ),
+          ),
         ),
-        ChangeNotifierProvider(
-          create: (context) => CallStatusModel(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => HomeLoadingModel(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => CartStatus(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => NotificationCount(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => ChatNotificationCount(),
-        ),
-        ChangeNotifierProvider(create: (context) => OnlineUsers(context)),
-        ChangeNotifierProvider(create: (context) => ChatHistory()),
-        ChangeNotifierProvider(create: (context) => RoomHistory()),
-        ChangeNotifierProvider(
-            create: (context) => SocketClientHelper(context)),
-      ],
-      child: const MyApp(),
+      ),
     ),
   );
+
   //);
   configLoading();
 }
-
-// Future<void> setupSentry(AppRunner appRunner) async {
-//   await SentryFlutter.init((options) {
-//     options.dsn = kDebugMode
-//         ? ''
-//         : 'https://d536e0a55a884055b2fa352bcbab7b4b@o354605.ingest.sentry.io/6717561';
-//     options.tracesSampleRate = 1.0;
-//     options.attachThreads = true;
-//     options.enableWindowMetricBreadcrumbs = true;
-//     options.sendDefaultPii = true;
-//     options.reportSilentFlutterErrors = true;
-//     options.attachScreenshot = true;
-//     options.screenshotQuality = SentryScreenshotQuality.low;
-//     options.attachViewHierarchy = true;
-//     options.maxRequestBodySize = MaxRequestBodySize.always;
-//     options.maxResponseBodySize = MaxResponseBodySize.always;
-//   }, appRunner: appRunner);
-// }
 
 void configLoading() {
   EasyLoading.instance
@@ -215,12 +207,33 @@ void configLoading() {
 //   });
 // }
 
+Future<void> setupSentry(AppRunner appRunner,
+    {bool isIntegrationTest = false,
+    BeforeSendCallback? beforeSendCallback}) async {
+  await SentryFlutter.init((options) {
+    options.dsn = kDebugMode
+        ? ''
+        : 'https://2edb0be69871f7ad74edec4ae6f42917@o354605.ingest.sentry.io/4505940084850688';
+    options.tracesSampleRate = 1.0;
+    options.attachThreads = true;
+    options.enableWindowMetricBreadcrumbs = true;
+    options.sendDefaultPii = true;
+    options.reportSilentFlutterErrors = true;
+    options.attachScreenshot = true;
+    options.screenshotQuality = SentryScreenshotQuality.low;
+    options.attachViewHierarchy = true;
+    options.maxRequestBodySize = MaxRequestBodySize.always;
+    options.maxResponseBodySize = MaxResponseBodySize.always;
+  }, appRunner: appRunner);
+}
+
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
   State<MyApp> createState() => MyAppState();
 }
+
 final _appRouter = RootRouter();
 
 class MyAppState extends State<MyApp> {
@@ -232,7 +245,6 @@ class MyAppState extends State<MyApp> {
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
   String _homeScreenText = "Waiting for token...";
   final customDialog = CustomDialog();
-  
 
   @override
   void initState() {
@@ -468,21 +480,18 @@ class MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-
     precacheImage(AssetImage(image.logo2), context);
     return MaterialApp.router(
-      routerConfig: _appRouter.config(
-        deepLinkBuilder: (deepLink) {
-          if (deepLink.path.startsWith('/')) {
-            // continute with the platfrom link
-            return deepLink;
-          } else {
-            return DeepLink.defaultPath;
-            // or DeepLink.path('/')
-            // or DeepLink([HomeRoute()])
-          }
+      routerConfig: _appRouter.config(deepLinkBuilder: (deepLink) {
+        if (deepLink.path.startsWith('/')) {
+          // continute with the platfrom link
+          return deepLink;
+        } else {
+          return DeepLink.defaultPath;
+          // or DeepLink.path('/')
+          // or DeepLink([HomeRoute()])
         }
-      ),
+      }),
       title: 'eDriving SPIM',
       theme: ThemeData(
         primaryColor: ColorConstant.primaryColor,
