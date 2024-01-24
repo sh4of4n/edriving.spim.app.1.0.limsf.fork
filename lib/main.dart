@@ -1,5 +1,9 @@
+// import 'dart:io';
+// ignore_for_file: use_build_context_synchronously, depend_on_referenced_packages
 import 'package:edriving_spim_app/router.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import 'firebase_options.dart';
 import 'package:auto_route/auto_route.dart';
@@ -24,7 +28,12 @@ import '/common_library/services/model/kpp_model.dart';
 import '/common_library/utils/custom_dialog.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart';
-
+import 'pages/chat/chat_history.dart';
+import 'pages/chat/chatnotification_count.dart';
+import 'pages/chat/custom_animation.dart';
+import 'pages/chat/online_users.dart';
+import 'pages/chat/rooms_provider.dart';
+import 'pages/chat/socketclient_helper.dart';
 import 'services/provider/cart_status.dart';
 // import 'package:logging/logging.dart';
 
@@ -75,13 +84,28 @@ class Item {
     );
   }
 } */
+const AndroidNotificationChannel channel = AndroidNotificationChannel(
+    'high_importance_channel', // id
+    'High Importance Notifications', // title
+    description: 'This channel is used for important notifications.',
+    importance: Importance.high,
+    playSound: true);
+
+// flutter local notification
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+
+// firebase background message handler
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  if (kDebugMode) {
+    print('A Background message just showed up :  ${message.messageId}');
+  }
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  WidgetsFlutterBinding.ensureInitialized();
+
   final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
   Hive.registerAdapter(KppExamDataAdapter());
@@ -94,12 +118,27 @@ void main() async {
   await Hive.openBox('ws_url');
   await Hive.openBox('di_list');
   await Hive.openBox('credentials');
+  await Firebase.initializeApp();
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
+// Firebase local notification plugin
+  await flutterLocalNotificationsPlugin
+      .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin>()
+      ?.createNotificationChannel(channel);
+
+//Firebase messaging
+  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    alert: true,
+    badge: true,
+    sound: true,
+  );
   await SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
   await Firebase.initializeApp();
 
+  // setupSentry(() =>
   runApp(
     MultiProvider(
       providers: [
@@ -118,10 +157,55 @@ void main() async {
         ChangeNotifierProvider(
           create: (context) => NotificationCount(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => ChatNotificationCount(),
+        ),
+        ChangeNotifierProvider(create: (context) => OnlineUsers(context)),
+        ChangeNotifierProvider(create: (context) => ChatHistory()),
+        ChangeNotifierProvider(create: (context) => RoomHistory()),
+        ChangeNotifierProvider(
+            create: (context) => SocketClientHelper(context)),
       ],
       child: const MyApp(),
     ),
   );
+  //);
+  configLoading();
+}
+
+// Future<void> setupSentry(AppRunner appRunner) async {
+//   await SentryFlutter.init((options) {
+//     options.dsn = kDebugMode
+//         ? ''
+//         : 'https://d536e0a55a884055b2fa352bcbab7b4b@o354605.ingest.sentry.io/6717561';
+//     options.tracesSampleRate = 1.0;
+//     options.attachThreads = true;
+//     options.enableWindowMetricBreadcrumbs = true;
+//     options.sendDefaultPii = true;
+//     options.reportSilentFlutterErrors = true;
+//     options.attachScreenshot = true;
+//     options.screenshotQuality = SentryScreenshotQuality.low;
+//     options.attachViewHierarchy = true;
+//     options.maxRequestBodySize = MaxRequestBodySize.always;
+//     options.maxResponseBodySize = MaxResponseBodySize.always;
+//   }, appRunner: appRunner);
+// }
+
+void configLoading() {
+  EasyLoading.instance
+    ..displayDuration = const Duration(milliseconds: 2000)
+    ..indicatorType = EasyLoadingIndicatorType.fadingCircle
+    ..loadingStyle = EasyLoadingStyle.dark
+    ..indicatorSize = 45.0
+    ..radius = 10.0
+    ..progressColor = Colors.yellow
+    ..backgroundColor = Colors.green
+    ..indicatorColor = Colors.yellow
+    ..textColor = Colors.yellow
+    ..maskColor = Colors.blue.withOpacity(0.5)
+    ..userInteractions = true
+    ..dismissOnTap = false
+    ..customAnimation = CustomAnimation();
 }
 
 // void _setupLogging() {
@@ -153,19 +237,53 @@ class MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    context.read<SocketClientHelper>().initSocket();
 
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      debugPrint("onMessage: $message");
-
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       getUnreadNotificationCount();
+      if (kDebugMode) {
+        print('Got a message whilst in the FOREGROUND!');
+      }
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification?.android;
+      //print('Message data: ${message.data}');
+      if (notification != null && android != null) {
+        if (await Hive.box('ws_url').get('isInChatRoom') == null) {
+          flutterLocalNotificationsPlugin.show(
+              notification.hashCode,
+              notification.title,
+              notification.body,
+              NotificationDetails(
+                android: AndroidNotificationDetails(
+                  channel.id,
+                  channel.name,
+                  channelDescription: channel.description,
+                  color: Colors.blue,
+                  playSound: true,
+                  icon: '@mipmap/ic_launcher',
+                ),
+              ));
+        }
+      }
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      debugPrint("onMessageOpenedApp: $message");
-
+      if (kDebugMode) {
+        print('NOTIFICATION MESSAGE TAPPED');
+      }
       getUnreadNotificationCount();
-
       _navigateToItemDetail(message);
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification?.android;
+      if (notification != null && android != null) {
+        /*    NotificationPayload notificationPayload =
+            NotificationPayload.fromJson(message.data);
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    ChatHome2(Room_id: notificationPayload.roomId ?? '')));*/
+      }
     });
 
     // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
@@ -334,10 +452,10 @@ class MyAppState extends State<MyApp> {
           // ExtendedNavigator.of(context).push(router.Routes.valueClub);
           router.push(const ValueClub());
           break;
-        case 'CHAT':
-          // ExtendedNavigator.of(context).push(router.Routes.chatHome);
-          router.push(const ChatHome());
-          break;
+        // case 'CHAT':
+        //   // ExtendedNavigator.of(context).push(router.Routes.chatHome);
+        //   router.push(const RoomList());
+        //   break;
       }
     }
     /* final Item item = _itemForMessage(message);

@@ -5,6 +5,8 @@ import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:edriving_spim_app/common_library/services/repository/profile_repository.dart';
 import 'package:hive/hive.dart';
+import 'package:provider/provider.dart';
+import '../chat/socketclient_helper.dart';
 import '/base/page_base_class.dart';
 import '/common_library/utils/custom_dialog.dart';
 import '/router.gr.dart';
@@ -381,6 +383,7 @@ class LoginFormState extends State<LoginForm> with PageBaseClass {
 
           if (getRegisteredDi.isSuccess) {
             if (!context.mounted) return;
+            context.read<SocketClientHelper>().loginUserRoom();
             localStorage.saveMerchantDbCode(getRegisteredDi.data[0].merchantNo);
             localStorage.saveDiCode(getRegisteredDi.data[0].merchantNo);
             localStorage.saveTrnCode(profileResult.data[0].name);
@@ -404,7 +407,8 @@ class LoginFormState extends State<LoginForm> with PageBaseClass {
           localStorage.saveMerchantDbCode(result.data[0].merchantNo);
           localStorage.saveDiCode(result.data[0].merchantNo);
           if (!context.mounted) return;
-          context.router.replace(Home());
+          context.read<SocketClientHelper>().loginUserRoom();
+          context.router.replace(const Home());
         }
       } else {
         setState(() {
