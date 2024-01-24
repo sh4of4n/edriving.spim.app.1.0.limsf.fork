@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'dart:convert';
 import 'dart:io';
@@ -35,8 +35,10 @@ import '../chat/socketclient_helper.dart';
 
 enum AppState { free, picked, cropped }
 
-@RoutePage(name: 'UpdateProfile')
+@RoutePage()
 class UpdateProfile extends StatefulWidget {
+  const UpdateProfile({super.key});
+
   @override
   UpdateProfileState createState() => UpdateProfileState();
 }
@@ -375,7 +377,7 @@ class UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
               _getImageGallery();
             }),
       ],
-      type: DialogType.simpledialog,
+      type: DialogType.simpleDialog,
     );
   }
 

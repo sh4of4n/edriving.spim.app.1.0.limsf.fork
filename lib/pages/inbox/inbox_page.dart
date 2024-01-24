@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors, depend_on_referenced_packages
+
 
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/repository/inbox_repository.dart';
@@ -16,8 +16,10 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../router.gr.dart';
 
-@RoutePage(name: 'Inbox')
+@RoutePage()
 class Inbox extends StatefulWidget {
+  const Inbox({super.key});
+
   @override
   InboxState createState() => InboxState();
 }

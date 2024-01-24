@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 
@@ -11,11 +11,11 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-@RoutePage(name: 'QueueNumber')
+@RoutePage()
 class QueueNumber extends StatefulWidget {
   final dynamic data;
 
-  const QueueNumber({required this.data});
+  const QueueNumber({super.key, required this.data});
 
   @override
   QueueNumberState createState() => QueueNumberState();

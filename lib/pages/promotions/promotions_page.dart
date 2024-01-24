@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 
@@ -9,11 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 
-@RoutePage(name: 'Promotions')
+@RoutePage()
 class Promotions extends StatefulWidget {
   final dynamic feed;
 
-  const Promotions({this.feed});
+  const Promotions({super.key, this.feed});
 
   @override
   PromotionsState createState() => PromotionsState();

@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 
-@RoutePage(name: 'ImageViewer')
+@RoutePage()
 class ImageViewer extends StatelessWidget {
   final String? title;
   final NetworkImage? image;

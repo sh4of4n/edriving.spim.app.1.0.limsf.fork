@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/repository/epandu_repository.dart';
@@ -11,8 +11,10 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-@RoutePage(name: 'CheckInSlip')
+@RoutePage()
 class CheckInSlip extends StatefulWidget {
+  const CheckInSlip({super.key});
+
   @override
   CheckInSlipState createState() => CheckInSlipState();
 }

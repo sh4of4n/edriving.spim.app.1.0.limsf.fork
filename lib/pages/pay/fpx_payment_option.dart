@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors, depend_on_referenced_packages
+
 
 import '/common_library/services/repository/fpx_repository.dart';
 import '/utils/constants.dart';
@@ -14,7 +14,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../router.gr.dart';
 
-@RoutePage(name: 'FpxPaymentOption')
+@RoutePage()
 class FpxPaymentOption extends StatefulWidget {
   final String? icNo;
   final String? docDoc;
@@ -26,7 +26,7 @@ class FpxPaymentOption extends StatefulWidget {
   final String? totalAmount;
   final String? amountString; // for Authorization Request
 
-  const FpxPaymentOption({
+  const FpxPaymentOption({super.key, 
     this.icNo,
     this.docDoc,
     this.docRef,
@@ -91,16 +91,14 @@ class FpxPaymentOptionState extends State<FpxPaymentOption> {
       diCode: widget.diCode,
       amountString: widget.amountString ?? '',
     );
-
+    if (!context.mounted) return;
     if (result.isSuccess) {
-      if (!context.mounted) return;
       context.router.push(
         Webview(
             url: result.data[0].responseData,
             backType: widget.amountString == null ? 'DI_ENROLLMENT' : 'HOME'),
       );
     } else {
-      if (!context.mounted) return;
       context.router.push(
         PaymentStatus(icNo: widget.icNo),
       );

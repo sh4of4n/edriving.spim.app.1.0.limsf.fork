@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/router.gr.dart';
@@ -15,12 +15,12 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
-@RoutePage(name: 'Cart')
+@RoutePage()
 class Cart extends StatefulWidget {
   final String? itemName;
   final String? dbcode;
 
-  const Cart({this.itemName, this.dbcode});
+  const Cart({super.key, this.itemName, this.dbcode});
 
   @override
   CartState createState() => CartState();

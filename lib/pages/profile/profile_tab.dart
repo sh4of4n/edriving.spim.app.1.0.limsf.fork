@@ -15,7 +15,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '/common_library/utils/app_localizations.dart';
 import '../../router.gr.dart';
 
-@RoutePage(name: 'ProfileTab')
+@RoutePage()
 class ProfileTab extends StatefulWidget {
   final dynamic positionStream;
 

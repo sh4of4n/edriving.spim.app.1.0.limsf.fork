@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 //import 'package:auto_route/auto_route.dart';
 import 'package:auto_route/auto_route.dart';
@@ -19,6 +19,8 @@ import 'home_top_menu.dart';
 
 @RoutePage(name: 'Home')
 class Home extends StatefulWidget {
+  const Home({super.key});
+
   @override
   HomeState createState() => HomeState();
 }

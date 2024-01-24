@@ -1,5 +1,3 @@
-// ignore_for_file: depend_on_referenced_packages
-
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -22,14 +20,14 @@ class DatabaseCreator {
     debugPrint(functionName);
     debugPrint(sql);
     if (params != null) {
-      // ignore: avoid_print
+      
       print(params);
     }
     if (selectQueryResult != null) {
-      // ignore: avoid_print
+      
       print(selectQueryResult);
     } else if (insertAndUpdateQueryResult != null) {
-      // ignore: avoid_print
+      
       print(insertAndUpdateQueryResult);
     }
   }
@@ -62,7 +60,7 @@ class DatabaseCreator {
   Future<void> initDatabase() async {
     final path = await getDatabasePath('todo_db');
     db = await openDatabase(path, version: 1, onCreate: onCreate);
-    // ignore: avoid_print
+    
     print(db);
   }
 

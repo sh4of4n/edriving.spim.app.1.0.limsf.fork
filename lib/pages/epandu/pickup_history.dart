@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/common_library/utils/app_localizations.dart';
@@ -13,6 +13,8 @@ import 'package:transparent_image/transparent_image.dart';
 import '../../router.gr.dart';
 
 class PickupHistory extends StatefulWidget {
+  const PickupHistory({super.key});
+
   @override
   PickupHistoryState createState() => PickupHistoryState();
 }

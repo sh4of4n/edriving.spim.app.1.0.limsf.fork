@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 
@@ -14,9 +14,10 @@ import 'package:transparent_image/transparent_image.dart';
 
 import '../../router.gr.dart';
 import 'kpp_category_icon.dart';
-
-@RoutePage(name: 'KppCategory')
+@RoutePage()
 class KppCategory extends StatefulWidget {
+  const KppCategory({super.key});
+
   @override
   KppCategoryState createState() => KppCategoryState();
 }

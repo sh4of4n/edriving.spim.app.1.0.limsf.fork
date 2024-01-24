@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/pages/kpp/question_options.dart';
@@ -23,7 +23,7 @@ class ExamTemplate extends StatefulWidget {
   final dynamic groupId;
   final dynamic paperNo;
 
-  const ExamTemplate({this.snapshot, this.index, this.groupId, this.paperNo});
+  const ExamTemplate({super.key, this.snapshot, this.index, this.groupId, this.paperNo});
 
   @override
   ExamTemplateState createState() => ExamTemplateState();

@@ -39,7 +39,7 @@ class FontTheme {
   TextTheme primaryFont = const TextTheme(
     displayLarge: TextStyle(fontSize: 96, color: Color(0xff5c5c5c)),
     displayMedium: TextStyle(fontSize: 60, color: Color(0xff5c5c5c)),
-    displaySmall: TextStyle(fontSize: 48, color: Color(0xff5c5c5c)),
+    displaySmall:  TextStyle(fontSize: 48, color: Color(0xff5c5c5c)),
     headlineMedium: TextStyle(fontSize: 34, color: Color(0xff5c5c5c)),
     headlineSmall: TextStyle(fontSize: 24, color: Color(0xff5c5c5c)),
     titleLarge: TextStyle(
@@ -78,6 +78,7 @@ class ImagesConstant {
   String bookingIcon = 'assets/images/booking.png';
   String faqIcon = 'assets/images/faq.png';
   String classIcon = 'assets/images/classes.png';
+  String dummyProfile = 'assets/images/dummy-pic.jpg';
   String paymentIcon = 'assets/images/payment.png';
   String attendanceIcon = 'assets/images/attendance.png';
   String chatIcon = 'assets/images/chat.png';
@@ -95,6 +96,8 @@ class ImagesConstant {
   String fpxLogo = 'assets/images/fpx-logo-1.jpg';
   String fpxLogo2 = 'assets/images/fpx-logo-2.png';
   String fpxLogo3 = 'assets/images/fpx-logo-3.png';
+  String mykadimg = 'assets/images/MyKad.png';
+  String mifareimg = 'assets/images/MiFare.png';
 
   // emergency
   String ambulanceIcon = 'assets/images/ambulance.png';

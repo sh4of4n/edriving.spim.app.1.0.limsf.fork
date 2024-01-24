@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 enum DialogType {
@@ -6,16 +7,16 @@ enum DialogType {
   success,
   error,
   warning,
-  simpledialog,
+  simpleDialog,
 }
 
 class CustomDialog {
   final double _defIconSize = 120;
 
   show({
-    required context,
-    required String content,
-    title,
+    required BuildContext context,
+    required String? content,
+    Widget? title,
     customActions,
     required type,
     bool? barrierDismissable,
@@ -59,7 +60,7 @@ class CustomDialog {
             size: _defIconSize,
           ),
         );
-        return _dialog(
+        return _dialogApproval(
           context,
           title,
           content,
@@ -88,14 +89,14 @@ class CustomDialog {
             size: _defIconSize,
           ),
         );
-        return _dialog(
+        return _dialogApproval(
           context,
           title,
           content,
           actions,
           barrierDismissable,
         );
-      case DialogType.simpledialog:
+      case DialogType.simpleDialog:
         actions = customActions;
         return _simpleDialog(
           context,
@@ -107,9 +108,9 @@ class CustomDialog {
   }
 
   _dialog(
-    context,
-    title,
-    content,
+    BuildContext context,
+    Widget? title,
+    String? content,
     actions,
     barrierDismissable,
   ) {
@@ -117,7 +118,27 @@ class CustomDialog {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          content: Text(content),
+          content: Text(content ?? ''),
+          title: title,
+          actions: actions,
+        );
+      },
+      barrierDismissible: barrierDismissable ?? true,
+    );
+  }
+
+  _dialogApproval(
+    BuildContext context,
+    Widget? title,
+    String? content,
+    actions,
+    barrierDismissable,
+  ) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Text(content ?? ''),
           title: title,
           actions: actions,
         );

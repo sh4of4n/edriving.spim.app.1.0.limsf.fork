@@ -3,7 +3,6 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-  connectivity_plus
   emoji_picker_flutter
   file_selector_windows
   firebase_core
@@ -13,6 +12,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   printing
   record_windows
   sentry_flutter
+  syncfusion_pdfviewer_windows
   url_launcher_windows
 )
 

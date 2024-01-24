@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/common_library/utils/app_localizations.dart';
@@ -13,13 +13,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../router.gr.dart';
 
-@RoutePage(name: 'PurchaseOrderList')
+@RoutePage()
 class PurchaseOrderList extends StatefulWidget {
   final String? icNo;
   final String? packageCode;
   final String? diCode;
 
-  const PurchaseOrderList({
+  const PurchaseOrderList({super.key, 
     this.icNo,
     this.packageCode,
     this.diCode,

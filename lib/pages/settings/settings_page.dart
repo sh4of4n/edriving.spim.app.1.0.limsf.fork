@@ -1,7 +1,6 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
-import '../chat/socketclient_helper.dart';
 import '/common_library/services/model/provider_model.dart';
 import '/common_library/services/repository/auth_repository.dart';
 import '/common_library/utils/device_info.dart';
@@ -20,7 +19,7 @@ import '../../router.gr.dart';
 class Settings extends StatefulWidget {
   final dynamic data;
 
-  const Settings(this.data);
+  const Settings(this.data, {super.key});
 
   @override
   SettingsState createState() => SettingsState();
@@ -256,11 +255,9 @@ class SettingsState extends State<Settings> {
                 _isLoading = true;
               });
 
-              context.read<SocketClientHelper>().disconnectSocket();
-              if (!mounted) return;
               context.router.pop();
               await authRepo.logout(context: context, type: 'CLEAR');
-              if (!mounted) return;
+              if (!context.mounted) return;
               context.router
                   .pushAndPopUntil(const Login(), predicate: (r) => false);
 
@@ -287,12 +284,10 @@ class SettingsState extends State<Settings> {
     });
 
     var result = await authRepo.deleteAppMemberAccount(context: context);
-
+    if (!context.mounted) return;
     if (result.isSuccess) {
-      if (!mounted) return;
       context.router.pushAndPopUntil(const Login(), predicate: (r) => false);
     } else {
-      if (!mounted) return;
       customDialog.show(
         context: context,
         type: DialogType.error,

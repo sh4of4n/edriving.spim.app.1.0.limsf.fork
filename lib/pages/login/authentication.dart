@@ -1,7 +1,6 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
-import '../chat/socketclient_helper.dart';
 import '/common_library/utils/app_localizations.dart';
 import '/router.gr.dart';
 import '/common_library/services/model/provider_model.dart';
@@ -17,8 +16,10 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
-@RoutePage(name: 'Authentication')
+@RoutePage()
 class Authentication extends StatefulWidget {
+  const Authentication({super.key});
+
   @override
   AuthenticationState createState() => AuthenticationState();
 }
@@ -55,7 +56,7 @@ class AuthenticationState extends State<Authentication> {
     // if (wsUrl == null) {
     if (Hive.box('ws_url').get('getWsUrl') == '1' ||
         Hive.box('ws_url').get('getWsUrl') == null) {
-      if (!context.mounted) return;
+          if (!context.mounted) return;
       await authRepo.getWsUrl(
         context: context,
         acctUid: caUid,
@@ -85,21 +86,14 @@ class AuthenticationState extends State<Authentication> {
   _checkExistingLogin() async {
     String? userId = await localStorage.getUserId();
     String? diCode = await localStorage.getMerchantDbCode();
-
+    if (!context.mounted) return;
     if (userId != null && userId.isNotEmpty && diCode!.isNotEmpty) {
-      if (!mounted) return;
-      await context.read<SocketClientHelper>().loginUserRoom();
-      if (!mounted) return;
-      context.router.replace(const Home());
+      context.router.replace(Home());
     } else if (userId != null && userId.isNotEmpty && diCode!.isEmpty) {
-      if (!mounted) return;
-      context.read<SocketClientHelper>().disconnectSocket();
-
       await authRepo.logout(context: context, type: '');
-      if (!mounted) return;
+      if (!context.mounted) return;
       context.router.replace(const Login());
     } else {
-      if (!mounted) return;
       context.router.replace(const Login());
     }
   }

@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/repository/epandu_repository.dart';
@@ -11,8 +11,10 @@ import 'package:shimmer/shimmer.dart';
 import '/common_library/utils/app_localizations.dart';
 import '../../router.gr.dart';
 
-@RoutePage(name: 'PaymentHistory')
+@RoutePage()
 class PaymentHistory extends StatefulWidget {
+  const PaymentHistory({super.key});
+
   @override
   PaymentHistoryState createState() => PaymentHistoryState();
 }

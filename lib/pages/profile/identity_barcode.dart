@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 
@@ -11,9 +11,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:package_info/package_info.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-
-@RoutePage(name: 'IdentityBarcode')
+@RoutePage()
 class IdentityBarcode extends StatefulWidget {
+  const IdentityBarcode({super.key});
+
   @override
   IdentityBarcodeState createState() => IdentityBarcodeState();
 }

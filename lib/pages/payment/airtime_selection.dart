@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/repository/bill_repository.dart';
@@ -12,13 +12,15 @@ import 'package:hive/hive.dart';
 import '/common_library/utils/app_localizations.dart';
 import '../../router.gr.dart';
 
-@RoutePage(name: 'AirtimeSelection')
+@RoutePage()
 class AirtimeSelection extends StatelessWidget {
   final primaryColor = ColorConstant.primaryColor;
 
   final billRepo = BillRepo();
 
   final Box<dynamic> telcoList = Hive.box('telcoList');
+
+  AirtimeSelection({super.key});
 
   Future<dynamic> _getTelco(context) async {
     if (telcoList.get('telcoList') == null) {

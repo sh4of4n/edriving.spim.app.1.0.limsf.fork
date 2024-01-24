@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/base/page_base_class.dart';
@@ -17,7 +17,7 @@ import '../../router.gr.dart';
 class ClientAccountForm extends StatefulWidget {
   final dynamic data;
 
-  const ClientAccountForm(this.data);
+  const ClientAccountForm(this.data, {super.key});
 
   @override
   ClientAccountFormState createState() => ClientAccountFormState();
@@ -338,7 +338,7 @@ class ClientAccountFormState extends State<ClientAccountForm>
     if (urlController.text.isNotEmpty) {
       await Hive.box('ws_url').put(
         'userDefinedUrl',
-        urlController.text.replaceAll('_wsver_', '6_1'),
+        urlController.text.replaceAll('_wsver_', '6_2'),
       );
 
       await Hive.box('ws_url').put(
@@ -350,7 +350,7 @@ class ClientAccountFormState extends State<ClientAccountForm>
       localStorage.saveCaPwd(caPwdController.text.replaceAll(' ', ''));
       localStorage.saveCaPwdEncode(
           Uri.encodeQueryComponent(caPwdController.text.replaceAll(' ', '')));
-
+      if (!context.mounted) return;
       if (widget.data == 'SETTINGS') {
         if (!context.mounted) return;
         context.router.replace(const Login());
@@ -382,7 +382,7 @@ class ClientAccountFormState extends State<ClientAccountForm>
 
         if (result.isSuccess) {
           await Hive.box('ws_url').delete('userDefinedUrl');
-
+          if (!context.mounted) return;
           if (widget.data == 'SETTINGS') {
             if (!context.mounted) return;
             context.router.replace(const Login());

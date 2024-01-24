@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors, depend_on_referenced_packages
+
 
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/repository/auth_repository.dart';
@@ -6,15 +6,16 @@ import '/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import '/common_library/utils/app_localizations.dart';
-import '../../router.gr.dart';
 import 'package:quiver/async.dart';
 
-@RoutePage(name: 'RegisterVerification')
+import '/common_library/utils/app_localizations.dart';
+import '../../router.gr.dart';
+
+@RoutePage()
 class RegisterVerification extends StatefulWidget {
   final dynamic data;
 
-  const RegisterVerification(this.data);
+  const RegisterVerification(this.data, {super.key});
 
   @override
   RegisterVerificationState createState() => RegisterVerificationState();

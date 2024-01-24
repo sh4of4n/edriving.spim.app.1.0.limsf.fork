@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/repository/fpx_repository.dart';
@@ -16,8 +16,10 @@ import 'package:supercharged/supercharged.dart';
 import '/common_library/utils/app_localizations.dart';
 import '../../router.gr.dart';
 
-@RoutePage(name: 'Pay')
+@RoutePage()
 class Pay extends StatefulWidget {
+  const Pay({super.key});
+
   @override
   PayState createState() => PayState();
 }
@@ -172,9 +174,8 @@ class PayState extends State<Pay> {
           packageCode: paymentFor,
           amountString: amountController.text.replaceAll(',', ''),
         );
-
+        if (!context.mounted) return;
         if (result.isSuccess) {
-          if (!context.mounted) return;
           context.router.push(
             FpxPaymentOption(
               icNo: _icNo,
@@ -199,7 +200,6 @@ class PayState extends State<Pay> {
             ),
           ); */
         } else {
-          if (!context.mounted) return;
           customDialog.show(
             context: context,
             type: DialogType.error,
@@ -245,7 +245,7 @@ class PayState extends State<Pay> {
           appBar: AppBar(
             title: Text(AppLocalizations.of(context)!.translate('pay_lbl')),
             elevation: 0,
-            backgroundColor: Colors.transparent,
+            backgroundColor: const Color.fromARGB(255, 232, 186, 4),
             actions: [
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 40.w),

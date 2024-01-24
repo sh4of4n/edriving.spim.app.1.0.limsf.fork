@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 
@@ -9,12 +9,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 
-@RoutePage(name: 'Multilevel')
+@RoutePage()
 class Multilevel extends StatefulWidget {
   final dynamic feed;
   final String? appVersion;
 
-  const Multilevel({this.feed, this.appVersion});
+  const Multilevel({super.key, this.feed, this.appVersion});
 
   @override
   MultilevelState createState() => MultilevelState();

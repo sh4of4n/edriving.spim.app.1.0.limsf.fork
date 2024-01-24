@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import '/common_library/services/repository/epandu_repository.dart';
 import '/common_library/utils/app_localizations.dart';
@@ -12,7 +12,7 @@ class CheckInRecord extends StatefulWidget {
   final dynamic checkInData;
   final bool isLoading;
 
-  const CheckInRecord({required this.checkInData, required this.isLoading});
+  const CheckInRecord({super.key, required this.checkInData, required this.isLoading});
 
   @override
   CheckInRecordState createState() => CheckInRecordState();

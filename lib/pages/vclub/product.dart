@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import 'package:badges/badges.dart' as badges;
@@ -19,7 +19,7 @@ import 'package:provider/provider.dart';
 import '../../router.gr.dart' as route;
 import '/common_library/services/repository/products_repository.dart';
 
-@RoutePage(name: 'Product')
+@RoutePage()
 class Product extends StatefulWidget {
   final String? stkCode;
   final String? stkDesc1;
@@ -30,7 +30,7 @@ class Product extends StatefulWidget {
   final String? uom;
   final dynamic products;
 
-  const Product({
+  const Product({super.key, 
     this.stkCode,
     this.stkDesc1,
     this.stkDesc2,
@@ -295,7 +295,6 @@ class ProductState extends State<Product> {
             RatingBar.builder(
               initialRating: rating,
               onRatingUpdate: (rating) {
-                // ignore: avoid_print
                 print(rating);
               },
               direction: Axis.horizontal,
@@ -342,24 +341,21 @@ class ProductState extends State<Product> {
                 ),
               ),
               child: Padding(
-                  padding:
-                      EdgeInsets.only(top: 30.h, right: 50.w, bottom: 20.h),
-                  child: badges.Badge(
-                    //shape: BadgeShape.circle,
-                    //padding: EdgeInsets.all(8),
-                    showBadge: showBadge,
-                    //badgeColor: Colors.green,
-                    badgeStyle: badges.BadgeStyle(
-                        badgeColor: Colors.redAccent[700]!,
-                        shape: badges.BadgeShape.circle,
-                        padding: const EdgeInsets.all(8)),
-                    badgeAnimation: const badges.BadgeAnimation.fade(),
-                    badgeContent: Text(
-                      '$badgeNo',
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                    child: const Icon(Icons.shopping_cart),
-                  )),
+                padding: EdgeInsets.only(top: 30.h, right: 50.w, bottom: 20.h),
+                child: badges.Badge(
+                  badgeStyle: badges.BadgeStyle(
+                    badgeColor: Colors.redAccent[700]!,
+                  
+                  ),
+                  badgeAnimation: const badges.BadgeAnimation.fade(),
+                  showBadge: showBadge,
+                  badgeContent: Text(
+                    '$badgeNo',
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                  child: const Icon(Icons.shopping_cart),
+                ),
+              ),
             ),
           ],
         ),

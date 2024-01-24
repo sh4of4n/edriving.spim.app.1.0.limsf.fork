@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/common_library/utils/app_localizations.dart';
@@ -14,8 +14,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../router.gr.dart';
 
-@RoutePage(name: 'RequestPickup')
+@RoutePage()
 class RequestPickup extends StatefulWidget {
+  const RequestPickup({super.key});
+
   @override
   RequestPickupState createState() => RequestPickupState();
 }
@@ -361,7 +363,7 @@ class RequestPickupState extends State<RequestPickup> with PageBaseClass {
               TextButton(
                 child: Text(AppLocalizations.of(context)!.translate('ok_btn')),
                 onPressed: () => context.router
-                    .pushAndPopUntil(const Home(), predicate: (r) => false),
+                    .pushAndPopUntil(Home(), predicate: (r) => false),
               ),
             ],
           );

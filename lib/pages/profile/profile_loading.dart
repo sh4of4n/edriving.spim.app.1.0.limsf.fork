@@ -1,11 +1,11 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:flutter/material.dart';
 
 class ProfileLoading extends StatelessWidget {
   final dynamic message;
 
-  const ProfileLoading(this.message);
+  const ProfileLoading(this.message, {super.key});
 
   @override
   Widget build(BuildContext context) {

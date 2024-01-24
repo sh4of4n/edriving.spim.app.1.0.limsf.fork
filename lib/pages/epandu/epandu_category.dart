@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/common_library/utils/app_localizations.dart';
@@ -12,7 +12,7 @@ import 'package:transparent_image/transparent_image.dart';
 import '../../router.gr.dart';
 
 // import 'bottom_menu.dart';
-@RoutePage(name: 'EpanduCategory')
+@RoutePage()
 class EpanduCategory extends StatelessWidget {
   final authRepo = AuthRepo();
   final image = ImagesConstant();
@@ -23,6 +23,8 @@ class EpanduCategory extends StatelessWidget {
     color: Colors.black,
   );
   final myImage = ImagesConstant();
+
+  EpanduCategory({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +100,7 @@ class EpanduCategory extends StatelessWidget {
                   ),
                   Divider(color: Colors.grey[400]),
                   ListTile(
-                    onTap: () => context.router.push(const Records()),
+                    onTap: () => context.router.push(Records()),
                     title: Text(
                         AppLocalizations.of(context)!.translate('records'),
                         style: iconText),

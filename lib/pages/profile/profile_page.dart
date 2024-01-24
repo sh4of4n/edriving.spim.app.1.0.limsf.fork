@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/common_library/utils/app_localizations.dart';
@@ -12,13 +12,13 @@ import 'package:transparent_image/transparent_image.dart';
 
 import '../../router.gr.dart';
 
-@RoutePage(name: 'Profile')
+@RoutePage()
 class Profile extends StatefulWidget {
   final dynamic userProfile;
   final dynamic enrollData;
   //final dynamic isLoading;
 
-  const Profile({this.userProfile, this.enrollData}); //this.isLoading});
+  const Profile({super.key, this.userProfile, this.enrollData}); //this.isLoading});
 
   @override
   ProfileState createState() => ProfileState();

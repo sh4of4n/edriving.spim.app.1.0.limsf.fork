@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/common_library/utils/app_localizations.dart';
@@ -13,11 +13,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../router.gr.dart';
 
-@RoutePage(name: 'BillDetail')
+@RoutePage()
 class BillDetail extends StatefulWidget {
   final dynamic data;
 
-  const BillDetail(this.data);
+  const BillDetail(this.data, {super.key});
 
   @override
   BillDetailState createState() => BillDetailState();

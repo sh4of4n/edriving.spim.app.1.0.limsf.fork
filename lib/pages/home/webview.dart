@@ -1,6 +1,6 @@
-// ignore_for_file: use_key_in_widget_constructors, depend_on_referenced_packages
 
 import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import '/utils/constants.dart';
 import '/common_library/utils/custom_dialog.dart';
@@ -19,12 +19,12 @@ import 'package:webview_flutter_android/webview_flutter_android.dart';
 // Import for iOS features.
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 
-@RoutePage(name: 'Webview')
+@RoutePage()
 class Webview extends StatefulWidget {
   final String? url;
   final String? backType;
 
-  const Webview({required this.url, this.backType});
+  const Webview({super.key, required this.url, this.backType});
 
   @override
   WebviewState createState() => WebviewState();
@@ -43,10 +43,9 @@ Future<bool> _onWillPop(
     if (await controllerGlobal!.canGoBack()) {
       controllerGlobal!.goBack();
     } else {
-      if (!context.mounted) return false;
       // _confirmBack(customDialog, context);
+      if (!context.mounted) return true;
       Provider.of<CallStatusModel>(context, listen: false).callStatus(false);
-      return true;
     }
 
     return Future.value(false);
@@ -216,7 +215,6 @@ Page resource error:
         //   onWebViewCreated: (WebViewController webViewController) {
         //     _controller.complete(webViewController);
         //   },
-        //   // ignore: prefer_collection_literals
         //   javascriptChannels: <JavascriptChannel>[
         //     _toasterJavascriptChannel(context),
         //   ].toSet(),

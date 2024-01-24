@@ -1,5 +1,5 @@
 // import '/custom_icon/my_custom_icons_icons.dart';
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/model/auth_model.dart';
@@ -16,7 +16,7 @@ class HomePageHeader extends StatelessWidget {
   final String? instituteLogo;
   final dynamic positionStream;
 
-  HomePageHeader({this.instituteLogo, this.positionStream});
+  HomePageHeader({super.key, this.instituteLogo, this.positionStream});
 
   final formatter = NumberFormat('#,##0.00');
   final image = ImagesConstant();
@@ -64,7 +64,7 @@ class HomePageHeader extends StatelessWidget {
               child: FadeInImage(
                 alignment: Alignment.center,
                 height: 350.h,
-                fit: BoxFit.fitWidth,
+                fit: BoxFit.fitHeight,
                 placeholder: MemoryImage(kTransparentImage),
                 image: (instituteLogo!.isNotEmpty
                     ? NetworkImage(instituteLogo!)

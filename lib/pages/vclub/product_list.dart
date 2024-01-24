@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/repository/products_repository.dart';
@@ -12,12 +12,12 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../router.gr.dart';
 
-@RoutePage(name: 'ProductList')
+@RoutePage()
 class ProductList extends StatefulWidget {
   final String? stkCat;
   final String? keywordSearch;
 
-  const ProductList({this.stkCat, this.keywordSearch});
+  const ProductList({super.key, this.stkCat, this.keywordSearch});
 
   @override
   ProductListState createState() => ProductListState();

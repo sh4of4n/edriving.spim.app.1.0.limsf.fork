@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/utils/constants.dart';
@@ -11,6 +11,8 @@ import '../../router.gr.dart';
 
 class PaymentPage extends StatelessWidget {
   final primaryColor = ColorConstant.primaryColor;
+
+  const PaymentPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -49,13 +51,13 @@ class PaymentPage extends StatelessWidget {
               shrinkWrap: true,
               children: <Widget>[
                 ListTile(
-                  onTap: () => context.router.push(const AirtimeSelection()),
+                  onTap: () => context.router.push( AirtimeSelection()),
                   leading: const Icon(Icons.attach_money),
                   title: Text(
                       AppLocalizations.of(context)!.translate('airtime_lbl')),
                 ),
                 ListTile(
-                  onTap: () => context.router.push(const BillSelection()),
+                  onTap: () => context.router.push( BillSelection()),
                   leading: const Icon(Icons.attach_money),
                   title:
                       Text(AppLocalizations.of(context)!.translate('bill_lbl')),

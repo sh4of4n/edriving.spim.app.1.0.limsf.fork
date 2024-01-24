@@ -1,11 +1,10 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-@RoutePage(name: 'KppResult')
+@RoutePage()
 class KppResult extends StatelessWidget {
   final primaryColor = ColorConstant.primaryColor;
   final dynamic data;
@@ -13,7 +12,7 @@ class KppResult extends StatelessWidget {
   final resultStyle = const TextStyle(
       fontSize: 24, fontWeight: FontWeight.w800, color: Colors.blue);
 
-  const KppResult(this.data);
+  const KppResult(this.data, {super.key});
 
   @override
   Widget build(BuildContext context) {

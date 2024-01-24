@@ -1,8 +1,9 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:edriving_spim_app/pages/epandu/bottom_menu.dart';
 import '/common_library/utils/app_localizations.dart';
 import '/services/provider/cart_status.dart';
 import '/common_library/services/repository/products_repository.dart';
@@ -17,9 +18,10 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 import '../../router.gr.dart';
-
-@RoutePage(name: 'ValueClub')
+@RoutePage()
 class ValueClub extends StatefulWidget {
+  const ValueClub({super.key});
+
   @override
   ValueClubState createState() => ValueClubState();
 }
@@ -595,7 +597,7 @@ class ValueClubState extends State<ValueClub> {
         appBar: AppBar(
           title: Text(AppLocalizations.of(context)!.translate('value_club')),
           elevation: 0,
-          backgroundColor: Colors.transparent,
+          backgroundColor: const Color.fromARGB(255, 232, 186, 4),
           actions: [
             InkWell(
               onTap: () => context.router.push(
@@ -607,15 +609,11 @@ class ValueClubState extends State<ValueClub> {
               child: Padding(
                 padding: EdgeInsets.only(top: 30.h, right: 50.w, bottom: 20.h),
                 child: badges.Badge(
-                  //shape: BadgeShape.circle,
-                  //padding: EdgeInsets.all(8),
-                  showBadge: showBadge,
-                  //badgeColor: Colors.green,
                   badgeStyle: badges.BadgeStyle(
-                      badgeColor: Colors.redAccent[700]!,
-                      shape: badges.BadgeShape.circle,
-                      padding: const EdgeInsets.all(8)),
+                    badgeColor: Colors.redAccent[700]!,
+                  ),
                   badgeAnimation: const badges.BadgeAnimation.fade(),
+                  showBadge: showBadge,
                   badgeContent: Text(
                     '$badgeNo',
                     style: const TextStyle(color: Colors.white),
@@ -626,24 +624,124 @@ class ValueClubState extends State<ValueClub> {
             ),
           ],
         ),
-        // bottomNavigationBar: BottomMenu(),
+        bottomNavigationBar: BottomMenu(),
         body: ListView(
           children: <Widget>[
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
-              child: InkWell(
-                onTap: () =>
-                    context.router.push(MerchantList(merchantType: 'HOCHIAK')),
-                child: FadeInImage(
-                  alignment: Alignment.center,
-                  placeholder: MemoryImage(kTransparentImage),
-                  // height: ScreenUtil().setHeight(100),
-                  image: AssetImage(
-                    myImage.hochiak,
-                  ),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child:
+                    Row(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
+                          child: InkWell(
+                            onTap: () =>
+                                context.router.push(MerchantList(merchantType: 'HOCHIAK')),
+                            child: FadeInImage(
+                              alignment: Alignment.center,
+                              placeholder: MemoryImage(kTransparentImage),
+                              height: ScreenUtil().setHeight(500),
+                              image: AssetImage(
+                                myImage.hochiak,
+                              ),
+                            ),
+                          ),
+                        ),
+                         Padding(
+                                padding:
+                                    EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
+                                child: InkWell(
+                                  onTap: () => context.router.push(MerchantList(merchantType: 'TOUR')),
+                                  child: FadeInImage(
+                                    alignment: Alignment.center,
+                                    placeholder: MemoryImage(kTransparentImage),
+                                    height: ScreenUtil().setHeight(500),
+                                    image: AssetImage(
+                                      myImage.tourism,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                        Padding(
+                            padding:
+                                EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
+                            child: InkWell(
+                              onTap: () => context.router.push(MerchantList(merchantType: 'HIGHEDU')),
+                              child: FadeInImage(
+                                alignment: Alignment.center,
+                                placeholder: MemoryImage(kTransparentImage),
+                                height: ScreenUtil().setHeight(500),
+                                image: AssetImage(
+                                  myImage.higherEducation,
+                                ),
+                              ),
+                            ),
+                          ),
+                      
+                     
+                      /* Padding(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
+                        child: InkWell(
+                          onTap: () => context.router.push(MerchantList(merchantType: 'JOB')),
+                          child: FadeInImage(
+                            alignment: Alignment.center,
+                            placeholder: MemoryImage(kTransparentImage),
+                            height: ScreenUtil().setHeight(500),
+                            image: AssetImage(
+                              myImage.jobs,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
+                        child: InkWell(
+                          onTap: () => context.router.push(MerchantList(merchantType: 'RIDE')),
+                          child: FadeInImage(
+                            alignment: Alignment.center,
+                            placeholder: MemoryImage(kTransparentImage),
+                            height: ScreenUtil().setHeight(500),
+                            image: AssetImage(
+                              myImage.rideSharing,
+                            ),
+                          ),
+                        ),
+                      ), */
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
+                        child: InkWell(
+                          onTap: () => context.router.push(MerchantList(merchantType: 'DI')),
+                          child: FadeInImage(
+                            alignment: Alignment.center,
+                            placeholder: MemoryImage(kTransparentImage),
+                            height: ScreenUtil().setHeight(500),
+                            image: AssetImage(
+                              myImage.drivingSchools,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
+                        child: InkWell(
+                          onTap: () => context.router.push(MerchantList(merchantType: 'WORKSHOP')),
+                          child: FadeInImage(
+                            alignment: Alignment.center,
+                            placeholder: MemoryImage(kTransparentImage),
+                            height: ScreenUtil().setHeight(500),
+                            image: AssetImage(
+                              myImage.workshops,
+                            ),
+                          ),
+                        ),
+                      ),
+                      ],
+                    ),
                 ),
-              ),
-            ),
             Stack(
               children: [
                 Align(
@@ -741,163 +839,7 @@ class ValueClubState extends State<ValueClub> {
                 shrinkWrap: true,
                 physics: BouncingScrollPhysics(),
                 children: <Widget>[
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
-                    child: InkWell(
-                      onTap: () => context.router
-                          .push(Routes.billSelection),
-                      child: FadeInImage(
-                        alignment: Alignment.center,
-                        placeholder: MemoryImage(kTransparentImage),
-                        // height: ScreenUtil().setHeight(100),
-                        image: AssetImage(
-                          myImage.billPayment,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
-                    child: InkWell(
-                      onTap: () => context.router
-                          .push(Routes.airtimeSelection),
-                      child: FadeInImage(
-                        alignment: Alignment.center,
-                        placeholder: MemoryImage(kTransparentImage),
-                        // height: ScreenUtil().setHeight(100),
-                        image: AssetImage(
-                          myImage.airtime,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
-                    child: InkWell(
-                      onTap: () => context.router.push(
-                          Routes.merchantList,
-                          arguments:
-                              MerchantListArguments(merchantType: 'TOUR')),
-                      child: FadeInImage(
-                        alignment: Alignment.center,
-                        placeholder: MemoryImage(kTransparentImage),
-                        // height: ScreenUtil().setHeight(100),
-                        image: AssetImage(
-                          myImage.tourism,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
-                    child: InkWell(
-                      onTap: () => context.router.push(
-                          Routes.merchantList,
-                          arguments:
-                              MerchantListArguments(merchantType: 'HOCHIAK')),
-                      child: FadeInImage(
-                        alignment: Alignment.center,
-                        placeholder: MemoryImage(kTransparentImage),
-                        // height: ScreenUtil().setHeight(100),
-                        image: AssetImage(
-                          myImage.hochiak,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
-                    child: InkWell(
-                      onTap: () => context.router.push(
-                          Routes.merchantList,
-                          arguments:
-                              MerchantListArguments(merchantType: 'HIGHEDU')),
-                      child: FadeInImage(
-                        alignment: Alignment.center,
-                        placeholder: MemoryImage(kTransparentImage),
-                        // height: ScreenUtil().setHeight(100),
-                        image: AssetImage(
-                          myImage.higherEducation,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
-                    child: InkWell(
-                      onTap: () => context.router.push(
-                          Routes.merchantList,
-                          arguments:
-                              MerchantListArguments(merchantType: 'JOB')),
-                      child: FadeInImage(
-                        alignment: Alignment.center,
-                        placeholder: MemoryImage(kTransparentImage),
-                        // height: ScreenUtil().setHeight(100),
-                        image: AssetImage(
-                          myImage.jobs,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
-                    child: InkWell(
-                      onTap: () => context.router.push(
-                          Routes.merchantList,
-                          arguments:
-                              MerchantListArguments(merchantType: 'RIDE')),
-                      child: FadeInImage(
-                        alignment: Alignment.center,
-                        placeholder: MemoryImage(kTransparentImage),
-                        // height: ScreenUtil().setHeight(100),
-                        image: AssetImage(
-                          myImage.rideSharing,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
-                    child: InkWell(
-                      onTap: () => context.router.push(
-                          Routes.merchantList,
-                          arguments: MerchantListArguments(merchantType: 'DI')),
-                      child: FadeInImage(
-                        alignment: Alignment.center,
-                        placeholder: MemoryImage(kTransparentImage),
-                        // height: ScreenUtil().setHeight(100),
-                        image: AssetImage(
-                          myImage.drivingSchools,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
-                    child: InkWell(
-                      onTap: () => context.router.push(
-                          Routes.merchantList,
-                          arguments:
-                              MerchantListArguments(merchantType: 'WORKSHOP')),
-                      child: FadeInImage(
-                        alignment: Alignment.center,
-                        placeholder: MemoryImage(kTransparentImage),
-                        // height: ScreenUtil().setHeight(100),
-                        image: AssetImage(
-                          myImage.workshops,
-                        ),
-                      ),
-                    ),
-                  ),
+                  
                 ],
               ),
             ), */

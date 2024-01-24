@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 
@@ -11,14 +11,15 @@ import 'package:flutter/material.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-@RoutePage(name: 'MerchantList')
+
+@RoutePage()
 class MerchantList extends StatefulWidget {
   final dynamic merchantType;
 
-  const MerchantList(this.merchantType);
+  const MerchantList(this.merchantType, {super.key});
 
   @override
-  MerchantListState createState() => MerchantListState();
+  State<MerchantList> createState() => MerchantListState();
 }
 
 class MerchantListState extends State<MerchantList> {
@@ -112,13 +113,13 @@ class MerchantListState extends State<MerchantList> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [
             Colors.white,
-            primaryColor,
+            ColorConstant.primaryColor,
           ],
-          stops: const [0.45, 0.65],
+          stops: [0.45, 0.65],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
@@ -127,7 +128,7 @@ class MerchantListState extends State<MerchantList> {
         backgroundColor: Colors.transparent,
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Colors.transparent,
+          backgroundColor: const Color.fromARGB(255, 232, 186, 4),
         ),
         body: SingleChildScrollView(
           controller: _scrollController,

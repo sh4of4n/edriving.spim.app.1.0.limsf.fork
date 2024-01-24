@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/base/page_base_class.dart';
@@ -11,7 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 
-@RoutePage(name: 'CartItemEdit')
+@RoutePage()
 class CartItemEdit extends StatefulWidget {
   final String? stkCode;
   final String? stkDesc1;
@@ -25,7 +25,7 @@ class CartItemEdit extends StatefulWidget {
   final String? batchNo;
   final String? slsKey;
 
-  const CartItemEdit({
+  const CartItemEdit({super.key, 
     this.stkCode,
     this.stkDesc1,
     this.stkDesc2,

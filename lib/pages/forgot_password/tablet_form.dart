@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/common_library/utils/app_localizations.dart';
@@ -12,6 +12,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class ForgotPasswordTabletForm extends StatefulWidget {
+  const ForgotPasswordTabletForm({super.key});
+
   @override
   ForgotPasswordTabletFormState createState() =>
       ForgotPasswordTabletFormState();

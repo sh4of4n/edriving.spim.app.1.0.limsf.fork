@@ -11,7 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '/common_library/utils/app_localizations.dart';
 import '../../router.gr.dart';
 
-@RoutePage(name: 'BankList')
+@RoutePage()
 class BankList extends StatefulWidget {
   final String? icNo;
   final String? docDoc;

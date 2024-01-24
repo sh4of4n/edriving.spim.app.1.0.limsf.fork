@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously, use_key_in_widget_constructors, depend_on_referenced_packages
-
 import 'package:app_settings/app_settings.dart';
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/location.dart';
@@ -19,8 +17,10 @@ import '/common_library/utils/app_localizations.dart';
 import '../../router.gr.dart';
 import 'directory_card.dart';
 
-@RoutePage(name: 'EmergencyDirectory')
+@RoutePage()
 class EmergencyDirectory extends StatefulWidget {
+  const EmergencyDirectory({super.key});
+
   @override
   EmergencyDirectoryState createState() => EmergencyDirectoryState();
 }
@@ -70,6 +70,7 @@ class EmergencyDirectoryState extends State<EmergencyDirectory> {
     if (serviceLocationStatus) {
       _getCurrentLocation();
     } else {
+      if (!context.mounted) return;
       customDialog.show(
         context: context,
         barrierDismissable: false,
@@ -82,7 +83,7 @@ class EmergencyDirectoryState extends State<EmergencyDirectory> {
             onPressed: () {
               context.router.pop();
               context.router.pop();
-              AppSettings.openLocationSettings();
+              AppSettings.openAppSettings();
             },
           ),
           TextButton(
@@ -115,6 +116,7 @@ class EmergencyDirectoryState extends State<EmergencyDirectory> {
         _getSosContact('BIKEWORKSHOP'),
       ]);
     } else {
+      if (!context.mounted) return;
       customDialog.show(
         context: context,
         barrierDismissable: false,
@@ -127,7 +129,7 @@ class EmergencyDirectoryState extends State<EmergencyDirectory> {
             onPressed: () {
               context.router.pop();
               context.router.pop();
-              AppSettings.openLocationSettings();
+              AppSettings.openAppSettings();
             },
           ),
           TextButton(
@@ -319,7 +321,7 @@ class EmergencyDirectoryState extends State<EmergencyDirectory> {
         backgroundColor: Colors.transparent,
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Colors.transparent,
+          backgroundColor: const Color.fromARGB(255, 232, 186, 4),
           title: Text(AppLocalizations.of(context)!.translate('sos_lbl')),
         ),
         body: SizedBox(

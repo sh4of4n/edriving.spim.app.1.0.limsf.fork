@@ -1,6 +1,3 @@
-// import '/pages/edompet/edompet.dart';
-// ignore_for_file: use_key_in_widget_constructors
-
 import 'package:auto_route/auto_route.dart';
 
 import '/common_library/services/repository/epandu_repository.dart';
@@ -10,8 +7,10 @@ import '/common_library/utils/custom_dialog.dart';
 import '/common_library/utils/local_storage.dart';
 import 'package:flutter/material.dart';
 
-@RoutePage(name: 'AttendanceTab')
+@RoutePage()
 class AttendanceTab extends StatefulWidget {
+  const AttendanceTab({super.key});
+
   @override
   AttendanceTabState createState() => AttendanceTabState();
 }

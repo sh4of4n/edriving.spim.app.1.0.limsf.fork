@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/common_library/utils/app_localizations.dart';
@@ -12,12 +12,14 @@ import 'package:hive/hive.dart';
 
 import '../../router.gr.dart';
 
-@RoutePage(name: 'BillSelection')
+@RoutePage()
 class BillSelection extends StatelessWidget {
   final primaryColor = ColorConstant.primaryColor;
   final billRepo = BillRepo();
 
   final Box<dynamic> serviceList = Hive.box('serviceList');
+
+  BillSelection({super.key});
 
   Future<dynamic> _getService(context) async {
     if (serviceList.get('serviceList') == null) {

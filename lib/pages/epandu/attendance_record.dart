@@ -1,5 +1,3 @@
-// ignore_for_file: use_key_in_widget_constructors
-
 import 'package:auto_route/auto_route.dart';
 
 import '/common_library/services/repository/epandu_repository.dart';
@@ -10,13 +8,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 
-@RoutePage(name: 'AttendanceRecord')
+@RoutePage()
 class AttendanceRecord extends StatefulWidget {
   final dynamic attendanceData;
   final bool? isLoading;
 
   const AttendanceRecord(
-      {required this.attendanceData, required this.isLoading});
+      {super.key, required this.attendanceData, required this.isLoading});
 
   @override
   AttendanceRecordState createState() => AttendanceRecordState();

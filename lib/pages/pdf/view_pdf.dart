@@ -1,6 +1,7 @@
-// ignore_for_file: use_key_in_widget_constructors, depend_on_referenced_packages
+
 
 import 'package:auto_route/auto_route.dart';
+import 'package:pdfx/pdfx.dart';
 
 import '/common_library/utils/custom_dialog.dart';
 import '/utils/constants.dart';
@@ -11,14 +12,13 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:share/share.dart';
 import 'package:printing/printing.dart';
-import 'package:native_pdf_view/native_pdf_view.dart';
 
-@RoutePage(name: 'ViewPdf')
+@RoutePage()
 class ViewPdf extends StatefulWidget {
   final String? title;
   final String? pdfLink;
 
-  const ViewPdf({required this.title, required this.pdfLink});
+  const ViewPdf({super.key, required this.title, required this.pdfLink});
 
   @override
   ViewPdfState createState() => ViewPdfState();

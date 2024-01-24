@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/common_library/services/repository/auth_repository.dart';
@@ -14,8 +14,10 @@ import 'package:transparent_image/transparent_image.dart';
 import '/common_library/utils/app_localizations.dart';
 import '../../router.gr.dart';
 
-@RoutePage(name: 'EnrolmentInfo')
+@RoutePage()
 class EnrolmentInfo extends StatefulWidget {
+  const EnrolmentInfo({super.key});
+
   @override
   EnrolmentInfoState createState() => EnrolmentInfoState();
 }
@@ -73,7 +75,7 @@ class EnrolmentInfoState extends State<EnrolmentInfo> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
+          backgroundColor: const Color.fromARGB(255, 232, 186, 4),
           elevation: 0,
           title: Text(
             AppLocalizations.of(context)!.translate('enrolled_class'),

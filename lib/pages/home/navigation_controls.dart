@@ -1,7 +1,6 @@
-// ignore_for_file: use_key_in_widget_constructors, depend_on_referenced_packages
-
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+
 // import '../../router.gr.dart';
 
 class NavigationControls extends StatelessWidget {

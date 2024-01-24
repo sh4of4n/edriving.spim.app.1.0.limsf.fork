@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_interpolation_to_compose_strings, use_key_in_widget_constructors
-
 import 'package:auto_route/auto_route.dart';
 import '/common_library/utils/app_localizations.dart';
 import '/common_library/services/repository/fpx_repository.dart';
@@ -13,13 +11,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../router.gr.dart';
 
-@RoutePage(name: 'OrderList')
+@RoutePage()
 class OrderList extends StatefulWidget {
   final String? icNo;
   final String? packageCode;
   final String? diCode;
 
-  const OrderList({
+  const OrderList({super.key, 
     this.icNo,
     this.packageCode,
     this.diCode,
@@ -176,9 +174,7 @@ class OrderListState extends State<OrderList> {
                                         Text(
                                             '${AppLocalizations.of(context)!.translate('order')}: ${snapshot.data[index].docDoc}${snapshot.data[index].docRef}'),
                                         Text(
-                                          '${AppLocalizations.of(context)!.translate('date')}: ' +
-                                              snapshot.data[index].ordDate
-                                                  .substring(0, 10),
+                                          '${AppLocalizations.of(context)!.translate('date')}: ${snapshot.data[index].ordDate.substring(0, 10)}',
                                         ),
                                       ],
                                     ),
@@ -187,7 +183,7 @@ class OrderListState extends State<OrderList> {
                                         Text(
                                             '${AppLocalizations.of(context)!.translate('name_lbl')}: ${snapshot.data[index].name}'),
                                         Text(
-                                          'IC: ' + snapshot.data[index].icNo,
+                                          'IC: ${snapshot.data[index].icNo}',
                                         ),
                                       ],
                                     ),
@@ -197,8 +193,7 @@ class OrderListState extends State<OrderList> {
                                           '${AppLocalizations.of(context)!.translate('package_lbl')}: ${snapshot.data[index].packageCode}',
                                         ),
                                         Text(
-                                          '${AppLocalizations.of(context)!.translate('price')}: ' +
-                                              snapshot.data[index].tlNettOrdAmt,
+                                          '${AppLocalizations.of(context)!.translate('price')}: ${snapshot.data[index].tlNettOrdAmt}',
                                         ),
                                       ],
                                     ),
@@ -207,8 +202,7 @@ class OrderListState extends State<OrderList> {
                                         Text(
                                             'Desc: ${snapshot.data[index].packageDesc}'),
                                         Text(
-                                            '${AppLocalizations.of(context)!.translate('service_tax')}: ' +
-                                                snapshot.data[index].tlSerTax),
+                                            '${AppLocalizations.of(context)!.translate('service_tax')}: ${snapshot.data[index].tlSerTax}'),
                                       ],
                                     ),
                                     TableRow(

@@ -1,5 +1,3 @@
-// ignore_for_file: use_key_in_widget_constructors
-
 import 'dart:convert';
 import 'dart:io';
 
@@ -31,8 +29,10 @@ enum Gender { male, female }
 
 enum AppState { free, picked, cropped }
 
-@RoutePage(name: 'Enrollment')
+@RoutePage()
 class Enrollment extends StatefulWidget {
+  const Enrollment({super.key});
+
   @override
   EnrollmentState createState() => EnrollmentState();
 }
@@ -942,7 +942,7 @@ class EnrollmentState extends State<Enrollment> with PageBaseClass {
               _getImageGallery();
             }),
       ],
-      type: DialogType.simpledialog,
+      type: DialogType.simpleDialog,
     );
   }
 
@@ -1439,7 +1439,7 @@ class EnrollmentState extends State<Enrollment> with PageBaseClass {
                 padding: const EdgeInsets.symmetric(vertical: 11.0),
                 minimumSize: Size(420.w, 45.h),
                 shape: const StadiumBorder(),
-                primary: const Color(0xffdd0e0e),
+                backgroundColor: const Color(0xffdd0e0e),
                 textStyle: const TextStyle(color: Colors.white),
               ),
               onPressed: _next,

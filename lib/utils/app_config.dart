@@ -16,7 +16,7 @@ class AppConfig {
   String eWalletCaPwd = 'visa2u';
 
   String appCode = 'EPANDU';
-  String appId = 'ePandu.App';
+  String appId = 'eDriving.Spim.App';
 
-  String wsVer = '6_1';
+  String wsVer = '6_2';
 }

@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import 'package:country_code_picker/country_code_picker.dart';
@@ -12,8 +12,10 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../router.gr.dart';
 
-@RoutePage(name: 'RegisterMobile')
+@RoutePage()
 class RegisterMobile extends StatefulWidget {
+  const RegisterMobile({super.key});
+
   @override
   RegisterMobileState createState() => RegisterMobileState();
 }

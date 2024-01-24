@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
 import '/common_library/utils/app_localizations.dart';
@@ -14,11 +14,11 @@ import 'package:random_color/random_color.dart';
 import '../../router.gr.dart';
 import 'kpp_module_icon.dart';
 
-@RoutePage(name: 'KppModule')
+@RoutePage()
 class KppModule extends StatefulWidget {
   final dynamic data;
 
-  const KppModule(this.data);
+  const KppModule(this.data, {super.key});
 
   @override
   KppModuleState createState() => KppModuleState();

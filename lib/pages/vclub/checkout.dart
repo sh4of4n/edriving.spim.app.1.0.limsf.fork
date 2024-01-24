@@ -1,6 +1,7 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:auto_route/auto_route.dart';
+
 import '/services/provider/cart_status.dart';
 import '/common_library/services/repository/sales_order_repository.dart';
 import '/utils/constants.dart';
@@ -11,7 +12,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-@RoutePage(name: 'Checkout')
+@RoutePage()
 class Checkout extends StatefulWidget {
   final dynamic slsDetailData;
   final String? itemName;
@@ -22,7 +23,7 @@ class Checkout extends StatefulWidget {
   final String? qty;
   final String? totalAmount;
 
-  const Checkout({
+  const Checkout({super.key, 
     this.slsDetailData,
     this.itemName,
     this.dbcode,

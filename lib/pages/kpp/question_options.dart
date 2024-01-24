@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+
 
 import 'package:flutter/material.dart';
 import 'dart:typed_data';
@@ -10,7 +10,7 @@ class QuestionOptions extends StatelessWidget {
   final List<String?>? questionOption;
   final List<Uint8List>? image;
 
-  const QuestionOptions({this.roman, this.questionOption, this.image});
+  const QuestionOptions({super.key, this.roman, this.questionOption, this.image});
 
   final TextStyle _questionOptionStyle =
       const TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600);

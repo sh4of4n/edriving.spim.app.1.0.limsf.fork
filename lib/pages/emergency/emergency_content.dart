@@ -1,5 +1,3 @@
-// ignore_for_file: use_key_in_widget_constructors
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -7,6 +5,8 @@ import '/common_library/utils/app_localizations.dart';
 import 'sos_button.dart';
 
 class EmergencyContent extends StatelessWidget {
+  const EmergencyContent({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
