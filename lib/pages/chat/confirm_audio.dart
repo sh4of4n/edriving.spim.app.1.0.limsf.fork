@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:typed_data';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sound/public/flutter_sound_player.dart';
 import 'package:flutter_sound/public/util/flutter_sound_helper.dart';
@@ -39,7 +39,9 @@ class _ConfirmAudioWidgetState extends State<ConfirmAudioWidget> {
   Future<void> init() async {
     /*Duration d  = await flutterSoundHelper.duration(widget.file_path) ?? Duration.zero;
     duration=d;*/
-    print('${widget.filePath}_$duration');
+    if (kDebugMode) {
+      print('${widget.filePath}_$duration');
+    }
     await _mPlayer.openPlayer();
     await _mPlayer.setSubscriptionDuration(const Duration(milliseconds: 10));
     _mPlayerSubscription = _mPlayer.onProgress!.listen((e) {

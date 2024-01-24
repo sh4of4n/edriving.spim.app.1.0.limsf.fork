@@ -307,7 +307,7 @@ class RequestPickupState extends State<RequestPickup> with PageBaseClass {
                           shape: const StadiumBorder(),
                           minimumSize: Size(420.w, 45.h),
                           padding: const EdgeInsets.symmetric(vertical: 11.0),
-                          primary: const Color(0xffdd0e0e),
+                          backgroundColor: const Color(0xffdd0e0e),
                           textStyle: const TextStyle(color: Colors.white),
                         ),
                         onPressed: _submit,

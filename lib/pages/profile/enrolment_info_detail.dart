@@ -55,8 +55,8 @@ class EnrolmentInfoDetailState extends State<EnrolmentInfoDetail> {
 
   _loadHistoryData() {
     if (_isLoading && _enrollHistoryData == null) {
-      return Column(
-        children: const <Widget>[
+      return const Column(
+        children: <Widget>[
           Expanded(
             child: SpinKitFoldingCube(
               color: Colors.blue,

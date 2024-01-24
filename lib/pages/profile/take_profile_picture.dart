@@ -153,7 +153,7 @@ class TakeProfilePictureState extends State<TakeProfilePicture> {
             // String test = await localStorage.getProfilePic();
 
             // print(test);
-
+            if (!context.mounted) return;
             context.router.pop();
             /* Navigator.push(
               context,

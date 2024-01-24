@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter/material.dart';
@@ -75,15 +76,21 @@ class _TestWebviewState extends State<TestWebview> {
                 socket.emitWithAck('inviteUserToRoom', inviteUserToRoomJson,
                     ack: (data) {
                   if (data != null) {
-                    print('inviteUserToRoomJson from server $data');
+                    if (kDebugMode) {
+                      print('inviteUserToRoomJson from server $data');
+                    }
                   } else {
-                    print("Null from inviteUserToRoomJson");
+                    if (kDebugMode) {
+                      print("Null from inviteUserToRoomJson");
+                    }
                   }
                 });
               }
             }
           }
-          print(message.message.toString());
+          if (kDebugMode) {
+            print(message.message.toString());
+          }
           //context.router.push(RoomList());
           // ScaffoldMessenger.of(context).showSnackBar(
           //   SnackBar(content: Text(message.message)),

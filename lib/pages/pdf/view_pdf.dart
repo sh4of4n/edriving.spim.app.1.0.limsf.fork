@@ -1,6 +1,5 @@
 // ignore_for_file: use_key_in_widget_constructors, depend_on_referenced_packages
 
-import 'dart:typed_data';
 import 'package:auto_route/auto_route.dart';
 
 import '/common_library/utils/custom_dialog.dart';
@@ -71,6 +70,7 @@ class ViewPdfState extends State<ViewPdf> {
       await Share.shareFiles([_pathPdf], text: widget.title);
     } catch (e) {
       debugPrint('error $e');
+      if (!context.mounted) return;
       customDialog.show(
         context: context,
         content: 'Failed to share pdf file. Please try again.',

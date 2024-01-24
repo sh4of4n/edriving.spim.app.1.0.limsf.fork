@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import '../../router.gr.dart';
 import '/common_library/utils/app_localizations.dart';
 
 @RoutePage(name: 'PinActivation')
@@ -46,7 +45,7 @@ class PinActivationState extends State<PinActivation> {
                 minimumSize: Size(420.w, 45.h),
                 padding: const EdgeInsets.symmetric(vertical: 11.0),
                 shape: const StadiumBorder(),
-                primary: const Color(0xffdd0e0e),
+                backgroundColor: const Color(0xffdd0e0e),
                 textStyle: const TextStyle(color: Colors.white),
               ),
               onPressed: () => _submit(context),

@@ -290,7 +290,7 @@ class LoginTabletFormState extends State<LoginTabletForm> with PageBaseClass {
                 minimumSize: Size(420.w, 45.h),
                 padding: const EdgeInsets.symmetric(vertical: 11.0),
                 shape: const StadiumBorder(),
-                primary: const Color(0xffdd0e0e),
+                backgroundColor: const Color(0xffdd0e0e),
                 textStyle: const TextStyle(color: Colors.white),
               ),
               onPressed: _submitLogin, // () => localStorage.reset(),
@@ -334,12 +334,15 @@ class LoginTabletFormState extends State<LoginTabletForm> with PageBaseClass {
 
       if (result.isSuccess) {
         if (result.data == 'empty') {
+          if (!context.mounted) return;
           var getRegisteredDi = await authRepo.getUserRegisteredDI(
               context: context, type: 'LOGIN');
 
           if (getRegisteredDi.isSuccess) {
             localStorage.saveMerchantDbCode(getRegisteredDi.data[0].diCode);
+            if (!context.mounted) return;
             await context.read<SocketClientHelper>().loginUserRoom();
+            if (!context.mounted) return;
             context.router.replace(const Home());
           } else {
             setState(() {
@@ -351,13 +354,15 @@ class LoginTabletFormState extends State<LoginTabletForm> with PageBaseClass {
           // Navigate to DI selection page
           // Temporary navigate to home
           // Navigator.replace(context, HOME);
-
+          if (!context.mounted) return;
           context.router.replace(
             SelectDrivingInstitute(diList: result.data),
           );
         } else {
           localStorage.saveMerchantDbCode(result.data[0].merchantNo);
+          if (!context.mounted) return;
           await context.read<SocketClientHelper>().loginUserRoom();
+          if (!context.mounted) return;
           context.router.replace(const Home());
         }
       } else {

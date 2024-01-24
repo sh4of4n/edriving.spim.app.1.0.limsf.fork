@@ -11,14 +11,14 @@ import 'package:provider/provider.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 import '../../common_library/services/database/database_helper.dart';
 import '../../common_library/services/model/chat_mesagelist.dart';
-import '../../common_library/services/model/chat_receiveMessage.dart';
+import '../../common_library/services/model/chat_receive_message.dart';
 import '../../common_library/services/model/chat_users.dart';
 import '../../common_library/services/model/chatsendack_model.dart';
 import '../../common_library/services/model/checkonline_model.dart';
 import '../../common_library/services/model/m_room_model.dart';
 import '../../common_library/services/model/m_roommember_model.dart';
 import '../../common_library/services/model/messagebyroom_model.dart';
-import '../../common_library/services/model/readmessagebyId_model.dart';
+import '../../common_library/services/model/read_message_by_id_model.dart';
 import '../../common_library/services/model/roomhistory_model.dart';
 import '../../common_library/services/repository/chatroom_repository.dart';
 import '../../common_library/utils/local_storage.dart';
@@ -150,7 +150,9 @@ class SocketClientHelper extends ChangeNotifier {
       }
       if (condition) {
         await loginUserRoom();
-        print('Condition is true. deleted directory and database.');
+        if (kDebugMode) {
+          print('Condition is true. deleted directory and database.');
+        }
       } else {
         var result = await chatRoomRepo.getRoomList('');
         if (result.data != null && result.data.length > 0) {
@@ -234,8 +236,10 @@ class SocketClientHelper extends ChangeNotifier {
               messageId = msgList[0].messageId.toString();
             }
             completedRooms++;
-            print(
-                'SocketOnAny:IsRoomDeleted ${room.deleted!} - ${room.deleteDatetime!}');
+            if (kDebugMode) {
+              print(
+                  'SocketOnAny:IsRoomDeleted ${room.deleted!} - ${room.deleteDatetime!}');
+            }
             await loginUser(room.roomId!, userid, room.createDate!, messageId,
                 room.deleted!, room.deleteDatetime!);
 
@@ -356,8 +360,10 @@ class SocketClientHelper extends ChangeNotifier {
           messageId = msgList[0].messageId.toString();
         }
         completedRooms++;
-        print(
-            'SocketOnAny:IsRoomDeleted ${room.deleted!} - ${room.deleteDatetime!}');
+        if (kDebugMode) {
+          print(
+              'SocketOnAny:IsRoomDeleted ${room.deleted!} - ${room.deleteDatetime!}');
+        }
         await loginUser(room.roomId!, userid!, room.createDate!, messageId,
             room.deleted!, room.deleteDatetime!);
 
@@ -765,7 +771,9 @@ class SocketClientHelper extends ChangeNotifier {
         await file.delete();
       }
     } catch (e) {
-      print(e.toString());
+      if (kDebugMode) {
+        print(e.toString());
+      }
     }
   }
 
@@ -994,10 +1002,14 @@ class SocketClientHelper extends ChangeNotifier {
       "caPwd": caPwd,
       "deviceId": deviceId
     };
-    print('loginUser: $messageJson');
+    if (kDebugMode) {
+      print('loginUser: $messageJson');
+    }
 
     socket.emitWithAck('login', messageJson, ack: (data) {
-      print('loginUser ack $data');
+      if (kDebugMode) {
+        print('loginUser ack $data');
+      }
       if (data != null && !data.containsKey("error")) {
         notifyListeners();
         Provider.of<ChatNotificationCount>(ctx, listen: false)
@@ -1067,7 +1079,9 @@ class SocketClientHelper extends ChangeNotifier {
       }
     }
 
-    print('getMessageByRoom: $messageRoomJson');
+    if (kDebugMode) {
+      print('getMessageByRoom: $messageRoomJson');
+    }
     socket.emitWithAck('getMessageByRoom', messageRoomJson, ack: (data) async {
       //print('getMessageByRoom $data');
       if (data != null && !data.containsKey("error")) {

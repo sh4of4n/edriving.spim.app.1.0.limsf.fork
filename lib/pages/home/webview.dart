@@ -1,8 +1,6 @@
 // ignore_for_file: use_key_in_widget_constructors, depend_on_referenced_packages
 
 import 'dart:async';
-import 'dart:io' show Platform;
-
 import 'package:auto_route/auto_route.dart';
 import '/utils/constants.dart';
 import '/common_library/utils/custom_dialog.dart';
@@ -45,6 +43,7 @@ Future<bool> _onWillPop(
     if (await controllerGlobal!.canGoBack()) {
       controllerGlobal!.goBack();
     } else {
+      if (!context.mounted) return false;
       // _confirmBack(customDialog, context);
       Provider.of<CallStatusModel>(context, listen: false).callStatus(false);
       return true;

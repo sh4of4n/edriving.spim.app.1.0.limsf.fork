@@ -987,8 +987,8 @@ class EnrollmentState extends State<Enrollment> with PageBaseClass {
 
   _checkEnrollmentStatus() {
     if (_obtainingStatus) {
-      return Column(
-        children: const <Widget>[
+      return const Column(
+        children: <Widget>[
           Expanded(
             child: SpinKitFoldingCube(
               color: Colors.blue,
@@ -1386,7 +1386,7 @@ class EnrollmentState extends State<Enrollment> with PageBaseClass {
                     style: ElevatedButton.styleFrom(
                       minimumSize: Size(420.w, 45.h),
                       padding: const EdgeInsets.symmetric(vertical: 11.0),
-                      primary: const Color(0xffdd0e0e),
+                      backgroundColor: const Color(0xffdd0e0e),
                       textStyle: const TextStyle(color: Colors.white),
                       shape: const StadiumBorder(),
                     ),
@@ -1496,7 +1496,7 @@ class EnrollmentState extends State<Enrollment> with PageBaseClass {
               _message = result.message;
               _messageStyle = TextStyle(color: Colors.green[800]);
             });
-
+            if (!context.mounted) return;
             context.router.push(
               SelectInstitute(
                 data: EnrollmentData(

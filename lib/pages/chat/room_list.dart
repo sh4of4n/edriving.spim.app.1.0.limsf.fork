@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
@@ -78,13 +79,19 @@ class _RoomListState extends State<RoomList> {
     try {
       bool res = await FlutterAppBadger.isAppBadgeSupported();
       if (res) {
-        print('IsappBadgeSupported: supported');
+        if (kDebugMode) {
+          print('IsappBadgeSupported: supported');
+        }
         FlutterAppBadger.removeBadge();
       } else {
-        print('IsappBadgeSupported:Not supported');
+        if (kDebugMode) {
+          print('IsappBadgeSupported:Not supported');
+        }
       }
     } on PlatformException {
-      print('IsappBadgeSupported :Failed to get badge support.');
+      if (kDebugMode) {
+        print('IsappBadgeSupported :Failed to get badge support.');
+      }
     }
   }
 
@@ -119,7 +126,9 @@ class _RoomListState extends State<RoomList> {
   }
 
   void statusCallback(EasyLoadingStatus status) {
-    print('Test EasyLoading Status $status');
+    if (kDebugMode) {
+      print('Test EasyLoading Status $status');
+    }
   }
 
   @override

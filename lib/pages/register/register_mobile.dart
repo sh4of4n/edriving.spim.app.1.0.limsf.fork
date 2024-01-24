@@ -186,7 +186,7 @@ class RegisterMobileState extends State<RegisterMobile> {
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 11.0),
                                       shape: const StadiumBorder(),
-                                      primary: const Color(0xffdd0e0e),
+                                      backgroundColor: const Color(0xffdd0e0e),
                                       textStyle:
                                           const TextStyle(color: Colors.white),
                                     ),
@@ -371,7 +371,7 @@ class RegisterMobileState extends State<RegisterMobile> {
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 11.0),
                                       shape: const StadiumBorder(),
-                                      primary: const Color(0xffdd0e0e),
+                                      backgroundColor: const Color(0xffdd0e0e),
                                       textStyle:
                                           const TextStyle(color: Colors.white),
                                     ),
@@ -425,6 +425,7 @@ class RegisterMobileState extends State<RegisterMobile> {
       );
 
       if (result.isSuccess) {
+        if (!context.mounted) return;
         context.router.push(
           RegisterVerification(
             data: SignUpArguments(

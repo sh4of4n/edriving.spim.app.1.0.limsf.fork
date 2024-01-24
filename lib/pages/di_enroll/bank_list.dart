@@ -82,6 +82,7 @@ class BankListState extends State<BankList> {
     );
 
     if (result.isSuccess) {
+      if (!context.mounted) return;
       context.router.push(
         Webview(
             url: result.data[0].responseData,
@@ -93,6 +94,7 @@ class BankListState extends State<BankList> {
         forceWebView: true,
       ); */
     } else {
+      if (!context.mounted) return;
       context.router.push(
         PaymentStatus(icNo: widget.icNo),
       );

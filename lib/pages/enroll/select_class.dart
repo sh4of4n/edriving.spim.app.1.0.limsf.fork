@@ -382,6 +382,7 @@ class SelectClassState extends State<SelectClass> {
               onPressed: () async {
                 await authRepo.getUserRegisteredDI(
                     context: context, type: 'UPDATE');
+                if (!context.mounted) return;
                 context.router
                     .pushAndPopUntil(const Home(), predicate: (r) => false);
               },

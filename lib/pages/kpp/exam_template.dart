@@ -447,7 +447,7 @@ class ExamTemplateState extends State<ExamTemplate> {
             style: ElevatedButton.styleFrom(
               minimumSize: Size(420.w, 45.h),
               padding: const EdgeInsets.symmetric(vertical: 11.0),
-              primary: const Color(0xffdd0e0e),
+              backgroundColor: const Color(0xffdd0e0e),
               shape: const StadiumBorder(),
               textStyle: const TextStyle(color: Colors.white),
             ),
@@ -504,7 +504,7 @@ class ExamTemplateState extends State<ExamTemplate> {
               minimumSize: Size(420.w, 45.h),
               padding: const EdgeInsets.symmetric(vertical: 11.0),
               shape: const StadiumBorder(),
-              primary: const Color(0xffdd0e0e),
+              backgroundColor: const Color(0xffdd0e0e),
               textStyle: const TextStyle(color: Colors.white),
             ),
             onPressed: () {

@@ -53,8 +53,8 @@ class RegisteredCourseDetailState extends State<RegisteredCourseDetail> {
 
   _loadHistoryData() {
     if (_isLoading && _enrollHistoryData == null) {
-      return Column(
-        children: const <Widget>[
+      return const Column(
+        children: <Widget>[
           Expanded(
             child: SpinKitFoldingCube(
               color: Colors.blue,

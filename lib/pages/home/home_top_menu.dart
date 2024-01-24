@@ -1,6 +1,5 @@
 // ignore_for_file: use_key_in_widget_constructors
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../chat/chatnotification_count.dart';
 import '/common_library/services/repository/epandu_repository.dart';
 import '/common_library/services/repository/inbox_repository.dart';
@@ -99,9 +98,9 @@ class HomeTopMenuState extends State<HomeTopMenu> {
     int notificationCount = 0;
     List<ChatNotification> chatNotificationCount =
         context.watch<ChatNotificationCount>().getChatNotificationCountList;
-    chatNotificationCount.forEach((ChatNotification chatNotification) {
+    for (var chatNotification in chatNotificationCount) {
       notificationCount += chatNotification.notificationBadge!;
-    });
+    }
     //bool showBadge = context.watch<NotificationCount>().showBadge;
     //int? badgeNo = context.watch<NotificationCount>().notificationBadge;
     Size size = MediaQuery.of(context).size;
@@ -297,42 +296,42 @@ class HomeTopMenuState extends State<HomeTopMenu> {
                             ),
                           ])),
                     ),
-                    // Flexible(
-                    //   child: InkWell(
-                    //     onTap: () => context.router.push(const RoomList()),
-                    //     borderRadius: BorderRadius.circular(10.0),
-                    //     child: Column(
-                    //       children: <Widget>[
-                    //         Container(
-                    //           decoration: const BoxDecoration(
-                    //               color: Colors.white,
-                    //               borderRadius:
-                    //                   BorderRadius.all(Radius.circular(18))),
-                    //           padding: const EdgeInsets.all(12),
-                    //           child: badges.Badge(
-                    //             showBadge: notificationCount > 0 ? true : false,
-                    //             badgeContent: Text(
-                    //               '$notificationCount',
-                    //               style: const TextStyle(color: Colors.white),
-                    //             ),
-                    //             child: const Icon(
-                    //               Icons.chat,
-                    //               color: Color.fromARGB(255, 32, 56, 90),
-                    //               size: 30,
-                    //             ),
-                    //           ),
-                    //         ),
-                    //         const Text(
-                    //           'Chat',
-                    //           style: TextStyle(
-                    //               fontWeight: FontWeight.w700,
-                    //               fontSize: 14,
-                    //               color: Colors.black),
-                    //         ),
-                    //       ],
-                    //     ),
-                    //   ),
-                    // ),
+                    Flexible(
+                      child: InkWell(
+                        onTap: () => context.router.push(const RoomList()),
+                        borderRadius: BorderRadius.circular(10.0),
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(18))),
+                              padding: const EdgeInsets.all(12),
+                              child: badges.Badge(
+                                showBadge: notificationCount > 0 ? true : false,
+                                badgeContent: Text(
+                                  '$notificationCount',
+                                  style: const TextStyle(color: Colors.white),
+                                ),
+                                child: const Icon(
+                                  Icons.chat,
+                                  color: Color.fromARGB(255, 32, 56, 90),
+                                  size: 30,
+                                ),
+                              ),
+                            ),
+                            const Text(
+                              'Chat',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 14,
+                                  color: Colors.black),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

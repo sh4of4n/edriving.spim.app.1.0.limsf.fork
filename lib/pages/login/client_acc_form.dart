@@ -319,7 +319,7 @@ class ClientAccountFormState extends State<ClientAccountForm>
               style: ElevatedButton.styleFrom(
                 textStyle: const TextStyle(color: Colors.white),
                 shape: const StadiumBorder(),
-                primary: const Color(0xffdd0e0e),
+                backgroundColor: const Color(0xffdd0e0e),
                 padding: const EdgeInsets.symmetric(vertical: 11.0),
                 minimumSize: Size(420.w, 45.h),
               ),
@@ -352,8 +352,10 @@ class ClientAccountFormState extends State<ClientAccountForm>
           Uri.encodeQueryComponent(caPwdController.text.replaceAll(' ', '')));
 
       if (widget.data == 'SETTINGS') {
+        if (!context.mounted) return;
         context.router.replace(const Login());
       } else {
+        if (!context.mounted) return;
         context.router.pop();
       }
     } else {
@@ -370,7 +372,7 @@ class ClientAccountFormState extends State<ClientAccountForm>
           _message = '';
           _isLoading = true;
         });
-
+        if (!context.mounted) return;
         var result = await authRepo.getWsUrl(
           context: context,
           acctUid: caUidController.text.replaceAll(' ', ''),
@@ -382,8 +384,10 @@ class ClientAccountFormState extends State<ClientAccountForm>
           await Hive.box('ws_url').delete('userDefinedUrl');
 
           if (widget.data == 'SETTINGS') {
+            if (!context.mounted) return;
             context.router.replace(const Login());
           } else {
+            if (!context.mounted) return;
             context.router.pop();
           }
         } else {

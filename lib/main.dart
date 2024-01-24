@@ -1,6 +1,7 @@
 // import 'dart:io';
 // ignore_for_file: use_build_context_synchronously, depend_on_referenced_packages
 import 'package:edriving_spim_app/router.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
@@ -34,7 +35,6 @@ import 'pages/chat/online_users.dart';
 import 'pages/chat/rooms_provider.dart';
 import 'pages/chat/socketclient_helper.dart';
 import 'services/provider/cart_status.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
 // import 'package:logging/logging.dart';
 
 /* final Map<String, Item> _items = <String, Item>{};
@@ -98,7 +98,9 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 // firebase background message handler
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
-  print('A Background message just showed up :  ${message.messageId}');
+  if (kDebugMode) {
+    print('A Background message just showed up :  ${message.messageId}');
+  }
 }
 
 void main() async {
@@ -237,7 +239,9 @@ class MyAppState extends State<MyApp> {
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       getUnreadNotificationCount();
-      print('Got a message whilst in the FOREGROUND!');
+      if (kDebugMode) {
+        print('Got a message whilst in the FOREGROUND!');
+      }
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
       //print('Message data: ${message.data}');
@@ -262,7 +266,9 @@ class MyAppState extends State<MyApp> {
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      print('NOTIFICATION MESSAGE TAPPED');
+      if (kDebugMode) {
+        print('NOTIFICATION MESSAGE TAPPED');
+      }
       getUnreadNotificationCount();
       _navigateToItemDetail(message);
       RemoteNotification? notification = message.notification;

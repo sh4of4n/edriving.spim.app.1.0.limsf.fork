@@ -206,6 +206,7 @@ class RegisterUserToDiState extends State<RegisterUserToDi> {
       );
 
       if (result.isSuccess) {
+        if (!context.mounted) return;
         context.router.popUntil(ModalRoute.withName('Home'));
         /* customDialog.show(
           context: context,
@@ -230,6 +231,7 @@ class RegisterUserToDiState extends State<RegisterUserToDi> {
           type: DialogType.GENERAL,
         ); */
       } else {
+        if (!context.mounted) return;
         customDialog.show(
           context: context,
           content: result.message.toString(),

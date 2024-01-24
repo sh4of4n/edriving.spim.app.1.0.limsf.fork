@@ -55,6 +55,7 @@ class AuthenticationState extends State<Authentication> {
     // if (wsUrl == null) {
     if (Hive.box('ws_url').get('getWsUrl') == '1' ||
         Hive.box('ws_url').get('getWsUrl') == null) {
+      if (!context.mounted) return;
       await authRepo.getWsUrl(
         context: context,
         acctUid: caUid,
@@ -87,7 +88,8 @@ class AuthenticationState extends State<Authentication> {
 
     if (userId != null && userId.isNotEmpty && diCode!.isNotEmpty) {
       if (!mounted) return;
-      context.read<SocketClientHelper>().loginUserRoom();
+      await context.read<SocketClientHelper>().loginUserRoom();
+      if (!mounted) return;
       context.router.replace(const Home());
     } else if (userId != null && userId.isNotEmpty && diCode!.isEmpty) {
       if (!mounted) return;

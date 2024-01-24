@@ -11,7 +11,6 @@ import 'login_bottom_card.dart';
 import 'login_form.dart';
 import 'login_tablet_bottom_card.dart';
 import 'login_tablet_form.dart';
-import '../../router.gr.dart';
 
 @RoutePage(name: 'Login')
 class Login extends StatefulWidget {

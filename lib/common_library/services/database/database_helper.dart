@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 import 'package:path/path.dart';
 import 'package:sentry_sqflite/sentry_sqflite.dart';
@@ -40,12 +41,18 @@ class DatabaseHelper {
   Future<void> deleteDB() async {
     try {
       String path = join(await getDatabasesPath(), _databaseName);
-      print('deleting db');
+      if (kDebugMode) {
+        print('deleting db');
+      }
       _database = null;
       await deleteDatabase(path);
-      print('db is deleted');
+      if (kDebugMode) {
+        print('db is deleted');
+      }
     } catch (e) {
-      print(e.toString());
+      if (kDebugMode) {
+        print(e.toString());
+      }
     }
   }
 

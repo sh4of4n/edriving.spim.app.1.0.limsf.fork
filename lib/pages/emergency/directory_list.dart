@@ -53,7 +53,7 @@ class DirectoryListState extends State<DirectoryList> {
           maxRadius = '0';
         });
       }
-
+      if (!context.mounted) return;
       var response = await emergencyRepo.getSosContactSortByNearest(
           context: context,
           sosContactType: widget.directoryType,
@@ -64,6 +64,7 @@ class DirectoryListState extends State<DirectoryList> {
       }
       return response.message;
     } else {
+      if (!context.mounted) return;
       context.router.popUntil(
         ModalRoute.withName('Home'),
       );

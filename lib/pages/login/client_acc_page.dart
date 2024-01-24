@@ -7,7 +7,6 @@ import '/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'client_acc_form.dart';
-import '../../router.gr.dart';
 
 @RoutePage(name: 'ClientAccount')
 class ClientAccount extends StatefulWidget {

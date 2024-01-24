@@ -305,7 +305,7 @@ class AirtimeBillDetailState extends State<AirtimeBillDetail> {
                               padding:
                                   const EdgeInsets.symmetric(vertical: 11.0),
                               shape: const StadiumBorder(),
-                              primary: const Color(0xffdd0e0e),
+                              backgroundColor: const Color(0xffdd0e0e),
                               textStyle: const TextStyle(color: Colors.white),
                             ),
                             onPressed: _submitDetails,

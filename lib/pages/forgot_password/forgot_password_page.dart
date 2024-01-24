@@ -8,7 +8,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'form.dart';
 import 'tablet_form.dart';
-import '../../router.gr.dart';
 
 @RoutePage(name: 'ForgotPassword')
 class ForgotPassword extends StatelessWidget {

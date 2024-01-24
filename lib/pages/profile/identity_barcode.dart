@@ -73,8 +73,8 @@ class IdentityBarcodeState extends State<IdentityBarcode> {
     if (id.isNotEmpty) {
       return QrImageView(
         embeddedImage: AssetImage(image.ePanduIcon),
-        embeddedImageStyle: QrEmbeddedImageStyle(
-          size: const Size(40, 40),
+        embeddedImageStyle: const QrEmbeddedImageStyle(
+          size: Size(40, 40),
         ),
         data:
             '{"QRCode":[{"appId": "${appConfig.appId}", "appVersion": "$appVersion", "loginId": "$loginId", "name": "$name", "userId": "$userId"}]}',

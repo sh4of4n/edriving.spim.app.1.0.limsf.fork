@@ -10,7 +10,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../router.gr.dart';
 
 @RoutePage(name: 'QueueNumber')
 class QueueNumber extends StatefulWidget {
@@ -60,6 +59,7 @@ class QueueNumberState extends State<QueueNumber> {
     if (result.isSuccess) {
       checkInData = result.data;
     } else {
+      if (!context.mounted) return;
       customDialog.show(
         context: context,
         content: result.message!,
@@ -76,8 +76,8 @@ class QueueNumberState extends State<QueueNumber> {
     if (!isLoading && checkInData != null) {
       return QrImageView(
         embeddedImage: AssetImage(image.ePanduIcon),
-        embeddedImageStyle: QrEmbeddedImageStyle(
-          size: const Size(40, 40),
+        embeddedImageStyle: const QrEmbeddedImageStyle(
+          size: Size(40, 40),
         ),
         data:
             '{"Table1":[{"group_id": "${checkInData[0].groupId}", "test_code": "${checkInData[0].testCode}", "nric_no": "${checkInData[0].nricNo}"}]}',

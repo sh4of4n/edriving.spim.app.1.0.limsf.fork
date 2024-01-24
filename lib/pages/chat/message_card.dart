@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:jumping_dot/jumping_dot.dart';
 import '../../common_library/services/model/chat_mesagelist.dart';
 import '../../common_library/services/model/replymessage_model.dart';
 import '../../utils/capitalize_firstletter.dart';

@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:camera/camera.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
 import '../../common_library/services/database/database_helper.dart';
 import '../../common_library/services/model/m_roommember_model.dart';
@@ -28,7 +29,7 @@ import 'package:intl/intl.dart';
 
 import '/common_library/utils/app_localizations.dart';
 import '../../router.gr.dart';
-import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:socket_io_client/socket_io_client.dart' as io;
 
 import '../chat/socketclient_helper.dart';
 
@@ -41,7 +42,7 @@ class UpdateProfile extends StatefulWidget {
 }
 
 class UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
-  late IO.Socket socket;
+  late io.Socket socket;
   final dbHelper = DatabaseHelper.instance;
   final profileRepo = ProfileRepo();
   final authRepo = AuthRepo();
@@ -1108,7 +1109,7 @@ class UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
                 minimumSize: Size(420.w, 45.h),
                 padding: const EdgeInsets.symmetric(vertical: 11.0),
                 shape: const StadiumBorder(),
-                primary: const Color(0xffdd0e0e),
+                backgroundColor: const Color(0xffdd0e0e),
                 textStyle: const TextStyle(color: Colors.white),
               ),
               onPressed: _submit,
@@ -1183,7 +1184,9 @@ class UpdateProfileState extends State<UpdateProfile> with PageBaseClass {
               };
               socket.emitWithAck('sendNotification', groupJson,
                   ack: (data) async {
-                print(data);
+                if (kDebugMode) {
+                  print(data);
+                }
               });
             }
           }

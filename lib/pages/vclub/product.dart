@@ -201,7 +201,7 @@ class ProductState extends State<Product> {
               borderRadius: BorderRadius.circular(5),
               side: const BorderSide(color: Color(0xffdd0e0e)),
             ),
-            primary: const Color(0xffdd0e0e),
+            backgroundColor: const Color(0xffdd0e0e),
             textStyle: const TextStyle(color: Colors.white)),
         child: Text(
           'Add To Cart',
@@ -352,8 +352,8 @@ class ProductState extends State<Product> {
                     badgeStyle: badges.BadgeStyle(
                         badgeColor: Colors.redAccent[700]!,
                         shape: badges.BadgeShape.circle,
-                        padding: EdgeInsets.all(8)),
-                    badgeAnimation: badges.BadgeAnimation.fade(),
+                        padding: const EdgeInsets.all(8)),
+                    badgeAnimation: const badges.BadgeAnimation.fade(),
                     badgeContent: Text(
                       '$badgeNo',
                       style: const TextStyle(color: Colors.white),

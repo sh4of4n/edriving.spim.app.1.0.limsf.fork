@@ -7,7 +7,7 @@ import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/foundation.dart' show kDebugMode, kIsWeb;
 import 'package:socket_io_client/socket_io_client.dart' as io;
 import 'package:path/path.dart' as p;
 import 'package:camera/camera.dart';
@@ -30,7 +30,7 @@ import '../../common_library/services/model/chatsendack_model.dart';
 import '../../common_library/services/model/inviteroom_response.dart';
 import '../../common_library/services/model/m_roommember_model.dart';
 import '../../common_library/services/model/messagebyroom_model.dart';
-import '../../common_library/services/model/readmessagebyId_model.dart';
+import '../../common_library/services/model/read_message_by_id_model.dart';
 import '../../common_library/services/model/replymessage_model.dart';
 import '../../common_library/services/repository/auth_repository.dart';
 import '../../common_library/services/repository/chatroom_repository.dart';
@@ -1971,7 +1971,9 @@ class _ChatRoomState extends State<ChatRoom> {
                         };
                         socket.emitWithAck('sendNotification', groupJson,
                             ack: (data) async {
-                          print(data);
+                          if (kDebugMode) {
+                            print(data);
+                          }
                         });
                       }
                     }
@@ -2315,11 +2317,17 @@ class _ChatRoomState extends State<ChatRoom> {
       "messageId": messageId,
       "userId": userId,
     };
-    print(messageJson);
+    if (kDebugMode) {
+      print(messageJson);
+    }
     socket.emitWithAck('updateMessageReadBy', messageJson, ack: (data) async {
-      print('updateMessageReadBy ack $data');
+      if (kDebugMode) {
+        print('updateMessageReadBy ack $data');
+      }
       if (data != null && !data.containsKey("error")) {
-        print('updateMessageReadBy from server $data');
+        if (kDebugMode) {
+          print('updateMessageReadBy from server $data');
+        }
         Map<String, dynamic> result = Map<String, dynamic>.from(data as Map);
         if (result["messageId"] != '') {
           context.read<ChatHistory>().updateChatItemStatus(
@@ -2352,7 +2360,9 @@ class _ChatRoomState extends State<ChatRoom> {
             await dbHelper.updateMsgStatus('READ', messageId);
           }
         } else {
-          print("Null from getMessageById");
+          if (kDebugMode) {
+            print("Null from getMessageById");
+          }
         }
       });
     }
@@ -2933,7 +2943,9 @@ class _ChatRoomState extends State<ChatRoom> {
       }
       return file.path;
     } on Exception catch (exception) {
-      print(exception);
+      if (kDebugMode) {
+        print(exception);
+      }
     } catch (error) {
       //print(error);
     }
@@ -3100,7 +3112,9 @@ class _ChatRoomState extends State<ChatRoom> {
       "endSendDateTime": endSendDateTime
     };
 
-    print('getMessageByRoom: $messageRoomJson');
+    if (kDebugMode) {
+      print('getMessageByRoom: $messageRoomJson');
+    }
     socket.emitWithAck('getMessageByRoom', messageRoomJson, ack: (data) async {
       if (data != null && !data.containsKey("error")) {
         MessageByRoomModel messageByRoomModel =

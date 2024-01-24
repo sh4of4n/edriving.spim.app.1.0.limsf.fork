@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:full_screen_image_null_safe/full_screen_image_null_safe.dart';
@@ -336,7 +337,9 @@ class _InviteFriendState extends State<InviteFriend> {
                                 .getRoomMembersList(inviteRoomResponse.roomId!);
                             for (var memberByPhoneResponse
                                 in memberByPhoneResponseList) {
-                              print(memberByPhoneResponse.userId);
+                              if (kDebugMode) {
+                                print(memberByPhoneResponse.userId);
+                              }
                               for (var roomMember in roomMembers) {
                                 if (userId != roomMember.userId) {
                                   var inviteUserToRoomJson = {

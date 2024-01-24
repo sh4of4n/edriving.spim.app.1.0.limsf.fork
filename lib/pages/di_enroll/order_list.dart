@@ -72,6 +72,7 @@ class OrderListState extends State<OrderList> {
     );
 
     if (result.isSuccess) {
+      if (!context.mounted) return;
       context.router.push(
         Webview(url: result.data[0].receiptUrl),
       );

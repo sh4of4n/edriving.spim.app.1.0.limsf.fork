@@ -68,7 +68,7 @@ class PickupHistoryState extends State<PickupHistory> {
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
               shape: const CircleBorder(),
-              primary: const Color(0xffdd0e0e),
+              backgroundColor: const Color(0xffdd0e0e),
               textStyle: const TextStyle(color: Colors.white),
               padding: const EdgeInsets.all(12),
             ),

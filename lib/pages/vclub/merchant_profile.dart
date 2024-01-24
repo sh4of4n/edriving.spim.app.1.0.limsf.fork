@@ -65,8 +65,8 @@ class MerchantProfileState extends State<MerchantProfile> {
                   child: Text(snapshot.data),
                 );
               }
-              return Column(
-                children: const <Widget>[],
+              return const Column(
+                children: <Widget>[],
               );
             default:
               return Center(

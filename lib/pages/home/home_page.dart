@@ -345,6 +345,7 @@ class HomeState extends State<Home> {
               int.tryParse(result.data[0].appMinVersion.split('.')[1])! ||
           int.tryParse(appVersion.split('.')[2])! <
               int.tryParse(result.data[0].appMinVersion.split('.')[2])!) {
+        if (!context.mounted) return;
         customDialog.show(
           context: context,
           content: 'App version is outdated and must be updated.',
@@ -413,7 +414,7 @@ class HomeState extends State<Home> {
                 onRefresh: () async {
                   String? caUid = await localStorage.getCaUid();
                   String? caPwd = await localStorage.getCaPwd();
-
+                  if (!context.mounted) return;
                   await authRepo.getWsUrl(
                     context: context,
                     acctUid: caUid,

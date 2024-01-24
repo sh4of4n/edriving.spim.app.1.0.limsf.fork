@@ -614,8 +614,8 @@ class ValueClubState extends State<ValueClub> {
                   badgeStyle: badges.BadgeStyle(
                       badgeColor: Colors.redAccent[700]!,
                       shape: badges.BadgeShape.circle,
-                      padding: EdgeInsets.all(8)),
-                  badgeAnimation: badges.BadgeAnimation.fade(),
+                      padding: const EdgeInsets.all(8)),
+                  badgeAnimation: const badges.BadgeAnimation.fade(),
                   badgeContent: Text(
                     '$badgeNo',
                     style: const TextStyle(color: Colors.white),

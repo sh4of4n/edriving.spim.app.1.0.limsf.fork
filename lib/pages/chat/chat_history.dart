@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 import '../../common_library/services/database/database_helper.dart';
 import '../../common_library/services/model/chat_mesagelist.dart';
@@ -86,7 +86,9 @@ class ChatHistory extends ChangeNotifier {
         element.messageId == messageId && element.roomId == roomId);
     if (index != -1) {
       getMessageDetailsList.removeAt(index);
-      print('messageId_ $messageId Index_$index');
+      if (kDebugMode) {
+        print('messageId_ $messageId Index_$index');
+      }
       if (getMessageDetailsList.isEmpty) {
         await dbHelper.deleteLogicallyRoomById(
             roomId,

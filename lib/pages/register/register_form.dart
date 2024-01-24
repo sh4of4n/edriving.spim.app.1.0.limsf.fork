@@ -738,7 +738,8 @@ class RegisterFormState extends State<RegisterForm> with PageBaseClass {
                                     )
                                   : ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                        primary: const Color(0xffdd0e0e),
+                                        backgroundColor:
+                                            const Color(0xffdd0e0e),
                                         textStyle: const TextStyle(
                                             color: Colors.white),
                                         shape: const StadiumBorder(),
@@ -1225,7 +1226,8 @@ class RegisterFormState extends State<RegisterForm> with PageBaseClass {
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 11.0),
                                         shape: const StadiumBorder(),
-                                        primary: const Color(0xffdd0e0e),
+                                        backgroundColor:
+                                            const Color(0xffdd0e0e),
                                         textStyle: const TextStyle(
                                             color: Colors.white),
                                       ),
@@ -1363,17 +1365,20 @@ class RegisterFormState extends State<RegisterForm> with PageBaseClass {
     );
 
     if (result.isSuccess) {
+      if (!context.mounted) return;
       var getRegisteredDi =
           await authRepo.getUserRegisteredDI(context: context, type: 'LOGIN');
 
       if (getRegisteredDi.isSuccess) {
         localStorage.saveMerchantDbCode(getRegisteredDi.data[0].merchantNo);
-
+        if (!context.mounted) return;
         context.router.pushAndPopUntil(const Home(), predicate: (r) => false);
       } else {
+        if (!context.mounted) return;
         context.router.pushAndPopUntil(const Login(), predicate: (r) => false);
       }
     } else {
+      if (!context.mounted) return;
       context.router.pushAndPopUntil(const Login(), predicate: (r) => false);
     }
 

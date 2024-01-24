@@ -37,7 +37,7 @@ class DiEnrollmentState extends State<DiEnrollment> {
 
   getPackageListByPackageCodeList() async {
     var diCode = await localStorage.getMerchantDbCode();
-
+    if (!context.mounted) return;
     var result = await authRepo.getPackageListByPackageCodeList(
       context: context,
       diCode: diCode,

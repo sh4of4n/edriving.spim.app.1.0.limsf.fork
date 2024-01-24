@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:typed_data';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sound/public/flutter_sound_player.dart';
 import 'package:flutter_sound/public/util/flutter_sound_helper.dart';
@@ -412,8 +412,10 @@ class _AudioCardState extends State<AudioCard> {
     }
     setState(() {
       pos = d;
-      print('pos_ {$pos}');
-      print('duration {$duration}');
+      if (kDebugMode) {
+        print('pos_ {$pos}');
+        print('duration {$duration}');
+      }
     });
   }
 
