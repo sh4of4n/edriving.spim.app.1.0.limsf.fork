@@ -76,7 +76,9 @@ class DatabaseHelper {
 
   Future _onUpgrade(Database db, int oldVersion, int newVersion) async {
     if (oldVersion < newVersion) {
-      print('Test Upgrade');
+      if (kDebugMode) {
+        print('Test Upgrade');
+      }
       var columns = await db.rawQuery("PRAGMA table_info($roomTable);");
       bool columnExists =
           columns.any((column) => column['name'] == 'delete_datetime');
@@ -348,7 +350,9 @@ class DatabaseHelper {
     List<Room> list =
         res.isNotEmpty ? res.map((m) => Room.fromJson(m)).toList() : [];
     if (list.isEmpty) {
-      print('RoomId_${room.roomId!}');
+      if (kDebugMode) {
+        print('RoomId_${room.roomId!}');
+      }
       return await db.insert(roomTable, {
         'ID': room.id,
         'room_id': room.roomId,
