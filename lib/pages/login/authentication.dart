@@ -1,6 +1,5 @@
-
-
 import 'package:auto_route/auto_route.dart';
+import '../chat/socketclient_helper.dart';
 import '/common_library/utils/app_localizations.dart';
 import '/router.gr.dart';
 import '/common_library/services/model/provider_model.dart';
@@ -56,7 +55,7 @@ class AuthenticationState extends State<Authentication> {
     // if (wsUrl == null) {
     if (Hive.box('ws_url').get('getWsUrl') == '1' ||
         Hive.box('ws_url').get('getWsUrl') == null) {
-          if (!context.mounted) return;
+      if (!context.mounted) return;
       await authRepo.getWsUrl(
         context: context,
         acctUid: caUid,
@@ -90,6 +89,7 @@ class AuthenticationState extends State<Authentication> {
     if (userId != null && userId.isNotEmpty && diCode!.isNotEmpty) {
       context.router.replace(Home());
     } else if (userId != null && userId.isNotEmpty && diCode!.isEmpty) {
+      context.read<SocketClientHelper>().disconnectSocket();
       await authRepo.logout(context: context, type: '');
       if (!context.mounted) return;
       context.router.replace(const Login());

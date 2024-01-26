@@ -1,3 +1,8 @@
+2024-01-26 V.1.0.1
+
+- Added socket disconnect event while logout from settings page and authentication pages.
+- Added roomlist, creategroup, invitefriend, chatroom to routre.dart file.
+
 2024-01-24 V.1.0.1
 
 - Resolved warnings.
