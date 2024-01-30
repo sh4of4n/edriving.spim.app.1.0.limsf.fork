@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:edriving_spim_app/common_library/utils/app_localizations.dart';
+import '../chat/chatnotification_count.dart';
 import '/common_library/services/repository/epandu_repository.dart';
 import '/common_library/services/repository/inbox_repository.dart';
 import '/common_library/utils/local_storage.dart';
@@ -10,6 +11,7 @@ import '/utils/constants.dart';
 import '/common_library/utils/custom_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:badges/badges.dart' as badges;
 
 class HomeTopMenu extends StatefulWidget {
   final dynamic iconText;
@@ -97,6 +99,12 @@ class HomeTopMenuState extends State<HomeTopMenu> {
   Widget build(BuildContext context) {
     //bool showBadge = context.watch<NotificationCount>().showBadge;
     //int? badgeNo = context.watch<NotificationCount>().notificationBadge;
+    int notificationCount = 0;
+    List<ChatNotification> chatNotificationCount =
+        context.watch<ChatNotificationCount>().getChatNotificationCountList;
+    for (var chatNotification in chatNotificationCount) {
+      notificationCount += chatNotification.notificationBadge!;
+    }
     Size size = MediaQuery.of(context).size;
 
     return SizedBox(
@@ -274,6 +282,40 @@ class HomeTopMenuState extends State<HomeTopMenu> {
                           Text(
                             AppLocalizations.of(context)!.translate('scan_lbl'),
                             style: const TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 14,
+                                color: Colors.black),
+                          ),
+                        ],
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () => context.router.push(const RoomList()),
+                      borderRadius: BorderRadius.circular(10.0),
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(18))),
+                            padding: const EdgeInsets.all(12),
+                            child: badges.Badge(
+                              showBadge: notificationCount > 0 ? true : false,
+                              badgeContent: Text(
+                                '$notificationCount',
+                                style: const TextStyle(color: Colors.white),
+                              ),
+                              child: const Icon(
+                                MyCustomIcons.vChatIcon,
+                                color: Color.fromARGB(255, 32, 56, 90),
+                                size: 30,
+                              ),
+                            ),
+                          ),
+                          const Text(
+                            'Chat',
+                            style: TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 14,
                                 color: Colors.black),

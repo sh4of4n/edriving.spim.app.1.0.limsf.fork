@@ -41,4 +41,6 @@ class MyCustomIcons {
   static const IconData promoIcon = IconData(0xe817, fontFamily: _kFontFam);
   static const IconData scanIcon = IconData(0xe818, fontFamily: _kFontFam);
   static const IconData vClubIcon = IconData(0xe819, fontFamily: _kFontFam);
+  static const IconData vChatIcon =
+      IconData(0xe153, fontFamily: 'MaterialIcons');
 }

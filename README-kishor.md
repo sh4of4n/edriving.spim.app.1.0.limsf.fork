@@ -1,3 +1,8 @@
+2024-01-30 V.1.0.1
+
+- Added chat icon to home_top_menu screen.
+- Resolved package issues.
+
 2024-01-26 V.1.0.1
 
 - Added socket disconnect event while logout from settings page and authentication pages.
