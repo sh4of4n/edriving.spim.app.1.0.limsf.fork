@@ -30,16 +30,14 @@ import 'package:provider/provider.dart';
 
 @RoutePage()
 class AddClass extends StatefulWidget {
-  final myKadDetails;
   final courseCode;
   final groupId;
-  final fingerPrnStatus;
+  final vehNo;
   const AddClass(
       {super.key,
-      required this.myKadDetails,
       required this.courseCode,
       required this.groupId,
-      required this.fingerPrnStatus});
+      required this.vehNo});
 
   @override
   State<AddClass> createState() => _AddClassState();
@@ -85,6 +83,8 @@ class _AddClassState extends State<AddClass> {
   String trainerIc = '';
   String dsCode = '';
   String mifareIc = '';
+  String plateNo = '';
+  String vehGroupId = '';
   String fingerPrnStatus = 'N';
   String title = 'Ready to Scan';
   String message = '';
@@ -276,7 +276,8 @@ class _AddClassState extends State<AddClass> {
               groupIdController.text == 'C'||
               groupIdController.text == 'A')
           {
-            _showVehicleSelect();
+            scanQr();
+            // _showVehicleSelect();
           } else {
             if (!context.mounted) return;
             customDialog.show(
@@ -305,7 +306,8 @@ class _AddClassState extends State<AddClass> {
               groupIdController.text == 'DK'||
               groupIdController.text == 'A1')
           {
-            _showVehicleSelect();
+            scanQr();
+            // _showVehicleSelect();
           } else {
             if (!context.mounted) return;
             customDialog.show(
@@ -506,6 +508,90 @@ class _AddClassState extends State<AddClass> {
     return result.message;
   }
 
+  bool isJson(String str) {
+    try {
+      json.decode(str);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  scanQr() async {
+    var scanData = await context.router.push(const ScanVeh());
+    if (scanData != null) {
+      try {
+        if(isJson(scanData.toString())){
+          EasyLoading.dismiss();
+          setState(() {
+            groupIdController.text = jsonDecode(scanData.toString())['Table1'][0]
+              ['group_id'];
+            vehicleController.text = jsonDecode(scanData.toString())['Table1'][0]
+              ['plate_no'];
+          });
+          return;
+        } else {
+          Response decryptQrcode = await classRepo.decryptQrcode(
+            qrcodeJson: scanData.toString(),
+          );
+
+          if(decryptQrcode.isSuccess){
+            EasyLoading.dismiss();
+            if (!mounted) return;
+            await showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: const Text('Edriving SPIM APP'),
+                  content: SingleChildScrollView(
+                    child: ListBody(
+                      children: <Widget>[
+                        Text(decryptQrcode.message ?? ''),
+                      ],
+                    ),
+                  ),
+                  actions: <Widget>[
+                    TextButton(
+                      child: const Text('OK'),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                );
+              },
+            );
+          }
+          setState(() {
+            groupIdController.text = decryptQrcode.data[0].groupId;
+            vehicleController.text = decryptQrcode.data[0].plateNo;
+          });
+          return;
+        }
+      } catch (e){
+        EasyLoading.dismiss();
+        if (!mounted) return;
+        customDialog.show(
+          barrierDismissable: false,
+          context: context,
+          content:
+              AppLocalizations.of(context)!.translate('invalid_qr'),
+          customActions: [
+            TextButton(
+              onPressed: () {
+                context.router.pop();
+              },
+              child: const Text('Ok'),
+            ),
+          ],
+          type: DialogType.error,
+        );
+      }
+      
+    }
+  }
+
   void _showVehicleSelect() async {
     setState(() {
       selectedVehicle = vehicleController.text;
@@ -599,9 +685,17 @@ class _AddClassState extends State<AddClass> {
     getGroupId();
     getCourseCode();
 
-    setState(() {
-      vehicleController.text = 'No vehicle selected yet';
-    });
+    if(widget.courseCode != '' || widget.courseCode != '-'){
+      setState(() {
+        vehicleController.text = widget.vehNo;
+        courseCodeController.text = widget.courseCode;
+        groupIdController.text = widget.groupId;
+      });
+    } else {
+      setState(() {
+        vehicleController.text = 'No vehicle selected yet';
+      });
+    }
 
     year = today.year;
     month = today.month;
