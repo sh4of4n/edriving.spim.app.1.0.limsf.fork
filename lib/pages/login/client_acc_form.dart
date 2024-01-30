@@ -352,8 +352,10 @@ class ClientAccountFormState extends State<ClientAccountForm>
           Uri.encodeQueryComponent(caPwdController.text.replaceAll(' ', '')));
       if (!context.mounted) return;
       if (widget.data == 'SETTINGS') {
+        if (!context.mounted) return;
         context.router.replace(const Login());
       } else {
+        if (!context.mounted) return;
         context.router.pop();
       }
     } else {
@@ -382,8 +384,10 @@ class ClientAccountFormState extends State<ClientAccountForm>
           await Hive.box('ws_url').delete('userDefinedUrl');
           if (!context.mounted) return;
           if (widget.data == 'SETTINGS') {
+            if (!context.mounted) return;
             context.router.replace(const Login());
           } else {
+            if (!context.mounted) return;
             context.router.pop();
           }
         } else {

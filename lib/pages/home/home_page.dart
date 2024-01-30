@@ -36,7 +36,7 @@ import 'feeds.dart';
 import 'home_page_header.dart';
 import 'home_top_menu.dart';
 
-@RoutePage()
+@RoutePage(name: 'Home')
 class Home extends StatefulWidget {
   final String? appVersion;
   const Home({super.key, this.appVersion});

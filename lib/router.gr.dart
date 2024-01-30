@@ -8,73 +8,77 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i90;
-import 'package:camera/camera.dart' as _i93;
+import 'package:auto_route/auto_route.dart' as _i94;
+import 'package:camera/camera.dart' as _i97;
 import 'package:edriving_spim_app/coming_soon/coming_soon.dart' as _i22;
 import 'package:edriving_spim_app/common_library/utils/image_viewer.dart'
-    as _i38;
-import 'package:edriving_spim_app/pages/chat/chat_page.dart' as _i17;
+    as _i39;
+import 'package:edriving_spim_app/pages/chat/chat_room.dart' as _i17;
+import 'package:edriving_spim_app/pages/chat/create_group.dart' as _i23;
+import 'package:edriving_spim_app/pages/chat/invite_friend.dart' as _i42;
+import 'package:edriving_spim_app/pages/chat/room_list.dart' as _i77;
 import 'package:edriving_spim_app/pages/class/add_class.dart' as _i2;
 import 'package:edriving_spim_app/pages/class/class.dart' as _i20;
-import 'package:edriving_spim_app/pages/class/history_class.dart' as _i35;
-import 'package:edriving_spim_app/pages/class/progress_class.dart' as _i62;
-import 'package:edriving_spim_app/pages/class/thumbout_class.dart' as _i82;
-import 'package:edriving_spim_app/pages/class/today_class.dart' as _i83;
+import 'package:edriving_spim_app/pages/class/history_class.dart' as _i36;
+import 'package:edriving_spim_app/pages/class/progress_class.dart' as _i64;
+import 'package:edriving_spim_app/pages/class/scanVehicle.dart' as _i79;
+import 'package:edriving_spim_app/pages/class/thumbout_class.dart' as _i86;
+import 'package:edriving_spim_app/pages/class/today_class.dart' as _i87;
 import 'package:edriving_spim_app/pages/di_enroll/bank_list.dart' as _i9;
 import 'package:edriving_spim_app/pages/di_enroll/di_enrollment_page.dart'
-    as _i23;
-import 'package:edriving_spim_app/pages/di_enroll/enroll_confirmation.dart'
-    as _i27;
-import 'package:edriving_spim_app/pages/di_enroll/order_list.dart' as _i52;
-import 'package:edriving_spim_app/pages/di_enroll/payment_status.dart' as _i56;
-import 'package:edriving_spim_app/pages/di_enroll/read_more.dart' as _i66;
-import 'package:edriving_spim_app/pages/di_enroll/terms_and_condition.dart'
-    as _i81;
-import 'package:edriving_spim_app/pages/emergency/directory_detail.dart'
     as _i24;
-import 'package:edriving_spim_app/pages/emergency/directory_list.dart' as _i25;
+import 'package:edriving_spim_app/pages/di_enroll/enroll_confirmation.dart'
+    as _i28;
+import 'package:edriving_spim_app/pages/di_enroll/order_list.dart' as _i54;
+import 'package:edriving_spim_app/pages/di_enroll/payment_status.dart' as _i58;
+import 'package:edriving_spim_app/pages/di_enroll/read_more.dart' as _i68;
+import 'package:edriving_spim_app/pages/di_enroll/terms_and_condition.dart'
+    as _i85;
+import 'package:edriving_spim_app/pages/emergency/directory_detail.dart'
+    as _i25;
+import 'package:edriving_spim_app/pages/emergency/directory_list.dart' as _i26;
 import 'package:edriving_spim_app/pages/emergency/emergency_directory.dart'
-    as _i26;
-import 'package:edriving_spim_app/pages/enroll/enrollment.dart' as _i28;
-import 'package:edriving_spim_app/pages/enroll/select_class.dart' as _i76;
-import 'package:edriving_spim_app/pages/enroll/select_institute.dart' as _i78;
+    as _i27;
+import 'package:edriving_spim_app/pages/enroll/enrollment.dart' as _i29;
+import 'package:edriving_spim_app/pages/enroll/select_class.dart' as _i80;
+import 'package:edriving_spim_app/pages/enroll/select_institute.dart' as _i82;
 import 'package:edriving_spim_app/pages/epandu/add_booking.dart' as _i1;
 import 'package:edriving_spim_app/pages/epandu/attendance_record.dart' as _i6;
 import 'package:edriving_spim_app/pages/epandu/attendance_tab.dart' as _i7;
 import 'package:edriving_spim_app/pages/epandu/booking.dart' as _i13;
-import 'package:edriving_spim_app/pages/epandu/epandu_category.dart' as _i31;
-import 'package:edriving_spim_app/pages/epandu/payment_history.dart' as _i54;
+import 'package:edriving_spim_app/pages/epandu/epandu_category.dart' as _i32;
+import 'package:edriving_spim_app/pages/epandu/payment_history.dart' as _i56;
 import 'package:edriving_spim_app/pages/epandu/payment_history_detail.dart'
-    as _i55;
-import 'package:edriving_spim_app/pages/epandu/records.dart' as _i67;
-import 'package:edriving_spim_app/pages/epandu/registered_course.dart' as _i72;
+    as _i57;
+import 'package:edriving_spim_app/pages/epandu/records.dart' as _i69;
+import 'package:edriving_spim_app/pages/epandu/registered_course.dart' as _i74;
 import 'package:edriving_spim_app/pages/epandu/registered_course_detail.dart'
-    as _i73;
-import 'package:edriving_spim_app/pages/epandu/request_pickup.dart' as _i74;
+    as _i75;
+import 'package:edriving_spim_app/pages/epandu/request_pickup.dart' as _i76;
 import 'package:edriving_spim_app/pages/etesting/check_in_slip.dart' as _i18;
 import 'package:edriving_spim_app/pages/etesting/etesting_category.dart'
-    as _i32;
-import 'package:edriving_spim_app/pages/forgot_password/forgot_password_page.dart'
     as _i33;
-import 'package:edriving_spim_app/pages/home/home_page.dart' as _i36;
-import 'package:edriving_spim_app/pages/home/queue_number.dart' as _i65;
-import 'package:edriving_spim_app/pages/home/scan.dart' as _i75;
-import 'package:edriving_spim_app/pages/home/webview.dart' as _i89;
-import 'package:edriving_spim_app/pages/inbox/inbox_page.dart' as _i39;
-import 'package:edriving_spim_app/pages/invite/invite.dart' as _i40;
-import 'package:edriving_spim_app/pages/kpp/kpp_category.dart' as _i41;
-import 'package:edriving_spim_app/pages/kpp/kpp_exam.dart' as _i42;
-import 'package:edriving_spim_app/pages/kpp/kpp_module.dart' as _i43;
-import 'package:edriving_spim_app/pages/kpp/kpp_result.dart' as _i44;
-import 'package:edriving_spim_app/pages/kpp/pin_activation.dart' as _i57;
+import 'package:edriving_spim_app/pages/forgot_password/forgot_password_page.dart'
+    as _i34;
+import 'package:edriving_spim_app/pages/home/home_page.dart' as _i37;
+import 'package:edriving_spim_app/pages/home/queue_number.dart' as _i67;
+import 'package:edriving_spim_app/pages/home/scan.dart' as _i78;
+import 'package:edriving_spim_app/pages/home/webview.dart' as _i93;
+import 'package:edriving_spim_app/pages/inbox/inbox_page.dart' as _i40;
+import 'package:edriving_spim_app/pages/invite/invite.dart' as _i41;
+import 'package:edriving_spim_app/pages/kpp/kpp_category.dart' as _i43;
+import 'package:edriving_spim_app/pages/kpp/kpp_exam.dart' as _i44;
+import 'package:edriving_spim_app/pages/kpp/kpp_module.dart' as _i45;
+import 'package:edriving_spim_app/pages/kpp/kpp_result.dart' as _i46;
+import 'package:edriving_spim_app/pages/kpp/pin_activation.dart' as _i59;
 import 'package:edriving_spim_app/pages/login/authentication.dart' as _i8;
 import 'package:edriving_spim_app/pages/login/client_acc_page.dart' as _i21;
-import 'package:edriving_spim_app/pages/login/login_page.dart' as _i45;
+import 'package:edriving_spim_app/pages/login/login_page.dart' as _i47;
 import 'package:edriving_spim_app/pages/login/select_driving_institute.dart'
-    as _i77;
-import 'package:edriving_spim_app/pages/pay/fpx_payment_option.dart' as _i34;
-import 'package:edriving_spim_app/pages/pay/pay_page.dart' as _i53;
-import 'package:edriving_spim_app/pages/pay/purchase_order_list.dart' as _i64;
+    as _i81;
+import 'package:edriving_spim_app/pages/pay/fpx_payment_option.dart' as _i35;
+import 'package:edriving_spim_app/pages/pay/pay_page.dart' as _i55;
+import 'package:edriving_spim_app/pages/pay/purchase_order_list.dart' as _i66;
 import 'package:edriving_spim_app/pages/payment/airtime_bill_detail.dart'
     as _i3;
 import 'package:edriving_spim_app/pages/payment/airtime_selection.dart' as _i4;
@@ -83,71 +87,70 @@ import 'package:edriving_spim_app/pages/payment/airtime_transaction.dart'
 import 'package:edriving_spim_app/pages/payment/bill_detail.dart' as _i10;
 import 'package:edriving_spim_app/pages/payment/bill_selection.dart' as _i11;
 import 'package:edriving_spim_app/pages/payment/bill_transaction.dart' as _i12;
-import 'package:edriving_spim_app/pages/pdf/view_pdf.dart' as _i88;
-import 'package:edriving_spim_app/pages/profile/enrolment_info.dart' as _i29;
+import 'package:edriving_spim_app/pages/pdf/view_pdf.dart' as _i92;
+import 'package:edriving_spim_app/pages/profile/enrolment_info.dart' as _i30;
 import 'package:edriving_spim_app/pages/profile/enrolment_info_detail.dart'
-    as _i30;
-import 'package:edriving_spim_app/pages/profile/identity_barcode.dart' as _i37;
-import 'package:edriving_spim_app/pages/profile/merchant_profile.dart' as _i48;
-import 'package:edriving_spim_app/pages/profile/profile_page.dart' as _i60;
-import 'package:edriving_spim_app/pages/profile/profile_tab.dart' as _i61;
+    as _i31;
+import 'package:edriving_spim_app/pages/profile/identity_barcode.dart' as _i38;
+import 'package:edriving_spim_app/pages/profile/merchant_profile.dart' as _i50;
+import 'package:edriving_spim_app/pages/profile/profile_page.dart' as _i62;
+import 'package:edriving_spim_app/pages/profile/profile_tab.dart' as _i63;
 import 'package:edriving_spim_app/pages/profile/take_profile_picture.dart'
-    as _i80;
-import 'package:edriving_spim_app/pages/profile/update_profile.dart' as _i85;
+    as _i84;
+import 'package:edriving_spim_app/pages/profile/update_profile.dart' as _i89;
 import 'package:edriving_spim_app/pages/promotions/multilevel_page.dart'
-    as _i49;
+    as _i51;
 import 'package:edriving_spim_app/pages/promotions/promotions_page.dart'
-    as _i63;
-import 'package:edriving_spim_app/pages/register/register_form.dart' as _i68;
-import 'package:edriving_spim_app/pages/register/register_mobile.dart' as _i69;
+    as _i65;
+import 'package:edriving_spim_app/pages/register/register_form.dart' as _i70;
+import 'package:edriving_spim_app/pages/register/register_mobile.dart' as _i71;
 import 'package:edriving_spim_app/pages/register/register_user_to_di.dart'
-    as _i70;
+    as _i72;
 import 'package:edriving_spim_app/pages/register/register_verification.dart'
-    as _i71;
-import 'package:edriving_spim_app/pages/schedule/student_location.dart' as _i46;
-import 'package:edriving_spim_app/pages/schedule/trainer_schedule.dart' as _i84;
+    as _i73;
+import 'package:edriving_spim_app/pages/schedule/student_location.dart' as _i48;
+import 'package:edriving_spim_app/pages/schedule/trainer_schedule.dart' as _i88;
 import 'package:edriving_spim_app/pages/settings/change_password.dart' as _i16;
-import 'package:edriving_spim_app/pages/student/students.dart' as _i79;
-import 'package:edriving_spim_app/pages/thumbin/mifare.dart' as _i51;
-import 'package:edriving_spim_app/pages/thumbin/mykad.dart' as _i50;
+import 'package:edriving_spim_app/pages/student/students.dart' as _i83;
+import 'package:edriving_spim_app/pages/thumbin/mifare.dart' as _i53;
+import 'package:edriving_spim_app/pages/thumbin/mykad.dart' as _i52;
 import 'package:edriving_spim_app/pages/vclub/cart.dart' as _i14;
 import 'package:edriving_spim_app/pages/vclub/checkout.dart' as _i19;
 import 'package:edriving_spim_app/pages/vclub/edit_cart.dart' as _i15;
-import 'package:edriving_spim_app/pages/vclub/merchant_list.dart' as _i47;
-import 'package:edriving_spim_app/pages/vclub/product.dart' as _i58;
-import 'package:edriving_spim_app/pages/vclub/product_list.dart' as _i59;
-import 'package:edriving_spim_app/pages/vclub/value_club_page.dart' as _i86;
-import 'package:edriving_spim_app/pages/vehicle/vehicle.dart' as _i87;
-import 'package:flutter/foundation.dart' as _i92;
-import 'package:flutter/material.dart' as _i91;
+import 'package:edriving_spim_app/pages/vclub/merchant_list.dart' as _i49;
+import 'package:edriving_spim_app/pages/vclub/product.dart' as _i60;
+import 'package:edriving_spim_app/pages/vclub/product_list.dart' as _i61;
+import 'package:edriving_spim_app/pages/vclub/value_club_page.dart' as _i90;
+import 'package:edriving_spim_app/pages/vehicle/vehicle.dart' as _i91;
+import 'package:flutter/foundation.dart' as _i96;
+import 'package:flutter/material.dart' as _i95;
 
-abstract class $RootRouter extends _i90.RootStackRouter {
+abstract class $RootRouter extends _i94.RootStackRouter {
   $RootRouter({super.navigatorKey});
 
   @override
-  final Map<String, _i90.PageFactory> pagesMap = {
+  final Map<String, _i94.PageFactory> pagesMap = {
     AddBooking.name: (routeData) {
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i1.AddBooking(),
       );
     },
     AddClass.name: (routeData) {
       final args = routeData.argsAs<AddClassArgs>();
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i2.AddClass(
           key: args.key,
-          myKadDetails: args.myKadDetails,
           courseCode: args.courseCode,
           groupId: args.groupId,
-          fingerPrnStatus: args.fingerPrnStatus,
+          vehNo: args.vehNo,
         ),
       );
     },
     AirtimeBillDetail.name: (routeData) {
       final args = routeData.argsAs<AirtimeBillDetailArgs>();
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i3.AirtimeBillDetail(
           args.data,
@@ -158,14 +161,14 @@ abstract class $RootRouter extends _i90.RootStackRouter {
     AirtimeSelection.name: (routeData) {
       final args = routeData.argsAs<AirtimeSelectionArgs>(
           orElse: () => const AirtimeSelectionArgs());
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i4.AirtimeSelection(key: args.key),
       );
     },
     AirtimeTransaction.name: (routeData) {
       final args = routeData.argsAs<AirtimeTransactionArgs>();
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i5.AirtimeTransaction(
           args.data,
@@ -175,7 +178,7 @@ abstract class $RootRouter extends _i90.RootStackRouter {
     },
     AttendanceRecord.name: (routeData) {
       final args = routeData.argsAs<AttendanceRecordArgs>();
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i6.AttendanceRecord(
           key: args.key,
@@ -185,13 +188,13 @@ abstract class $RootRouter extends _i90.RootStackRouter {
       );
     },
     AttendanceTab.name: (routeData) {
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i7.AttendanceTab(),
       );
     },
     Authentication.name: (routeData) {
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i8.Authentication(),
       );
@@ -199,7 +202,7 @@ abstract class $RootRouter extends _i90.RootStackRouter {
     BankList.name: (routeData) {
       final args =
           routeData.argsAs<BankListArgs>(orElse: () => const BankListArgs());
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i9.BankList(
           key: args.key,
@@ -214,7 +217,7 @@ abstract class $RootRouter extends _i90.RootStackRouter {
     },
     BillDetail.name: (routeData) {
       final args = routeData.argsAs<BillDetailArgs>();
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i10.BillDetail(
           args.data,
@@ -225,14 +228,14 @@ abstract class $RootRouter extends _i90.RootStackRouter {
     BillSelection.name: (routeData) {
       final args = routeData.argsAs<BillSelectionArgs>(
           orElse: () => const BillSelectionArgs());
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i11.BillSelection(key: args.key),
       );
     },
     BillTransaction.name: (routeData) {
       final args = routeData.argsAs<BillTransactionArgs>();
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i12.BillTransaction(
           args.data,
@@ -241,14 +244,14 @@ abstract class $RootRouter extends _i90.RootStackRouter {
       );
     },
     Booking.name: (routeData) {
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i13.Booking(),
       );
     },
     Cart.name: (routeData) {
       final args = routeData.argsAs<CartArgs>(orElse: () => const CartArgs());
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i14.Cart(
           key: args.key,
@@ -260,7 +263,7 @@ abstract class $RootRouter extends _i90.RootStackRouter {
     CartItemEdit.name: (routeData) {
       final args = routeData.argsAs<CartItemEditArgs>(
           orElse: () => const CartItemEditArgs());
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i15.CartItemEdit(
           key: args.key,
@@ -279,19 +282,27 @@ abstract class $RootRouter extends _i90.RootStackRouter {
       );
     },
     ChangePassword.name: (routeData) {
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i16.ChangePassword(),
       );
     },
-    ChatHome.name: (routeData) {
-      return _i90.AutoRoutePage<dynamic>(
+    ChatRoom.name: (routeData) {
+      final args = routeData.argsAs<ChatRoomArgs>();
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i17.ChatHome(),
+        child: _i17.ChatRoom(
+          key: args.key,
+          roomId: args.roomId,
+          picturePath: args.picturePath,
+          roomName: args.roomName,
+          roomDesc: args.roomDesc,
+          isMessagesExist: args.isMessagesExist,
+        ),
       );
     },
     CheckInSlip.name: (routeData) {
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i18.CheckInSlip(),
       );
@@ -299,7 +310,7 @@ abstract class $RootRouter extends _i90.RootStackRouter {
     Checkout.name: (routeData) {
       final args =
           routeData.argsAs<CheckoutArgs>(orElse: () => const CheckoutArgs());
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i19.Checkout(
           key: args.key,
@@ -315,7 +326,7 @@ abstract class $RootRouter extends _i90.RootStackRouter {
       );
     },
     Class.name: (routeData) {
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i20.Class(),
       );
@@ -323,7 +334,7 @@ abstract class $RootRouter extends _i90.RootStackRouter {
     ClientAccount.name: (routeData) {
       final args = routeData.argsAs<ClientAccountArgs>(
           orElse: () => const ClientAccountArgs());
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i21.ClientAccount(
           key: args.key,
@@ -332,17 +343,27 @@ abstract class $RootRouter extends _i90.RootStackRouter {
       );
     },
     ComingSoon.name: (routeData) {
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i22.ComingSoon(),
+      );
+    },
+    CreateGroup.name: (routeData) {
+      final args = routeData.argsAs<CreateGroupArgs>();
+      return _i94.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i23.CreateGroup(
+          key: args.key,
+          roomId: args.roomId,
+        ),
       );
     },
     DiEnrollment.name: (routeData) {
       final args = routeData.argsAs<DiEnrollmentArgs>(
           orElse: () => const DiEnrollmentArgs());
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i23.DiEnrollment(
+        child: _i24.DiEnrollment(
           key: args.key,
           packageCodeJson: args.packageCodeJson,
         ),
@@ -350,9 +371,9 @@ abstract class $RootRouter extends _i90.RootStackRouter {
     },
     DirectoryDetail.name: (routeData) {
       final args = routeData.argsAs<DirectoryDetailArgs>();
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i24.DirectoryDetail(
+        child: _i25.DirectoryDetail(
           args.snapshot,
           key: args.key,
         ),
@@ -360,26 +381,26 @@ abstract class $RootRouter extends _i90.RootStackRouter {
     },
     DirectoryList.name: (routeData) {
       final args = routeData.argsAs<DirectoryListArgs>();
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i25.DirectoryList(
+        child: _i26.DirectoryList(
           args.directoryType,
           key: args.key,
         ),
       );
     },
     EmergencyDirectory.name: (routeData) {
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i26.EmergencyDirectory(),
+        child: const _i27.EmergencyDirectory(),
       );
     },
     EnrollConfirmation.name: (routeData) {
       final args = routeData.argsAs<EnrollConfirmationArgs>(
           orElse: () => const EnrollConfirmationArgs());
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i27.EnrollConfirmation(
+        child: _i28.EnrollConfirmation(
           key: args.key,
           banner: args.banner,
           packageName: args.packageName,
@@ -393,22 +414,22 @@ abstract class $RootRouter extends _i90.RootStackRouter {
       );
     },
     Enrollment.name: (routeData) {
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i28.Enrollment(),
+        child: const _i29.Enrollment(),
       );
     },
     EnrolmentInfo.name: (routeData) {
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i29.EnrolmentInfo(),
+        child: const _i30.EnrolmentInfo(),
       );
     },
     EnrolmentInfoDetail.name: (routeData) {
       final args = routeData.argsAs<EnrolmentInfoDetailArgs>();
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i30.EnrolmentInfoDetail(
+        child: _i31.EnrolmentInfoDetail(
           args.groupId,
           key: args.key,
         ),
@@ -417,31 +438,31 @@ abstract class $RootRouter extends _i90.RootStackRouter {
     EpanduCategory.name: (routeData) {
       final args = routeData.argsAs<EpanduCategoryArgs>(
           orElse: () => const EpanduCategoryArgs());
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i31.EpanduCategory(key: args.key),
+        child: _i32.EpanduCategory(key: args.key),
       );
     },
     EtestingCategory.name: (routeData) {
       final args = routeData.argsAs<EtestingCategoryArgs>(
           orElse: () => const EtestingCategoryArgs());
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i32.EtestingCategory(key: args.key),
+        child: _i33.EtestingCategory(key: args.key),
       );
     },
     ForgotPassword.name: (routeData) {
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i33.ForgotPassword(),
+        child: const _i34.ForgotPassword(),
       );
     },
     FpxPaymentOption.name: (routeData) {
       final args = routeData.argsAs<FpxPaymentOptionArgs>(
           orElse: () => const FpxPaymentOptionArgs());
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i34.FpxPaymentOption(
+        child: _i35.FpxPaymentOption(
           key: args.key,
           icNo: args.icNo,
           docDoc: args.docDoc,
@@ -457,9 +478,9 @@ abstract class $RootRouter extends _i90.RootStackRouter {
     },
     HistoryClass.name: (routeData) {
       final args = routeData.argsAs<HistoryClassArgs>();
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i35.HistoryClass(
+        child: _i36.HistoryClass(
           key: args.key,
           historyClassInfo: args.historyClassInfo,
           message: args.message,
@@ -468,26 +489,26 @@ abstract class $RootRouter extends _i90.RootStackRouter {
     },
     Home.name: (routeData) {
       final args = routeData.argsAs<HomeArgs>(orElse: () => const HomeArgs());
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i36.Home(
+        child: _i37.Home(
           key: args.key,
           appVersion: args.appVersion,
         ),
       );
     },
     IdentityBarcode.name: (routeData) {
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i37.IdentityBarcode(),
+        child: const _i38.IdentityBarcode(),
       );
     },
     ImageViewer.name: (routeData) {
       final args = routeData.argsAs<ImageViewerArgs>(
           orElse: () => const ImageViewerArgs());
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i38.ImageViewer(
+        child: _i39.ImageViewer(
           key: args.key,
           title: args.title,
           image: args.image,
@@ -495,28 +516,38 @@ abstract class $RootRouter extends _i90.RootStackRouter {
       );
     },
     Inbox.name: (routeData) {
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i39.Inbox(),
+        child: const _i40.Inbox(),
       );
     },
     Invite.name: (routeData) {
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i40.Invite(),
+        child: const _i41.Invite(),
+      );
+    },
+    InviteFriend.name: (routeData) {
+      final args = routeData.argsAs<InviteFriendArgs>();
+      return _i94.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i42.InviteFriend(
+          key: args.key,
+          roomId: args.roomId,
+        ),
       );
     },
     KppCategory.name: (routeData) {
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i41.KppCategory(),
+        child: const _i43.KppCategory(),
       );
     },
     KppExam.name: (routeData) {
       final args = routeData.argsAs<KppExamArgs>();
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i42.KppExam(
+        child: _i44.KppExam(
           key: args.key,
           groupId: args.groupId,
           paperNo: args.paperNo,
@@ -525,9 +556,9 @@ abstract class $RootRouter extends _i90.RootStackRouter {
     },
     KppModule.name: (routeData) {
       final args = routeData.argsAs<KppModuleArgs>();
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i43.KppModule(
+        child: _i45.KppModule(
           args.data,
           key: args.key,
         ),
@@ -535,25 +566,25 @@ abstract class $RootRouter extends _i90.RootStackRouter {
     },
     KppResult.name: (routeData) {
       final args = routeData.argsAs<KppResultArgs>();
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i44.KppResult(
+        child: _i46.KppResult(
           args.data,
           key: args.key,
         ),
       );
     },
     Login.name: (routeData) {
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i45.Login(),
+        child: const _i47.Login(),
       );
     },
     MapScreen.name: (routeData) {
       final args = routeData.argsAs<MapScreenArgs>();
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i46.MapScreen(
+        child: _i48.MapScreen(
           key: args.key,
           address: args.address,
           studName: args.studName,
@@ -562,26 +593,26 @@ abstract class $RootRouter extends _i90.RootStackRouter {
     },
     MerchantList.name: (routeData) {
       final args = routeData.argsAs<MerchantListArgs>();
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i47.MerchantList(
+        child: _i49.MerchantList(
           args.merchantType,
           key: args.key,
         ),
       );
     },
     MerchantProfile.name: (routeData) {
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i48.MerchantProfile(),
+        child: const _i50.MerchantProfile(),
       );
     },
     Multilevel.name: (routeData) {
       final args = routeData.argsAs<MultilevelArgs>(
           orElse: () => const MultilevelArgs());
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i49.Multilevel(
+        child: _i51.Multilevel(
           key: args.key,
           feed: args.feed,
           appVersion: args.appVersion,
@@ -590,9 +621,9 @@ abstract class $RootRouter extends _i90.RootStackRouter {
     },
     MyKad.name: (routeData) {
       final args = routeData.argsAs<MyKadArgs>();
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i50.MyKad(
+        child: _i52.MyKad(
           key: args.key,
           courseCode: args.courseCode,
           groupId: args.groupId,
@@ -601,9 +632,9 @@ abstract class $RootRouter extends _i90.RootStackRouter {
     },
     Nfc.name: (routeData) {
       final args = routeData.argsAs<NfcArgs>();
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i51.Nfc(
+        child: _i53.Nfc(
           key: args.key,
           textByte: args.textByte,
           groupId: args.groupId,
@@ -614,9 +645,9 @@ abstract class $RootRouter extends _i90.RootStackRouter {
     OrderList.name: (routeData) {
       final args =
           routeData.argsAs<OrderListArgs>(orElse: () => const OrderListArgs());
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i52.OrderList(
+        child: _i54.OrderList(
           key: args.key,
           icNo: args.icNo,
           packageCode: args.packageCode,
@@ -625,22 +656,22 @@ abstract class $RootRouter extends _i90.RootStackRouter {
       );
     },
     Pay.name: (routeData) {
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i53.Pay(),
+        child: const _i55.Pay(),
       );
     },
     PaymentHistory.name: (routeData) {
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i54.PaymentHistory(),
+        child: const _i56.PaymentHistory(),
       );
     },
     PaymentHistoryDetail.name: (routeData) {
       final args = routeData.argsAs<PaymentHistoryDetailArgs>();
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i55.PaymentHistoryDetail(
+        child: _i57.PaymentHistoryDetail(
           args.recpNo,
           key: args.key,
         ),
@@ -649,9 +680,9 @@ abstract class $RootRouter extends _i90.RootStackRouter {
     PaymentStatus.name: (routeData) {
       final args = routeData.argsAs<PaymentStatusArgs>(
           orElse: () => const PaymentStatusArgs());
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i56.PaymentStatus(
+        child: _i58.PaymentStatus(
           key: args.key,
           icNo: args.icNo,
         ),
@@ -659,9 +690,9 @@ abstract class $RootRouter extends _i90.RootStackRouter {
     },
     PinActivation.name: (routeData) {
       final args = routeData.argsAs<PinActivationArgs>();
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i57.PinActivation(
+        child: _i59.PinActivation(
           args.data,
           key: args.key,
         ),
@@ -670,9 +701,9 @@ abstract class $RootRouter extends _i90.RootStackRouter {
     Product.name: (routeData) {
       final args =
           routeData.argsAs<ProductArgs>(orElse: () => const ProductArgs());
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i58.Product(
+        child: _i60.Product(
           key: args.key,
           stkCode: args.stkCode,
           stkDesc1: args.stkDesc1,
@@ -688,9 +719,9 @@ abstract class $RootRouter extends _i90.RootStackRouter {
     ProductList.name: (routeData) {
       final args = routeData.argsAs<ProductListArgs>(
           orElse: () => const ProductListArgs());
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i59.ProductList(
+        child: _i61.ProductList(
           key: args.key,
           stkCat: args.stkCat,
           keywordSearch: args.keywordSearch,
@@ -700,9 +731,9 @@ abstract class $RootRouter extends _i90.RootStackRouter {
     Profile.name: (routeData) {
       final args =
           routeData.argsAs<ProfileArgs>(orElse: () => const ProfileArgs());
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i60.Profile(
+        child: _i62.Profile(
           key: args.key,
           userProfile: args.userProfile,
           enrollData: args.enrollData,
@@ -711,16 +742,16 @@ abstract class $RootRouter extends _i90.RootStackRouter {
     },
     ProfileTab.name: (routeData) {
       final args = routeData.argsAs<ProfileTabArgs>();
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i61.ProfileTab(args.positionStream),
+        child: _i63.ProfileTab(args.positionStream),
       );
     },
     ProgressClass.name: (routeData) {
       final args = routeData.argsAs<ProgressClassArgs>();
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i62.ProgressClass(
+        child: _i64.ProgressClass(
           key: args.key,
           progressClassInfo: args.progressClassInfo,
           message: args.message,
@@ -730,9 +761,9 @@ abstract class $RootRouter extends _i90.RootStackRouter {
     Promotions.name: (routeData) {
       final args = routeData.argsAs<PromotionsArgs>(
           orElse: () => const PromotionsArgs());
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i63.Promotions(
+        child: _i65.Promotions(
           key: args.key,
           feed: args.feed,
         ),
@@ -741,9 +772,9 @@ abstract class $RootRouter extends _i90.RootStackRouter {
     PurchaseOrderList.name: (routeData) {
       final args = routeData.argsAs<PurchaseOrderListArgs>(
           orElse: () => const PurchaseOrderListArgs());
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i64.PurchaseOrderList(
+        child: _i66.PurchaseOrderList(
           key: args.key,
           icNo: args.icNo,
           packageCode: args.packageCode,
@@ -753,9 +784,9 @@ abstract class $RootRouter extends _i90.RootStackRouter {
     },
     QueueNumber.name: (routeData) {
       final args = routeData.argsAs<QueueNumberArgs>();
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i65.QueueNumber(
+        child: _i67.QueueNumber(
           key: args.key,
           data: args.data,
         ),
@@ -764,9 +795,9 @@ abstract class $RootRouter extends _i90.RootStackRouter {
     ReadMore.name: (routeData) {
       final args =
           routeData.argsAs<ReadMoreArgs>(orElse: () => const ReadMoreArgs());
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i66.ReadMore(
+        child: _i68.ReadMore(
           key: args.key,
           packageDesc: args.packageDesc,
         ),
@@ -775,32 +806,32 @@ abstract class $RootRouter extends _i90.RootStackRouter {
     Records.name: (routeData) {
       final args =
           routeData.argsAs<RecordsArgs>(orElse: () => const RecordsArgs());
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i67.Records(key: args.key),
+        child: _i69.Records(key: args.key),
       );
     },
     RegisterForm.name: (routeData) {
       final args = routeData.argsAs<RegisterFormArgs>();
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i68.RegisterForm(
+        child: _i70.RegisterForm(
           args.data,
           key: args.key,
         ),
       );
     },
     RegisterMobile.name: (routeData) {
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i69.RegisterMobile(),
+        child: const _i71.RegisterMobile(),
       );
     },
     RegisterUserToDi.name: (routeData) {
       final args = routeData.argsAs<RegisterUserToDiArgs>();
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i70.RegisterUserToDi(
+        child: _i72.RegisterUserToDi(
           args.barcode,
           key: args.key,
         ),
@@ -808,52 +839,64 @@ abstract class $RootRouter extends _i90.RootStackRouter {
     },
     RegisterVerification.name: (routeData) {
       final args = routeData.argsAs<RegisterVerificationArgs>();
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i71.RegisterVerification(
+        child: _i73.RegisterVerification(
           args.data,
           key: args.key,
         ),
       );
     },
     RegisteredCourse.name: (routeData) {
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i72.RegisteredCourse(),
+        child: const _i74.RegisteredCourse(),
       );
     },
     RegisteredCourseDetail.name: (routeData) {
       final args = routeData.argsAs<RegisteredCourseDetailArgs>();
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i73.RegisteredCourseDetail(
+        child: _i75.RegisteredCourseDetail(
           args.groupId,
           key: args.key,
         ),
       );
     },
     RequestPickup.name: (routeData) {
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i74.RequestPickup(),
+        child: const _i76.RequestPickup(),
+      );
+    },
+    RoomList.name: (routeData) {
+      return _i94.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i77.RoomList(),
       );
     },
     Scan.name: (routeData) {
       final args = routeData.argsAs<ScanArgs>(orElse: () => const ScanArgs());
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i75.Scan(
+        child: _i78.Scan(
           getActiveFeed: args.getActiveFeed,
           getDiProfile: args.getDiProfile,
           key: args.key,
         ),
       );
     },
+    ScanVeh.name: (routeData) {
+      return _i94.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i79.ScanVeh(),
+      );
+    },
     SelectClass.name: (routeData) {
       final args = routeData.argsAs<SelectClassArgs>();
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i76.SelectClass(
+        child: _i80.SelectClass(
           args.data,
           key: args.key,
         ),
@@ -861,9 +904,9 @@ abstract class $RootRouter extends _i90.RootStackRouter {
     },
     SelectDrivingInstitute.name: (routeData) {
       final args = routeData.argsAs<SelectDrivingInstituteArgs>();
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i77.SelectDrivingInstitute(
+        child: _i81.SelectDrivingInstitute(
           args.diList,
           key: args.key,
         ),
@@ -871,25 +914,25 @@ abstract class $RootRouter extends _i90.RootStackRouter {
     },
     SelectInstitute.name: (routeData) {
       final args = routeData.argsAs<SelectInstituteArgs>();
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i78.SelectInstitute(
+        child: _i82.SelectInstitute(
           args.data,
           key: args.key,
         ),
       );
     },
     Students.name: (routeData) {
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i79.Students(),
+        child: const _i83.Students(),
       );
     },
     TakeProfilePicture.name: (routeData) {
       final args = routeData.argsAs<TakeProfilePictureArgs>();
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i80.TakeProfilePicture(
+        child: _i84.TakeProfilePicture(
           args.camera,
           key: args.key,
         ),
@@ -898,9 +941,9 @@ abstract class $RootRouter extends _i90.RootStackRouter {
     TermsAndCondition.name: (routeData) {
       final args = routeData.argsAs<TermsAndConditionArgs>(
           orElse: () => const TermsAndConditionArgs());
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i81.TermsAndCondition(
+        child: _i85.TermsAndCondition(
           key: args.key,
           termsAndCondition: args.termsAndCondition,
         ),
@@ -908,9 +951,9 @@ abstract class $RootRouter extends _i90.RootStackRouter {
     },
     Thumbout.name: (routeData) {
       final args = routeData.argsAs<ThumboutArgs>();
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i82.Thumbout(
+        child: _i86.Thumbout(
           key: args.key,
           groupId: args.groupId,
           courseCode: args.courseCode,
@@ -921,9 +964,9 @@ abstract class $RootRouter extends _i90.RootStackRouter {
     },
     TodayClass.name: (routeData) {
       final args = routeData.argsAs<TodayClassArgs>();
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i83.TodayClass(
+        child: _i87.TodayClass(
           key: args.key,
           trnCode: args.trnCode,
           trnName: args.trnName,
@@ -934,34 +977,34 @@ abstract class $RootRouter extends _i90.RootStackRouter {
       );
     },
     TrainerSchedule.name: (routeData) {
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i84.TrainerSchedule(),
+        child: const _i88.TrainerSchedule(),
       );
     },
     UpdateProfile.name: (routeData) {
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i85.UpdateProfile(),
+        child: const _i89.UpdateProfile(),
       );
     },
     ValueClub.name: (routeData) {
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i86.ValueClub(),
+        child: const _i90.ValueClub(),
       );
     },
     Vehicle.name: (routeData) {
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i87.Vehicle(),
+        child: const _i91.Vehicle(),
       );
     },
     ViewPdf.name: (routeData) {
       final args = routeData.argsAs<ViewPdfArgs>();
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i88.ViewPdf(
+        child: _i92.ViewPdf(
           key: args.key,
           title: args.title,
           pdfLink: args.pdfLink,
@@ -970,9 +1013,9 @@ abstract class $RootRouter extends _i90.RootStackRouter {
     },
     Webview.name: (routeData) {
       final args = routeData.argsAs<WebviewArgs>();
-      return _i90.AutoRoutePage<dynamic>(
+      return _i94.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i89.Webview(
+        child: _i93.Webview(
           key: args.key,
           url: args.url,
           backType: args.backType,
@@ -984,8 +1027,8 @@ abstract class $RootRouter extends _i90.RootStackRouter {
 
 /// generated route for
 /// [_i1.AddBooking]
-class AddBooking extends _i90.PageRouteInfo<void> {
-  const AddBooking({List<_i90.PageRouteInfo>? children})
+class AddBooking extends _i94.PageRouteInfo<void> {
+  const AddBooking({List<_i94.PageRouteInfo>? children})
       : super(
           AddBooking.name,
           initialChildren: children,
@@ -993,69 +1036,64 @@ class AddBooking extends _i90.PageRouteInfo<void> {
 
   static const String name = 'AddBooking';
 
-  static const _i90.PageInfo<void> page = _i90.PageInfo<void>(name);
+  static const _i94.PageInfo<void> page = _i94.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i2.AddClass]
-class AddClass extends _i90.PageRouteInfo<AddClassArgs> {
+class AddClass extends _i94.PageRouteInfo<AddClassArgs> {
   AddClass({
-    _i91.Key? key,
-    required dynamic myKadDetails,
+    _i95.Key? key,
     required dynamic courseCode,
     required dynamic groupId,
-    required dynamic fingerPrnStatus,
-    List<_i90.PageRouteInfo>? children,
+    required dynamic vehNo,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           AddClass.name,
           args: AddClassArgs(
             key: key,
-            myKadDetails: myKadDetails,
             courseCode: courseCode,
             groupId: groupId,
-            fingerPrnStatus: fingerPrnStatus,
+            vehNo: vehNo,
           ),
           initialChildren: children,
         );
 
   static const String name = 'AddClass';
 
-  static const _i90.PageInfo<AddClassArgs> page =
-      _i90.PageInfo<AddClassArgs>(name);
+  static const _i94.PageInfo<AddClassArgs> page =
+      _i94.PageInfo<AddClassArgs>(name);
 }
 
 class AddClassArgs {
   const AddClassArgs({
     this.key,
-    required this.myKadDetails,
     required this.courseCode,
     required this.groupId,
-    required this.fingerPrnStatus,
+    required this.vehNo,
   });
 
-  final _i91.Key? key;
-
-  final dynamic myKadDetails;
+  final _i95.Key? key;
 
   final dynamic courseCode;
 
   final dynamic groupId;
 
-  final dynamic fingerPrnStatus;
+  final dynamic vehNo;
 
   @override
   String toString() {
-    return 'AddClassArgs{key: $key, myKadDetails: $myKadDetails, courseCode: $courseCode, groupId: $groupId, fingerPrnStatus: $fingerPrnStatus}';
+    return 'AddClassArgs{key: $key, courseCode: $courseCode, groupId: $groupId, vehNo: $vehNo}';
   }
 }
 
 /// generated route for
 /// [_i3.AirtimeBillDetail]
-class AirtimeBillDetail extends _i90.PageRouteInfo<AirtimeBillDetailArgs> {
+class AirtimeBillDetail extends _i94.PageRouteInfo<AirtimeBillDetailArgs> {
   AirtimeBillDetail({
     required dynamic data,
-    _i91.Key? key,
-    List<_i90.PageRouteInfo>? children,
+    _i95.Key? key,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           AirtimeBillDetail.name,
           args: AirtimeBillDetailArgs(
@@ -1067,8 +1105,8 @@ class AirtimeBillDetail extends _i90.PageRouteInfo<AirtimeBillDetailArgs> {
 
   static const String name = 'AirtimeBillDetail';
 
-  static const _i90.PageInfo<AirtimeBillDetailArgs> page =
-      _i90.PageInfo<AirtimeBillDetailArgs>(name);
+  static const _i94.PageInfo<AirtimeBillDetailArgs> page =
+      _i94.PageInfo<AirtimeBillDetailArgs>(name);
 }
 
 class AirtimeBillDetailArgs {
@@ -1079,7 +1117,7 @@ class AirtimeBillDetailArgs {
 
   final dynamic data;
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   @override
   String toString() {
@@ -1089,10 +1127,10 @@ class AirtimeBillDetailArgs {
 
 /// generated route for
 /// [_i4.AirtimeSelection]
-class AirtimeSelection extends _i90.PageRouteInfo<AirtimeSelectionArgs> {
+class AirtimeSelection extends _i94.PageRouteInfo<AirtimeSelectionArgs> {
   AirtimeSelection({
-    _i91.Key? key,
-    List<_i90.PageRouteInfo>? children,
+    _i95.Key? key,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           AirtimeSelection.name,
           args: AirtimeSelectionArgs(key: key),
@@ -1101,14 +1139,14 @@ class AirtimeSelection extends _i90.PageRouteInfo<AirtimeSelectionArgs> {
 
   static const String name = 'AirtimeSelection';
 
-  static const _i90.PageInfo<AirtimeSelectionArgs> page =
-      _i90.PageInfo<AirtimeSelectionArgs>(name);
+  static const _i94.PageInfo<AirtimeSelectionArgs> page =
+      _i94.PageInfo<AirtimeSelectionArgs>(name);
 }
 
 class AirtimeSelectionArgs {
   const AirtimeSelectionArgs({this.key});
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   @override
   String toString() {
@@ -1118,11 +1156,11 @@ class AirtimeSelectionArgs {
 
 /// generated route for
 /// [_i5.AirtimeTransaction]
-class AirtimeTransaction extends _i90.PageRouteInfo<AirtimeTransactionArgs> {
+class AirtimeTransaction extends _i94.PageRouteInfo<AirtimeTransactionArgs> {
   AirtimeTransaction({
     required dynamic data,
-    _i91.Key? key,
-    List<_i90.PageRouteInfo>? children,
+    _i95.Key? key,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           AirtimeTransaction.name,
           args: AirtimeTransactionArgs(
@@ -1134,8 +1172,8 @@ class AirtimeTransaction extends _i90.PageRouteInfo<AirtimeTransactionArgs> {
 
   static const String name = 'AirtimeTransaction';
 
-  static const _i90.PageInfo<AirtimeTransactionArgs> page =
-      _i90.PageInfo<AirtimeTransactionArgs>(name);
+  static const _i94.PageInfo<AirtimeTransactionArgs> page =
+      _i94.PageInfo<AirtimeTransactionArgs>(name);
 }
 
 class AirtimeTransactionArgs {
@@ -1146,7 +1184,7 @@ class AirtimeTransactionArgs {
 
   final dynamic data;
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   @override
   String toString() {
@@ -1156,12 +1194,12 @@ class AirtimeTransactionArgs {
 
 /// generated route for
 /// [_i6.AttendanceRecord]
-class AttendanceRecord extends _i90.PageRouteInfo<AttendanceRecordArgs> {
+class AttendanceRecord extends _i94.PageRouteInfo<AttendanceRecordArgs> {
   AttendanceRecord({
-    _i91.Key? key,
+    _i95.Key? key,
     required dynamic attendanceData,
     required bool? isLoading,
-    List<_i90.PageRouteInfo>? children,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           AttendanceRecord.name,
           args: AttendanceRecordArgs(
@@ -1174,8 +1212,8 @@ class AttendanceRecord extends _i90.PageRouteInfo<AttendanceRecordArgs> {
 
   static const String name = 'AttendanceRecord';
 
-  static const _i90.PageInfo<AttendanceRecordArgs> page =
-      _i90.PageInfo<AttendanceRecordArgs>(name);
+  static const _i94.PageInfo<AttendanceRecordArgs> page =
+      _i94.PageInfo<AttendanceRecordArgs>(name);
 }
 
 class AttendanceRecordArgs {
@@ -1185,7 +1223,7 @@ class AttendanceRecordArgs {
     required this.isLoading,
   });
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   final dynamic attendanceData;
 
@@ -1199,8 +1237,8 @@ class AttendanceRecordArgs {
 
 /// generated route for
 /// [_i7.AttendanceTab]
-class AttendanceTab extends _i90.PageRouteInfo<void> {
-  const AttendanceTab({List<_i90.PageRouteInfo>? children})
+class AttendanceTab extends _i94.PageRouteInfo<void> {
+  const AttendanceTab({List<_i94.PageRouteInfo>? children})
       : super(
           AttendanceTab.name,
           initialChildren: children,
@@ -1208,13 +1246,13 @@ class AttendanceTab extends _i90.PageRouteInfo<void> {
 
   static const String name = 'AttendanceTab';
 
-  static const _i90.PageInfo<void> page = _i90.PageInfo<void>(name);
+  static const _i94.PageInfo<void> page = _i94.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i8.Authentication]
-class Authentication extends _i90.PageRouteInfo<void> {
-  const Authentication({List<_i90.PageRouteInfo>? children})
+class Authentication extends _i94.PageRouteInfo<void> {
+  const Authentication({List<_i94.PageRouteInfo>? children})
       : super(
           Authentication.name,
           initialChildren: children,
@@ -1222,21 +1260,21 @@ class Authentication extends _i90.PageRouteInfo<void> {
 
   static const String name = 'Authentication';
 
-  static const _i90.PageInfo<void> page = _i90.PageInfo<void>(name);
+  static const _i94.PageInfo<void> page = _i94.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i9.BankList]
-class BankList extends _i90.PageRouteInfo<BankListArgs> {
+class BankList extends _i94.PageRouteInfo<BankListArgs> {
   BankList({
-    _i91.Key? key,
+    _i95.Key? key,
     String? icNo,
     String? docDoc,
     String? docRef,
     String? packageCode,
     String? diCode,
     String? amountString,
-    List<_i90.PageRouteInfo>? children,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           BankList.name,
           args: BankListArgs(
@@ -1253,8 +1291,8 @@ class BankList extends _i90.PageRouteInfo<BankListArgs> {
 
   static const String name = 'BankList';
 
-  static const _i90.PageInfo<BankListArgs> page =
-      _i90.PageInfo<BankListArgs>(name);
+  static const _i94.PageInfo<BankListArgs> page =
+      _i94.PageInfo<BankListArgs>(name);
 }
 
 class BankListArgs {
@@ -1268,7 +1306,7 @@ class BankListArgs {
     this.amountString,
   });
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   final String? icNo;
 
@@ -1290,11 +1328,11 @@ class BankListArgs {
 
 /// generated route for
 /// [_i10.BillDetail]
-class BillDetail extends _i90.PageRouteInfo<BillDetailArgs> {
+class BillDetail extends _i94.PageRouteInfo<BillDetailArgs> {
   BillDetail({
     required dynamic data,
-    _i91.Key? key,
-    List<_i90.PageRouteInfo>? children,
+    _i95.Key? key,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           BillDetail.name,
           args: BillDetailArgs(
@@ -1306,8 +1344,8 @@ class BillDetail extends _i90.PageRouteInfo<BillDetailArgs> {
 
   static const String name = 'BillDetail';
 
-  static const _i90.PageInfo<BillDetailArgs> page =
-      _i90.PageInfo<BillDetailArgs>(name);
+  static const _i94.PageInfo<BillDetailArgs> page =
+      _i94.PageInfo<BillDetailArgs>(name);
 }
 
 class BillDetailArgs {
@@ -1318,7 +1356,7 @@ class BillDetailArgs {
 
   final dynamic data;
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   @override
   String toString() {
@@ -1328,10 +1366,10 @@ class BillDetailArgs {
 
 /// generated route for
 /// [_i11.BillSelection]
-class BillSelection extends _i90.PageRouteInfo<BillSelectionArgs> {
+class BillSelection extends _i94.PageRouteInfo<BillSelectionArgs> {
   BillSelection({
-    _i91.Key? key,
-    List<_i90.PageRouteInfo>? children,
+    _i95.Key? key,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           BillSelection.name,
           args: BillSelectionArgs(key: key),
@@ -1340,14 +1378,14 @@ class BillSelection extends _i90.PageRouteInfo<BillSelectionArgs> {
 
   static const String name = 'BillSelection';
 
-  static const _i90.PageInfo<BillSelectionArgs> page =
-      _i90.PageInfo<BillSelectionArgs>(name);
+  static const _i94.PageInfo<BillSelectionArgs> page =
+      _i94.PageInfo<BillSelectionArgs>(name);
 }
 
 class BillSelectionArgs {
   const BillSelectionArgs({this.key});
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   @override
   String toString() {
@@ -1357,11 +1395,11 @@ class BillSelectionArgs {
 
 /// generated route for
 /// [_i12.BillTransaction]
-class BillTransaction extends _i90.PageRouteInfo<BillTransactionArgs> {
+class BillTransaction extends _i94.PageRouteInfo<BillTransactionArgs> {
   BillTransaction({
     required dynamic data,
-    _i91.Key? key,
-    List<_i90.PageRouteInfo>? children,
+    _i95.Key? key,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           BillTransaction.name,
           args: BillTransactionArgs(
@@ -1373,8 +1411,8 @@ class BillTransaction extends _i90.PageRouteInfo<BillTransactionArgs> {
 
   static const String name = 'BillTransaction';
 
-  static const _i90.PageInfo<BillTransactionArgs> page =
-      _i90.PageInfo<BillTransactionArgs>(name);
+  static const _i94.PageInfo<BillTransactionArgs> page =
+      _i94.PageInfo<BillTransactionArgs>(name);
 }
 
 class BillTransactionArgs {
@@ -1385,7 +1423,7 @@ class BillTransactionArgs {
 
   final dynamic data;
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   @override
   String toString() {
@@ -1395,8 +1433,8 @@ class BillTransactionArgs {
 
 /// generated route for
 /// [_i13.Booking]
-class Booking extends _i90.PageRouteInfo<void> {
-  const Booking({List<_i90.PageRouteInfo>? children})
+class Booking extends _i94.PageRouteInfo<void> {
+  const Booking({List<_i94.PageRouteInfo>? children})
       : super(
           Booking.name,
           initialChildren: children,
@@ -1404,17 +1442,17 @@ class Booking extends _i90.PageRouteInfo<void> {
 
   static const String name = 'Booking';
 
-  static const _i90.PageInfo<void> page = _i90.PageInfo<void>(name);
+  static const _i94.PageInfo<void> page = _i94.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i14.Cart]
-class Cart extends _i90.PageRouteInfo<CartArgs> {
+class Cart extends _i94.PageRouteInfo<CartArgs> {
   Cart({
-    _i91.Key? key,
+    _i95.Key? key,
     String? itemName,
     String? dbcode,
-    List<_i90.PageRouteInfo>? children,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           Cart.name,
           args: CartArgs(
@@ -1427,7 +1465,7 @@ class Cart extends _i90.PageRouteInfo<CartArgs> {
 
   static const String name = 'Cart';
 
-  static const _i90.PageInfo<CartArgs> page = _i90.PageInfo<CartArgs>(name);
+  static const _i94.PageInfo<CartArgs> page = _i94.PageInfo<CartArgs>(name);
 }
 
 class CartArgs {
@@ -1437,7 +1475,7 @@ class CartArgs {
     this.dbcode,
   });
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   final String? itemName;
 
@@ -1451,9 +1489,9 @@ class CartArgs {
 
 /// generated route for
 /// [_i15.CartItemEdit]
-class CartItemEdit extends _i90.PageRouteInfo<CartItemEditArgs> {
+class CartItemEdit extends _i94.PageRouteInfo<CartItemEditArgs> {
   CartItemEdit({
-    _i91.Key? key,
+    _i95.Key? key,
     String? stkCode,
     String? stkDesc1,
     String? stkDesc2,
@@ -1465,7 +1503,7 @@ class CartItemEdit extends _i90.PageRouteInfo<CartItemEditArgs> {
     String? uom,
     String? batchNo,
     String? slsKey,
-    List<_i90.PageRouteInfo>? children,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           CartItemEdit.name,
           args: CartItemEditArgs(
@@ -1487,8 +1525,8 @@ class CartItemEdit extends _i90.PageRouteInfo<CartItemEditArgs> {
 
   static const String name = 'CartItemEdit';
 
-  static const _i90.PageInfo<CartItemEditArgs> page =
-      _i90.PageInfo<CartItemEditArgs>(name);
+  static const _i94.PageInfo<CartItemEditArgs> page =
+      _i94.PageInfo<CartItemEditArgs>(name);
 }
 
 class CartItemEditArgs {
@@ -1507,7 +1545,7 @@ class CartItemEditArgs {
     this.slsKey,
   });
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   final String? stkCode;
 
@@ -1539,8 +1577,8 @@ class CartItemEditArgs {
 
 /// generated route for
 /// [_i16.ChangePassword]
-class ChangePassword extends _i90.PageRouteInfo<void> {
-  const ChangePassword({List<_i90.PageRouteInfo>? children})
+class ChangePassword extends _i94.PageRouteInfo<void> {
+  const ChangePassword({List<_i94.PageRouteInfo>? children})
       : super(
           ChangePassword.name,
           initialChildren: children,
@@ -1548,27 +1586,71 @@ class ChangePassword extends _i90.PageRouteInfo<void> {
 
   static const String name = 'ChangePassword';
 
-  static const _i90.PageInfo<void> page = _i90.PageInfo<void>(name);
+  static const _i94.PageInfo<void> page = _i94.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i17.ChatHome]
-class ChatHome extends _i90.PageRouteInfo<void> {
-  const ChatHome({List<_i90.PageRouteInfo>? children})
-      : super(
-          ChatHome.name,
+/// [_i17.ChatRoom]
+class ChatRoom extends _i94.PageRouteInfo<ChatRoomArgs> {
+  ChatRoom({
+    _i95.Key? key,
+    required String roomId,
+    required String picturePath,
+    required String roomName,
+    required String roomDesc,
+    required bool isMessagesExist,
+    List<_i94.PageRouteInfo>? children,
+  }) : super(
+          ChatRoom.name,
+          args: ChatRoomArgs(
+            key: key,
+            roomId: roomId,
+            picturePath: picturePath,
+            roomName: roomName,
+            roomDesc: roomDesc,
+            isMessagesExist: isMessagesExist,
+          ),
           initialChildren: children,
         );
 
-  static const String name = 'ChatHome';
+  static const String name = 'ChatRoom';
 
-  static const _i90.PageInfo<void> page = _i90.PageInfo<void>(name);
+  static const _i94.PageInfo<ChatRoomArgs> page =
+      _i94.PageInfo<ChatRoomArgs>(name);
+}
+
+class ChatRoomArgs {
+  const ChatRoomArgs({
+    this.key,
+    required this.roomId,
+    required this.picturePath,
+    required this.roomName,
+    required this.roomDesc,
+    required this.isMessagesExist,
+  });
+
+  final _i95.Key? key;
+
+  final String roomId;
+
+  final String picturePath;
+
+  final String roomName;
+
+  final String roomDesc;
+
+  final bool isMessagesExist;
+
+  @override
+  String toString() {
+    return 'ChatRoomArgs{key: $key, roomId: $roomId, picturePath: $picturePath, roomName: $roomName, roomDesc: $roomDesc, isMessagesExist: $isMessagesExist}';
+  }
 }
 
 /// generated route for
 /// [_i18.CheckInSlip]
-class CheckInSlip extends _i90.PageRouteInfo<void> {
-  const CheckInSlip({List<_i90.PageRouteInfo>? children})
+class CheckInSlip extends _i94.PageRouteInfo<void> {
+  const CheckInSlip({List<_i94.PageRouteInfo>? children})
       : super(
           CheckInSlip.name,
           initialChildren: children,
@@ -1576,14 +1658,14 @@ class CheckInSlip extends _i90.PageRouteInfo<void> {
 
   static const String name = 'CheckInSlip';
 
-  static const _i90.PageInfo<void> page = _i90.PageInfo<void>(name);
+  static const _i94.PageInfo<void> page = _i94.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i19.Checkout]
-class Checkout extends _i90.PageRouteInfo<CheckoutArgs> {
+class Checkout extends _i94.PageRouteInfo<CheckoutArgs> {
   Checkout({
-    _i91.Key? key,
+    _i95.Key? key,
     dynamic slsDetailData,
     String? itemName,
     String? dbcode,
@@ -1592,7 +1674,7 @@ class Checkout extends _i90.PageRouteInfo<CheckoutArgs> {
     String? docRef,
     String? qty,
     String? totalAmount,
-    List<_i90.PageRouteInfo>? children,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           Checkout.name,
           args: CheckoutArgs(
@@ -1611,8 +1693,8 @@ class Checkout extends _i90.PageRouteInfo<CheckoutArgs> {
 
   static const String name = 'Checkout';
 
-  static const _i90.PageInfo<CheckoutArgs> page =
-      _i90.PageInfo<CheckoutArgs>(name);
+  static const _i94.PageInfo<CheckoutArgs> page =
+      _i94.PageInfo<CheckoutArgs>(name);
 }
 
 class CheckoutArgs {
@@ -1628,7 +1710,7 @@ class CheckoutArgs {
     this.totalAmount,
   });
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   final dynamic slsDetailData;
 
@@ -1654,8 +1736,8 @@ class CheckoutArgs {
 
 /// generated route for
 /// [_i20.Class]
-class Class extends _i90.PageRouteInfo<void> {
-  const Class({List<_i90.PageRouteInfo>? children})
+class Class extends _i94.PageRouteInfo<void> {
+  const Class({List<_i94.PageRouteInfo>? children})
       : super(
           Class.name,
           initialChildren: children,
@@ -1663,16 +1745,16 @@ class Class extends _i90.PageRouteInfo<void> {
 
   static const String name = 'Class';
 
-  static const _i90.PageInfo<void> page = _i90.PageInfo<void>(name);
+  static const _i94.PageInfo<void> page = _i94.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i21.ClientAccount]
-class ClientAccount extends _i90.PageRouteInfo<ClientAccountArgs> {
+class ClientAccount extends _i94.PageRouteInfo<ClientAccountArgs> {
   ClientAccount({
-    _i91.Key? key,
+    _i95.Key? key,
     dynamic data,
-    List<_i90.PageRouteInfo>? children,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           ClientAccount.name,
           args: ClientAccountArgs(
@@ -1684,8 +1766,8 @@ class ClientAccount extends _i90.PageRouteInfo<ClientAccountArgs> {
 
   static const String name = 'ClientAccount';
 
-  static const _i90.PageInfo<ClientAccountArgs> page =
-      _i90.PageInfo<ClientAccountArgs>(name);
+  static const _i94.PageInfo<ClientAccountArgs> page =
+      _i94.PageInfo<ClientAccountArgs>(name);
 }
 
 class ClientAccountArgs {
@@ -1694,7 +1776,7 @@ class ClientAccountArgs {
     this.data,
   });
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   final dynamic data;
 
@@ -1706,8 +1788,8 @@ class ClientAccountArgs {
 
 /// generated route for
 /// [_i22.ComingSoon]
-class ComingSoon extends _i90.PageRouteInfo<void> {
-  const ComingSoon({List<_i90.PageRouteInfo>? children})
+class ComingSoon extends _i94.PageRouteInfo<void> {
+  const ComingSoon({List<_i94.PageRouteInfo>? children})
       : super(
           ComingSoon.name,
           initialChildren: children,
@@ -1715,16 +1797,54 @@ class ComingSoon extends _i90.PageRouteInfo<void> {
 
   static const String name = 'ComingSoon';
 
-  static const _i90.PageInfo<void> page = _i90.PageInfo<void>(name);
+  static const _i94.PageInfo<void> page = _i94.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i23.DiEnrollment]
-class DiEnrollment extends _i90.PageRouteInfo<DiEnrollmentArgs> {
+/// [_i23.CreateGroup]
+class CreateGroup extends _i94.PageRouteInfo<CreateGroupArgs> {
+  CreateGroup({
+    _i95.Key? key,
+    required String roomId,
+    List<_i94.PageRouteInfo>? children,
+  }) : super(
+          CreateGroup.name,
+          args: CreateGroupArgs(
+            key: key,
+            roomId: roomId,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'CreateGroup';
+
+  static const _i94.PageInfo<CreateGroupArgs> page =
+      _i94.PageInfo<CreateGroupArgs>(name);
+}
+
+class CreateGroupArgs {
+  const CreateGroupArgs({
+    this.key,
+    required this.roomId,
+  });
+
+  final _i95.Key? key;
+
+  final String roomId;
+
+  @override
+  String toString() {
+    return 'CreateGroupArgs{key: $key, roomId: $roomId}';
+  }
+}
+
+/// generated route for
+/// [_i24.DiEnrollment]
+class DiEnrollment extends _i94.PageRouteInfo<DiEnrollmentArgs> {
   DiEnrollment({
-    _i91.Key? key,
+    _i95.Key? key,
     String? packageCodeJson,
-    List<_i90.PageRouteInfo>? children,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           DiEnrollment.name,
           args: DiEnrollmentArgs(
@@ -1736,8 +1856,8 @@ class DiEnrollment extends _i90.PageRouteInfo<DiEnrollmentArgs> {
 
   static const String name = 'DiEnrollment';
 
-  static const _i90.PageInfo<DiEnrollmentArgs> page =
-      _i90.PageInfo<DiEnrollmentArgs>(name);
+  static const _i94.PageInfo<DiEnrollmentArgs> page =
+      _i94.PageInfo<DiEnrollmentArgs>(name);
 }
 
 class DiEnrollmentArgs {
@@ -1746,7 +1866,7 @@ class DiEnrollmentArgs {
     this.packageCodeJson,
   });
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   final String? packageCodeJson;
 
@@ -1757,12 +1877,12 @@ class DiEnrollmentArgs {
 }
 
 /// generated route for
-/// [_i24.DirectoryDetail]
-class DirectoryDetail extends _i90.PageRouteInfo<DirectoryDetailArgs> {
+/// [_i25.DirectoryDetail]
+class DirectoryDetail extends _i94.PageRouteInfo<DirectoryDetailArgs> {
   DirectoryDetail({
     required dynamic snapshot,
-    _i92.Key? key,
-    List<_i90.PageRouteInfo>? children,
+    _i96.Key? key,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           DirectoryDetail.name,
           args: DirectoryDetailArgs(
@@ -1774,8 +1894,8 @@ class DirectoryDetail extends _i90.PageRouteInfo<DirectoryDetailArgs> {
 
   static const String name = 'DirectoryDetail';
 
-  static const _i90.PageInfo<DirectoryDetailArgs> page =
-      _i90.PageInfo<DirectoryDetailArgs>(name);
+  static const _i94.PageInfo<DirectoryDetailArgs> page =
+      _i94.PageInfo<DirectoryDetailArgs>(name);
 }
 
 class DirectoryDetailArgs {
@@ -1786,7 +1906,7 @@ class DirectoryDetailArgs {
 
   final dynamic snapshot;
 
-  final _i92.Key? key;
+  final _i96.Key? key;
 
   @override
   String toString() {
@@ -1795,12 +1915,12 @@ class DirectoryDetailArgs {
 }
 
 /// generated route for
-/// [_i25.DirectoryList]
-class DirectoryList extends _i90.PageRouteInfo<DirectoryListArgs> {
+/// [_i26.DirectoryList]
+class DirectoryList extends _i94.PageRouteInfo<DirectoryListArgs> {
   DirectoryList({
     required dynamic directoryType,
-    _i91.Key? key,
-    List<_i90.PageRouteInfo>? children,
+    _i95.Key? key,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           DirectoryList.name,
           args: DirectoryListArgs(
@@ -1812,8 +1932,8 @@ class DirectoryList extends _i90.PageRouteInfo<DirectoryListArgs> {
 
   static const String name = 'DirectoryList';
 
-  static const _i90.PageInfo<DirectoryListArgs> page =
-      _i90.PageInfo<DirectoryListArgs>(name);
+  static const _i94.PageInfo<DirectoryListArgs> page =
+      _i94.PageInfo<DirectoryListArgs>(name);
 }
 
 class DirectoryListArgs {
@@ -1824,7 +1944,7 @@ class DirectoryListArgs {
 
   final dynamic directoryType;
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   @override
   String toString() {
@@ -1833,9 +1953,9 @@ class DirectoryListArgs {
 }
 
 /// generated route for
-/// [_i26.EmergencyDirectory]
-class EmergencyDirectory extends _i90.PageRouteInfo<void> {
-  const EmergencyDirectory({List<_i90.PageRouteInfo>? children})
+/// [_i27.EmergencyDirectory]
+class EmergencyDirectory extends _i94.PageRouteInfo<void> {
+  const EmergencyDirectory({List<_i94.PageRouteInfo>? children})
       : super(
           EmergencyDirectory.name,
           initialChildren: children,
@@ -1843,14 +1963,14 @@ class EmergencyDirectory extends _i90.PageRouteInfo<void> {
 
   static const String name = 'EmergencyDirectory';
 
-  static const _i90.PageInfo<void> page = _i90.PageInfo<void>(name);
+  static const _i94.PageInfo<void> page = _i94.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i27.EnrollConfirmation]
-class EnrollConfirmation extends _i90.PageRouteInfo<EnrollConfirmationArgs> {
+/// [_i28.EnrollConfirmation]
+class EnrollConfirmation extends _i94.PageRouteInfo<EnrollConfirmationArgs> {
   EnrollConfirmation({
-    _i91.Key? key,
+    _i95.Key? key,
     String? banner,
     String? packageName,
     String? packageCode,
@@ -1859,7 +1979,7 @@ class EnrollConfirmation extends _i90.PageRouteInfo<EnrollConfirmationArgs> {
     String? termsAndCondition,
     String? groupIdGrouping,
     String? amount,
-    List<_i90.PageRouteInfo>? children,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           EnrollConfirmation.name,
           args: EnrollConfirmationArgs(
@@ -1878,8 +1998,8 @@ class EnrollConfirmation extends _i90.PageRouteInfo<EnrollConfirmationArgs> {
 
   static const String name = 'EnrollConfirmation';
 
-  static const _i90.PageInfo<EnrollConfirmationArgs> page =
-      _i90.PageInfo<EnrollConfirmationArgs>(name);
+  static const _i94.PageInfo<EnrollConfirmationArgs> page =
+      _i94.PageInfo<EnrollConfirmationArgs>(name);
 }
 
 class EnrollConfirmationArgs {
@@ -1895,7 +2015,7 @@ class EnrollConfirmationArgs {
     this.amount,
   });
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   final String? banner;
 
@@ -1920,9 +2040,9 @@ class EnrollConfirmationArgs {
 }
 
 /// generated route for
-/// [_i28.Enrollment]
-class Enrollment extends _i90.PageRouteInfo<void> {
-  const Enrollment({List<_i90.PageRouteInfo>? children})
+/// [_i29.Enrollment]
+class Enrollment extends _i94.PageRouteInfo<void> {
+  const Enrollment({List<_i94.PageRouteInfo>? children})
       : super(
           Enrollment.name,
           initialChildren: children,
@@ -1930,13 +2050,13 @@ class Enrollment extends _i90.PageRouteInfo<void> {
 
   static const String name = 'Enrollment';
 
-  static const _i90.PageInfo<void> page = _i90.PageInfo<void>(name);
+  static const _i94.PageInfo<void> page = _i94.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i29.EnrolmentInfo]
-class EnrolmentInfo extends _i90.PageRouteInfo<void> {
-  const EnrolmentInfo({List<_i90.PageRouteInfo>? children})
+/// [_i30.EnrolmentInfo]
+class EnrolmentInfo extends _i94.PageRouteInfo<void> {
+  const EnrolmentInfo({List<_i94.PageRouteInfo>? children})
       : super(
           EnrolmentInfo.name,
           initialChildren: children,
@@ -1944,16 +2064,16 @@ class EnrolmentInfo extends _i90.PageRouteInfo<void> {
 
   static const String name = 'EnrolmentInfo';
 
-  static const _i90.PageInfo<void> page = _i90.PageInfo<void>(name);
+  static const _i94.PageInfo<void> page = _i94.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i30.EnrolmentInfoDetail]
-class EnrolmentInfoDetail extends _i90.PageRouteInfo<EnrolmentInfoDetailArgs> {
+/// [_i31.EnrolmentInfoDetail]
+class EnrolmentInfoDetail extends _i94.PageRouteInfo<EnrolmentInfoDetailArgs> {
   EnrolmentInfoDetail({
     required dynamic groupId,
-    _i91.Key? key,
-    List<_i90.PageRouteInfo>? children,
+    _i95.Key? key,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           EnrolmentInfoDetail.name,
           args: EnrolmentInfoDetailArgs(
@@ -1965,8 +2085,8 @@ class EnrolmentInfoDetail extends _i90.PageRouteInfo<EnrolmentInfoDetailArgs> {
 
   static const String name = 'EnrolmentInfoDetail';
 
-  static const _i90.PageInfo<EnrolmentInfoDetailArgs> page =
-      _i90.PageInfo<EnrolmentInfoDetailArgs>(name);
+  static const _i94.PageInfo<EnrolmentInfoDetailArgs> page =
+      _i94.PageInfo<EnrolmentInfoDetailArgs>(name);
 }
 
 class EnrolmentInfoDetailArgs {
@@ -1977,7 +2097,7 @@ class EnrolmentInfoDetailArgs {
 
   final dynamic groupId;
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   @override
   String toString() {
@@ -1986,11 +2106,11 @@ class EnrolmentInfoDetailArgs {
 }
 
 /// generated route for
-/// [_i31.EpanduCategory]
-class EpanduCategory extends _i90.PageRouteInfo<EpanduCategoryArgs> {
+/// [_i32.EpanduCategory]
+class EpanduCategory extends _i94.PageRouteInfo<EpanduCategoryArgs> {
   EpanduCategory({
-    _i91.Key? key,
-    List<_i90.PageRouteInfo>? children,
+    _i95.Key? key,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           EpanduCategory.name,
           args: EpanduCategoryArgs(key: key),
@@ -1999,14 +2119,14 @@ class EpanduCategory extends _i90.PageRouteInfo<EpanduCategoryArgs> {
 
   static const String name = 'EpanduCategory';
 
-  static const _i90.PageInfo<EpanduCategoryArgs> page =
-      _i90.PageInfo<EpanduCategoryArgs>(name);
+  static const _i94.PageInfo<EpanduCategoryArgs> page =
+      _i94.PageInfo<EpanduCategoryArgs>(name);
 }
 
 class EpanduCategoryArgs {
   const EpanduCategoryArgs({this.key});
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   @override
   String toString() {
@@ -2015,11 +2135,11 @@ class EpanduCategoryArgs {
 }
 
 /// generated route for
-/// [_i32.EtestingCategory]
-class EtestingCategory extends _i90.PageRouteInfo<EtestingCategoryArgs> {
+/// [_i33.EtestingCategory]
+class EtestingCategory extends _i94.PageRouteInfo<EtestingCategoryArgs> {
   EtestingCategory({
-    _i91.Key? key,
-    List<_i90.PageRouteInfo>? children,
+    _i95.Key? key,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           EtestingCategory.name,
           args: EtestingCategoryArgs(key: key),
@@ -2028,14 +2148,14 @@ class EtestingCategory extends _i90.PageRouteInfo<EtestingCategoryArgs> {
 
   static const String name = 'EtestingCategory';
 
-  static const _i90.PageInfo<EtestingCategoryArgs> page =
-      _i90.PageInfo<EtestingCategoryArgs>(name);
+  static const _i94.PageInfo<EtestingCategoryArgs> page =
+      _i94.PageInfo<EtestingCategoryArgs>(name);
 }
 
 class EtestingCategoryArgs {
   const EtestingCategoryArgs({this.key});
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   @override
   String toString() {
@@ -2044,9 +2164,9 @@ class EtestingCategoryArgs {
 }
 
 /// generated route for
-/// [_i33.ForgotPassword]
-class ForgotPassword extends _i90.PageRouteInfo<void> {
-  const ForgotPassword({List<_i90.PageRouteInfo>? children})
+/// [_i34.ForgotPassword]
+class ForgotPassword extends _i94.PageRouteInfo<void> {
+  const ForgotPassword({List<_i94.PageRouteInfo>? children})
       : super(
           ForgotPassword.name,
           initialChildren: children,
@@ -2054,14 +2174,14 @@ class ForgotPassword extends _i90.PageRouteInfo<void> {
 
   static const String name = 'ForgotPassword';
 
-  static const _i90.PageInfo<void> page = _i90.PageInfo<void>(name);
+  static const _i94.PageInfo<void> page = _i94.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i34.FpxPaymentOption]
-class FpxPaymentOption extends _i90.PageRouteInfo<FpxPaymentOptionArgs> {
+/// [_i35.FpxPaymentOption]
+class FpxPaymentOption extends _i94.PageRouteInfo<FpxPaymentOptionArgs> {
   FpxPaymentOption({
-    _i91.Key? key,
+    _i95.Key? key,
     String? icNo,
     String? docDoc,
     String? docRef,
@@ -2071,7 +2191,7 @@ class FpxPaymentOption extends _i90.PageRouteInfo<FpxPaymentOptionArgs> {
     String? diCode,
     String? totalAmount,
     String? amountString,
-    List<_i90.PageRouteInfo>? children,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           FpxPaymentOption.name,
           args: FpxPaymentOptionArgs(
@@ -2091,8 +2211,8 @@ class FpxPaymentOption extends _i90.PageRouteInfo<FpxPaymentOptionArgs> {
 
   static const String name = 'FpxPaymentOption';
 
-  static const _i90.PageInfo<FpxPaymentOptionArgs> page =
-      _i90.PageInfo<FpxPaymentOptionArgs>(name);
+  static const _i94.PageInfo<FpxPaymentOptionArgs> page =
+      _i94.PageInfo<FpxPaymentOptionArgs>(name);
 }
 
 class FpxPaymentOptionArgs {
@@ -2109,7 +2229,7 @@ class FpxPaymentOptionArgs {
     this.amountString,
   });
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   final String? icNo;
 
@@ -2136,13 +2256,13 @@ class FpxPaymentOptionArgs {
 }
 
 /// generated route for
-/// [_i35.HistoryClass]
-class HistoryClass extends _i90.PageRouteInfo<HistoryClassArgs> {
+/// [_i36.HistoryClass]
+class HistoryClass extends _i94.PageRouteInfo<HistoryClassArgs> {
   HistoryClass({
-    _i91.Key? key,
+    _i95.Key? key,
     required dynamic historyClassInfo,
     required dynamic message,
-    List<_i90.PageRouteInfo>? children,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           HistoryClass.name,
           args: HistoryClassArgs(
@@ -2155,8 +2275,8 @@ class HistoryClass extends _i90.PageRouteInfo<HistoryClassArgs> {
 
   static const String name = 'HistoryClass';
 
-  static const _i90.PageInfo<HistoryClassArgs> page =
-      _i90.PageInfo<HistoryClassArgs>(name);
+  static const _i94.PageInfo<HistoryClassArgs> page =
+      _i94.PageInfo<HistoryClassArgs>(name);
 }
 
 class HistoryClassArgs {
@@ -2166,7 +2286,7 @@ class HistoryClassArgs {
     required this.message,
   });
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   final dynamic historyClassInfo;
 
@@ -2179,12 +2299,12 @@ class HistoryClassArgs {
 }
 
 /// generated route for
-/// [_i36.Home]
-class Home extends _i90.PageRouteInfo<HomeArgs> {
+/// [_i37.Home]
+class Home extends _i94.PageRouteInfo<HomeArgs> {
   Home({
-    _i91.Key? key,
+    _i95.Key? key,
     String? appVersion,
-    List<_i90.PageRouteInfo>? children,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           Home.name,
           args: HomeArgs(
@@ -2196,7 +2316,7 @@ class Home extends _i90.PageRouteInfo<HomeArgs> {
 
   static const String name = 'Home';
 
-  static const _i90.PageInfo<HomeArgs> page = _i90.PageInfo<HomeArgs>(name);
+  static const _i94.PageInfo<HomeArgs> page = _i94.PageInfo<HomeArgs>(name);
 }
 
 class HomeArgs {
@@ -2205,7 +2325,7 @@ class HomeArgs {
     this.appVersion,
   });
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   final String? appVersion;
 
@@ -2216,9 +2336,9 @@ class HomeArgs {
 }
 
 /// generated route for
-/// [_i37.IdentityBarcode]
-class IdentityBarcode extends _i90.PageRouteInfo<void> {
-  const IdentityBarcode({List<_i90.PageRouteInfo>? children})
+/// [_i38.IdentityBarcode]
+class IdentityBarcode extends _i94.PageRouteInfo<void> {
+  const IdentityBarcode({List<_i94.PageRouteInfo>? children})
       : super(
           IdentityBarcode.name,
           initialChildren: children,
@@ -2226,17 +2346,17 @@ class IdentityBarcode extends _i90.PageRouteInfo<void> {
 
   static const String name = 'IdentityBarcode';
 
-  static const _i90.PageInfo<void> page = _i90.PageInfo<void>(name);
+  static const _i94.PageInfo<void> page = _i94.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i38.ImageViewer]
-class ImageViewer extends _i90.PageRouteInfo<ImageViewerArgs> {
+/// [_i39.ImageViewer]
+class ImageViewer extends _i94.PageRouteInfo<ImageViewerArgs> {
   ImageViewer({
-    _i91.Key? key,
+    _i95.Key? key,
     String? title,
-    _i91.NetworkImage? image,
-    List<_i90.PageRouteInfo>? children,
+    _i95.NetworkImage? image,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           ImageViewer.name,
           args: ImageViewerArgs(
@@ -2249,8 +2369,8 @@ class ImageViewer extends _i90.PageRouteInfo<ImageViewerArgs> {
 
   static const String name = 'ImageViewer';
 
-  static const _i90.PageInfo<ImageViewerArgs> page =
-      _i90.PageInfo<ImageViewerArgs>(name);
+  static const _i94.PageInfo<ImageViewerArgs> page =
+      _i94.PageInfo<ImageViewerArgs>(name);
 }
 
 class ImageViewerArgs {
@@ -2260,11 +2380,11 @@ class ImageViewerArgs {
     this.image,
   });
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   final String? title;
 
-  final _i91.NetworkImage? image;
+  final _i95.NetworkImage? image;
 
   @override
   String toString() {
@@ -2273,9 +2393,9 @@ class ImageViewerArgs {
 }
 
 /// generated route for
-/// [_i39.Inbox]
-class Inbox extends _i90.PageRouteInfo<void> {
-  const Inbox({List<_i90.PageRouteInfo>? children})
+/// [_i40.Inbox]
+class Inbox extends _i94.PageRouteInfo<void> {
+  const Inbox({List<_i94.PageRouteInfo>? children})
       : super(
           Inbox.name,
           initialChildren: children,
@@ -2283,13 +2403,13 @@ class Inbox extends _i90.PageRouteInfo<void> {
 
   static const String name = 'Inbox';
 
-  static const _i90.PageInfo<void> page = _i90.PageInfo<void>(name);
+  static const _i94.PageInfo<void> page = _i94.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i40.Invite]
-class Invite extends _i90.PageRouteInfo<void> {
-  const Invite({List<_i90.PageRouteInfo>? children})
+/// [_i41.Invite]
+class Invite extends _i94.PageRouteInfo<void> {
+  const Invite({List<_i94.PageRouteInfo>? children})
       : super(
           Invite.name,
           initialChildren: children,
@@ -2297,13 +2417,51 @@ class Invite extends _i90.PageRouteInfo<void> {
 
   static const String name = 'Invite';
 
-  static const _i90.PageInfo<void> page = _i90.PageInfo<void>(name);
+  static const _i94.PageInfo<void> page = _i94.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i41.KppCategory]
-class KppCategory extends _i90.PageRouteInfo<void> {
-  const KppCategory({List<_i90.PageRouteInfo>? children})
+/// [_i42.InviteFriend]
+class InviteFriend extends _i94.PageRouteInfo<InviteFriendArgs> {
+  InviteFriend({
+    _i96.Key? key,
+    required String roomId,
+    List<_i94.PageRouteInfo>? children,
+  }) : super(
+          InviteFriend.name,
+          args: InviteFriendArgs(
+            key: key,
+            roomId: roomId,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'InviteFriend';
+
+  static const _i94.PageInfo<InviteFriendArgs> page =
+      _i94.PageInfo<InviteFriendArgs>(name);
+}
+
+class InviteFriendArgs {
+  const InviteFriendArgs({
+    this.key,
+    required this.roomId,
+  });
+
+  final _i96.Key? key;
+
+  final String roomId;
+
+  @override
+  String toString() {
+    return 'InviteFriendArgs{key: $key, roomId: $roomId}';
+  }
+}
+
+/// generated route for
+/// [_i43.KppCategory]
+class KppCategory extends _i94.PageRouteInfo<void> {
+  const KppCategory({List<_i94.PageRouteInfo>? children})
       : super(
           KppCategory.name,
           initialChildren: children,
@@ -2311,17 +2469,17 @@ class KppCategory extends _i90.PageRouteInfo<void> {
 
   static const String name = 'KppCategory';
 
-  static const _i90.PageInfo<void> page = _i90.PageInfo<void>(name);
+  static const _i94.PageInfo<void> page = _i94.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i42.KppExam]
-class KppExam extends _i90.PageRouteInfo<KppExamArgs> {
+/// [_i44.KppExam]
+class KppExam extends _i94.PageRouteInfo<KppExamArgs> {
   KppExam({
-    _i91.Key? key,
+    _i95.Key? key,
     required String? groupId,
     required String? paperNo,
-    List<_i90.PageRouteInfo>? children,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           KppExam.name,
           args: KppExamArgs(
@@ -2334,8 +2492,8 @@ class KppExam extends _i90.PageRouteInfo<KppExamArgs> {
 
   static const String name = 'KppExam';
 
-  static const _i90.PageInfo<KppExamArgs> page =
-      _i90.PageInfo<KppExamArgs>(name);
+  static const _i94.PageInfo<KppExamArgs> page =
+      _i94.PageInfo<KppExamArgs>(name);
 }
 
 class KppExamArgs {
@@ -2345,7 +2503,7 @@ class KppExamArgs {
     required this.paperNo,
   });
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   final String? groupId;
 
@@ -2358,12 +2516,12 @@ class KppExamArgs {
 }
 
 /// generated route for
-/// [_i43.KppModule]
-class KppModule extends _i90.PageRouteInfo<KppModuleArgs> {
+/// [_i45.KppModule]
+class KppModule extends _i94.PageRouteInfo<KppModuleArgs> {
   KppModule({
     required dynamic data,
-    _i91.Key? key,
-    List<_i90.PageRouteInfo>? children,
+    _i95.Key? key,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           KppModule.name,
           args: KppModuleArgs(
@@ -2375,8 +2533,8 @@ class KppModule extends _i90.PageRouteInfo<KppModuleArgs> {
 
   static const String name = 'KppModule';
 
-  static const _i90.PageInfo<KppModuleArgs> page =
-      _i90.PageInfo<KppModuleArgs>(name);
+  static const _i94.PageInfo<KppModuleArgs> page =
+      _i94.PageInfo<KppModuleArgs>(name);
 }
 
 class KppModuleArgs {
@@ -2387,7 +2545,7 @@ class KppModuleArgs {
 
   final dynamic data;
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   @override
   String toString() {
@@ -2396,12 +2554,12 @@ class KppModuleArgs {
 }
 
 /// generated route for
-/// [_i44.KppResult]
-class KppResult extends _i90.PageRouteInfo<KppResultArgs> {
+/// [_i46.KppResult]
+class KppResult extends _i94.PageRouteInfo<KppResultArgs> {
   KppResult({
     required dynamic data,
-    _i91.Key? key,
-    List<_i90.PageRouteInfo>? children,
+    _i95.Key? key,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           KppResult.name,
           args: KppResultArgs(
@@ -2413,8 +2571,8 @@ class KppResult extends _i90.PageRouteInfo<KppResultArgs> {
 
   static const String name = 'KppResult';
 
-  static const _i90.PageInfo<KppResultArgs> page =
-      _i90.PageInfo<KppResultArgs>(name);
+  static const _i94.PageInfo<KppResultArgs> page =
+      _i94.PageInfo<KppResultArgs>(name);
 }
 
 class KppResultArgs {
@@ -2425,7 +2583,7 @@ class KppResultArgs {
 
   final dynamic data;
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   @override
   String toString() {
@@ -2434,9 +2592,9 @@ class KppResultArgs {
 }
 
 /// generated route for
-/// [_i45.Login]
-class Login extends _i90.PageRouteInfo<void> {
-  const Login({List<_i90.PageRouteInfo>? children})
+/// [_i47.Login]
+class Login extends _i94.PageRouteInfo<void> {
+  const Login({List<_i94.PageRouteInfo>? children})
       : super(
           Login.name,
           initialChildren: children,
@@ -2444,17 +2602,17 @@ class Login extends _i90.PageRouteInfo<void> {
 
   static const String name = 'Login';
 
-  static const _i90.PageInfo<void> page = _i90.PageInfo<void>(name);
+  static const _i94.PageInfo<void> page = _i94.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i46.MapScreen]
-class MapScreen extends _i90.PageRouteInfo<MapScreenArgs> {
+/// [_i48.MapScreen]
+class MapScreen extends _i94.PageRouteInfo<MapScreenArgs> {
   MapScreen({
-    _i91.Key? key,
+    _i95.Key? key,
     required dynamic address,
     required dynamic studName,
-    List<_i90.PageRouteInfo>? children,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           MapScreen.name,
           args: MapScreenArgs(
@@ -2467,8 +2625,8 @@ class MapScreen extends _i90.PageRouteInfo<MapScreenArgs> {
 
   static const String name = 'MapScreen';
 
-  static const _i90.PageInfo<MapScreenArgs> page =
-      _i90.PageInfo<MapScreenArgs>(name);
+  static const _i94.PageInfo<MapScreenArgs> page =
+      _i94.PageInfo<MapScreenArgs>(name);
 }
 
 class MapScreenArgs {
@@ -2478,7 +2636,7 @@ class MapScreenArgs {
     required this.studName,
   });
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   final dynamic address;
 
@@ -2491,12 +2649,12 @@ class MapScreenArgs {
 }
 
 /// generated route for
-/// [_i47.MerchantList]
-class MerchantList extends _i90.PageRouteInfo<MerchantListArgs> {
+/// [_i49.MerchantList]
+class MerchantList extends _i94.PageRouteInfo<MerchantListArgs> {
   MerchantList({
     required dynamic merchantType,
-    _i91.Key? key,
-    List<_i90.PageRouteInfo>? children,
+    _i95.Key? key,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           MerchantList.name,
           args: MerchantListArgs(
@@ -2508,8 +2666,8 @@ class MerchantList extends _i90.PageRouteInfo<MerchantListArgs> {
 
   static const String name = 'MerchantList';
 
-  static const _i90.PageInfo<MerchantListArgs> page =
-      _i90.PageInfo<MerchantListArgs>(name);
+  static const _i94.PageInfo<MerchantListArgs> page =
+      _i94.PageInfo<MerchantListArgs>(name);
 }
 
 class MerchantListArgs {
@@ -2520,7 +2678,7 @@ class MerchantListArgs {
 
   final dynamic merchantType;
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   @override
   String toString() {
@@ -2529,9 +2687,9 @@ class MerchantListArgs {
 }
 
 /// generated route for
-/// [_i48.MerchantProfile]
-class MerchantProfile extends _i90.PageRouteInfo<void> {
-  const MerchantProfile({List<_i90.PageRouteInfo>? children})
+/// [_i50.MerchantProfile]
+class MerchantProfile extends _i94.PageRouteInfo<void> {
+  const MerchantProfile({List<_i94.PageRouteInfo>? children})
       : super(
           MerchantProfile.name,
           initialChildren: children,
@@ -2539,17 +2697,17 @@ class MerchantProfile extends _i90.PageRouteInfo<void> {
 
   static const String name = 'MerchantProfile';
 
-  static const _i90.PageInfo<void> page = _i90.PageInfo<void>(name);
+  static const _i94.PageInfo<void> page = _i94.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i49.Multilevel]
-class Multilevel extends _i90.PageRouteInfo<MultilevelArgs> {
+/// [_i51.Multilevel]
+class Multilevel extends _i94.PageRouteInfo<MultilevelArgs> {
   Multilevel({
-    _i91.Key? key,
+    _i95.Key? key,
     dynamic feed,
     String? appVersion,
-    List<_i90.PageRouteInfo>? children,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           Multilevel.name,
           args: MultilevelArgs(
@@ -2562,8 +2720,8 @@ class Multilevel extends _i90.PageRouteInfo<MultilevelArgs> {
 
   static const String name = 'Multilevel';
 
-  static const _i90.PageInfo<MultilevelArgs> page =
-      _i90.PageInfo<MultilevelArgs>(name);
+  static const _i94.PageInfo<MultilevelArgs> page =
+      _i94.PageInfo<MultilevelArgs>(name);
 }
 
 class MultilevelArgs {
@@ -2573,7 +2731,7 @@ class MultilevelArgs {
     this.appVersion,
   });
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   final dynamic feed;
 
@@ -2586,13 +2744,13 @@ class MultilevelArgs {
 }
 
 /// generated route for
-/// [_i50.MyKad]
-class MyKad extends _i90.PageRouteInfo<MyKadArgs> {
+/// [_i52.MyKad]
+class MyKad extends _i94.PageRouteInfo<MyKadArgs> {
   MyKad({
-    _i91.Key? key,
+    _i95.Key? key,
     required dynamic courseCode,
     required dynamic groupId,
-    List<_i90.PageRouteInfo>? children,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           MyKad.name,
           args: MyKadArgs(
@@ -2605,7 +2763,7 @@ class MyKad extends _i90.PageRouteInfo<MyKadArgs> {
 
   static const String name = 'MyKad';
 
-  static const _i90.PageInfo<MyKadArgs> page = _i90.PageInfo<MyKadArgs>(name);
+  static const _i94.PageInfo<MyKadArgs> page = _i94.PageInfo<MyKadArgs>(name);
 }
 
 class MyKadArgs {
@@ -2615,7 +2773,7 @@ class MyKadArgs {
     required this.groupId,
   });
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   final dynamic courseCode;
 
@@ -2628,14 +2786,14 @@ class MyKadArgs {
 }
 
 /// generated route for
-/// [_i51.Nfc]
-class Nfc extends _i90.PageRouteInfo<NfcArgs> {
+/// [_i53.Nfc]
+class Nfc extends _i94.PageRouteInfo<NfcArgs> {
   Nfc({
-    _i91.Key? key,
+    _i95.Key? key,
     required dynamic textByte,
     required dynamic groupId,
     required dynamic courseCode,
-    List<_i90.PageRouteInfo>? children,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           Nfc.name,
           args: NfcArgs(
@@ -2649,7 +2807,7 @@ class Nfc extends _i90.PageRouteInfo<NfcArgs> {
 
   static const String name = 'Nfc';
 
-  static const _i90.PageInfo<NfcArgs> page = _i90.PageInfo<NfcArgs>(name);
+  static const _i94.PageInfo<NfcArgs> page = _i94.PageInfo<NfcArgs>(name);
 }
 
 class NfcArgs {
@@ -2660,7 +2818,7 @@ class NfcArgs {
     required this.courseCode,
   });
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   final dynamic textByte;
 
@@ -2675,14 +2833,14 @@ class NfcArgs {
 }
 
 /// generated route for
-/// [_i52.OrderList]
-class OrderList extends _i90.PageRouteInfo<OrderListArgs> {
+/// [_i54.OrderList]
+class OrderList extends _i94.PageRouteInfo<OrderListArgs> {
   OrderList({
-    _i91.Key? key,
+    _i95.Key? key,
     String? icNo,
     String? packageCode,
     String? diCode,
-    List<_i90.PageRouteInfo>? children,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           OrderList.name,
           args: OrderListArgs(
@@ -2696,8 +2854,8 @@ class OrderList extends _i90.PageRouteInfo<OrderListArgs> {
 
   static const String name = 'OrderList';
 
-  static const _i90.PageInfo<OrderListArgs> page =
-      _i90.PageInfo<OrderListArgs>(name);
+  static const _i94.PageInfo<OrderListArgs> page =
+      _i94.PageInfo<OrderListArgs>(name);
 }
 
 class OrderListArgs {
@@ -2708,7 +2866,7 @@ class OrderListArgs {
     this.diCode,
   });
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   final String? icNo;
 
@@ -2723,9 +2881,9 @@ class OrderListArgs {
 }
 
 /// generated route for
-/// [_i53.Pay]
-class Pay extends _i90.PageRouteInfo<void> {
-  const Pay({List<_i90.PageRouteInfo>? children})
+/// [_i55.Pay]
+class Pay extends _i94.PageRouteInfo<void> {
+  const Pay({List<_i94.PageRouteInfo>? children})
       : super(
           Pay.name,
           initialChildren: children,
@@ -2733,13 +2891,13 @@ class Pay extends _i90.PageRouteInfo<void> {
 
   static const String name = 'Pay';
 
-  static const _i90.PageInfo<void> page = _i90.PageInfo<void>(name);
+  static const _i94.PageInfo<void> page = _i94.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i54.PaymentHistory]
-class PaymentHistory extends _i90.PageRouteInfo<void> {
-  const PaymentHistory({List<_i90.PageRouteInfo>? children})
+/// [_i56.PaymentHistory]
+class PaymentHistory extends _i94.PageRouteInfo<void> {
+  const PaymentHistory({List<_i94.PageRouteInfo>? children})
       : super(
           PaymentHistory.name,
           initialChildren: children,
@@ -2747,17 +2905,17 @@ class PaymentHistory extends _i90.PageRouteInfo<void> {
 
   static const String name = 'PaymentHistory';
 
-  static const _i90.PageInfo<void> page = _i90.PageInfo<void>(name);
+  static const _i94.PageInfo<void> page = _i94.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i55.PaymentHistoryDetail]
+/// [_i57.PaymentHistoryDetail]
 class PaymentHistoryDetail
-    extends _i90.PageRouteInfo<PaymentHistoryDetailArgs> {
+    extends _i94.PageRouteInfo<PaymentHistoryDetailArgs> {
   PaymentHistoryDetail({
     required dynamic recpNo,
-    _i91.Key? key,
-    List<_i90.PageRouteInfo>? children,
+    _i95.Key? key,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           PaymentHistoryDetail.name,
           args: PaymentHistoryDetailArgs(
@@ -2769,8 +2927,8 @@ class PaymentHistoryDetail
 
   static const String name = 'PaymentHistoryDetail';
 
-  static const _i90.PageInfo<PaymentHistoryDetailArgs> page =
-      _i90.PageInfo<PaymentHistoryDetailArgs>(name);
+  static const _i94.PageInfo<PaymentHistoryDetailArgs> page =
+      _i94.PageInfo<PaymentHistoryDetailArgs>(name);
 }
 
 class PaymentHistoryDetailArgs {
@@ -2781,7 +2939,7 @@ class PaymentHistoryDetailArgs {
 
   final dynamic recpNo;
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   @override
   String toString() {
@@ -2790,12 +2948,12 @@ class PaymentHistoryDetailArgs {
 }
 
 /// generated route for
-/// [_i56.PaymentStatus]
-class PaymentStatus extends _i90.PageRouteInfo<PaymentStatusArgs> {
+/// [_i58.PaymentStatus]
+class PaymentStatus extends _i94.PageRouteInfo<PaymentStatusArgs> {
   PaymentStatus({
-    _i91.Key? key,
+    _i95.Key? key,
     String? icNo,
-    List<_i90.PageRouteInfo>? children,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           PaymentStatus.name,
           args: PaymentStatusArgs(
@@ -2807,8 +2965,8 @@ class PaymentStatus extends _i90.PageRouteInfo<PaymentStatusArgs> {
 
   static const String name = 'PaymentStatus';
 
-  static const _i90.PageInfo<PaymentStatusArgs> page =
-      _i90.PageInfo<PaymentStatusArgs>(name);
+  static const _i94.PageInfo<PaymentStatusArgs> page =
+      _i94.PageInfo<PaymentStatusArgs>(name);
 }
 
 class PaymentStatusArgs {
@@ -2817,7 +2975,7 @@ class PaymentStatusArgs {
     this.icNo,
   });
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   final String? icNo;
 
@@ -2828,12 +2986,12 @@ class PaymentStatusArgs {
 }
 
 /// generated route for
-/// [_i57.PinActivation]
-class PinActivation extends _i90.PageRouteInfo<PinActivationArgs> {
+/// [_i59.PinActivation]
+class PinActivation extends _i94.PageRouteInfo<PinActivationArgs> {
   PinActivation({
     required String data,
-    _i91.Key? key,
-    List<_i90.PageRouteInfo>? children,
+    _i95.Key? key,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           PinActivation.name,
           args: PinActivationArgs(
@@ -2845,8 +3003,8 @@ class PinActivation extends _i90.PageRouteInfo<PinActivationArgs> {
 
   static const String name = 'PinActivation';
 
-  static const _i90.PageInfo<PinActivationArgs> page =
-      _i90.PageInfo<PinActivationArgs>(name);
+  static const _i94.PageInfo<PinActivationArgs> page =
+      _i94.PageInfo<PinActivationArgs>(name);
 }
 
 class PinActivationArgs {
@@ -2857,7 +3015,7 @@ class PinActivationArgs {
 
   final String data;
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   @override
   String toString() {
@@ -2866,10 +3024,10 @@ class PinActivationArgs {
 }
 
 /// generated route for
-/// [_i58.Product]
-class Product extends _i90.PageRouteInfo<ProductArgs> {
+/// [_i60.Product]
+class Product extends _i94.PageRouteInfo<ProductArgs> {
   Product({
-    _i91.Key? key,
+    _i95.Key? key,
     String? stkCode,
     String? stkDesc1,
     String? stkDesc2,
@@ -2878,7 +3036,7 @@ class Product extends _i90.PageRouteInfo<ProductArgs> {
     String? image,
     String? uom,
     dynamic products,
-    List<_i90.PageRouteInfo>? children,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           Product.name,
           args: ProductArgs(
@@ -2897,8 +3055,8 @@ class Product extends _i90.PageRouteInfo<ProductArgs> {
 
   static const String name = 'Product';
 
-  static const _i90.PageInfo<ProductArgs> page =
-      _i90.PageInfo<ProductArgs>(name);
+  static const _i94.PageInfo<ProductArgs> page =
+      _i94.PageInfo<ProductArgs>(name);
 }
 
 class ProductArgs {
@@ -2914,7 +3072,7 @@ class ProductArgs {
     this.products,
   });
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   final String? stkCode;
 
@@ -2939,13 +3097,13 @@ class ProductArgs {
 }
 
 /// generated route for
-/// [_i59.ProductList]
-class ProductList extends _i90.PageRouteInfo<ProductListArgs> {
+/// [_i61.ProductList]
+class ProductList extends _i94.PageRouteInfo<ProductListArgs> {
   ProductList({
-    _i91.Key? key,
+    _i95.Key? key,
     String? stkCat,
     String? keywordSearch,
-    List<_i90.PageRouteInfo>? children,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           ProductList.name,
           args: ProductListArgs(
@@ -2958,8 +3116,8 @@ class ProductList extends _i90.PageRouteInfo<ProductListArgs> {
 
   static const String name = 'ProductList';
 
-  static const _i90.PageInfo<ProductListArgs> page =
-      _i90.PageInfo<ProductListArgs>(name);
+  static const _i94.PageInfo<ProductListArgs> page =
+      _i94.PageInfo<ProductListArgs>(name);
 }
 
 class ProductListArgs {
@@ -2969,7 +3127,7 @@ class ProductListArgs {
     this.keywordSearch,
   });
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   final String? stkCat;
 
@@ -2982,13 +3140,13 @@ class ProductListArgs {
 }
 
 /// generated route for
-/// [_i60.Profile]
-class Profile extends _i90.PageRouteInfo<ProfileArgs> {
+/// [_i62.Profile]
+class Profile extends _i94.PageRouteInfo<ProfileArgs> {
   Profile({
-    _i91.Key? key,
+    _i95.Key? key,
     dynamic userProfile,
     dynamic enrollData,
-    List<_i90.PageRouteInfo>? children,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           Profile.name,
           args: ProfileArgs(
@@ -3001,8 +3159,8 @@ class Profile extends _i90.PageRouteInfo<ProfileArgs> {
 
   static const String name = 'Profile';
 
-  static const _i90.PageInfo<ProfileArgs> page =
-      _i90.PageInfo<ProfileArgs>(name);
+  static const _i94.PageInfo<ProfileArgs> page =
+      _i94.PageInfo<ProfileArgs>(name);
 }
 
 class ProfileArgs {
@@ -3012,7 +3170,7 @@ class ProfileArgs {
     this.enrollData,
   });
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   final dynamic userProfile;
 
@@ -3025,11 +3183,11 @@ class ProfileArgs {
 }
 
 /// generated route for
-/// [_i61.ProfileTab]
-class ProfileTab extends _i90.PageRouteInfo<ProfileTabArgs> {
+/// [_i63.ProfileTab]
+class ProfileTab extends _i94.PageRouteInfo<ProfileTabArgs> {
   ProfileTab({
     required dynamic positionStream,
-    List<_i90.PageRouteInfo>? children,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           ProfileTab.name,
           args: ProfileTabArgs(positionStream: positionStream),
@@ -3038,8 +3196,8 @@ class ProfileTab extends _i90.PageRouteInfo<ProfileTabArgs> {
 
   static const String name = 'ProfileTab';
 
-  static const _i90.PageInfo<ProfileTabArgs> page =
-      _i90.PageInfo<ProfileTabArgs>(name);
+  static const _i94.PageInfo<ProfileTabArgs> page =
+      _i94.PageInfo<ProfileTabArgs>(name);
 }
 
 class ProfileTabArgs {
@@ -3054,13 +3212,13 @@ class ProfileTabArgs {
 }
 
 /// generated route for
-/// [_i62.ProgressClass]
-class ProgressClass extends _i90.PageRouteInfo<ProgressClassArgs> {
+/// [_i64.ProgressClass]
+class ProgressClass extends _i94.PageRouteInfo<ProgressClassArgs> {
   ProgressClass({
-    _i91.Key? key,
+    _i95.Key? key,
     required dynamic progressClassInfo,
     required dynamic message,
-    List<_i90.PageRouteInfo>? children,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           ProgressClass.name,
           args: ProgressClassArgs(
@@ -3073,8 +3231,8 @@ class ProgressClass extends _i90.PageRouteInfo<ProgressClassArgs> {
 
   static const String name = 'ProgressClass';
 
-  static const _i90.PageInfo<ProgressClassArgs> page =
-      _i90.PageInfo<ProgressClassArgs>(name);
+  static const _i94.PageInfo<ProgressClassArgs> page =
+      _i94.PageInfo<ProgressClassArgs>(name);
 }
 
 class ProgressClassArgs {
@@ -3084,7 +3242,7 @@ class ProgressClassArgs {
     required this.message,
   });
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   final dynamic progressClassInfo;
 
@@ -3097,12 +3255,12 @@ class ProgressClassArgs {
 }
 
 /// generated route for
-/// [_i63.Promotions]
-class Promotions extends _i90.PageRouteInfo<PromotionsArgs> {
+/// [_i65.Promotions]
+class Promotions extends _i94.PageRouteInfo<PromotionsArgs> {
   Promotions({
-    _i91.Key? key,
+    _i95.Key? key,
     dynamic feed,
-    List<_i90.PageRouteInfo>? children,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           Promotions.name,
           args: PromotionsArgs(
@@ -3114,8 +3272,8 @@ class Promotions extends _i90.PageRouteInfo<PromotionsArgs> {
 
   static const String name = 'Promotions';
 
-  static const _i90.PageInfo<PromotionsArgs> page =
-      _i90.PageInfo<PromotionsArgs>(name);
+  static const _i94.PageInfo<PromotionsArgs> page =
+      _i94.PageInfo<PromotionsArgs>(name);
 }
 
 class PromotionsArgs {
@@ -3124,7 +3282,7 @@ class PromotionsArgs {
     this.feed,
   });
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   final dynamic feed;
 
@@ -3135,14 +3293,14 @@ class PromotionsArgs {
 }
 
 /// generated route for
-/// [_i64.PurchaseOrderList]
-class PurchaseOrderList extends _i90.PageRouteInfo<PurchaseOrderListArgs> {
+/// [_i66.PurchaseOrderList]
+class PurchaseOrderList extends _i94.PageRouteInfo<PurchaseOrderListArgs> {
   PurchaseOrderList({
-    _i91.Key? key,
+    _i95.Key? key,
     String? icNo,
     String? packageCode,
     String? diCode,
-    List<_i90.PageRouteInfo>? children,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           PurchaseOrderList.name,
           args: PurchaseOrderListArgs(
@@ -3156,8 +3314,8 @@ class PurchaseOrderList extends _i90.PageRouteInfo<PurchaseOrderListArgs> {
 
   static const String name = 'PurchaseOrderList';
 
-  static const _i90.PageInfo<PurchaseOrderListArgs> page =
-      _i90.PageInfo<PurchaseOrderListArgs>(name);
+  static const _i94.PageInfo<PurchaseOrderListArgs> page =
+      _i94.PageInfo<PurchaseOrderListArgs>(name);
 }
 
 class PurchaseOrderListArgs {
@@ -3168,7 +3326,7 @@ class PurchaseOrderListArgs {
     this.diCode,
   });
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   final String? icNo;
 
@@ -3183,12 +3341,12 @@ class PurchaseOrderListArgs {
 }
 
 /// generated route for
-/// [_i65.QueueNumber]
-class QueueNumber extends _i90.PageRouteInfo<QueueNumberArgs> {
+/// [_i67.QueueNumber]
+class QueueNumber extends _i94.PageRouteInfo<QueueNumberArgs> {
   QueueNumber({
-    _i91.Key? key,
+    _i95.Key? key,
     required dynamic data,
-    List<_i90.PageRouteInfo>? children,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           QueueNumber.name,
           args: QueueNumberArgs(
@@ -3200,8 +3358,8 @@ class QueueNumber extends _i90.PageRouteInfo<QueueNumberArgs> {
 
   static const String name = 'QueueNumber';
 
-  static const _i90.PageInfo<QueueNumberArgs> page =
-      _i90.PageInfo<QueueNumberArgs>(name);
+  static const _i94.PageInfo<QueueNumberArgs> page =
+      _i94.PageInfo<QueueNumberArgs>(name);
 }
 
 class QueueNumberArgs {
@@ -3210,7 +3368,7 @@ class QueueNumberArgs {
     required this.data,
   });
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   final dynamic data;
 
@@ -3221,12 +3379,12 @@ class QueueNumberArgs {
 }
 
 /// generated route for
-/// [_i66.ReadMore]
-class ReadMore extends _i90.PageRouteInfo<ReadMoreArgs> {
+/// [_i68.ReadMore]
+class ReadMore extends _i94.PageRouteInfo<ReadMoreArgs> {
   ReadMore({
-    _i91.Key? key,
+    _i95.Key? key,
     String? packageDesc,
-    List<_i90.PageRouteInfo>? children,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           ReadMore.name,
           args: ReadMoreArgs(
@@ -3238,8 +3396,8 @@ class ReadMore extends _i90.PageRouteInfo<ReadMoreArgs> {
 
   static const String name = 'ReadMore';
 
-  static const _i90.PageInfo<ReadMoreArgs> page =
-      _i90.PageInfo<ReadMoreArgs>(name);
+  static const _i94.PageInfo<ReadMoreArgs> page =
+      _i94.PageInfo<ReadMoreArgs>(name);
 }
 
 class ReadMoreArgs {
@@ -3248,7 +3406,7 @@ class ReadMoreArgs {
     this.packageDesc,
   });
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   final String? packageDesc;
 
@@ -3259,11 +3417,11 @@ class ReadMoreArgs {
 }
 
 /// generated route for
-/// [_i67.Records]
-class Records extends _i90.PageRouteInfo<RecordsArgs> {
+/// [_i69.Records]
+class Records extends _i94.PageRouteInfo<RecordsArgs> {
   Records({
-    _i91.Key? key,
-    List<_i90.PageRouteInfo>? children,
+    _i95.Key? key,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           Records.name,
           args: RecordsArgs(key: key),
@@ -3272,14 +3430,14 @@ class Records extends _i90.PageRouteInfo<RecordsArgs> {
 
   static const String name = 'Records';
 
-  static const _i90.PageInfo<RecordsArgs> page =
-      _i90.PageInfo<RecordsArgs>(name);
+  static const _i94.PageInfo<RecordsArgs> page =
+      _i94.PageInfo<RecordsArgs>(name);
 }
 
 class RecordsArgs {
   const RecordsArgs({this.key});
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   @override
   String toString() {
@@ -3288,12 +3446,12 @@ class RecordsArgs {
 }
 
 /// generated route for
-/// [_i68.RegisterForm]
-class RegisterForm extends _i90.PageRouteInfo<RegisterFormArgs> {
+/// [_i70.RegisterForm]
+class RegisterForm extends _i94.PageRouteInfo<RegisterFormArgs> {
   RegisterForm({
     required dynamic data,
-    _i91.Key? key,
-    List<_i90.PageRouteInfo>? children,
+    _i95.Key? key,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           RegisterForm.name,
           args: RegisterFormArgs(
@@ -3305,8 +3463,8 @@ class RegisterForm extends _i90.PageRouteInfo<RegisterFormArgs> {
 
   static const String name = 'RegisterForm';
 
-  static const _i90.PageInfo<RegisterFormArgs> page =
-      _i90.PageInfo<RegisterFormArgs>(name);
+  static const _i94.PageInfo<RegisterFormArgs> page =
+      _i94.PageInfo<RegisterFormArgs>(name);
 }
 
 class RegisterFormArgs {
@@ -3317,7 +3475,7 @@ class RegisterFormArgs {
 
   final dynamic data;
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   @override
   String toString() {
@@ -3326,9 +3484,9 @@ class RegisterFormArgs {
 }
 
 /// generated route for
-/// [_i69.RegisterMobile]
-class RegisterMobile extends _i90.PageRouteInfo<void> {
-  const RegisterMobile({List<_i90.PageRouteInfo>? children})
+/// [_i71.RegisterMobile]
+class RegisterMobile extends _i94.PageRouteInfo<void> {
+  const RegisterMobile({List<_i94.PageRouteInfo>? children})
       : super(
           RegisterMobile.name,
           initialChildren: children,
@@ -3336,16 +3494,16 @@ class RegisterMobile extends _i90.PageRouteInfo<void> {
 
   static const String name = 'RegisterMobile';
 
-  static const _i90.PageInfo<void> page = _i90.PageInfo<void>(name);
+  static const _i94.PageInfo<void> page = _i94.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i70.RegisterUserToDi]
-class RegisterUserToDi extends _i90.PageRouteInfo<RegisterUserToDiArgs> {
+/// [_i72.RegisterUserToDi]
+class RegisterUserToDi extends _i94.PageRouteInfo<RegisterUserToDiArgs> {
   RegisterUserToDi({
     required dynamic barcode,
-    _i91.Key? key,
-    List<_i90.PageRouteInfo>? children,
+    _i95.Key? key,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           RegisterUserToDi.name,
           args: RegisterUserToDiArgs(
@@ -3357,8 +3515,8 @@ class RegisterUserToDi extends _i90.PageRouteInfo<RegisterUserToDiArgs> {
 
   static const String name = 'RegisterUserToDi';
 
-  static const _i90.PageInfo<RegisterUserToDiArgs> page =
-      _i90.PageInfo<RegisterUserToDiArgs>(name);
+  static const _i94.PageInfo<RegisterUserToDiArgs> page =
+      _i94.PageInfo<RegisterUserToDiArgs>(name);
 }
 
 class RegisterUserToDiArgs {
@@ -3369,7 +3527,7 @@ class RegisterUserToDiArgs {
 
   final dynamic barcode;
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   @override
   String toString() {
@@ -3378,13 +3536,13 @@ class RegisterUserToDiArgs {
 }
 
 /// generated route for
-/// [_i71.RegisterVerification]
+/// [_i73.RegisterVerification]
 class RegisterVerification
-    extends _i90.PageRouteInfo<RegisterVerificationArgs> {
+    extends _i94.PageRouteInfo<RegisterVerificationArgs> {
   RegisterVerification({
     required dynamic data,
-    _i91.Key? key,
-    List<_i90.PageRouteInfo>? children,
+    _i95.Key? key,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           RegisterVerification.name,
           args: RegisterVerificationArgs(
@@ -3396,8 +3554,8 @@ class RegisterVerification
 
   static const String name = 'RegisterVerification';
 
-  static const _i90.PageInfo<RegisterVerificationArgs> page =
-      _i90.PageInfo<RegisterVerificationArgs>(name);
+  static const _i94.PageInfo<RegisterVerificationArgs> page =
+      _i94.PageInfo<RegisterVerificationArgs>(name);
 }
 
 class RegisterVerificationArgs {
@@ -3408,7 +3566,7 @@ class RegisterVerificationArgs {
 
   final dynamic data;
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   @override
   String toString() {
@@ -3417,9 +3575,9 @@ class RegisterVerificationArgs {
 }
 
 /// generated route for
-/// [_i72.RegisteredCourse]
-class RegisteredCourse extends _i90.PageRouteInfo<void> {
-  const RegisteredCourse({List<_i90.PageRouteInfo>? children})
+/// [_i74.RegisteredCourse]
+class RegisteredCourse extends _i94.PageRouteInfo<void> {
+  const RegisteredCourse({List<_i94.PageRouteInfo>? children})
       : super(
           RegisteredCourse.name,
           initialChildren: children,
@@ -3427,17 +3585,17 @@ class RegisteredCourse extends _i90.PageRouteInfo<void> {
 
   static const String name = 'RegisteredCourse';
 
-  static const _i90.PageInfo<void> page = _i90.PageInfo<void>(name);
+  static const _i94.PageInfo<void> page = _i94.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i73.RegisteredCourseDetail]
+/// [_i75.RegisteredCourseDetail]
 class RegisteredCourseDetail
-    extends _i90.PageRouteInfo<RegisteredCourseDetailArgs> {
+    extends _i94.PageRouteInfo<RegisteredCourseDetailArgs> {
   RegisteredCourseDetail({
     required dynamic groupId,
-    _i91.Key? key,
-    List<_i90.PageRouteInfo>? children,
+    _i95.Key? key,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           RegisteredCourseDetail.name,
           args: RegisteredCourseDetailArgs(
@@ -3449,8 +3607,8 @@ class RegisteredCourseDetail
 
   static const String name = 'RegisteredCourseDetail';
 
-  static const _i90.PageInfo<RegisteredCourseDetailArgs> page =
-      _i90.PageInfo<RegisteredCourseDetailArgs>(name);
+  static const _i94.PageInfo<RegisteredCourseDetailArgs> page =
+      _i94.PageInfo<RegisteredCourseDetailArgs>(name);
 }
 
 class RegisteredCourseDetailArgs {
@@ -3461,7 +3619,7 @@ class RegisteredCourseDetailArgs {
 
   final dynamic groupId;
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   @override
   String toString() {
@@ -3470,9 +3628,9 @@ class RegisteredCourseDetailArgs {
 }
 
 /// generated route for
-/// [_i74.RequestPickup]
-class RequestPickup extends _i90.PageRouteInfo<void> {
-  const RequestPickup({List<_i90.PageRouteInfo>? children})
+/// [_i76.RequestPickup]
+class RequestPickup extends _i94.PageRouteInfo<void> {
+  const RequestPickup({List<_i94.PageRouteInfo>? children})
       : super(
           RequestPickup.name,
           initialChildren: children,
@@ -3480,17 +3638,31 @@ class RequestPickup extends _i90.PageRouteInfo<void> {
 
   static const String name = 'RequestPickup';
 
-  static const _i90.PageInfo<void> page = _i90.PageInfo<void>(name);
+  static const _i94.PageInfo<void> page = _i94.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i75.Scan]
-class Scan extends _i90.PageRouteInfo<ScanArgs> {
+/// [_i77.RoomList]
+class RoomList extends _i94.PageRouteInfo<void> {
+  const RoomList({List<_i94.PageRouteInfo>? children})
+      : super(
+          RoomList.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'RoomList';
+
+  static const _i94.PageInfo<void> page = _i94.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i78.Scan]
+class Scan extends _i94.PageRouteInfo<ScanArgs> {
   Scan({
     dynamic getActiveFeed,
     dynamic getDiProfile,
-    _i91.Key? key,
-    List<_i90.PageRouteInfo>? children,
+    _i95.Key? key,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           Scan.name,
           args: ScanArgs(
@@ -3503,7 +3675,7 @@ class Scan extends _i90.PageRouteInfo<ScanArgs> {
 
   static const String name = 'Scan';
 
-  static const _i90.PageInfo<ScanArgs> page = _i90.PageInfo<ScanArgs>(name);
+  static const _i94.PageInfo<ScanArgs> page = _i94.PageInfo<ScanArgs>(name);
 }
 
 class ScanArgs {
@@ -3517,7 +3689,7 @@ class ScanArgs {
 
   final dynamic getDiProfile;
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   @override
   String toString() {
@@ -3526,12 +3698,26 @@ class ScanArgs {
 }
 
 /// generated route for
-/// [_i76.SelectClass]
-class SelectClass extends _i90.PageRouteInfo<SelectClassArgs> {
+/// [_i79.ScanVeh]
+class ScanVeh extends _i94.PageRouteInfo<void> {
+  const ScanVeh({List<_i94.PageRouteInfo>? children})
+      : super(
+          ScanVeh.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ScanVeh';
+
+  static const _i94.PageInfo<void> page = _i94.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i80.SelectClass]
+class SelectClass extends _i94.PageRouteInfo<SelectClassArgs> {
   SelectClass({
     required dynamic data,
-    _i91.Key? key,
-    List<_i90.PageRouteInfo>? children,
+    _i95.Key? key,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           SelectClass.name,
           args: SelectClassArgs(
@@ -3543,8 +3729,8 @@ class SelectClass extends _i90.PageRouteInfo<SelectClassArgs> {
 
   static const String name = 'SelectClass';
 
-  static const _i90.PageInfo<SelectClassArgs> page =
-      _i90.PageInfo<SelectClassArgs>(name);
+  static const _i94.PageInfo<SelectClassArgs> page =
+      _i94.PageInfo<SelectClassArgs>(name);
 }
 
 class SelectClassArgs {
@@ -3555,7 +3741,7 @@ class SelectClassArgs {
 
   final dynamic data;
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   @override
   String toString() {
@@ -3564,13 +3750,13 @@ class SelectClassArgs {
 }
 
 /// generated route for
-/// [_i77.SelectDrivingInstitute]
+/// [_i81.SelectDrivingInstitute]
 class SelectDrivingInstitute
-    extends _i90.PageRouteInfo<SelectDrivingInstituteArgs> {
+    extends _i94.PageRouteInfo<SelectDrivingInstituteArgs> {
   SelectDrivingInstitute({
     required dynamic diList,
-    _i91.Key? key,
-    List<_i90.PageRouteInfo>? children,
+    _i95.Key? key,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           SelectDrivingInstitute.name,
           args: SelectDrivingInstituteArgs(
@@ -3582,8 +3768,8 @@ class SelectDrivingInstitute
 
   static const String name = 'SelectDrivingInstitute';
 
-  static const _i90.PageInfo<SelectDrivingInstituteArgs> page =
-      _i90.PageInfo<SelectDrivingInstituteArgs>(name);
+  static const _i94.PageInfo<SelectDrivingInstituteArgs> page =
+      _i94.PageInfo<SelectDrivingInstituteArgs>(name);
 }
 
 class SelectDrivingInstituteArgs {
@@ -3594,7 +3780,7 @@ class SelectDrivingInstituteArgs {
 
   final dynamic diList;
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   @override
   String toString() {
@@ -3603,12 +3789,12 @@ class SelectDrivingInstituteArgs {
 }
 
 /// generated route for
-/// [_i78.SelectInstitute]
-class SelectInstitute extends _i90.PageRouteInfo<SelectInstituteArgs> {
+/// [_i82.SelectInstitute]
+class SelectInstitute extends _i94.PageRouteInfo<SelectInstituteArgs> {
   SelectInstitute({
     required dynamic data,
-    _i91.Key? key,
-    List<_i90.PageRouteInfo>? children,
+    _i95.Key? key,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           SelectInstitute.name,
           args: SelectInstituteArgs(
@@ -3620,8 +3806,8 @@ class SelectInstitute extends _i90.PageRouteInfo<SelectInstituteArgs> {
 
   static const String name = 'SelectInstitute';
 
-  static const _i90.PageInfo<SelectInstituteArgs> page =
-      _i90.PageInfo<SelectInstituteArgs>(name);
+  static const _i94.PageInfo<SelectInstituteArgs> page =
+      _i94.PageInfo<SelectInstituteArgs>(name);
 }
 
 class SelectInstituteArgs {
@@ -3632,7 +3818,7 @@ class SelectInstituteArgs {
 
   final dynamic data;
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   @override
   String toString() {
@@ -3641,9 +3827,9 @@ class SelectInstituteArgs {
 }
 
 /// generated route for
-/// [_i79.Students]
-class Students extends _i90.PageRouteInfo<void> {
-  const Students({List<_i90.PageRouteInfo>? children})
+/// [_i83.Students]
+class Students extends _i94.PageRouteInfo<void> {
+  const Students({List<_i94.PageRouteInfo>? children})
       : super(
           Students.name,
           initialChildren: children,
@@ -3651,16 +3837,16 @@ class Students extends _i90.PageRouteInfo<void> {
 
   static const String name = 'Students';
 
-  static const _i90.PageInfo<void> page = _i90.PageInfo<void>(name);
+  static const _i94.PageInfo<void> page = _i94.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i80.TakeProfilePicture]
-class TakeProfilePicture extends _i90.PageRouteInfo<TakeProfilePictureArgs> {
+/// [_i84.TakeProfilePicture]
+class TakeProfilePicture extends _i94.PageRouteInfo<TakeProfilePictureArgs> {
   TakeProfilePicture({
-    required List<_i93.CameraDescription>? camera,
-    _i92.Key? key,
-    List<_i90.PageRouteInfo>? children,
+    required List<_i97.CameraDescription>? camera,
+    _i96.Key? key,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           TakeProfilePicture.name,
           args: TakeProfilePictureArgs(
@@ -3672,8 +3858,8 @@ class TakeProfilePicture extends _i90.PageRouteInfo<TakeProfilePictureArgs> {
 
   static const String name = 'TakeProfilePicture';
 
-  static const _i90.PageInfo<TakeProfilePictureArgs> page =
-      _i90.PageInfo<TakeProfilePictureArgs>(name);
+  static const _i94.PageInfo<TakeProfilePictureArgs> page =
+      _i94.PageInfo<TakeProfilePictureArgs>(name);
 }
 
 class TakeProfilePictureArgs {
@@ -3682,9 +3868,9 @@ class TakeProfilePictureArgs {
     this.key,
   });
 
-  final List<_i93.CameraDescription>? camera;
+  final List<_i97.CameraDescription>? camera;
 
-  final _i92.Key? key;
+  final _i96.Key? key;
 
   @override
   String toString() {
@@ -3693,12 +3879,12 @@ class TakeProfilePictureArgs {
 }
 
 /// generated route for
-/// [_i81.TermsAndCondition]
-class TermsAndCondition extends _i90.PageRouteInfo<TermsAndConditionArgs> {
+/// [_i85.TermsAndCondition]
+class TermsAndCondition extends _i94.PageRouteInfo<TermsAndConditionArgs> {
   TermsAndCondition({
-    _i91.Key? key,
+    _i95.Key? key,
     String? termsAndCondition,
-    List<_i90.PageRouteInfo>? children,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           TermsAndCondition.name,
           args: TermsAndConditionArgs(
@@ -3710,8 +3896,8 @@ class TermsAndCondition extends _i90.PageRouteInfo<TermsAndConditionArgs> {
 
   static const String name = 'TermsAndCondition';
 
-  static const _i90.PageInfo<TermsAndConditionArgs> page =
-      _i90.PageInfo<TermsAndConditionArgs>(name);
+  static const _i94.PageInfo<TermsAndConditionArgs> page =
+      _i94.PageInfo<TermsAndConditionArgs>(name);
 }
 
 class TermsAndConditionArgs {
@@ -3720,7 +3906,7 @@ class TermsAndConditionArgs {
     this.termsAndCondition,
   });
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   final String? termsAndCondition;
 
@@ -3731,15 +3917,15 @@ class TermsAndConditionArgs {
 }
 
 /// generated route for
-/// [_i82.Thumbout]
-class Thumbout extends _i90.PageRouteInfo<ThumboutArgs> {
+/// [_i86.Thumbout]
+class Thumbout extends _i94.PageRouteInfo<ThumboutArgs> {
   Thumbout({
-    _i91.Key? key,
+    _i95.Key? key,
     required dynamic groupId,
     required dynamic courseCode,
     required dynamic startTime,
     required dynamic vehNo,
-    List<_i90.PageRouteInfo>? children,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           Thumbout.name,
           args: ThumboutArgs(
@@ -3754,8 +3940,8 @@ class Thumbout extends _i90.PageRouteInfo<ThumboutArgs> {
 
   static const String name = 'Thumbout';
 
-  static const _i90.PageInfo<ThumboutArgs> page =
-      _i90.PageInfo<ThumboutArgs>(name);
+  static const _i94.PageInfo<ThumboutArgs> page =
+      _i94.PageInfo<ThumboutArgs>(name);
 }
 
 class ThumboutArgs {
@@ -3767,7 +3953,7 @@ class ThumboutArgs {
     required this.vehNo,
   });
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   final dynamic groupId;
 
@@ -3784,16 +3970,16 @@ class ThumboutArgs {
 }
 
 /// generated route for
-/// [_i83.TodayClass]
-class TodayClass extends _i90.PageRouteInfo<TodayClassArgs> {
+/// [_i87.TodayClass]
+class TodayClass extends _i94.PageRouteInfo<TodayClassArgs> {
   TodayClass({
-    _i91.Key? key,
+    _i95.Key? key,
     required dynamic trnCode,
     required dynamic trnName,
     required dynamic todayClassInfo,
     required dynamic message,
     required dynamic progressMsg,
-    List<_i90.PageRouteInfo>? children,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           TodayClass.name,
           args: TodayClassArgs(
@@ -3809,8 +3995,8 @@ class TodayClass extends _i90.PageRouteInfo<TodayClassArgs> {
 
   static const String name = 'TodayClass';
 
-  static const _i90.PageInfo<TodayClassArgs> page =
-      _i90.PageInfo<TodayClassArgs>(name);
+  static const _i94.PageInfo<TodayClassArgs> page =
+      _i94.PageInfo<TodayClassArgs>(name);
 }
 
 class TodayClassArgs {
@@ -3823,7 +4009,7 @@ class TodayClassArgs {
     required this.progressMsg,
   });
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   final dynamic trnCode;
 
@@ -3842,9 +4028,9 @@ class TodayClassArgs {
 }
 
 /// generated route for
-/// [_i84.TrainerSchedule]
-class TrainerSchedule extends _i90.PageRouteInfo<void> {
-  const TrainerSchedule({List<_i90.PageRouteInfo>? children})
+/// [_i88.TrainerSchedule]
+class TrainerSchedule extends _i94.PageRouteInfo<void> {
+  const TrainerSchedule({List<_i94.PageRouteInfo>? children})
       : super(
           TrainerSchedule.name,
           initialChildren: children,
@@ -3852,13 +4038,13 @@ class TrainerSchedule extends _i90.PageRouteInfo<void> {
 
   static const String name = 'TrainerSchedule';
 
-  static const _i90.PageInfo<void> page = _i90.PageInfo<void>(name);
+  static const _i94.PageInfo<void> page = _i94.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i85.UpdateProfile]
-class UpdateProfile extends _i90.PageRouteInfo<void> {
-  const UpdateProfile({List<_i90.PageRouteInfo>? children})
+/// [_i89.UpdateProfile]
+class UpdateProfile extends _i94.PageRouteInfo<void> {
+  const UpdateProfile({List<_i94.PageRouteInfo>? children})
       : super(
           UpdateProfile.name,
           initialChildren: children,
@@ -3866,13 +4052,13 @@ class UpdateProfile extends _i90.PageRouteInfo<void> {
 
   static const String name = 'UpdateProfile';
 
-  static const _i90.PageInfo<void> page = _i90.PageInfo<void>(name);
+  static const _i94.PageInfo<void> page = _i94.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i86.ValueClub]
-class ValueClub extends _i90.PageRouteInfo<void> {
-  const ValueClub({List<_i90.PageRouteInfo>? children})
+/// [_i90.ValueClub]
+class ValueClub extends _i94.PageRouteInfo<void> {
+  const ValueClub({List<_i94.PageRouteInfo>? children})
       : super(
           ValueClub.name,
           initialChildren: children,
@@ -3880,13 +4066,13 @@ class ValueClub extends _i90.PageRouteInfo<void> {
 
   static const String name = 'ValueClub';
 
-  static const _i90.PageInfo<void> page = _i90.PageInfo<void>(name);
+  static const _i94.PageInfo<void> page = _i94.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i87.Vehicle]
-class Vehicle extends _i90.PageRouteInfo<void> {
-  const Vehicle({List<_i90.PageRouteInfo>? children})
+/// [_i91.Vehicle]
+class Vehicle extends _i94.PageRouteInfo<void> {
+  const Vehicle({List<_i94.PageRouteInfo>? children})
       : super(
           Vehicle.name,
           initialChildren: children,
@@ -3894,17 +4080,17 @@ class Vehicle extends _i90.PageRouteInfo<void> {
 
   static const String name = 'Vehicle';
 
-  static const _i90.PageInfo<void> page = _i90.PageInfo<void>(name);
+  static const _i94.PageInfo<void> page = _i94.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i88.ViewPdf]
-class ViewPdf extends _i90.PageRouteInfo<ViewPdfArgs> {
+/// [_i92.ViewPdf]
+class ViewPdf extends _i94.PageRouteInfo<ViewPdfArgs> {
   ViewPdf({
-    _i91.Key? key,
+    _i95.Key? key,
     required String? title,
     required String? pdfLink,
-    List<_i90.PageRouteInfo>? children,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           ViewPdf.name,
           args: ViewPdfArgs(
@@ -3917,8 +4103,8 @@ class ViewPdf extends _i90.PageRouteInfo<ViewPdfArgs> {
 
   static const String name = 'ViewPdf';
 
-  static const _i90.PageInfo<ViewPdfArgs> page =
-      _i90.PageInfo<ViewPdfArgs>(name);
+  static const _i94.PageInfo<ViewPdfArgs> page =
+      _i94.PageInfo<ViewPdfArgs>(name);
 }
 
 class ViewPdfArgs {
@@ -3928,7 +4114,7 @@ class ViewPdfArgs {
     required this.pdfLink,
   });
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   final String? title;
 
@@ -3941,13 +4127,13 @@ class ViewPdfArgs {
 }
 
 /// generated route for
-/// [_i89.Webview]
-class Webview extends _i90.PageRouteInfo<WebviewArgs> {
+/// [_i93.Webview]
+class Webview extends _i94.PageRouteInfo<WebviewArgs> {
   Webview({
-    _i91.Key? key,
+    _i95.Key? key,
     required String? url,
     String? backType,
-    List<_i90.PageRouteInfo>? children,
+    List<_i94.PageRouteInfo>? children,
   }) : super(
           Webview.name,
           args: WebviewArgs(
@@ -3960,8 +4146,8 @@ class Webview extends _i90.PageRouteInfo<WebviewArgs> {
 
   static const String name = 'Webview';
 
-  static const _i90.PageInfo<WebviewArgs> page =
-      _i90.PageInfo<WebviewArgs>(name);
+  static const _i94.PageInfo<WebviewArgs> page =
+      _i94.PageInfo<WebviewArgs>(name);
 }
 
 class WebviewArgs {
@@ -3971,7 +4157,7 @@ class WebviewArgs {
     this.backType,
   });
 
-  final _i91.Key? key;
+  final _i95.Key? key;
 
   final String? url;
 

@@ -287,6 +287,66 @@ class ProgressClassList{
   }
 }
 
+class DecryptQrcodeResponse {
+  List<Table1>? table1;
+
+  DecryptQrcodeResponse({this.table1});
+
+  DecryptQrcodeResponse.fromJson(Map<String, dynamic> json) {
+    if (json['Table1'] != null) {
+      table1 = <Table1>[];
+      json['Table1'].forEach((v) {
+        table1!.add(Table1.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (table1 != null) {
+      data['Table1'] = table1!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Table1 {
+  String? groupId;
+  String? testCode;
+  String? nricNo;
+  String? merchantNo;
+  String? carNo;
+  String? plateNo;
+
+  Table1(
+      {this.groupId,
+      this.testCode,
+      this.nricNo,
+      this.merchantNo,
+      this.carNo,
+      this.plateNo});
+
+  Table1.fromJson(Map<String, dynamic> json) {
+    groupId = json['group_id'];
+    testCode = json['test_code'];
+    nricNo = json['nric_no'];
+    merchantNo = json['merchant_no'];
+    carNo = json['car_no'];
+    plateNo = json['plate_no'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['group_id'] = groupId;
+    data['test_code'] = testCode;
+    data['nric_no'] = nricNo;
+    data['merchant_no'] = merchantNo;
+    data['car_no'] = carNo;
+    data['plate_no'] = plateNo;
+    return data;
+  }
+}
+
 class GetTodayClassResponse{
   List<TodayClassList>? todayClassList;
 
@@ -392,10 +452,10 @@ class TodayClassList{
     merchantNo = json['merchant_no'] ?? '';
     timeTableNo = json['time_table_no'] ?? '';
     trnCode = json['trn_code'] ?? '';
-    icNo = json['ic_no'] ?? '';
-    groupId = json['group_id'] ?? '';
-    vehNo = json['veh_no'] ?? '';
-    courseCode = json['course_code'] ?? '';
+    icNo = json['ic_no'] ?? '-';
+    groupId = json['group_id'] ?? '-';
+    vehNo = json['veh_no'] ?? '-';
+    courseCode = json['course_code'] ?? '-';
     startDate = json['start_date'] ?? '';
     endDate = json['end_date'] ?? '';
     totalHr = json['total_hr'] ?? '';
@@ -416,14 +476,14 @@ class TodayClassList{
     workSheetCode = json['work_sheet_code'] ?? '';
     cancelUser = json['cancel_user'] ?? '';
     cancelDate = json['cancel_date'] ?? '';
-    name = json['name'] ?? '';
+    name = json['name'] ?? '-';
     add1 = json['add1'] ?? '';
     add2 = json['add2'] ?? '';
     add3 = json['add3'] ?? '';
     state = json['state'] ?? '';
     city = json['city'] ?? '';
     zip = json['zip'] ?? '';
-    handPhone = json['hand_phone'] ?? '';
+    handPhone = json['hand_phone'] ?? '-';
   }
 
   Map<String, dynamic> toJson(){

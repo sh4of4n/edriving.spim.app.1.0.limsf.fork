@@ -90,7 +90,7 @@ class _MyKadState extends State<MyKad> {
                                         });
                                       } on PlatformException catch (e) {
                                         setState(() {
-                                          readMyKad = "'${e.message}'";
+                                          readMyKad = "${e.message}";
                                           // cardDetails = readMyKad.split(',');
                                           // name = cardDetails[0].trim();
                                           // icNo = cardDetails[1].trim();
@@ -133,7 +133,7 @@ class _MyKadState extends State<MyKad> {
                                         }
                                       } on PlatformException catch (e) {
                                         setState(() {
-                                          fingerPrintVerify = "'${e.message}'";
+                                          fingerPrintVerify = "${e.message}";
                                         });
                                       }
                                     },

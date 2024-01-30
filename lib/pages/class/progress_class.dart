@@ -148,41 +148,34 @@ class _ProgressClassState extends State<ProgressClass> {
                           SizedBox(
                             height: 50.h,
                           ),
-                          ListTile(
-                            title: Text('Trainer Code: ${item.trnCode}'),
-                            visualDensity: const VisualDensity(vertical: -2),
-                          ),
-                          SizedBox(
-                            height: 50.h,
-                          ),
+                          // ListTile(
+                          //   title: Text('Trainer Code: ${item.trnCode}'),
+                          //   visualDensity: const VisualDensity(vertical: -2),
+                          // ),
                           ListTile(
                             title: Text('Student IC: ${item.icNo}'),
                             visualDensity: const VisualDensity(vertical: -2),
                           ),
-                          SizedBox(
-                            height: 50.h,
-                          ),
                           ListTile(
-                            title: Text(
-                                'Class Date: ${convertDateFormat(item.trandate)}'),
+                            title: Text('Group Id: ${item.groupId}'),
                             visualDensity: const VisualDensity(vertical: -2),
                           ),
-                          SizedBox(
-                            height: 50.h,
+                          ListTile(
+                            title: Text('Course Code: ${item.courseCode}'),
+                            visualDensity: const VisualDensity(vertical: -2),
                           ),
+                          // ListTile(
+                          //   title: Text(
+                          //       'Class Date: ${convertDateFormat(item.trandate)}'),
+                          //   visualDensity: const VisualDensity(vertical: -2),
+                          // ),
                           ListTile(
                             title: Text(
                                 'Time: ${convertTimeToAMPM(item.actBgTime)} -> ${convertTimeToAMPM(item.actEndTime)}'),
                             subtitle: const Text('Total Time: -', style: TextStyle(fontSize: 14),),
                             visualDensity: const VisualDensity(vertical: -2),
                           ),
-                          SizedBox(
-                            height: 50.h,
-                          ),
-                          ListTile(
-                            title: Text('Course Code: ${item.courseCode}'),
-                            visualDensity: const VisualDensity(vertical: -2),
-                          ),
+                          
                         ],
                       ),
                     ),

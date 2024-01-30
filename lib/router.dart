@@ -72,7 +72,6 @@ class RootRouter extends $RootRouter {
     AutoRoute(page: BillDetail.page/* , name: 'BillDetail' */),
     AutoRoute(page: BillSelection.page/* , name: 'BillSelection' */),
     AutoRoute(page: MerchantList.page/* , name: 'MerchantList' */),
-    AutoRoute(page: ChatHome.page/* , name: 'ChatHome' */),
     AutoRoute(page: TermsAndCondition.page/* ,name: 'TermsAndCondition' */),
     AutoRoute(page: FpxPaymentOption.page/* ,name: 'FpxPaymentOption' */),
     AutoRoute(page: ImageViewer.page/* , name: 'ImageViewer' */),

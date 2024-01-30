@@ -3,6 +3,8 @@
 
 
 import 'package:auto_route/auto_route.dart';
+import 'package:provider/provider.dart';
+import '../chat/socketclient_helper.dart';
 import '/common_library/services/model/auth_model.dart';
 import '/common_library/utils/app_localizations.dart';
 import '/utils/constants.dart';
@@ -150,7 +152,7 @@ class SelectDrivingInstituteState extends State<SelectDrivingInstitute> {
                       onTap: () {
                         localStorage.saveMerchantDbCode(
                             widget.diList[index].merchantNo);
-
+                        context.read<SocketClientHelper>().loginUserRoom();
                         context.router.replace( Home());
                       },
                       title: loadImage(widget.diList[index]),
