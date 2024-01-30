@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'dart:convert';
 import '../../utils/app_config.dart';
 import '../utils/custom_snackbar.dart';
@@ -40,7 +41,13 @@ class Networking extends BaseRepo {
         url = await wsUrlBox.get('wsUrl');
       }
     }
-    url = 'https://630c65457d4f40.lhr.life/MainService.svc';
+    // url = 'https://630c65457d4f40.lhr.life/MainService.svc';
+    final transaction = Sentry.startTransaction(
+      'webrequest',
+      'request',
+      bindToScope: true,
+    );
+    SentryHttpClient client = SentryHttpClient();
     try {
       http.Response response;
       // for getWsUrl
@@ -48,17 +55,18 @@ class Networking extends BaseRepo {
         debugPrint('$url/${path ?? ""}');
         uri = Uri.parse('$url/${path ?? ""}');
 
-        response = await http
+        response = await client
             .get(uri)
             .timeout(Duration(milliseconds: milliseconds ?? 10000));
       } else {
         debugPrint('$url/webapi/${path ?? ""}');
         uri = Uri.parse('$url/webapi/${path ?? ""}');
 
-        response = await http
+        response = await client
             .get(uri)
             .timeout(Duration(milliseconds: milliseconds ?? 30000));
       }
+      await transaction.finish(status: const SpanStatus.ok());
 
       if (response.statusCode == 200) {
         debugPrint(response.body);
@@ -90,11 +98,19 @@ class Networking extends BaseRepo {
       }
     } catch (error, stackTrace) {
       return handleError(error, stackTrace);
+    } finally {
+      client.close;
     }
   }
 
   Future<Response> postData(
       {String? api, String? path, required body, headers}) async {
+    final transaction = Sentry.startTransaction(
+      'webrequest',
+      'request',
+      bindToScope: true,
+    );
+    SentryHttpClient client = SentryHttpClient();
     try {
       if (customUrl != null) {
         url = customUrl;
@@ -113,9 +129,11 @@ class Networking extends BaseRepo {
 
       uri = Uri.parse('$url/webapi/$api${path ?? ""}');
 
-      http.Response response = await http
+      http.Response response = await client
           .post(uri, body: body, headers: headers)
           .timeout(const Duration(seconds: 30));
+
+      await transaction.finish(status: const SpanStatus.ok());
 
       if (response.statusCode == 200) {
         debugPrint(response.body);
@@ -146,6 +164,8 @@ class Networking extends BaseRepo {
       }
     } catch (error, stackTrace) {
       return handleError(error, stackTrace);
+    } finally {
+      client.close();
     }
   }
 

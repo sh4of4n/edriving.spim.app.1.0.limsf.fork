@@ -3,11 +3,15 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  emoji_picker_flutter
   file_selector_windows
   firebase_core
   geolocator_windows
   pdfx
+  permission_handler_windows
   printing
+  record_windows
+  sentry_flutter
   syncfusion_pdfviewer_windows
   url_launcher_windows
 )
