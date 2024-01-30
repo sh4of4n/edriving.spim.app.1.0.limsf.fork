@@ -17,7 +17,7 @@ import 'package:hive/hive.dart';
 import 'home_module.dart';
 import 'home_top_menu.dart';
 
-@RoutePage(name: 'Home')
+// @RoutePage()
 class Home extends StatefulWidget {
   const Home({super.key});
 

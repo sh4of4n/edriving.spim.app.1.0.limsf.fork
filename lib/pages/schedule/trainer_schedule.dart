@@ -211,7 +211,7 @@ class _TrainerScheduleState extends State<TrainerSchedule> {
 
     if (results.isSuccess) {
       setState(() {
-        for (var i = 0; i < response.data.length; i++) {
+        for (var i = 0; i < results.data.length; i++) {
           totalPrice = results.data[i].tranTotal;
           paidAmount = results.data[i].payAmount;
           checking = double.parse(totalPrice) - double.parse(paidAmount);
