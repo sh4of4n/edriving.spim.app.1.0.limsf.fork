@@ -408,7 +408,7 @@ class LoginFormState extends State<LoginForm> with PageBaseClass {
           localStorage.saveDiCode(result.data[0].merchantNo);
           if (!context.mounted) return;
           context.read<SocketClientHelper>().loginUserRoom();
-          context.router.replace(const Home());
+          context.router.replace( Home());
         }
       } else {
         setState(() {
