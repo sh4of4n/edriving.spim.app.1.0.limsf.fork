@@ -32,111 +32,111 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: 
-  flutter_screenutil: 
-  hive: 
-  xml2json: 
+  cupertino_icons:
+  flutter_screenutil:
+  hive:
+  xml2json:
   path_provider:
   url_launcher:
   html_unescape:
   webview_flutter:
-  intl: 
+  intl:
   nfc_manager:
-  geolocator: 
-  http: 
-  another_flushbar: 
+  geolocator:
+  http:
+  another_flushbar:
   flutter_map:
   geocoding:
   geocode:
   flutter_svg:
   uni_links:
   latlong2:
-  device_info: 
-  photo_view: 
-  auto_route: 
-  provider: 
-  flutter_spinkit: 
-  shared_preferences: 
+  device_info:
+  photo_view:
+  auto_route:
+  provider:
+  flutter_spinkit:
+  shared_preferences:
   rxdart:
-  socket_io_client: 
-  uuid: 
-  flutter_typeahead: 
-  shimmer:  
-  transparent_image: 
-  flutter_widget_from_html: 
-  flutter_custom_clippers: 
-  map_launcher: 
-  app_settings: 
-  camera: 
-  datetime_picker_formfield: 
-  image_picker: 
-  image_cropper: 
-  qr_flutter: 
+  socket_io_client:
+  uuid:
+  flutter_typeahead:
+  shimmer:
+  transparent_image:
+  flutter_widget_from_html:
+  flutter_custom_clippers:
+  map_launcher:
+  app_settings:
+  camera:
+  datetime_picker_formfield:
+  image_picker:
+  image_cropper:
+  qr_flutter:
   flutter_easyloading:
   syncfusion_flutter_calendar:
-  readmore: 
-  string_validator: 
-  package_info: 
-  badges: 
-  qr_code_scanner: 
-  flutter_linkify: 
-  country_code_picker: 
-  random_color: 
-  supercharged: 
+  readmore:
+  string_validator:
+  package_info:
+  badges:
+  qr_code_scanner:
+  flutter_linkify:
+  country_code_picker:
+  random_color:
+  supercharged:
   quiver:
   path:
   sqflite:
-  printing: 
+  printing:
   webview_flutter_android:
   webview_flutter_wkwebview:
 
-  flutter_share: 
-  pdfx: 
-  share: 
+  flutter_share:
+  pdfx:
+  share:
   flutter_rating_bar:
   google_fonts:
-  carousel_slider: 
-  smooth_page_indicator: 
-  firebase_core: 
+  carousel_slider:
+  smooth_page_indicator:
+  firebase_core:
   flutter_localizations:
     sdk: flutter
-  firebase_messaging: 
+  firebase_messaging:
   syncfusion_flutter_pdfviewer:
-  # native_pdf_view: 
+  # native_pdf_view:
 
   #chat
-  file_picker: 
-  permission_handler: 
-  get: 
+  file_picker:
+  permission_handler:
+  get:
   flick_video_player:
-  visibility_detector: 
-  video_player: 
+  visibility_detector:
+  video_player:
   flutter_sound:
   open_file:
-  audio_session: 
+  audio_session:
   bubble:
-  full_screen_image_null_safe: 
+  full_screen_image_null_safe:
   flutter_local_notifications:
   jumping_dot:
-  scrollable_positioned_list: 
-  flutter_slidable: 
-  emoji_picker_flutter: 
+  scrollable_positioned_list:
+  flutter_slidable:
+  emoji_picker_flutter:
   flutter_sound_platform_interface:
-  swipe_to: 
+  swipe_to:
   date_time_picker:
-  lottie: 
-  record: 
-  flutter_vibrate: 
-  font_awesome_flutter: 
-  just_audio: 
-  google_maps_flutter: 
+  lottie:
+  record:
+  flutter_vibrate:
+  font_awesome_flutter:
+  just_audio:
+  google_maps_flutter:
   dotted_border:
-  flutter_emoji: 
-  csslib: 
+  flutter_emoji:
+  csslib:
   sentry_sqflite:
   flutter_app_badger:
   timezone:
-  sentry_flutter: 
+  sentry_flutter:
 
 dependency_overrides:
   intl: any
@@ -156,7 +156,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: 
+  flutter_lints:
   auto_route_generator:
   hive_generator:
   change_app_package_name:
