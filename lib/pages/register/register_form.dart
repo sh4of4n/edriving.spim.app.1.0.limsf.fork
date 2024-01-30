@@ -1372,7 +1372,7 @@ class RegisterFormState extends State<RegisterForm> with PageBaseClass {
         if (!context.mounted) return;
         localStorage.saveMerchantDbCode(getRegisteredDi.data[0].merchantNo);
         if (!context.mounted) return;
-        context.router.pushAndPopUntil(const Home(), predicate: (r) => false);
+        context.router.pushAndPopUntil( Home(), predicate: (r) => false);
       } else {
         if (!context.mounted) return;
         context.router.pushAndPopUntil(const Login(), predicate: (r) => false);
