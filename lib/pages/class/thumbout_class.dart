@@ -40,9 +40,11 @@ class _ThumboutState extends State<Thumbout> {
   final formKey = GlobalKey<FormState>();
   final customDialog = CustomDialog();
   final groupIdController = TextEditingController();
+  final vehicleController = TextEditingController();
   final courseCodeController = TextEditingController();
   static const platform = MethodChannel('samples.flutter.dev/mykad');
   final groupIdFocus = FocusNode();
+  final vehicleFocus = FocusNode();
   final courseCodeFocus = FocusNode();
   final studRepo = StudRepo();
   final trnRepo = InstructorRepo();
@@ -489,141 +491,211 @@ class _ThumboutState extends State<Thumbout> {
                                     SizedBox(
                                       height: 100.h,
                                     ),
-                                    Form(
-                                      key: formKey,
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              const Text(
-                                                'Group Id: ',
-                                                style: TextStyle(
-                                                  fontSize: 15,
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: 50.w,
-                                              ),
-                                              Expanded(
-                                                flex: 2,
-                                                child: TextFormField(
-                                                  style: const TextStyle(
-                                                      color: Colors.black,
-                                                      // fontWeight: FontWeight.bold,
-                                                      fontSize: 15),
-                                                  controller: groupIdController,
-                                                  focusNode: groupIdFocus,
-                                                  enabled: false,
-                                                  textInputAction:
-                                                      TextInputAction.next,
-                                                  readOnly: true,
-                                                  decoration: InputDecoration(
-                                                    focusedErrorBorder:
-                                                        const OutlineInputBorder(
-                                                            borderSide:
-                                                                BorderSide(
-                                                                    width: 3,
-                                                                    color: Colors
-                                                                        .red)),
-                                                    focusedBorder:
-                                                        const OutlineInputBorder(
-                                                            borderSide:
-                                                                BorderSide(
-                                                                    width: 3,
-                                                                    color: Colors
-                                                                        .blue)),
-                                                    enabledBorder:
-                                                        const OutlineInputBorder(
-                                                            borderSide:
-                                                                BorderSide(
-                                                                    width: 1,
-                                                                    color: Colors
-                                                                        .black)),
-                                                    contentPadding:
-                                                        const EdgeInsets.all(
-                                                            5.0),
-                                                    hintStyle: TextStyle(
-                                                      color: primaryColor,
-                                                    ),
-                                                    labelStyle: const TextStyle(
-                                                      color: Colors.black,
-                                                    ),
-                                                    labelText: widget.groupId 
+                                    Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Form(
+                                        key: formKey,
+                                        child: Column(
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                const Text(
+                                                  'Group Id: ',
+                                                  style: TextStyle(
+                                                    fontSize: 15,
                                                   ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: 100.h,
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              const Text(
-                                                'Course Code: ',
-                                                style: TextStyle(
-                                                  fontSize: 15,
+                                                SizedBox(
+                                                  width: 50.w,
                                                 ),
-                                              ),
-                                              SizedBox(
-                                                width: 50.w,
-                                              ),
-                                              Expanded(
-                                                flex: 2,
-                                                child: TextFormField(
-                                                  style: const TextStyle(
-                                                      color: Colors.black,
-                                                      // fontWeight: FontWeight.bold,
-                                                      fontSize: 15),
-                                                  controller:
-                                                      courseCodeController,
-                                                  focusNode: courseCodeFocus,
-                                                  enabled: false,
-                                                  textInputAction:
-                                                      TextInputAction.next,
-                                                  readOnly: true,
-                                                  decoration: InputDecoration(
-                                                    focusedErrorBorder:
-                                                        const OutlineInputBorder(
-                                                            borderSide:
-                                                                BorderSide(
-                                                                    width: 3,
-                                                                    color: Colors
-                                                                        .red)),
-                                                    focusedBorder:
-                                                        const OutlineInputBorder(
-                                                            borderSide:
-                                                                BorderSide(
-                                                                    width: 3,
-                                                                    color: Colors
-                                                                        .blue)),
-                                                    enabledBorder:
-                                                        const OutlineInputBorder(
-                                                            borderSide:
-                                                                BorderSide(
-                                                                    width: 1,
-                                                                    color: Colors
-                                                                        .black)),
-                                                    contentPadding:
-                                                        const EdgeInsets.all(
-                                                            5.0),
-                                                    hintStyle: TextStyle(
-                                                      color: primaryColor,
+                                                Expanded(
+                                                  flex: 2,
+                                                  child: TextFormField(
+                                                    style: const TextStyle(
+                                                        color: Colors.black,
+                                                        // fontWeight: FontWeight.bold,
+                                                        fontSize: 15),
+                                                    controller: groupIdController,
+                                                    focusNode: groupIdFocus,
+                                                    enabled: false,
+                                                    textInputAction:
+                                                        TextInputAction.next,
+                                                    readOnly: true,
+                                                    decoration: InputDecoration(
+                                                      focusedErrorBorder:
+                                                          const OutlineInputBorder(
+                                                              borderSide:
+                                                                  BorderSide(
+                                                                      width: 3,
+                                                                      color: Colors
+                                                                          .red)),
+                                                      focusedBorder:
+                                                          const OutlineInputBorder(
+                                                              borderSide:
+                                                                  BorderSide(
+                                                                      width: 3,
+                                                                      color: Colors
+                                                                          .blue)),
+                                                      enabledBorder:
+                                                          const OutlineInputBorder(
+                                                              borderSide:
+                                                                  BorderSide(
+                                                                      width: 1,
+                                                                      color: Colors
+                                                                          .black)),
+                                                      contentPadding:
+                                                          const EdgeInsets.all(
+                                                              5.0),
+                                                      hintStyle: TextStyle(
+                                                        color: primaryColor,
+                                                      ),
+                                                      labelStyle: const TextStyle(
+                                                        color: Colors.black,
+                                                      ),
+                                                      labelText: widget.groupId 
                                                     ),
-                                                    labelStyle: const TextStyle(
-                                                      color: Colors.black,
-                                                    ),
-                                                    labelText: widget.courseCode
                                                   ),
                                                 ),
-                                              )
-                                            ],
-                                          ),
-                                        ],
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 100.h,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                const Text(
+                                                  'Course Code: ',
+                                                  style: TextStyle(
+                                                    fontSize: 15,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: 50.w,
+                                                ),
+                                                Expanded(
+                                                  flex: 2,
+                                                  child: TextFormField(
+                                                    style: const TextStyle(
+                                                        color: Colors.black,
+                                                        // fontWeight: FontWeight.bold,
+                                                        fontSize: 15),
+                                                    controller:
+                                                        courseCodeController,
+                                                    focusNode: courseCodeFocus,
+                                                    enabled: false,
+                                                    textInputAction:
+                                                        TextInputAction.next,
+                                                    readOnly: true,
+                                                    decoration: InputDecoration(
+                                                      focusedErrorBorder:
+                                                          const OutlineInputBorder(
+                                                              borderSide:
+                                                                  BorderSide(
+                                                                      width: 3,
+                                                                      color: Colors
+                                                                          .red)),
+                                                      focusedBorder:
+                                                          const OutlineInputBorder(
+                                                              borderSide:
+                                                                  BorderSide(
+                                                                      width: 3,
+                                                                      color: Colors
+                                                                          .blue)),
+                                                      enabledBorder:
+                                                          const OutlineInputBorder(
+                                                              borderSide:
+                                                                  BorderSide(
+                                                                      width: 1,
+                                                                      color: Colors
+                                                                          .black)),
+                                                      contentPadding:
+                                                          const EdgeInsets.all(
+                                                              5.0),
+                                                      hintStyle: TextStyle(
+                                                        color: primaryColor,
+                                                      ),
+                                                      labelStyle: const TextStyle(
+                                                        color: Colors.black,
+                                                      ),
+                                                      labelText: widget.courseCode
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 100.h,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                const Text(
+                                                  'Vehicle: ',
+                                                  style: TextStyle(
+                                                    fontSize: 15,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: 50.w,
+                                                ),
+                                                Expanded(
+                                                  flex: 2,
+                                                  child: TextFormField(
+                                                    style: const TextStyle(
+                                                        color: Colors.black,
+                                                        // fontWeight: FontWeight.bold,
+                                                        fontSize: 15),
+                                                    controller:
+                                                        vehicleController,
+                                                    focusNode: vehicleFocus,
+                                                    enabled: false,
+                                                    textInputAction:
+                                                        TextInputAction.next,
+                                                    readOnly: true,
+                                                    decoration: InputDecoration(
+                                                      focusedErrorBorder:
+                                                          const OutlineInputBorder(
+                                                              borderSide:
+                                                                  BorderSide(
+                                                                      width: 3,
+                                                                      color: Colors
+                                                                          .red)),
+                                                      focusedBorder:
+                                                          const OutlineInputBorder(
+                                                              borderSide:
+                                                                  BorderSide(
+                                                                      width: 3,
+                                                                      color: Colors
+                                                                          .blue)),
+                                                      enabledBorder:
+                                                          const OutlineInputBorder(
+                                                              borderSide:
+                                                                  BorderSide(
+                                                                      width: 1,
+                                                                      color: Colors
+                                                                          .black)),
+                                                      contentPadding:
+                                                          const EdgeInsets.all(
+                                                              5.0),
+                                                      hintStyle: TextStyle(
+                                                        color: primaryColor,
+                                                      ),
+                                                      labelStyle: const TextStyle(
+                                                        color: Colors.black,
+                                                      ),
+                                                      labelText: widget.vehNo
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                     SizedBox(
@@ -785,7 +857,7 @@ class _ThumboutState extends State<Thumbout> {
                                     SizedBox(
                                       height: 50.h,
                                     ),
-                                    Text(status),
+                                    // Text(status),
                                     SizedBox(
                                       height: 50.h,
                                     ),

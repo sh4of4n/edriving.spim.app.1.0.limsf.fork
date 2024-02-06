@@ -1,4 +1,12 @@
 # edriving_spim_app
+2024-02-06 v6.2.14
+ePandu WS v6.2.51
+- Scan QR to get vehicle data
+- Auto pass add class data (groupId, courseCode) when onclick today class's timetable
+- Sorting of courseCode
+- Solved duplicated courseCode from ws
+- Solved multiple groupId filtering
+
 2024-01-05 v6.2.12
 ePandu WS v6.2.43
 - Checked if progress class exist cannot add class

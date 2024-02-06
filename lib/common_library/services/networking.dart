@@ -83,6 +83,7 @@ class Networking extends BaseRepo {
         String parsedMessage = trimmedMessage
             .replaceAll('[BLException]', '')
             .replaceAll('&#xD;', '')
+            .replaceAll(r'\u000d\u000a', '')
             .replaceAll(r'"', '')
             .replaceAll('\n', '');
 

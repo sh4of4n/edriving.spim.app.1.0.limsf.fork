@@ -106,6 +106,7 @@ class RootRouter extends $RootRouter {
     AutoRoute(page: InviteFriend.page),
     AutoRoute(page: CreateGroup.page),
     AutoRoute(page: RoomList.page),
+    AutoRoute(page: ScanVeh.page),
   ];
 }
 

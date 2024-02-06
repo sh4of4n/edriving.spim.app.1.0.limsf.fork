@@ -154,32 +154,13 @@ class _TodayClassState extends State<TodayClass> {
     return response.message;
   }
 
-  List<Appointment> getAppointments() {
+  List<Appointment> getAppointments(trnCode, startDt, endDt, courseCode, groupId, studentIc, address, state, city, zip, 
+          phnNo, vehNo, name) {
     DateTime startTime;
     DateTime endTime;
     String extractedTime = '';
     String extractedEndTime = '';
-    for (var i = 0; i < widget.todayClassInfo.length; i++) {
-      setState(() {
-        trnCode = widget.todayClassInfo[i].trnCode;
-        startDt = widget.todayClassInfo[i].startDate;
-        endDt = widget.todayClassInfo[i].endDate;
-        courseCode = widget.todayClassInfo[i].courseCode ?? '-';
-        groupId = widget.todayClassInfo[i].groupId ?? '-';
-        // subject = result.data[i].subject ?? 'No Subject';
-        studentIc = widget.todayClassInfo[i].icNo ?? '-';
-        add1 = widget.todayClassInfo[i].add1 ?? '-';
-        add2 = widget.todayClassInfo[i].add2 ?? '';
-        add3 = widget.todayClassInfo[i].add3 ?? '';
-        state = widget.todayClassInfo[i].state ?? '-';
-        city = widget.todayClassInfo[i].city ?? '-';
-        zip = widget.todayClassInfo[i].zip ?? '-';
-        phnNo = widget.todayClassInfo[i].handPhone ?? '-';
-        address = '$add1, $add2, $add3';
-        vehNo = widget.todayClassInfo[i].vehNo ?? '-';
-        name = widget.todayClassInfo[i].name ?? '-';
-      });
-    }
+    
     if (startDt != '') {
       setState(() {
         startTime = DateTime.parse(parseDateWithoutOffset(startDt));
@@ -285,7 +266,30 @@ class _TodayClassState extends State<TodayClass> {
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () {
-      getAppointments();
+      for (var i = 0; i < widget.todayClassInfo.length; i++) {
+      setState(() {
+        trnCode = widget.todayClassInfo[i].trnCode;
+        startDt = widget.todayClassInfo[i].startDate;
+        endDt = widget.todayClassInfo[i].endDate;
+        courseCode = widget.todayClassInfo[i].courseCode ?? '-';
+        groupId = widget.todayClassInfo[i].groupId ?? '-';
+        // subject = result.data[i].subject ?? 'No Subject';
+        studentIc = widget.todayClassInfo[i].icNo ?? '-';
+        add1 = widget.todayClassInfo[i].add1 ?? '-';
+        add2 = widget.todayClassInfo[i].add2 ?? '';
+        add3 = widget.todayClassInfo[i].add3 ?? '';
+        state = widget.todayClassInfo[i].state ?? '-';
+        city = widget.todayClassInfo[i].city ?? '-';
+        zip = widget.todayClassInfo[i].zip ?? '-';
+        phnNo = widget.todayClassInfo[i].handPhone ?? '-';
+        address = '$add1, $add2, $add3';
+        vehNo = widget.todayClassInfo[i].vehNo ?? '-';
+        name = widget.todayClassInfo[i].name ?? '-';
+        getAppointments(trnCode, startDt, endDt, courseCode, groupId, studentIc, address, state, city, zip, 
+          phnNo, vehNo, name);
+      });
+    }
+      
     });
     // _scrollController.addListener(() {
     //   if (_scrollController.position.pixels ==
@@ -310,10 +314,8 @@ class _TodayClassState extends State<TodayClass> {
             onPressed: () {
               if (widget.progressMsg == 'No') {
                 credentials.put('trncode', widget.trnCode);
-                context.router.push(AddClass(
-                    courseCode: '',
-                    groupId: '',
-                    vehNo: ''));
+                context.router
+                    .push(AddClass(courseCode: '', groupId: '', vehNo: ''));
               } else {
                 showDialog(
                   context: context,
@@ -395,15 +397,14 @@ class _TodayClassState extends State<TodayClass> {
                           initialDisplayDate: today,
                           backgroundColor: Colors.white,
                           dataSource: MeetingDataSource(meetings),
-                          onTap: (CalendarTapDetails details) {
+                          onTap: (CalendarTapDetails details)async {
                             // dynamic appointment = details.appointments;
                             // DateTime date = details.date!;
                             // CalendarElement element = details.targetElement;
                             EasyLoading.show(
                               maskType: EasyLoadingMaskType.black,
                             );
-                            setState(
-                              () async {
+                            
                                 if (details.targetElement ==
                                     CalendarElement.appointment) {
                                   String add = details.appointments?[0].notes;
@@ -475,13 +476,41 @@ class _TodayClassState extends State<TodayClass> {
                                                 // ),
                                                 Center(
                                                   child: ElevatedButton(
-                                                    onPressed: () {
-                                                      context.router.push(
-                                                        AddClass(
-                                                            courseCode: course,
-                                                            groupId: groupId,
-                                                            vehNo: vehicleNo),
-                                                      );
+                                                    onPressed: () async {
+                                                      if (widget.progressMsg ==
+                                                          'No') {
+                                                        credentials.put(
+                                                            'trncode',
+                                                            widget.trnCode);
+                                                        context.router.push(
+                                                          AddClass(
+                                                              courseCode:
+                                                                  course,
+                                                              groupId: groupId,
+                                                              vehNo: vehicleNo),
+                                                        );
+                                                      } else {
+                                                        await context.router.pop();
+                                                        if (!context.mounted) return;
+                                                        showDialog(
+                                                          context: context,
+                                                          builder: (BuildContext context) {
+                                                            return AlertDialog(
+                                                              title: const Text('Fail to Add Class'),
+                                                              content: const Text(
+                                                                  'There is a class in progressing cannot add class.\n Please check progress tab and thumbout to add a new class.'),
+                                                              actions: [
+                                                                TextButton(
+                                                                  onPressed: () {
+                                                                    Navigator.of(context).pop();
+                                                                  },
+                                                                  child: const Text('OK'),
+                                                                ),
+                                                              ],
+                                                            );
+                                                          },
+                                                        );
+                                                      }
                                                     },
                                                     child: const Text(
                                                         'ThumbIn this Class'),
@@ -522,8 +551,6 @@ class _TodayClassState extends State<TodayClass> {
                                     },
                                   );
                                 }
-                              },
-                            );
                           },
                         ),
                       ),

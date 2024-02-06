@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:edriving_spim_app/common_library/services/repository/class_repository.dart';
 import 'package:edriving_spim_app/common_library/services/repository/instructor_repository.dart';
 import 'package:edriving_spim_app/common_library/utils/app_localizations.dart';
@@ -8,6 +9,7 @@ import 'package:edriving_spim_app/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:info_widget/info_widget.dart';
 import 'package:intl/intl.dart';
 import 'package:supercharged/supercharged.dart';
 
@@ -34,15 +36,18 @@ class _StudentsState extends State<Students> {
   String expiredText = '';
   String icNo = '';
   String profilePicBase64 = '';
+  String startDate = '';
+  String endDate = '';
   TextStyle dateStyle = const TextStyle(fontSize: 14);
   DateTime today = DateTime.now();
   int _startIndex = 0;
   bool _lazyload = true;
   List<dynamic> students = [];
   String studName = '';
-  final int _noOfRecord = 10;
+  final int _noOfRecord = 5;
   final RegExp removeBracket =
       RegExp("\\[(.*?)\\]", multiLine: true, caseSensitive: true);
+  DateTimeRange? _selectedDateRange;
 
   void refreshData() {
     setState(() {
@@ -52,7 +57,7 @@ class _StudentsState extends State<Students> {
       getTrainerInfo();
     });
   }
-  
+
   String convertTo12HourFormat(String timeString) {
     if (timeString != '') {
       // Parse the input time string
@@ -78,7 +83,7 @@ class _StudentsState extends State<Students> {
   }
 
   String processPhotoFileName(String photoFileName) {
-      // Split by '\r\n' and take the first part after removing brackets
+    // Split by '\r\n' and take the first part after removing brackets
     return photoFileName.replaceAll(removeBracket, '').split('\r\n')[0];
   }
 
@@ -140,16 +145,15 @@ class _StudentsState extends State<Students> {
 
   getStudentPrac(String trnCode) async {
     var result = await classRepo.getStuPracByTrnCode(
-      context: context,
-      trnCode: trnCode,
-      groupId: '',
-      icNo: '',
-      dateFromString: '',
-      dateToString: '',
-      startIndex: _startIndex,
-      noOfRecords: _noOfRecord,
-      keywordSearch: search
-    );
+        context: context,
+        trnCode: trnCode,
+        groupId: '',
+        icNo: '',
+        dateFromString: startDate,
+        dateToString: endDate,
+        startIndex: _startIndex,
+        noOfRecords: _noOfRecord,
+        keywordSearch: search);
 
     if (result.isSuccess) {
       for (var i = 0; i < result.data.length; i++) {
@@ -235,6 +239,19 @@ class _StudentsState extends State<Students> {
             backgroundColor: Colors.transparent,
             elevation: 0,
             title: Text(AppLocalizations.of(context)!.translate('student_lbl')),
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    setState(() {
+                      startDate = '';
+                      endDate = '';
+                      search = '';
+                      searchController.text = '';
+                    });
+                    refreshData();
+                  },
+                  icon: const Icon(Icons.refresh))
+            ],
           ),
           backgroundColor: Colors.transparent,
           body: SingleChildScrollView(
@@ -244,6 +261,30 @@ class _StudentsState extends State<Students> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  Row(
+                    children: [
+                      const Text(
+                        "Searching criteria: ",
+                        style: TextStyle(
+                          color: Colors.white, 
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      InfoWidget(
+                        infoText:
+                            "Class Code, Vehicle No, Student's IC, Group ID, Name, HandPhone, Course Code",
+                        iconData: Icons.info,
+                        iconColor: Colors.white,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 5.0,
+                  ),
                   Row(
                     children: [
                       Expanded(
@@ -292,8 +333,47 @@ class _StudentsState extends State<Students> {
                               suffixIconColor: Colors.white),
                         ),
                       ),
+                      SizedBox(
+                        width: 50.w,
+                      ),
+                      Expanded(
+                        flex: 1, // Adjust the flex value as needed
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            DateTimeRange? pickedRange =
+                                await showDateRangePicker(
+                              context: context,
+                              firstDate: DateTime(2020),
+                              lastDate: DateTime(2030),
+                            );
+
+                            if (pickedRange != null) {
+                              setState(() {
+                                _selectedDateRange = pickedRange;
+                                startDate = DateFormat('yyyy-MM-dd')
+                                    .format(_selectedDateRange!.start);
+                                endDate = DateFormat('yyyy-MM-dd')
+                                    .format(_selectedDateRange!.end);
+                              });
+                              refreshData();
+                            }
+                          },
+                          child: const Text('Pick Date'),
+                        ),
+                      ),
                     ],
                   ),
+                  SizedBox(
+                    height: 50.h,
+                  ),
+                  Text(
+                      _selectedDateRange == null
+                          ? 'No date range selected.'
+                          : 'Date Rage Selected: $startDate - $endDate',
+                      style: const TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold)),
                   SizedBox(
                     height: 50.h,
                   ),
@@ -323,10 +403,8 @@ class _StudentsState extends State<Students> {
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  leading: profileImage(
-                                          processPhotoFileName(
-                                              item.customerphotoFilename ??
-                                                  '')),
+                                  leading: profileImage(processPhotoFileName(
+                                      item.customerphotoFilename ?? '')),
                                   visualDensity:
                                       const VisualDensity(vertical: -4),
                                 ),
@@ -356,7 +434,8 @@ class _StudentsState extends State<Students> {
                                     'Vehicle Used: ${item.vehNo}',
                                     textAlign: TextAlign.left,
                                   ),
-                                  subtitle: Text('Course Code: ${item.courseCode}',
+                                  subtitle: Text(
+                                    'Course Code: ${item.courseCode}',
                                     style: const TextStyle(fontSize: 15),
                                   ),
                                   visualDensity:

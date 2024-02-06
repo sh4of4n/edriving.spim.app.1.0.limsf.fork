@@ -103,7 +103,7 @@ class _AddClassState extends State<AddClass> {
     setState(() {
       _lazyload = true;
     });
-    var result = await authRepo.getGroupId(context: context);
+    var result = await authRepo.getGroupId(context: context, keywordSearch: '');
 
     if (result.isSuccess) {
       setState(() {
@@ -145,7 +145,6 @@ class _AddClassState extends State<AddClass> {
       });
       getEnrollByIC(studcheckResult);
       return result.data;
-
     } else if (response.isSuccess) {
       setState(() {
         checkResult = 'Trainer';
@@ -154,7 +153,6 @@ class _AddClassState extends State<AddClass> {
       });
       getEnrollByIC(checkResult);
       return response.data;
-      
     } else {
       setState(() {
         _lazyload = false;
@@ -241,7 +239,8 @@ class _AddClassState extends State<AddClass> {
         EasyLoading.dismiss();
         customDialog.show(
           context: context,
-          content: 'Fail To Add Class',
+          content:
+              'Fail To Add Class. ${result.message?.replaceAll(r'\u000d\u000a', '')}',
           onPressed: () => Navigator.pop(context),
           type: DialogType.error,
         );
@@ -262,7 +261,7 @@ class _AddClassState extends State<AddClass> {
     Response<List<Enroll>?> result = await epanduRepo.getEnrollByCode(
         groupId: groupIdController.text,
         icNo: credentials.get('myKadDetails') ?? '');
-    await getVehicleList();
+    //await getVehicleList();
     if (result.isSuccess) {
       setState(() {
         dsCode = result.data?[0].dsCode ?? '';
@@ -271,61 +270,81 @@ class _AddClassState extends State<AddClass> {
           _lazyload = false;
           thumbinTime = DateFormat('HH:mm a').format(today);
           credentials.put('thumbinTime', thumbinTime);
-          if( groupIdController.text == 'B'||
-              groupIdController.text == 'B2'||
-              groupIdController.text == 'C'||
-              groupIdController.text == 'A')
-          {
-            scanQr();
+          if (groupIdController.text == 'B' ||
+              groupIdController.text == 'B2' ||
+              groupIdController.text == 'C' ||
+              groupIdController.text == 'A') {
+            if (vehicleController.text == '') {
+              scanQr().then((result) {
+                if (result == 'true') {
+                  if (!context.mounted) return;
+                  customDialog.show(
+                    context: context,
+                    title: const Center(
+                      child: Icon(
+                        Icons.check_circle_outline,
+                        color: Colors.green,
+                        size: 120,
+                      ),
+                    ),
+                    content:
+                        'Successfully Thumb In\n Time will be $thumbinTime',
+                    barrierDismissable: false,
+                    type: DialogType.success,
+                    onPressed: () async {
+                      context.router.pop();
+                    },
+                  );
+                } else {
+                  setState(() {
+                    credentials.delete('studentIc');
+                    credentials.delete('thumbinTime');
+                  });
+                }
+              });
+            }
             // _showVehicleSelect();
-          } else {
-            if (!context.mounted) return;
-            customDialog.show(
-              context: context,
-              title: const Center(
-                child: Icon(
-                  Icons.check_circle_outline,
-                  color: Colors.green,
-                  size: 120,
-                ),
-              ),
-              content: 'Successfully Thumb In\n Time will be $thumbinTime',
-              barrierDismissable: false,
-              type: DialogType.success,
-              onPressed: () async {
-                context.router.pop();
-              },
-            );
           }
         } else if (checked == 'Trainer') {
           _lazyload = false;
           trainerThumbinTime = DateFormat('HH:mm a').format(today);
           credentials.put('trainerThumbinTime', trainerThumbinTime);
-          if( groupIdController.text == 'D'||
-              groupIdController.text == 'DA'||
-              groupIdController.text == 'DK'||
-              groupIdController.text == 'A1')
-          {
-            scanQr();
+          if (groupIdController.text == 'D' ||
+              groupIdController.text == 'DA' ||
+              groupIdController.text == 'DK' ||
+              groupIdController.text == 'A1') {
+            if (vehicleController.text == '') {
+              scanQr().then(
+                (result) {
+                  if (result == 'true') {
+                    if (!context.mounted) return;
+                    customDialog.show(
+                      context: context,
+                      title: const Center(
+                        child: Icon(
+                          Icons.check_circle_outline,
+                          color: Colors.green,
+                          size: 120,
+                        ),
+                      ),
+                      content:
+                          'Successfully Thumb In\n Time will be $trainerThumbinTime',
+                      barrierDismissable: false,
+                      type: DialogType.success,
+                      onPressed: () async {
+                        context.router.pop();
+                      },
+                    );
+                  } else {
+                    setState(() {
+                      credentials.delete('trainerIc');
+                      credentials.delete('trainerThumbinTime');
+                    });
+                  }
+                },
+              );
+            }
             // _showVehicleSelect();
-          } else {
-            if (!context.mounted) return;
-            customDialog.show(
-              context: context,
-              title: const Center(
-                child: Icon(
-                  Icons.check_circle_outline,
-                  color: Colors.green,
-                  size: 120,
-                ),
-              ),
-              content: 'Successfully Thumb In\n Time will be $trainerThumbinTime',
-              barrierDismissable: false,
-              type: DialogType.success,
-              onPressed: () async {
-                context.router.pop();
-              },
-            );
           }
         }
       });
@@ -369,11 +388,9 @@ class _AddClassState extends State<AddClass> {
       _lazyload = true;
     });
     var result = await classRepo.getCustomerByMifareCard(
-      context: context,
-      cardNo: textByte
-    );
+        context: context, cardNo: textByte);
 
-    if (result.isSuccess){
+    if (result.isSuccess) {
       setState(() {
         for (var i = 0; i < result.data.length; i++) {
           mifareIc = result.data[i].icNo;
@@ -391,13 +408,12 @@ class _AddClassState extends State<AddClass> {
         context: context,
         title: const Center(
           child: Icon(
-            Icons.check_circle_outline,
+            Icons.cancel,
             color: Colors.red,
             size: 120,
           ),
         ),
-        content:
-            'This MiFare card is not registered as student or trainer',
+        content: 'This MiFare card is not registered as student or trainer',
         barrierDismissable: false,
         type: DialogType.error,
         onPressed: () async {
@@ -444,7 +460,8 @@ class _AddClassState extends State<AddClass> {
                 builder: (BuildContext context) {
                   return AlertDialog(
                     title: const Text('Success'),
-                    content: Text('Tag Read Completed. Your tag number will be $textByte'),
+                    content: Text(
+                        'Tag Read Completed. Your tag number will be $textByte'),
                     actions: [
                       TextButton(
                         child: const Text('Ok'),
@@ -463,24 +480,40 @@ class _AddClassState extends State<AddClass> {
           },
           onError: (dynamic error) {
             print('Error during NFC session: $error');
+            customDialog.show(
+              context: context,
+              title: const Center(
+                child: Icon(
+                  Icons.cancel,
+                  color: Colors.red,
+                  size: 120,
+                ),
+              ),
+              content: 'Error during NFC session: $error',
+              barrierDismissable: false,
+              type: DialogType.error,
+              onPressed: () async {
+                context.router.pop();
+              },
+            );
             return error;
           },
         );
       } else {
-        showDialog(
+        customDialog.show(
           context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text('Error'),
-              content: const Text(
-                  'NFC is not available for this device or may be temporarily turned off.'),
-              actions: [
-                TextButton(
-                  child: const Text('GOT IT'),
-                  onPressed: () => Navigator.pop(context),
-                ),
-              ],
-            );
+          title: const Center(
+            child: Icon(
+              Icons.cancel,
+              color: Colors.red,
+              size: 120,
+            ),
+          ),
+          content: 'NFC is not available for this device or may be temporarily turned off.',
+          barrierDismissable: false,
+          type: DialogType.error,
+          onPressed: () async {
+            context.router.pop();
           },
         );
       }
@@ -491,7 +524,8 @@ class _AddClassState extends State<AddClass> {
   }
 
   getCourseCode() async {
-    var result = await authRepo.getCourseCode(context: context, courseCode: '');
+    var result = await authRepo.getCourseCode(
+        context: context, courseCode: '', keywordSearch: '');
 
     if (result.isSuccess) {
       setState(() {
@@ -521,62 +555,49 @@ class _AddClassState extends State<AddClass> {
     var scanData = await context.router.push(const ScanVeh());
     if (scanData != null) {
       try {
-        if(isJson(scanData.toString())){
+        if (isJson(scanData.toString())) {
           EasyLoading.dismiss();
           setState(() {
-            groupIdController.text = jsonDecode(scanData.toString())['Table1'][0]
-              ['group_id'];
-            vehicleController.text = jsonDecode(scanData.toString())['Table1'][0]
-              ['plate_no'];
+            groupIdController.text =
+                jsonDecode(scanData.toString())['Table1'][0]['group_id'];
+            vehicleController.text =
+                jsonDecode(scanData.toString())['Table1'][0]['plate_no'];
           });
-          return;
+          return 'true';
         } else {
           Response decryptQrcode = await classRepo.decryptQrcode(
             qrcodeJson: scanData.toString(),
           );
 
-          if(decryptQrcode.isSuccess){
+          if (decryptQrcode.isSuccess) {
             EasyLoading.dismiss();
             if (!mounted) return;
-            await showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: const Text('Edriving SPIM APP'),
-                  content: SingleChildScrollView(
-                    child: ListBody(
-                      children: <Widget>[
-                        Text(decryptQrcode.message ?? ''),
-                      ],
-                    ),
-                  ),
-                  actions: <Widget>[
-                    TextButton(
-                      child: const Text('OK'),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ],
-                );
-              },
-            );
+
+            if (groupIdController.text != decryptQrcode.data[0].groupId) {
+              customDialog.show(
+                context: context,
+                content:
+                    'Please scan a vehicle with group id ${groupIdController.text} instead of ${decryptQrcode.data[0].groupId}',
+                onPressed: () => Navigator.pop(context),
+                type: DialogType.error,
+              );
+              return 'false';
+            } else {
+              setState(() {
+                groupIdController.text = decryptQrcode.data[0].groupId;
+                vehicleController.text = decryptQrcode.data[0].plateNo;
+              });
+              return 'true';
+            }
           }
-          setState(() {
-            groupIdController.text = decryptQrcode.data[0].groupId;
-            vehicleController.text = decryptQrcode.data[0].plateNo;
-          });
-          return;
         }
-      } catch (e){
+      } catch (e) {
         EasyLoading.dismiss();
         if (!mounted) return;
         customDialog.show(
           barrierDismissable: false,
           context: context,
-          content:
-              AppLocalizations.of(context)!.translate('invalid_qr'),
+          content: AppLocalizations.of(context)!.translate('invalid_qr'),
           customActions: [
             TextButton(
               onPressed: () {
@@ -587,35 +608,33 @@ class _AddClassState extends State<AddClass> {
           ],
           type: DialogType.error,
         );
+        return 'false';
       }
-      
+    } else {
+      return 'false';
     }
   }
 
-  void _showVehicleSelect() async {
-    setState(() {
-      selectedVehicle = vehicleController.text;
-    });
-    final String? results = await showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return Select(
-            title: "Select Vehicles",
-            groupId: vehicles,
-            initialSelectedGroup: selectedVehicle,
-          );
-        });
+  // void _showVehicleSelect() async {
+  //   setState(() {
+  //     selectedVehicle = vehicleController.text;
+  //   });
+  //   final String? results = await showDialog(
+  //       context: context,
+  //       builder: (BuildContext context) {
+  //         return Select(
+  //           title: "Select Vehicles",
+  //           groupId: vehicles,
+  //           initialSelectedGroup: selectedVehicle,
+  //         );
+  //       });
 
-    if (results != null) {
-      setState(() {
-        // selectedGroup.clear();
-        // selectedGroup.addAll(results);
-        // groupIdTxt = selectedGroup.join(";");
-        // groupIdController.text = selectedGroup.join(";");
-        vehicleController.text = results;
-      });
-    }
-  }
+  //   if (results != null) {
+  //     setState(() {
+  //       vehicleController.text = results;
+  //     });
+  //   }
+  // }
 
   void _showMultiSelect() async {
     setState(() {
@@ -677,15 +696,18 @@ class _AddClassState extends State<AddClass> {
   @override
   void initState() {
     super.initState();
+    initializeData();
+  }
 
+  Future<void> initializeData() async {
     credentials.delete('studentIc');
     credentials.delete('trainerIc');
     credentials.delete('thumbinTime');
     credentials.delete('trainerThumbinTime');
-    getGroupId();
-    getCourseCode();
+    await getGroupId();
+    await getCourseCode();
 
-    if(widget.courseCode != '' || widget.courseCode != '-'){
+    if (widget.courseCode != '' || widget.courseCode != '-') {
       setState(() {
         vehicleController.text = widget.vehNo;
         courseCodeController.text = widget.courseCode;
@@ -777,225 +799,226 @@ class _AddClassState extends State<AddClass> {
                                     SizedBox(
                                       height: 100.h,
                                     ),
-                                    Form(
-                                      key: formKey,
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              const Text(
-                                                'Group Id: ',
-                                                style: TextStyle(
-                                                  fontSize: 15,
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: 50.w,
-                                              ),
-                                              Expanded(
-                                                flex: 2,
-                                                child: TextFormField(
-                                                  style: const TextStyle(
-                                                      color: Colors.black,
-                                                      // fontWeight: FontWeight.bold,
-                                                      fontSize: 15),
-                                                  controller: groupIdController,
-                                                  focusNode: groupIdFocus,
-                                                  textInputAction:
-                                                      TextInputAction.next,
-                                                  readOnly: true,
-                                                  decoration: InputDecoration(
-                                                    focusedErrorBorder:
-                                                        const OutlineInputBorder(
-                                                            borderSide:
-                                                                BorderSide(
-                                                                    width: 3,
-                                                                    color: Colors
-                                                                        .red)),
-                                                    focusedBorder:
-                                                        const OutlineInputBorder(
-                                                            borderSide:
-                                                                BorderSide(
-                                                                    width: 3,
-                                                                    color: Colors
-                                                                        .blue)),
-                                                    enabledBorder:
-                                                        const OutlineInputBorder(
-                                                            borderSide:
-                                                                BorderSide(
-                                                                    width: 1,
-                                                                    color: Colors
-                                                                        .black)),
-                                                    contentPadding:
-                                                        const EdgeInsets.all(
-                                                            5.0),
-                                                    hintStyle: TextStyle(
-                                                      color: primaryColor,
-                                                    ),
-                                                    labelStyle: const TextStyle(
-                                                      color: Colors.black,
-                                                    ),
-                                                    labelText:
-                                                        ' Please select group id',
-                                                  ),
-                                                  onTap: () {
-                                                    _showMultiSelect();
-                                                  },
-                                                  validator: (value) {
-                                                    if (value!.isEmpty) {
-                                                      return 'Please select group id';
-                                                    }
-                                                    return null;
-                                                  },
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: 100.h,
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              const Text(
-                                                'Course Code: ',
-                                                style: TextStyle(
-                                                  fontSize: 15,
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: 50.w,
-                                              ),
-                                              Expanded(
-                                                flex: 2,
-                                                child: TextFormField(
-                                                  style: const TextStyle(
-                                                      color: Colors.black,
-                                                      // fontWeight: FontWeight.bold,
-                                                      fontSize: 15),
-                                                  controller:
-                                                      courseCodeController,
-                                                  focusNode: courseCodeFocus,
-                                                  textInputAction:
-                                                      TextInputAction.next,
-                                                  readOnly: true,
-                                                  decoration: InputDecoration(
-                                                    focusedErrorBorder:
-                                                        const OutlineInputBorder(
-                                                            borderSide:
-                                                                BorderSide(
-                                                                    width: 3,
-                                                                    color: Colors
-                                                                        .red)),
-                                                    focusedBorder:
-                                                        const OutlineInputBorder(
-                                                            borderSide:
-                                                                BorderSide(
-                                                                    width: 3,
-                                                                    color: Colors
-                                                                        .blue)),
-                                                    enabledBorder:
-                                                        const OutlineInputBorder(
-                                                            borderSide:
-                                                                BorderSide(
-                                                                    width: 1,
-                                                                    color: Colors
-                                                                        .black)),
-                                                    contentPadding:
-                                                        const EdgeInsets.all(
-                                                            5.0),
-                                                    hintStyle: TextStyle(
-                                                      color: primaryColor,
-                                                    ),
-                                                    labelStyle: const TextStyle(
-                                                      color: Colors.black,
-                                                    ),
-                                                    labelText:
-                                                        ' Please select course code',
-                                                  ),
-                                                  onTap: () {
-                                                    _showCourseCode();
-                                                  },
-                                                  validator: (value) {
-                                                    if (value!.isEmpty) {
-                                                      return 'Please select course code';
-                                                    }
-                                                    return null;
-                                                  },
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: 100.h,
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              const Text(
-                                                'Vehicle Selected: ',
-                                                style: TextStyle(
-                                                  fontSize: 15,
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: 50.w,
-                                              ),
-                                              Expanded(
-                                                flex: 2,
-                                                child: TextFormField(
-                                                  style: const TextStyle(
-                                                      color: Colors.black,
-                                                      // fontWeight: FontWeight.bold,
-                                                      fontSize: 15),
-                                                  controller:
-                                                      vehicleController,
-                                                  focusNode: vehicleFocus,
-                                                  enabled: false,
-                                                  textInputAction:
-                                                      TextInputAction.next,
-                                                  readOnly: true,
-                                                  decoration: InputDecoration(
-                                                    focusedErrorBorder:
-                                                        const OutlineInputBorder(
-                                                            borderSide:
-                                                                BorderSide(
-                                                                    width: 3,
-                                                                    color: Colors
-                                                                        .red)),
-                                                    focusedBorder:
-                                                        const OutlineInputBorder(
-                                                            borderSide:
-                                                                BorderSide(
-                                                                    width: 3,
-                                                                    color: Colors
-                                                                        .blue)),
-                                                    enabledBorder:
-                                                        const OutlineInputBorder(
-                                                            borderSide:
-                                                                BorderSide(
-                                                                    width: 1,
-                                                                    color: Colors
-                                                                        .black)),
-                                                    contentPadding:
-                                                        const EdgeInsets.all(
-                                                            5.0),
-                                                    hintStyle: TextStyle(
-                                                      color: primaryColor,
-                                                    ),
-                                                    labelStyle: const TextStyle(
-                                                      color: Colors.black,
-                                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Form(
+                                        key: formKey,
+                                        child: Column(
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                const Text(
+                                                  'Group Id: ',
+                                                  style: TextStyle(
+                                                    fontSize: 15,
                                                   ),
                                                 ),
-                                              )
-                                            ],
-                                          ),
-                                        ],
+                                                SizedBox(
+                                                  width: 50.w,
+                                                ),
+                                                Expanded(
+                                                  flex: 2,
+                                                  child: TextFormField(
+                                                    style: const TextStyle(
+                                                        color: Colors.black,
+                                                        // fontWeight: FontWeight.bold,
+                                                        fontSize: 15),
+                                                    controller:
+                                                        groupIdController,
+                                                    focusNode: groupIdFocus,
+                                                    textInputAction:
+                                                        TextInputAction.next,
+                                                    readOnly: true,
+                                                    decoration: InputDecoration(
+                                                      focusedErrorBorder:
+                                                          const OutlineInputBorder(
+                                                              borderSide:
+                                                                  BorderSide(
+                                                                      width: 3,
+                                                                      color: Colors
+                                                                          .red)),
+                                                      focusedBorder:
+                                                          const OutlineInputBorder(
+                                                              borderSide: BorderSide(
+                                                                  width: 3,
+                                                                  color: Colors
+                                                                      .blue)),
+                                                      enabledBorder:
+                                                          const OutlineInputBorder(
+                                                              borderSide: BorderSide(
+                                                                  width: 1,
+                                                                  color: Colors
+                                                                      .black)),
+                                                      contentPadding:
+                                                          const EdgeInsets.all(
+                                                              5.0),
+                                                      hintStyle: TextStyle(
+                                                        color: primaryColor,
+                                                      ),
+                                                      labelStyle:
+                                                          const TextStyle(
+                                                        color: Colors.black,
+                                                      ),
+                                                      labelText:
+                                                          ' Please select group id',
+                                                    ),
+                                                    onTap: () {
+                                                      _showMultiSelect();
+                                                    },
+                                                    validator: (value) {
+                                                      if (value!.isEmpty) {
+                                                        return 'Please select group id';
+                                                      }
+                                                      return null;
+                                                    },
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 100.h,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                const Text(
+                                                  'Course Code: ',
+                                                  style: TextStyle(
+                                                    fontSize: 15,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: 50.w,
+                                                ),
+                                                Expanded(
+                                                  flex: 2,
+                                                  child: TextFormField(
+                                                    style: const TextStyle(
+                                                        color: Colors.black,
+                                                        // fontWeight: FontWeight.bold,
+                                                        fontSize: 15),
+                                                    controller:
+                                                        courseCodeController,
+                                                    focusNode: courseCodeFocus,
+                                                    textInputAction:
+                                                        TextInputAction.next,
+                                                    readOnly: true,
+                                                    decoration: InputDecoration(
+                                                      focusedErrorBorder:
+                                                          const OutlineInputBorder(
+                                                              borderSide:
+                                                                  BorderSide(
+                                                                      width: 3,
+                                                                      color: Colors
+                                                                          .red)),
+                                                      focusedBorder:
+                                                          const OutlineInputBorder(
+                                                              borderSide: BorderSide(
+                                                                  width: 3,
+                                                                  color: Colors
+                                                                      .blue)),
+                                                      enabledBorder:
+                                                          const OutlineInputBorder(
+                                                              borderSide: BorderSide(
+                                                                  width: 1,
+                                                                  color: Colors
+                                                                      .black)),
+                                                      contentPadding:
+                                                          const EdgeInsets.all(
+                                                              5.0),
+                                                      hintStyle: TextStyle(
+                                                        color: primaryColor,
+                                                      ),
+                                                      labelStyle:
+                                                          const TextStyle(
+                                                        color: Colors.black,
+                                                      ),
+                                                      labelText:
+                                                          ' Please select course code',
+                                                    ),
+                                                    onTap: () {
+                                                      _showCourseCode();
+                                                    },
+                                                    validator: (value) {
+                                                      if (value!.isEmpty) {
+                                                        return 'Please select course code';
+                                                      }
+                                                      return null;
+                                                    },
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 100.h,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                const Text(
+                                                  'Vehicle Selected: ',
+                                                  style: TextStyle(
+                                                    fontSize: 15,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: 50.w,
+                                                ),
+                                                Expanded(
+                                                  flex: 2,
+                                                  child: TextFormField(
+                                                    style: const TextStyle(
+                                                        color: Colors.black,
+                                                        // fontWeight: FontWeight.bold,
+                                                        fontSize: 15),
+                                                    controller:
+                                                        vehicleController,
+                                                    focusNode: vehicleFocus,
+                                                    enabled: false,
+                                                    textInputAction:
+                                                        TextInputAction.next,
+                                                    readOnly: true,
+                                                    decoration: InputDecoration(
+                                                      focusedErrorBorder:
+                                                          const OutlineInputBorder(
+                                                              borderSide:
+                                                                  BorderSide(
+                                                                      width: 3,
+                                                                      color: Colors
+                                                                          .red)),
+                                                      focusedBorder:
+                                                          const OutlineInputBorder(
+                                                              borderSide: BorderSide(
+                                                                  width: 3,
+                                                                  color: Colors
+                                                                      .blue)),
+                                                      enabledBorder:
+                                                          const OutlineInputBorder(
+                                                              borderSide: BorderSide(
+                                                                  width: 1,
+                                                                  color: Colors
+                                                                      .black)),
+                                                      contentPadding:
+                                                          const EdgeInsets.all(
+                                                              5.0),
+                                                      hintStyle: TextStyle(
+                                                        color: primaryColor,
+                                                      ),
+                                                      labelStyle:
+                                                          const TextStyle(
+                                                        color: Colors.black,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                     SizedBox(
@@ -1063,7 +1086,8 @@ class _AddClassState extends State<AddClass> {
                                                   type: DialogType.success,
                                                   onPressed: () async {
                                                     await context.router.pop();
-                                                    if (!context.mounted) return;
+                                                    if (!context.mounted)
+                                                      return;
                                                     var refresh = await context
                                                         .router
                                                         .push(MyKad(
@@ -1139,13 +1163,13 @@ class _AddClassState extends State<AddClass> {
                                         ),
                                         // ElevatedButton(
                                         //   onPressed: () async {
-                                        //     var refresh = await context.router.push(MyKad(
-                                        //                 groupId:
-                                        //                     groupIdController
-                                        //                         .text,
-                                        //                 courseCode:
-                                        //                     courseCodeController
-                                        //                         .text));
+                                        //     var refresh = await context.router
+                                        //         .push(MyKad(
+                                        //             groupId:
+                                        //                 groupIdController.text,
+                                        //             courseCode:
+                                        //                 courseCodeController
+                                        //                     .text));
                                         //     if (refresh == 'refresh') {
                                         //       refreshData();
                                         //     }
@@ -1157,7 +1181,7 @@ class _AddClassState extends State<AddClass> {
                                     SizedBox(
                                       height: 50.h,
                                     ),
-                                    Text(status),
+                                    // Text(status),
                                     SizedBox(
                                       height: 50.h,
                                     ),

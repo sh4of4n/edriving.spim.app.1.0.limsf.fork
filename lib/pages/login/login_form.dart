@@ -383,7 +383,7 @@ class LoginFormState extends State<LoginForm> with PageBaseClass {
 
           if (getRegisteredDi.isSuccess) {
             if (!context.mounted) return;
-            context.read<SocketClientHelper>().loginUserRoom();
+            // context.read<SocketClientHelper>().loginUserRoom();
             localStorage.saveMerchantDbCode(getRegisteredDi.data[0].merchantNo);
             localStorage.saveDiCode(getRegisteredDi.data[0].merchantNo);
             localStorage.saveTrnCode(profileResult.data[0].name);

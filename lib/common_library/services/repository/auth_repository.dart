@@ -251,7 +251,8 @@ class AuthRepo {
     final String? caPwdUrlEncode = await localStorage.getCaPwdEncode();
     String? pushToken = await Hive.box('ws_url').get('push_token');
     String? appVersion = await localStorage.getAppVersion();
-    String? merchantNo = await localStorage.getMerchantDbCode();
+    // String? merchantNo = await localStorage.getMerchantDbCode();
+    String? merchantNo = 'EPANDU';
     // String appCode = appConfig.appCode;
     // String appId = appConfig.appId;
 
@@ -795,13 +796,16 @@ class AuthRepo {
     return Response(false, message: 'No records found.');
   }
 
-  Future<Response> getGroupId({context}) async {
+  Future<Response> getGroupId({
+    context,
+    keywordSearch
+    }) async {
     String? caUid = await localStorage.getCaUid();
     String? caPwd = await localStorage.getCaPwd();
     String? diCode = await localStorage.getMerchantDbCode();
 
     String path =
-        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=$diCode';
+        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&diCode=$diCode&keywordSearch=$keywordSearch';
 
     var response = await networking.getData(
       path: 'GetGroupId?$path',
@@ -834,14 +838,15 @@ class AuthRepo {
 
   Future<Response> getCourseCode({
     required context,
-    courseCode
+    courseCode,
+    keywordSearch
   }) async {
     String? caUid = await localStorage.getCaUid();
     String? caPwd = await localStorage.getCaPwd();
     String? merchantNo = await localStorage.getMerchantDbCode();
 
     String path =
-        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&merchantNo=$merchantNo&courseCode=$courseCode';
+        'wsCodeCrypt=${appConfig.wsCodeCrypt}&caUid=$caUid&caPwd=$caPwd&merchantNo=$merchantNo&courseCode=$courseCode&keywordSearch=$keywordSearch';
   
     var response = await networking.getData(
       path: 'GetCourseByCode?$path',

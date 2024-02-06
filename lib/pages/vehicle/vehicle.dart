@@ -8,6 +8,7 @@ import 'package:edriving_spim_app/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:info_widget/info_widget.dart';
 import 'package:intl/intl.dart';
 import 'package:supercharged/supercharged.dart';
 
@@ -28,7 +29,7 @@ class _VehicleState extends State<Vehicle> {
   List<dynamic> items = [];
   bool _lazyload = true;
   int _startIndex = 0;
-  final int _noOfRecord = 10;
+  final int _noOfRecord = 15;
   bool isLessThanOneMonth = false;
   bool rtisLessThanOneMonth = false;
   bool isExpired = false;
@@ -172,7 +173,6 @@ class _VehicleState extends State<Vehicle> {
         //   }
         //   return aDate.compareTo(bDate);
         // });
-
       }
       setState(() {
         _lazyload = false;
@@ -196,9 +196,9 @@ class _VehicleState extends State<Vehicle> {
       context: context,
       builder: (BuildContext context) {
         return MultiSelect(
-          title: "Select Group Id",
-          groupID: groupID, 
-          initialSelectedGroup: selectedGroup);
+            title: "Select Group Id",
+            groupID: groupID,
+            initialSelectedGroup: selectedGroup);
       },
     );
 
@@ -215,7 +215,7 @@ class _VehicleState extends State<Vehicle> {
           selectedText = "";
           refreshData();
         } else {
-          selectedText = selectedGroup.join(", ");
+          selectedText = selectedGroup.join(";");
           refreshData();
         }
       });
@@ -249,6 +249,30 @@ class _VehicleState extends State<Vehicle> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  Row(
+                    children: [
+                      const Text(
+                        'Searching criteria: ',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      InfoWidget(
+                        infoText:
+                            "Vehicle No, Model, Year, Make, Trainer Code",
+                        iconData: Icons.info,
+                        iconColor: Colors.white,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 5.0,
+                  ),
                   Row(
                     children: [
                       Expanded(
@@ -364,11 +388,12 @@ class _VehicleState extends State<Vehicle> {
                                   // visualDensity: const VisualDensity(vertical: -4),
                                 ),
                                 ListTile(
-                                          title: Text('Next Service Date: ${parseDateAndCheck(item.nextInspectDt ?? '')}',
-                                            textAlign: TextAlign.left,
-                                            style: dateStyle,
-                                          ),
-                                        ),
+                                  title: Text(
+                                    'Next Service Date: ${parseDateAndCheck(item.nextInspectDt ?? '')}',
+                                    textAlign: TextAlign.left,
+                                    style: dateStyle,
+                                  ),
+                                ),
                                 ListTile(
                                   title: Text(
                                     'Trainer Name:  $trnName',

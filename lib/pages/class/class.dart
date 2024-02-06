@@ -112,9 +112,7 @@ class _ClassState extends State<Class> {
 
     if (result.isSuccess) {
       for (var i = 0; i < result.data.length; i++) {
-        setState(() {
-          today.add(result.data[i]);
-        });
+        today.add(result.data[i]);
       }
       return result.data;
     } else {

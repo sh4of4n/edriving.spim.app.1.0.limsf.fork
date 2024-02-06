@@ -267,7 +267,7 @@ class _TrainerScheduleState extends State<TrainerSchedule> {
         endTime:
             DateTime(endYear, endMonth, endDay, endHour, endMinute, endSecond),
         subject: formattedString.trim(),
-        notes: '$address+$state+$city+$zip',
+        notes: '$address,$state,$city,$zip',
         color: Colors.blue,
         // recurrenceRule: 'FREQ=DAILY;COUNT=10',
         // isAllDay: true
@@ -744,29 +744,27 @@ class _TrainerScheduleState extends State<TrainerSchedule> {
                                         },
                                         backgroundColor: Colors.white,
                                         dataSource: MeetingDataSource(meetings),
-                                        onTap: (CalendarTapDetails details) {
+                                        onTap: (CalendarTapDetails details)async {
                                           // dynamic appointment = details.appointments;
                                           // DateTime date = details.date!;
                                           // CalendarElement element = details.targetElement;
                                           EasyLoading.show(
                                             maskType: EasyLoadingMaskType.black,
                                           );
-                                          setState(
-                                            () async {
                                               if (details.targetElement ==
                                                   CalendarElement.appointment) {
-                                                String add = details
+                                                String totalAdd = details
                                                     .appointments?[0].notes;
-                                                List<String> partAdd =
-                                                    add.split('+');
-                                                String address =
-                                                    partAdd[0].trim();
-                                                String state =
-                                                    partAdd[1].trim();
-                                                String city = partAdd[2].trim();
-                                                String zip = partAdd[3].trim();
-                                                totalAdd =
-                                                    '$address, $state, $city, $zip';
+                                                // List<String> partAdd =
+                                                //     add.split('+');
+                                                // String address =
+                                                //     partAdd[0].trim();
+                                                // String state =
+                                                //     partAdd[1].trim();
+                                                // String city = partAdd[2].trim();
+                                                // String zip = partAdd[3].trim();
+                                                // totalAdd =
+                                                //     '$address, $state, $city, $zip';
 
                                                 String subject = details
                                                     .appointments?[0].subject;
@@ -824,8 +822,8 @@ class _TrainerScheduleState extends State<TrainerSchedule> {
                                                                   "Student's Ic: $icNo\n"),
 
                                                               // '${widget.trnInfo.trnName ?? ''}',
-                                                              Text(
-                                                                  "Trainer's Name:  $trnName \n"),
+                                                              // Text(
+                                                              //     "Trainer's Name:  $trnName \n"),
                                                               Text(
                                                                   'Course Code: $course \n'),
                                                               Text(
@@ -844,7 +842,7 @@ class _TrainerScheduleState extends State<TrainerSchedule> {
                                                                   'Paid Amount: RM$paidAmount\n'
                                                                   'Payment Status: $paymentStatus\n'),
                                                               Text(
-                                                                  'Address: \n$address, $state, $city, $zip \n'),
+                                                                  'Address: \n$totalAdd \n'),
                                                               // Text(
                                                               //   'Start Time: ${details.appointments?[0].startTime}\n'
                                                               //   'End Time: ${details.appointments?[0].endTime}',
@@ -1013,8 +1011,6 @@ class _TrainerScheduleState extends State<TrainerSchedule> {
                                                   },
                                                 );
                                               }
-                                            },
-                                          );
                                         },
                                       ),
                                     ),

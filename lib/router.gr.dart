@@ -21,7 +21,7 @@ import 'package:edriving_spim_app/pages/class/add_class.dart' as _i2;
 import 'package:edriving_spim_app/pages/class/class.dart' as _i20;
 import 'package:edriving_spim_app/pages/class/history_class.dart' as _i36;
 import 'package:edriving_spim_app/pages/class/progress_class.dart' as _i64;
-import 'package:edriving_spim_app/pages/class/scanVehicle.dart' as _i79;
+import 'package:edriving_spim_app/pages/class/scan_vehicle.dart' as _i79;
 import 'package:edriving_spim_app/pages/class/thumbout_class.dart' as _i86;
 import 'package:edriving_spim_app/pages/class/today_class.dart' as _i87;
 import 'package:edriving_spim_app/pages/di_enroll/bank_list.dart' as _i9;

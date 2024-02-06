@@ -171,8 +171,7 @@ class _ProgressClassState extends State<ProgressClass> {
                           // ),
                           ListTile(
                             title: Text(
-                                'Time: ${convertTimeToAMPM(item.actBgTime)} -> ${convertTimeToAMPM(item.actEndTime)}'),
-                            subtitle: const Text('Total Time: -', style: TextStyle(fontSize: 14),),
+                                'Thumbin Time: ${convertTimeToAMPM(item.actBgTime)} -> ${convertTimeToAMPM(item.actEndTime)}'),
                             visualDensity: const VisualDensity(vertical: -2),
                           ),
                           
