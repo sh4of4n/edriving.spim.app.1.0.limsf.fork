@@ -22,7 +22,7 @@ class _MyKadState extends State<MyKad> {
   final primaryColor = ColorConstant.primaryColor;
   static const platform = MethodChannel('samples.flutter.dev/mykad');
   final credentials = Hive.box('credentials');
-  String readMyKad = '000105070225';
+  String readMyKad = '';
   List<String> cardDetails = [];
   String fingerPrintVerify = '';
   String name = '';
